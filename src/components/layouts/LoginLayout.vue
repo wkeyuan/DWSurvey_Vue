@@ -1,7 +1,5 @@
 <template>
-  <!--    <img src="./assets/logo.png">-->
-  <!--    <router-view/>-->
-  <div id="dw-layout" class="dw-layout-body" :style="{height: pageH}" >
+  <div id="dw-layout" :style="{height: pageH}" class="dw-layout-body" >
     <el-container style="padding: 0px;">
       <el-header height="80" style="padding: 0px;" >
         <dw-header-login></dw-header-login>

@@ -25,7 +25,7 @@
             <el-row :span="24" type="flex" justify="space-between" align="middle">
               <el-col :span="4"><h3>用户管理</h3></el-col>
               <el-col :span="20" style="text-align: right;">
-                <el-button type="primary" size="medium" @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true" v-has-dw-role="'dwAdmin'" >添加用户</el-button>
+                <el-button type="primary" size="medium" v-has-dw-role="'dwAdmin'"  @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true">添加用户</el-button>
               </el-col>
             </el-row>
           </div>
@@ -64,10 +64,10 @@
               <template slot-scope="scope">
                 <el-button-group>
                   <el-tooltip effect="dark" content="编辑问卷" placement="top">
-                    <el-button size="mini" content="编辑" @click="handleEdit(scope.$index, scope.row)" icon="el-icon-edit"></el-button>
+                    <el-button size="mini" content="编辑" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)"></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="删除问卷" placement="top">
-                    <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" icon="el-icon-delete"></el-button>
+                    <el-button size="mini" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)" ></el-button>
                   </el-tooltip>
                 </el-button-group>
               </template>
@@ -90,18 +90,18 @@
     <div>
       <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" append-to-body width="40%" >
         <el-form :model="userForm" :rules="userFormRules" ref="userForm" status-icon  label-position="top">
-          <el-form-item label="设置账号" prop="loginName" :label-width="formLabelWidth" style="margin-top: 0px;">
+          <el-form-item :label-width="formLabelWidth" label="设置账号" prop="loginName" style="margin-top: 0px;">
             <el-input v-model="userForm.loginName" autocomplete="off" placeholder="请设置登录账号" show-word-limit ></el-input>
           </el-form-item>
-          <el-form-item label="账号状态" prop="status" :label-width="formLabelWidth" class="dw-dialog-form-item">
+          <el-form-item :label-width="formLabelWidth" label="账号状态" prop="status" class="dw-dialog-form-item">
             <el-radio-group v-model="userForm.status">
               <el-radio :label="0">不可用</el-radio>
               <el-radio :label="1">未激活</el-radio>
               <el-radio :label="2">激活</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="设置密码" prop="pwd" :label-width="formLabelWidth" class="dw-dialog-form-item" >
-            <el-input v-model="userForm.pwd"  autocomplete="off" placeholder="新建时必须设置密码，修改时不设置代表不修改。" show-password ></el-input>
+          <el-form-item :label-width="formLabelWidth" label="设置密码" prop="pwd" class="dw-dialog-form-item" >
+            <el-input v-model="userForm.pwd" autocomplete="off" placeholder="新建时必须设置密码，修改时不设置代表不修改。" show-password ></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -116,7 +116,7 @@
 
 <script>
 
-import { dwAdminUserList, dwUserCreate, dwUserDelete, dwUserUpdate } from '../../api/admin/admin-user'
+import {dwAdminUserList, dwUserCreate, dwUserDelete, dwUserUpdate} from '../../api/admin/admin-user'
 
 export default {
   name: 'AdminUserList',
@@ -140,16 +140,16 @@ export default {
       },
       userFormRules: {
         loginName: [
-          { required: true, message: '请输入登录账号', trigger: 'blur' },
-          { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' },
-          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+          {required: true, message: '请输入登录账号', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'},
+          {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
         ],
         pwd: [
-          { required: true, message: '请输入登录密码', trigger: 'blur' },
-          { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+          {required: true, message: '请输入登录密码', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
         ],
         status: [
-          { required: true, message: '请选择账号状态', trigger: 'change' }
+          {required: true, message: '请选择账号状态', trigger: 'change'}
         ]
       },
       formLabelWidth: '120px'
@@ -173,8 +173,8 @@ export default {
       this.queryList(val)
     },
     queryList (pageNo) {
-      const {status,loginName} = this.formInline;
-      dwAdminUserList(this.pageSize,pageNo,status,loginName).then((response) => {
+      const {status, loginName} = this.formInline
+      dwAdminUserList(this.pageSize, pageNo, status, loginName).then((response) => {
         const resultData = response.data.data
         this.tableData = resultData
         this.total = response.data.total
@@ -185,7 +185,7 @@ export default {
     handleEdit (index, row) {
       this.dialogTitle = `编辑用户`
       this.dialogFormVisible = true
-      this.userFormRules.pwd = { required: false }
+      this.userFormRules.pwd = {required: false}
       this.userForm.loginName = row.loginName
       this.userForm.status = row.status
       this.userForm.id = row.id
@@ -193,11 +193,11 @@ export default {
     },
     handleDelete (index, row) {
       console.log(index, row)
-      this.$msgbox.confirm("确认删除此用户吗？", "删除警告", {type:"warning",confirmButtonText:"确认删除"}).then(() => {
+      this.$msgbox.confirm('确认删除此用户吗？', '删除警告', {type: 'warning', confirmButtonText: '确认删除'}).then(() => {
         const data = {id: [row.id]}
         dwUserDelete(data).then((response) => {
           const httpResult = response.data
-          if (httpResult.resultCode === 200 ){
+          if (httpResult.resultCode === 200) {
             this.$message.success('删除成功，即将刷新数据。')
             this.queryList(1)
           } else {
@@ -205,17 +205,16 @@ export default {
           }
         })
       }).catch(() => {})
-
     },
     handleSaveUser () {
       this.$refs['userForm'].validate((valid) => {
         if (valid) {
           const {id, loginName, pwd, status} = this.userForm
-          if(id==null){
+          if (id === null) {
             const data = {loginName, pwd, status}
             dwUserCreate(data).then((response) => {
               const httpResult = response.data
-              if (httpResult.resultCode === 200 ) {
+              if (httpResult.resultCode === 200) {
                 this.$message.success('添加成功，即将刷新数据。')
                 this.queryList(1)
                 this.dialogFormVisible = false
@@ -227,7 +226,7 @@ export default {
             const data = {id, loginName, pwd, status}
             dwUserUpdate(data).then((response) => {
               const httpResult = response.data
-              if (httpResult.resultCode === 200 ) {
+              if (httpResult.resultCode === 200) {
                 this.$message.success('修改成功，即将刷新数据。')
                 this.queryList(1)
                 this.dialogFormVisible = false
@@ -240,8 +239,7 @@ export default {
           console.log('error submit!!')
           return false
         }
-      });
-
+      })
     }
   }
 }

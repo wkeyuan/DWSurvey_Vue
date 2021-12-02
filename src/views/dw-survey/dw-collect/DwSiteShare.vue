@@ -33,9 +33,9 @@ export default {
   },
   methods: {
     copyActiveCode (e, text) {
-      const clipboard = new Clipboard(e.target, { text: () => text })
+      const clipboard = new Clipboard(e.target, {text: () => text})
       clipboard.on('success', e => {
-        this.$message({ type: 'success', message: '复制成功' })
+        this.$message({type: 'success', message: '复制成功'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')
@@ -43,7 +43,7 @@ export default {
       })
       clipboard.on('error', e => {
         // 不支持复制
-        this.$message({ type: 'waning', message: '该浏览器不支持自动复制' })
+        this.$message({type: 'waning', message: '该浏览器不支持自动复制'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')

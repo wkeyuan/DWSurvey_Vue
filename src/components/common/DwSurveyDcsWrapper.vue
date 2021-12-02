@@ -90,14 +90,25 @@
 </template>
 
 <script>
-import { dwSurveyInfo } from '@/api/dw-survey'
+import {dwSurveyInfo} from '@/api/dw-survey'
 export default {
   name: 'DwSurveyDcsWrapper',
-  props: ['id', 'isAnswerUrl', 'isSurveySet', 'isSiteShare', 'isSiteComp', 'isAnswerWx', 'isSurveyChart', 'isAnswerData', 'isSurveyLog', 'isAnswerLog'],
+  props: {
+    id: {type: String, default: ''},
+    isAnswerUrl: {type: Boolean, default: false},
+    isSurveySet: {type: Boolean, default: false},
+    isSiteShare: {type: Boolean, default: false},
+    isSiteComp: {type: Boolean, default: false},
+    isAnswerWx: {type: Boolean, default: false},
+    isSurveyChart: {type: Boolean, default: false},
+    isAnswerData: {type: Boolean, default: false},
+    isSurveyLog: {type: Boolean, default: false},
+    isAnswerLog: {type: Boolean, default: false}
+  },
   data () {
     return {
       survey: {
-        sid: 'aaaaaa',
+        sid: '',
         answerUrl: '',
         answerUrlQR: '',
         siteCompCodeRoot: ''

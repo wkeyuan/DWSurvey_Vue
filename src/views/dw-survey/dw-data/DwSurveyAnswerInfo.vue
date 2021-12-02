@@ -45,7 +45,6 @@
 </template>
 <script>
 
-import API from '@/api/index.js'
 import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
 import DwSurveyAnswerQuCommon from './DwSurveyAnswerQuCommon'
 import {dwSurveyAnswerInfo} from '@/api/dw-survey'
@@ -111,8 +110,6 @@ export default {
       console.log(index, row)
     },
     querySurveyAnswer () {
-      // pageSize?: number;
-      // currentPage?: number;
       dwSurveyAnswerInfo(this.$route.params.answerId).then((response) => {
         const resultData = response.data.data
         this.survey = resultData
@@ -120,30 +117,30 @@ export default {
           const questionData = this.survey.questions[i]
           const quType = questionData.quType
           var quOptionsObj
-          if (quType==="CHECKBOX") {
+          if (quType==='CHECKBOX') {
             questionData.quTypeName = '多选题'
             quOptionsObj = questionData.quCheckboxs
-          } else if (quType==="RADIO") {
+          } else if (quType==='RADIO') {
             questionData.quTypeName = '单选题'
             quOptionsObj = questionData.quRadios
-          } else if (quType==="FILLBLANK") {
+          } else if (quType==='FILLBLANK') {
             questionData.quTypeName = '填空题'
-          } else if (quType==="SCORE") {
+          } else if (quType==='SCORE') {
             questionData.quTypeName = '评分题'
             quOptionsObj = questionData.quScores
-          } else if (quType==="ORDERQU") {
+          } else if (quType==='ORDERQU') {
             questionData.quTypeName = '排序题'
             quOptionsObj = questionData.quOrderbys
-          } else if (quType==="MULTIFILLBLANK") {
+          } else if (quType==='MULTIFILLBLANK') {
             questionData.quTypeName = '多项填空题'
             quOptionsObj = questionData.quMultiFillblanks
           } else {
             questionData.quTypeName = quType
           }
-          if (quType==="CHECKBOX" || quType==="SCORE" || quType==="ORDERQU" || quType==="MULTIFILLBLANK") {
+          if (quType==='CHECKBOX' || quType==='SCORE' || quType==='ORDERQU' || quType==='MULTIFILLBLANK') {
             for(let j=0; j < quOptionsObj.length; j++){
               const item = quOptionsObj[j]
-              if (quType==="CHECKBOX") {
+              if (quType==='CHECKBOX') {
                 const anCheckboxs = questionData.anCheckboxs;
                 for (let k=0; k<anCheckboxs.length; k++){
                   if(anCheckboxs[k].quItemId===item.id){
@@ -151,7 +148,7 @@ export default {
                     break
                   }
                 }
-              }else if (quType==="SCORE") {
+              }else if (quType==='SCORE') {
                 const anScores = questionData.anScores;
                 for (let k=0; k<anScores.length; k++){
                   if(anScores[k].quRowId===item.id){
@@ -161,7 +158,7 @@ export default {
                     }
                   }
                 }
-              }else if (quType==="ORDERQU") {
+              }else if (quType==='ORDERQU') {
                 const anOrders = questionData.anOrders;
                 for (let k=0; k<anOrders.length; k++){
                   if(anOrders[k].quRowId===item.id){
@@ -169,7 +166,7 @@ export default {
                     break
                   }
                 }
-              }else if (quType==="MULTIFILLBLANK") {
+              }else if (quType==='MULTIFILLBLANK') {
                 const anDFillblanks = questionData.anDFillblanks
                 for (let k=0; k<anDFillblanks.length; k++){
                   if(anDFillblanks[k].quItemId===item.id){

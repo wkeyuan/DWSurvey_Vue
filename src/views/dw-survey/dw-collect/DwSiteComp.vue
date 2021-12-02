@@ -57,14 +57,9 @@
             </el-col>
             <el-col :span="14">
               <div class="site-comp-right">
-                <div><el-input
-                  v-model="siteCompCode"
-                  :autosize="{ minRows: 2, maxRows: 8}"
-                  type="textarea"
-                  placeholder="请输入内容"
-                  disabled
-                  >
-                </el-input></div>
+                <div>
+                  <el-input v-model="siteCompCode" :autosize="{ minRows: 2, maxRows: 8}" type="textarea" placeholder="请输入内容" disabled></el-input>
+                </div>
                 <div style="padding-top: 10px;">
                   <el-button type="primary" icon="el-icon-copy-document" style="width: 100%;" @click="copyActiveCode($event,siteCompCode)">复制挂件代码</el-button>
                 </div>
@@ -85,6 +80,10 @@ import Clipboard from 'clipboard'
 
 export default {
   name: 'DwSiteComp',
+  components: {
+    DwSurveyDcsWrapper,
+    Clipboard
+  },
   data () {
     return {
       color1: '#409EFF',
@@ -94,17 +93,13 @@ export default {
       siteCompCode: '<div id="dwsurveyWebSiteFixed" style="position: fixed; right: 0px; left: auto; top: 520px; z-index: 99999;"><a target=\'_blank\' id="dwsurveyWebSiteFixedA" href="" style="background-color: rgb(24, 144, 255); width: 15px; display: block; padding: 10px 6px 10px 10px; color: white; cursor: pointer; float: right; vertical-align: middle; text-decoration: none; font-size: 12px; box-sizing: content-box; line-height: 20px;">问卷调查</a></div>'
     }
   },
-  components: {
-    DwSurveyDcsWrapper,
-    Clipboard
-  },
   methods: {
     copyActiveCode (e, text) {
       const webSiteElementCode = document.getElementById('dwsurveyWebAnswerCompCode')
       this.siteCompCode = webSiteElementCode.innerHTML
-      const clipboard = new Clipboard(e.target, { text: () => this.siteCompCode })
+      const clipboard = new Clipboard(e.target, {text: () => this.siteCompCode})
       clipboard.on('success', e => {
-        this.$message({ type: 'success', message: '复制成功' })
+        this.$message({type: 'success', message: '复制成功'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')
@@ -112,7 +107,7 @@ export default {
       })
       clipboard.on('error', e => {
         // 不支持复制
-        this.$message({ type: 'waning', message: '该浏览器不支持自动复制' })
+        this.$message({type: 'waning', message: '该浏览器不支持自动复制'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')

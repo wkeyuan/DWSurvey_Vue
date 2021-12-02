@@ -38,16 +38,10 @@
             <template slot-scope="scope">
               <el-button-group>
                 <el-tooltip effect="dark" content="查看数据" placement="top">
-                  <el-button
-                    size="mini"
-                    @click="handleGo(`/no-top/dw-survey/d/data/${scope.row.surveyId}/${scope.row.id}`)"
-                    icon="el-icon-view"></el-button>
+                  <el-button size="mini" icon="el-icon-view" @click="handleGo(`/no-top/dw-survey/d/data/${scope.row.surveyId}/${scope.row.id}`)"></el-button>
                 </el-tooltip>
                 <el-tooltip effect="dark" content="删除数据" placement="top">
-                  <el-button
-                    size="mini"
-                    @click="handleDelete(scope.$index, scope.row)"
-                    icon="el-icon-delete"></el-button>
+                  <el-button size="mini" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"></el-button>
                 </el-tooltip>
               </el-button-group>
             </template>
@@ -55,11 +49,11 @@
         </el-table>
         <div class="dw-pagination">
           <el-pagination
-            background
-            layout="prev, pager, next"
             :page-size="pageSize"
             :current-page="currentPage"
             :total="total"
+            background
+            layout="prev, pager, next"
             @current-change="handleCurrentChange"
           >
           </el-pagination>
@@ -71,7 +65,7 @@
 <script>
 
 import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
-import { dwSurveyAnswerList } from '@/api/dw-survey'
+import {dwSurveyAnswerList} from '@/api/dw-survey'
 
 export default {
   name: 'DwSurveyAnswer',

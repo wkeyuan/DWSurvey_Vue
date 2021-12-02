@@ -75,10 +75,10 @@
 <script>
 
 import * as echarts from 'echarts/core'
-import { GridComponent, TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import { LineChart, BarChart, PieChart } from 'echarts/charts'
-import { UniversalTransition, LabelLayout } from 'echarts/features'
-import { CanvasRenderer } from 'echarts/renderers'
+import {GridComponent, TitleComponent, TooltipComponent, LegendComponent} from 'echarts/components'
+import {LineChart, BarChart, PieChart} from 'echarts/charts'
+import {UniversalTransition, LabelLayout} from 'echarts/features'
+import {CanvasRenderer} from 'echarts/renderers'
 
 echarts.use([GridComponent, LineChart, BarChart, CanvasRenderer, UniversalTransition, TitleComponent,
   TooltipComponent,
@@ -88,7 +88,16 @@ echarts.use([GridComponent, LineChart, BarChart, CanvasRenderer, UniversalTransi
 
 export default {
   name: 'DwsurveyChartsCommon',
-  props: ['question', 'index'],
+  props: {
+    question: {
+      type: Object,
+      default: () => []
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       activeName: 'bar'
@@ -126,7 +135,7 @@ export default {
       for (let i=0; i< quStatOptions.length; i++) {
         items.push(quStatOptions[i].optionName)
         itemValues.push(quStatOptions[i].anCount)
-        itemNameValues.push({ 'value': quStatOptions[i].anCount, 'name': quStatOptions[i].optionName })
+        itemNameValues.push({'value': quStatOptions[i].anCount, 'name': quStatOptions[i].optionName})
       }
       console.debug(items)
       let yAxisShow = true

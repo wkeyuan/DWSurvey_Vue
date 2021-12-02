@@ -69,7 +69,6 @@
 <script>
 
 import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
-import API from '@/api/index.js'
 import {dwSurveyInfo, dwSurveyUpdate} from '@/api/dw-survey'
 
 export default {
@@ -134,9 +133,9 @@ export default {
         console.log(response)
         const data = response.data;
         if (data.resultCode === 200) {
-          this.$message({ type: 'success', message: '保存成功' })
+          this.$message({type: 'success', message: '保存成功'})
         } else {
-          this.$message({ type: 'error', message: data.resultMsg })
+          this.$message({type: 'error', message: data.resultMsg})
         }
       })
     }

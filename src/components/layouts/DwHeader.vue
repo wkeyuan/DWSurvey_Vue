@@ -17,9 +17,9 @@
               <el-col :span="4" style="text-align: right;" >
                 <div>
                   <el-dropdown @command="handleCommand">
-                <span class="el-dropdown-link" >
-                  {{ userName }} <i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
+                    <span class="el-dropdown-link" >
+                      {{ userName }} <i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="myAccount">我的账号</el-dropdown-item>
                       <el-dropdown-item command="updatePwd">修改密码</el-dropdown-item>
@@ -38,34 +38,31 @@
 
 <script>
 import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
-import API from '@/api/index.js'
 import DwAuthorized from '@/utils/dw-authorized'
 import {logout} from '@/api/dw-login'
 
 export default {
-  name: 'DwHeader.vue',
+  name: 'DwHeader',
+  components: {
+    'dw-nav-menu': DwNavMenu
+  },
   data () {
     return {
       userName: 'dwsurvey'
     }
   },
-  components: {
-    'dw-nav-menu': DwNavMenu
-  },
   mounted () {
     this.userName = DwAuthorized.getUserName()
   },
   methods: {
-    handleCommand: function(command){
-      console.debug(command);
+    handleCommand: function (command) {
       if (command === 'logout') {
-        logout().then((response) => {
-          const resultData = response.data
+        logout().then(() => {
           this.$router.push('/login')
         })
-      } else if (command === 'myAccount'){
+      } else if (command === 'myAccount') {
         this.$router.push('/dw/user')
-      } else if (command === 'updatePwd'){
+      } else if (command === 'updatePwd') {
         this.$router.push('/dw/user/pwd')
       }
     }

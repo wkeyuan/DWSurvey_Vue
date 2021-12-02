@@ -45,12 +45,17 @@ export default {
   components: {
     Clipboard
   },
-  props: ['survey'],
+  props: {
+    survey: {
+      type: Object,
+      default: () => {}
+    }
+  },
   methods: {
     copyActiveCode (e, text) {
       // console.debug(this.$children[0].survey)
       console.debug(this.survey)
-      const clipboard = new Clipboard(e.target, { text: () => text })
+      const clipboard = new Clipboard(e.target, {text: () => text})
       clipboard.on('success', e => {
         this.$message({ type: 'success', message: '复制成功' })
         // 释放内存
@@ -60,7 +65,7 @@ export default {
       })
       clipboard.on('error', e => {
         // 不支持复制
-        this.$message({ type: 'warning', message: '该浏览器不支持自动复制' })
+        this.$message({type: 'warning', message: '该浏览器不支持自动复制'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')

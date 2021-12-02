@@ -9,7 +9,7 @@
             </el-col>
             <el-col :span="20">
               <div style="padding: 30px;width: 400px;">
-                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" label-position="top">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" status-icon label-width="100px" label-position="top">
                   <el-form-item label="原密码" prop="age">
                     <el-input v-model="ruleForm.oldPass" autocomplete="off" show-password></el-input>
                   </el-form-item>
@@ -42,24 +42,24 @@ export default {
   components: {
     DwUserMenu
   },
-  data() {
+  data () {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error('请输入密码'))
       } else {
         if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
+          this.$refs.ruleForm.validateField('checkPass')
         }
-        callback();
+        callback()
       }
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'));
+        callback(new Error('请再次输入密码'))
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error('两次输入密码不一致!'))
       } else {
-        callback();
+        callback()
       }
     };
     return {
@@ -70,13 +70,13 @@ export default {
       },
       rules: {
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          {validator: validatePass, trigger: 'blur'}
         ],
         checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
+          {validator: validatePass2, trigger: 'blur'}
         ],
         oldPass: [
-          { required: true, message: '请输入原登录密码', trigger: 'blur' },
+          {required: true, message: '请输入原登录密码', trigger: 'blur'}
         ]
       }
     };
@@ -85,25 +85,25 @@ export default {
 
   },
   methods: {
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           dwUserPwd(this.ruleForm.oldPass,this.ruleForm.pass).then((response) => {
             const httpResult = response.data
-            if(httpResult.resultCode === 200 ){
+            if (httpResult.resultCode === 200) {
               this.$message.success('密码修改成功')
-            }else{
+            } else {
               this.$message.error('密码修改失败')
             }
           })
         } else {
-          console.log('error submit!!');
+          console.log('error submit!!')
           return false;
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     }
   }
 }

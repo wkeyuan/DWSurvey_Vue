@@ -46,7 +46,16 @@
 
 export default {
   name: 'DwSurveyAnswerInfo',
-  props: ['question', 'index'],
+  props: {
+    question: {
+      type: Object,
+      default: () => []
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       tableData: [],

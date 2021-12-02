@@ -1,25 +1,23 @@
 <template>
   <el-menu
-    mode="horizontal"
     :default-active="defActive"
-    @select="handleSelect"
+    mode="horizontal"
     background-color="#34495e"
     text-color="#fff"
     active-text-color="#409eff"
     class="dw-menu-height dw-menu"
     router
-  >
+    @select="handleSelect">
     <el-menu-item index="/dw/survey" >我的问卷</el-menu-item>
     <el-menu-item index="/dw/user" >个人中心</el-menu-item>
     <el-menu-item index="/dw/admin/user" v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" >用户管理</el-menu-item>
 <!--    <el-menu-item index="/#" >帮助文档</el-menu-item>-->
   </el-menu>
 </template>
-
 <script>
 
 export default {
-  name: 'DwNavMenu.vue',
+  name: 'DwNavMenu',
   data () {
     return {
       defActive: '/dw/survey'
@@ -35,24 +33,22 @@ export default {
     handleClose (key, keyPath) {
       console.log(key, keyPath)
     },
-    setDefActive: function(){
-
+    setDefActive () {
       const fullPath = this.$route.fullPath
-      console.debug("fullPath:"+fullPath);
-      if (fullPath.indexOf('/dw/survey')>=0) {
+      console.debug("fullPath:"+fullPath)
+      if (fullPath.indexOf('/dw/survey') >= 0) {
         this.defActive = '/dw/survey'
-      } else if(fullPath.indexOf('/dw/admin/user')>=0) {
+      } else if (fullPath.indexOf('/dw/admin/user') >= 0) {
         this.defActive = '/dw/admin/user'
-      } else if(fullPath.indexOf('/dw/user')>=0){
+      } else if (fullPath.indexOf('/dw/user') >= 0){
         this.defActive = '/dw/user'
       }
-
     }
   },
   watch: {
     $route: function (to, from) {
       this.setDefActive()
-    },
+    }
   }
 }
 </script>
