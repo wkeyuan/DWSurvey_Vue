@@ -34,10 +34,9 @@
 
 <script>
 import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
-import API from '@/api/index.js'
 
 export default {
-  name: 'DwHeader.vue',
+  name: 'DwHeaderLogin',
   components: {
     'dw-nav-menu': DwNavMenu
   }

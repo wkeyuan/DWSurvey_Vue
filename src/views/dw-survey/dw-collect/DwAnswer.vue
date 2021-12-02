@@ -9,14 +9,13 @@ export default {
     this.loadAnswer()
   },
   methods: {
-    loadAnswer: function(){
+    loadAnswer () {
       const sid = this.$route.params.sid
-      window.location.href=process.env.DW_WEB_URL+"/static/diaowen/answer-p.html?sid="+sid;
+      window.location.href=process.env.DW_WEB_URL+'/static/diaowen/answer-p.html?sid='+sid
     }
   }
 }
 </script>
-
 <style scoped>
 
 </style>

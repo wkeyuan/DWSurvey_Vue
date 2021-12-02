@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Layout from '@/components/layouts/Layout.vue'
 import LoginLayout from '@/components/layouts/LoginLayout.vue'
 import NoTopLayout from '@/components/layouts/NoTopLayout.vue'
@@ -103,7 +102,7 @@ export default new Router({
           path: '/no-top/dw-survey/d/data/:id/:answerId',
           name: 'DwSurveyAnswerInfo',
           component: DwSurveyAnswerInfo
-        },
+        }
       ]
     },
     {
@@ -117,6 +116,6 @@ export default new Router({
           component: Login
         }
       ]
-    },
+    }
   ]
 })

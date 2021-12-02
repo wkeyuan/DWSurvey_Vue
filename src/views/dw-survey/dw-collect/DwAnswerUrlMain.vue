@@ -57,7 +57,7 @@ export default {
       console.debug(this.survey)
       const clipboard = new Clipboard(e.target, {text: () => text})
       clipboard.on('success', e => {
-        this.$message({ type: 'success', message: '复制成功' })
+        this.$message({type: 'success', message: '复制成功'})
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')

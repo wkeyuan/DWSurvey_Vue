@@ -25,7 +25,7 @@
             <el-row :span="24" type="flex" justify="space-between" align="middle">
               <el-col :span="4"><h3>用户管理</h3></el-col>
               <el-col :span="20" style="text-align: right;">
-                <el-button type="primary" size="medium" v-has-dw-role="'dwAdmin'"  @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true">添加用户</el-button>
+                <el-button v-has-dw-role="'dwAdmin'" type="primary" size="medium" @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true">添加用户</el-button>
               </el-col>
             </el-row>
           </div>
@@ -75,11 +75,11 @@
           </el-table>
           <div class="dw-pagination">
             <el-pagination
-              background
-              layout="prev, pager, next"
               :page-size="pageSize"
               :current-page="currentPage"
               :total="total"
+              background
+              layout="prev, pager, next"
               @current-change="handleCurrentChange"
             >
             </el-pagination>
@@ -89,7 +89,7 @@
     </el-row>
     <div>
       <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" append-to-body width="40%" >
-        <el-form :model="userForm" :rules="userFormRules" ref="userForm" status-icon  label-position="top">
+        <el-form ref="userForm" :model="userForm" :rules="userFormRules" status-icon label-position="top">
           <el-form-item :label-width="formLabelWidth" label="设置账号" prop="loginName" style="margin-top: 0px;">
             <el-input v-model="userForm.loginName" autocomplete="off" placeholder="请设置登录账号" show-word-limit ></el-input>
           </el-form-item>
@@ -156,7 +156,7 @@ export default {
     }
   },
   mounted () {
-    this.queryList(1);
+    this.queryList(1)
   },
   methods: {
     buttonClickA (href) {

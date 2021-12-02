@@ -1,24 +1,7 @@
 <template>
-  <!--    <img src="./assets/logo.png">-->
-  <!--    <router-view/>-->
   <div id="app" >
     <router-view/>
   </div>
-<!--  <div id="app" >
-    <el-container style="padding: 0px;">
-      <el-header height="80" style="padding: 0px;" >
-        <component :is="currentHeader"></component>
-      </el-header>
-      <el-container style="z-index: 1;">
-        <el-container>
-          <el-main style="padding: 20px 0px;" >
-            <router-view></router-view>
-          </el-main>
-          <el-footer><dw-footer></dw-footer></el-footer>
-        </el-container>
-      </el-container>
-    </el-container>
-  </div>-->
 </template>
 
 <script>
@@ -47,9 +30,9 @@ export default {
   methods: {
     loginStatus: function () {
       const fullPath = this.$route.fullPath
-      if(fullPath.indexOf("login")>=0){
+      if (fullPath.indexOf('login') >= 0) {
         this.currentHeader = 'dw-header-login'
-      }else{
+      } else {
         this.currentHeader = 'dw-header'
       }
     }

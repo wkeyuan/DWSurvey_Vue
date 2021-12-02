@@ -9,7 +9,7 @@
             </el-col>
             <el-col :span="20">
               <div style="padding: 30px;width: 400px;">
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" status-icon label-width="100px" label-position="top">
+                <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-width="100px" label-position="top">
                   <el-form-item label="原密码" prop="age">
                     <el-input v-model="ruleForm.oldPass" autocomplete="off" show-password></el-input>
                   </el-form-item>
@@ -52,7 +52,7 @@ export default {
         }
         callback()
       }
-    };
+    }
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
@@ -61,7 +61,7 @@ export default {
       } else {
         callback()
       }
-    };
+    }
     return {
       ruleForm: {
         pass: '',
@@ -79,7 +79,7 @@ export default {
           {required: true, message: '请输入原登录密码', trigger: 'blur'}
         ]
       }
-    };
+    }
   },
   mounted () {
 
@@ -88,7 +88,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          dwUserPwd(this.ruleForm.oldPass,this.ruleForm.pass).then((response) => {
+          dwUserPwd(this.ruleForm.oldPass, this.ruleForm.pass).then((response) => {
             const httpResult = response.data
             if (httpResult.resultCode === 200) {
               this.$message.success('密码修改成功')
@@ -98,11 +98,11 @@ export default {
           })
         } else {
           console.log('error submit!!')
-          return false;
+          return false
         }
       })
     },
-    resetForm(formName) {
+    resetForm (formName) {
       this.$refs[formName].resetFields()
     }
   }

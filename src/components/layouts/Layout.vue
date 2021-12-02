@@ -44,9 +44,9 @@ export default {
   methods: {
     loginStatus: function () {
       const fullPath = this.$route.fullPath
-      if(fullPath.indexOf("login")>=0){
+      if (fullPath.indexOf('login') >= 0) {
         this.currentHeader = 'dw-header-login'
-      }else{
+      } else {
         this.currentHeader = 'dw-header'
       }
     }

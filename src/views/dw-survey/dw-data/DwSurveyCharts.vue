@@ -64,10 +64,10 @@ export default {
           } else {
             questionData.quTypeName = questionData.quType
           }
-          let quStatOptions = []
+          const quStatOptions = []
           if (questionData.quType === 'RADIO' || questionData.quType === 'CHECKBOX' || questionData.quType === 'SCORE' || questionData.quType === 'ORDERQU' || questionData.quType === 'MULTIFILLBLANK') {
             for (let j=0; j < quOptionsObj.length; j++) {
-              let item = quOptionsObj[j]
+              const item = quOptionsObj[j]
               let quStatOption
               if (questionData.quType === 'RADIO' || questionData.quType === 'CHECKBOX') {
                 const anCount = item.anCount

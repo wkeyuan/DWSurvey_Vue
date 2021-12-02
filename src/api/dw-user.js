@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import API from '@/api/index.js'
 
 // 登录方法
-export function dwUserInfo() {
+export function dwUserInfo () {
   return request({
     url: API.curUserInfo,
     method: 'get'
@@ -10,7 +10,7 @@ export function dwUserInfo() {
 }
 
 // 退出方法
-export function dwUserPwd(curpwd,pwd) {
+export function dwUserPwd (curpwd, pwd) {
   const params = {
     curpwd,
     pwd

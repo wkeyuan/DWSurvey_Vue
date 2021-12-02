@@ -28,7 +28,7 @@ export default {
         versionNumber: 'OSS V5.0',
         versionBuilt: '20211128',
         years: '2012-2021'
-      },
+      }
     }
   },
   mounted () {

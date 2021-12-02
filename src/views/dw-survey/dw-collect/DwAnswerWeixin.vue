@@ -33,7 +33,7 @@
               <el-row type="flex" gutter="20" justify="start" align="middle">
                 <el-col :span="8" >
                   <div class="dw-dcs-main-wx-step">1、使用微信扫一扫功能。</div>
-                  <el-image src="http://localhost:8181/diaowen/images/img1/weixin_collect1.jpg" class="dw-dcs-main-img">
+                  <el-image src="/static/diaowen/images/img1/weixin_collect1.jpg" class="dw-dcs-main-img">
                     <div slot="placeholder" class="image-slot">
                       加载中<span class="dot">...</span>
                     </div>
@@ -41,7 +41,7 @@
                 </el-col>
                 <el-col :span="8">
                   <div class="dw-dcs-main-wx-step">2、打开问卷后，点击右上角的“分享”按钮。</div>
-                  <el-image src="http://localhost:8181/diaowen/images/img1/weixin_collect2.jpg" class="dw-dcs-main-img">
+                  <el-image src="/static/diaowen/images/img1/weixin_collect2.jpg" class="dw-dcs-main-img">
                     <div slot="placeholder" class="image-slot">
                       加载中<span class="dot">...</span>
                     </div>
@@ -49,7 +49,7 @@
                 </el-col>
                 <el-col :span="8">
                   <div class="dw-dcs-main-wx-step">3、选择“发送给朋友”或“分享到朋友圈”</div>
-                  <el-image src="http://localhost:8181/diaowen/images/img1/weixin_collect3.jpg" class="dw-dcs-main-img">
+                  <el-image src="/static/diaowen/images/img1/weixin_collect3.jpg" class="dw-dcs-main-img">
                     <div slot="placeholder" class="image-slot">
                       加载中<span class="dot">...</span>
                     </div>
@@ -75,7 +75,7 @@
               <el-row type="flex" gutter="20" justify="start" align="top">
                 <el-col :span="8" >
                   <div class="dw-dcs-main-wx-step">1、打开公众账号。</div>
-                  <el-image src="http://localhost:8181/diaowen/images/img1/weixin_b_s3.png" class="dw-dcs-main-img">
+                  <el-image src="/static/diaowen/images/img1/weixin_b_s3.png" class="dw-dcs-main-img">
                     <div slot="placeholder" class="image-slot">
                       加载中<span class="dot">...</span>
                     </div>
@@ -83,7 +83,7 @@
                 </el-col>
                 <el-col :span="8">
                   <div class="dw-dcs-main-wx-step">2、将链接放入公众号中确认后推送文章。</div>
-                  <el-image src="http://localhost:8181/diaowen/images/img1/weixin_b_s4.jpeg" class="dw-dcs-main-img">
+                  <el-image src="/static/diaowen/images/img1/weixin_b_s4.jpeg" class="dw-dcs-main-img">
                     <div slot="placeholder" class="image-slot">
                       加载中<span class="dot">...</span>
                     </div>
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     copyActiveCode (e, text) {
-      const clipboard = new Clipboard(e.target, { text: () => text })
+      const clipboard = new Clipboard(e.target, {text: () => text})
       clipboard.on('success', e => {
         this.$message({type: 'success', message: '复制成功'})
         // 释放内存

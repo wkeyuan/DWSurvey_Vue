@@ -24,7 +24,7 @@ import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
 import DwFooter from '@/components/layouts/DwFooter.vue'
 
 export default {
-  name: 'Layout',
+  name: 'LoginLayout',
   components: {
     'dw-nav-menu': DwNavMenu,
     'dw-header': DwHeader,

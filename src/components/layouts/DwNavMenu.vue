@@ -10,8 +10,7 @@
     @select="handleSelect">
     <el-menu-item index="/dw/survey" >我的问卷</el-menu-item>
     <el-menu-item index="/dw/user" >个人中心</el-menu-item>
-    <el-menu-item index="/dw/admin/user" v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" >用户管理</el-menu-item>
-<!--    <el-menu-item index="/#" >帮助文档</el-menu-item>-->
+    <el-menu-item v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" index="/dw/admin/user" >用户管理</el-menu-item>
   </el-menu>
 </template>
 <script>
@@ -21,6 +20,11 @@ export default {
   data () {
     return {
       defActive: '/dw/survey'
+    }
+  },
+  watch: {
+    $route: function (to, from) {
+      this.setDefActive()
     }
   },
   mounted () {
@@ -35,19 +39,13 @@ export default {
     },
     setDefActive () {
       const fullPath = this.$route.fullPath
-      console.debug("fullPath:"+fullPath)
       if (fullPath.indexOf('/dw/survey') >= 0) {
         this.defActive = '/dw/survey'
       } else if (fullPath.indexOf('/dw/admin/user') >= 0) {
         this.defActive = '/dw/admin/user'
-      } else if (fullPath.indexOf('/dw/user') >= 0){
+      } else if (fullPath.indexOf('/dw/user') >= 0) {
         this.defActive = '/dw/user'
       }
-    }
-  },
-  watch: {
-    $route: function (to, from) {
-      this.setDefActive()
     }
   }
 }

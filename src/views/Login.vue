@@ -14,7 +14,7 @@
             </div>
           </div>
           <div>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" status-icon label-position="top" label-width="100px" class="demo-ruleForm" @submit.native.prevent >
+            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-position="top" label-width="100px" class="demo-ruleForm" @submit.native.prevent >
               <el-form-item label="用户名" prop="email">
                 <el-input v-model="ruleForm.email" autocomplete="on" ></el-input>
               </el-form-item>
@@ -23,7 +23,6 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" native-type="submit" style="width: 100%;" @click="submitForm('ruleForm')" >登录</el-button>
-<!--                <el-button @click="resetForm('ruleForm')">重置</el-button>-->
               </el-form-item>
             </el-form>
           </div>
@@ -36,7 +35,7 @@
 
 import DwAuthorized from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
-import { dwLogin } from "@/api/dw-login";
+import {dwLogin} from '@/api/dw-login'
 
 export default {
   name: 'Login',
@@ -82,15 +81,14 @@ export default {
               }
             }
           })
-
         } else {
           console.log('error submit!!')
           return false
         }
-      });
+      })
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }

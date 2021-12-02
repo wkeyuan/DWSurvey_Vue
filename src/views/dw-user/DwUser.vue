@@ -34,11 +34,10 @@
     </el-row>
   </div>
 </template>
-
 <script>
-
 import DwUserMenu from './DwUserMenu'
-import { dwUserInfo } from '../../api/dw-user'
+import {dwUserInfo} from '../../api/dw-user'
+
 export default {
   name: 'DwUser',
   components: {

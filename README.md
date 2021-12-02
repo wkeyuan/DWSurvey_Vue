@@ -1,6 +1,6 @@
 # dwsurvey-oss-front-vue
 
-> DWSurvey 开源问卷系统，社区版VUE前端代码
+> DWSurvey 开源问卷系统，基于VUE实现的社区版前端代码仓库
 
 ## Build Setup
 

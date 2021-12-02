@@ -131,7 +131,7 @@ export default {
       console.log(data)
       dwSurveyUpdate(data).then((response) => {
         console.log(response)
-        const data = response.data;
+        const data = response.data
         if (data.resultCode === 200) {
           this.$message({type: 'success', message: '保存成功'})
         } else {

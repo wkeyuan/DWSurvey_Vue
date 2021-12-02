@@ -7,7 +7,7 @@ import API from '@/api/index.js'
  * @param current
  * @returns {*}
  */
-export function dwSurveyList(pageSize, current, surveyName, surveyState) {
+export function dwSurveyList (pageSize, current, surveyName, surveyState) {
   const params = {
     pageSize,
     current,
@@ -20,31 +20,28 @@ export function dwSurveyList(pageSize, current, surveyName, surveyState) {
     params
   })
 }
-
 /**
  * 创建问卷
  * @param data
  * @returns {*}
  */
-export function dwSurveyCreate(data) {
+export function dwSurveyCreate (data) {
   return request({
     url: API.surveyCreate,
     method: 'post',
     data
   })
 }
-
-
 /**
  * 复制问卷
  * @param data
  * @returns {*}
  */
-export function dwSurveyCopy(fromSurveyId,surveyName) {
+export function dwSurveyCopy (fromSurveyId, surveyName) {
   const params = {
     fromSurveyId,
     surveyName,
-    tag:'2'
+    tag: '2'
   }
   return request({
     url: API.surveyCopy,
@@ -52,13 +49,12 @@ export function dwSurveyCopy(fromSurveyId,surveyName) {
     params
   })
 }
-
 /**
  * 获取问卷信息
  * @param surveyId
  * @returns {*}
  */
-export function dwSurveyInfo(surveyId) {
+export function dwSurveyInfo (surveyId) {
   const params = {
     id: surveyId
   }
@@ -68,41 +64,36 @@ export function dwSurveyInfo(surveyId) {
     params
   })
 }
-
 /**
  * 更新问卷信息
  * @param data
  * @returns {*}
  */
-export function dwSurveyUpdate(data) {
+export function dwSurveyUpdate (data) {
   return request({
     url: API.surveyUpdate,
     method: 'put',
     data
   })
 }
-
-
 /**
  * 更新问卷信息
  * @param data
  * @returns {*}
  */
-export function dwSurveyDelete(data) {
+export function dwSurveyDelete (data) {
   return request({
     url: API.surveyDelete,
     method: 'delete',
     data
   })
 }
-
-
 /**
  * 获取问卷的统计信息
  * @param surveyId
  * @returns {*}
  */
-export function dwSurveyReport(surveyId) {
+export function dwSurveyReport (surveyId) {
   const params = {
     surveyId
   }
@@ -112,7 +103,6 @@ export function dwSurveyReport(surveyId) {
     params
   })
 }
-
 /**
  * 获取问卷的答卷列表
  * @param pageSize
@@ -120,7 +110,7 @@ export function dwSurveyReport(surveyId) {
  * @param surveyId
  * @returns {*}
  */
-export function dwSurveyAnswerList(pageSize,current,surveyId) {
+export function dwSurveyAnswerList (pageSize, current, surveyId) {
   const params = {
     pageSize,
     current,
@@ -132,13 +122,12 @@ export function dwSurveyAnswerList(pageSize,current,surveyId) {
     params
   })
 }
-
 /**
  * 获取问卷答卷详情
  * @param answerId
  * @returns {*}
  */
-export function dwSurveyAnswerInfo(answerId) {
+export function dwSurveyAnswerInfo (answerId) {
   const params = {
     answerId
   }

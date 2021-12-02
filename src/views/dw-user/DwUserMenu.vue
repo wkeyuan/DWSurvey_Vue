@@ -28,12 +28,11 @@ export default {
     this.setDefActive()
   },
   methods: {
-    setDefActive: function(){
+    setDefActive () {
       const fullPath = this.$route.fullPath
-      if(fullPath.indexOf('/dw/user/pwd')>=0){
+      if (fullPath.indexOf('/dw/user/pwd') >= 0) {
         this.defActive = '/dw/user/pwd'
       }
-
     }
   }
 }

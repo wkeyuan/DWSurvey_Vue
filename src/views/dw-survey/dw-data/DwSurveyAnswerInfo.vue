@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-page-header @back="goBack" content="答卷详情" class="dw-page-header" ></el-page-header>
+    <el-page-header content="答卷详情" class="dw-page-header" @back="goBack" ></el-page-header>
     <div class="dw-answer-content">
       <el-row type="flex" class="row-bg">
         <el-col :span="16" :push="4">
@@ -10,32 +10,32 @@
                 <template slot="label">
                   <i class="el-icon-location-information"></i> 答卷IP
                 </template>
-                {{survey.surveyAnswer.ipAddr}}
+                {{ survey.surveyAnswer.ipAddr }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-timer"></i>
                   答卷时间
                 </template>
-                {{survey.surveyAnswer.endAnDate}}
+                {{ survey.surveyAnswer.endAnDate }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-monitor"></i>
                   答题数
                 </template>
-                {{survey.surveyAnswer.completeItemNum}}
+                {{ survey.surveyAnswer.completeItemNum }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-price-tag"></i> 答卷ID
                 </template>
-                {{survey.surveyAnswer.id}}
+                {{ survey.surveyAnswer.id }}
               </el-descriptions-item>
             </el-descriptions>
             <div class="dw-answer-title" style="padding-top: 30px;padding-bottom: 0px;">答卷结果信息</div>
             <div style="padding: 0px 20px 30px 20px;">
-              <dw-survey-answer-qu-common v-bind:key="item.id" v-bind:id="item.id" v-bind:index="index" v-for="(item,index) in survey.questions" v-bind:question="item" ></dw-survey-answer-qu-common>
+              <dw-survey-answer-qu-common v-for="(item,index) in survey.questions" :key="item.id" :id="item.id" :index="index" :question="item" ></dw-survey-answer-qu-common>
             </div>
           </div>
         </el-col>
@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       survey: {
-        questions:[],
+        questions: []
       },
       tableData: [],
       pageSize: 10,
@@ -116,7 +116,7 @@ export default {
         for (let i=0; i < this.survey.questions.length; i++) {
           const questionData = this.survey.questions[i]
           const quType = questionData.quType
-          var quOptionsObj
+          let quOptionsObj
           if (quType==='CHECKBOX') {
             questionData.quTypeName = '多选题'
             quOptionsObj = questionData.quCheckboxs
@@ -138,38 +138,38 @@ export default {
             questionData.quTypeName = quType
           }
           if (quType==='CHECKBOX' || quType==='SCORE' || quType==='ORDERQU' || quType==='MULTIFILLBLANK') {
-            for(let j=0; j < quOptionsObj.length; j++){
+            for (let j=0; j < quOptionsObj.length; j++) {
               const item = quOptionsObj[j]
               if (quType==='CHECKBOX') {
-                const anCheckboxs = questionData.anCheckboxs;
-                for (let k=0; k<anCheckboxs.length; k++){
-                  if(anCheckboxs[k].quItemId===item.id){
+                const anCheckboxs = questionData.anCheckboxs
+                for (let k=0; k<anCheckboxs.length; k++) {
+                  if (anCheckboxs[k].quItemId === item.id) {
                     item.answer = true
                     break
                   }
                 }
-              }else if (quType==='SCORE') {
-                const anScores = questionData.anScores;
-                for (let k=0; k<anScores.length; k++){
-                  if(anScores[k].quRowId===item.id){
-                    if(anScores[k].answserScore!=null){
+              } else if (quType==='SCORE') {
+                const anScores = questionData.anScores
+                for (let k=0; k<anScores.length; k++) {
+                  if (anScores[k].quRowId === item.id) {
+                    if (anScores[k].answserScore != null) {
                       item.answer = parseInt(anScores[k].answserScore)
                       break
                     }
                   }
                 }
-              }else if (quType==='ORDERQU') {
-                const anOrders = questionData.anOrders;
-                for (let k=0; k<anOrders.length; k++){
-                  if(anOrders[k].quRowId===item.id){
+              } else if (quType==='ORDERQU') {
+                const anOrders = questionData.anOrders
+                for (let k=0; k<anOrders.length; k++) {
+                  if (anOrders[k].quRowId === item.id) {
                     item.answer = anOrders[k].orderyNum
                     break
                   }
                 }
-              }else if (quType==='MULTIFILLBLANK') {
+              } else if (quType==='MULTIFILLBLANK') {
                 const anDFillblanks = questionData.anDFillblanks
-                for (let k=0; k<anDFillblanks.length; k++){
-                  if(anDFillblanks[k].quItemId===item.id){
+                for (let k=0; k<anDFillblanks.length; k++) {
+                  if (anDFillblanks[k].quItemId === item.id) {
                     item.answer = anDFillblanks[k].answer
                     break
                   }
@@ -178,7 +178,6 @@ export default {
             }
           }
         }
-
       })
     },
     handleCurrentChange: function (val) {
