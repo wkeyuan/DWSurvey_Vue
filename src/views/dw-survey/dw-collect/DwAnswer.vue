@@ -11,7 +11,7 @@ export default {
   methods: {
     loadAnswer () {
       const sid = this.$route.params.sid
-      window.location.href=process.env.DW_WEB_URL+'/static/diaowen/answer-p.html?sid='+sid
+      window.location.href='/static/diaowen/answer-p.html?sid='+sid
     }
   }
 }
