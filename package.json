@@ -1,7 +1,7 @@
 {
   "name": "dwsurvey-oss-front-vue",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "dwsurvey open source survey system",
   "author": "wkeyuan <keyuan258@gmail.com>",
   "private": true,
   "scripts": {
