@@ -403,10 +403,13 @@ function sww(){
     var skQuId=loginItem.find(".skQuId").val();
     var logicId=loginItem.find(".logicId").val();
     var logicType=loginItem.find(".logicType").val();
-    var hidQuItemBody=$(".quId[value='"+skQuId+"']").parents(".li_surveyQuItemBody");
-    hidQuItemBody.hide();
-    hidQuItemBody.addClass("hidFor"+logicId);
-    hidQuItemBody.find(".answerTag").attr("disabled",true);
+    if(logicType==="2"){
+      //逻辑类型为“显示”2  则初始化为隐藏
+      var hidQuItemBody=$(".quId[value='"+skQuId+"']").parents(".li_surveyQuItemBody");
+      hidQuItemBody.hide();
+      hidQuItemBody.addClass("hidFor"+logicId);
+      hidQuItemBody.find(".answerTag").attr("disabled",true);
+    }
   });
 
   bindDateEvent();
