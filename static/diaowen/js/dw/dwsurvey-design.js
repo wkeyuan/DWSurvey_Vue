@@ -762,9 +762,7 @@ $(document).ready(function(){
     resetQuItemHover(null);
     saveSurvey(function(){
       isSaveProgress=false;
-      saveQuOrder(function(){
-        window.location.href="/static/diaowen/preview.html?surveyId="+questionBelongId;
-      });
+      window.location.href="/static/diaowen/preview.html?surveyId="+questionBelongId;
     });
     return false;
   });
