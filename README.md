@@ -1,7 +1,6 @@
 # 调问开源问卷系统（DWSurvey）
 
-> 此代码仓库为基于 Spring Boot、Vue 实现的前端代码仓库
-
+    此代码仓库为基于 Spring Boot、Vue 实现的前端代码仓库
 
 [![star](https://gitee.com/wkeyuan/DWSurvey/badge/star.svg?theme=dark)](https://gitee.com/wkeyuan/DWSurvey/stargazers)
 [![fork](https://gitee.com/wkeyuan/DWSurvey/badge/fork.svg?theme=dark)](https://gitee.com/wkeyuan/DWSurvey/members)
