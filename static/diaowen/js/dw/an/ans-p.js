@@ -1116,8 +1116,8 @@ function answerProgressbar(thObj){
     }
   }
 
-  var totalQuSize=$(".answerTag:enabled").size();
-  var answerTag1=$(".answerTag[value='1']:enabled");
+  var totalQuSize=$("#dwSurveyQuContent .answerTag:enabled").size();
+  var answerTag1=$("#dwSurveyQuContent .answerTag[value='1']:enabled");
   var answerQuSize=0;
   if(answerTag1[0]){
     answerQuSize=answerTag1.size();
