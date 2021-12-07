@@ -31,7 +31,7 @@
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
                   <el-button type="primary" size="small" @click="buttonClickA(`/static/diaowen/design.html?surveyId=${survey.id}`)" >问卷设计</el-button>
-                  <el-button size="small">答卷地址</el-button>
+                  <el-button size="small" @click="handlePush(`/dw/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -122,6 +122,9 @@ export default {
   methods: {
     buttonClickA (href) {
       window.location.href = href
+    },
+    handlePush: function (to) {
+      this.$router.push(to)
     },
     getSurveyInfo () {
       dwSurveyInfo(this.$route.params.id).then((response) => {
