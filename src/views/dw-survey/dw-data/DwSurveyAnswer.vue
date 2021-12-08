@@ -5,7 +5,7 @@
         <div class="dw-dcs-main-title">
           <el-row type="flex">
             <el-col :span="18"><div style="font-size: 14px;padding: 10px;"><strong>原始数据列表</strong></div></el-col>
-            <el-col :span="6" style="text-align: right;padding-right: 16px;" ><el-button type="primary" size="small" >导出数据</el-button></el-col>
+            <el-col :span="6" style="text-align: right;padding-right: 16px;" ><el-button type="primary" size="small" @click="handleExport" >导出数据</el-button></el-col>
           </el-row>
         </div>
         <el-table
@@ -66,6 +66,7 @@
 
 import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
 import {dwSurveyAnswerList} from '@/api/dw-survey'
+import API from '@/api/index'
 
 export default {
   name: 'DwSurveyAnswer',
@@ -95,6 +96,10 @@ export default {
     },
     handleCurrentChange (val) {
       this.queryList(val)
+    },
+    handleExport () {
+      const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}`
+      window.location.href = downUrl
     },
     queryList (pageNo) {
       dwSurveyAnswerList(this.pageSize, pageNo, this.$route.params.id).then((response) => {

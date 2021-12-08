@@ -12,6 +12,7 @@ export default {
   surveyReport: `/api/dwsurvey/app/stats/report.do`,
   surveyAnswerList: `/api/dwsurvey/app/answer/list.do`,
   surveyAnswerInfo: `/api/dwsurvey/app/answer/info.do`,
+  surveyAnswerExport: `/api/dwsurvey/app/answer//export-xls.do`,
   surveyFooterInfo: `/api/dwsurvey/anon/web/footer-info.do`,
   adminUserList: `/api/dwsurvey/admin/user/list.do`,
   adminUserCreate: `/api/dwsurvey/admin/user/add.do`,
