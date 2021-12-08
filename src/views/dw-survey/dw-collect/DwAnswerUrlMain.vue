@@ -28,7 +28,7 @@
             </el-image>
           </el-col>
           <el-col :span="20">
-            <el-button type="primary" icon="el-icon-download" style="margin-left: 10px;" @click="copyActiveCode($event,code )" >下载二维码</el-button>
+            <el-button type="primary" icon="el-icon-download" style="margin-left: 10px;" @click="downloadAnswerImg(`${survey.answerUrlQR}&down=1`)" >下载二维码</el-button>
           </el-col>
         </el-row>
       </div>
@@ -52,6 +52,10 @@ export default {
     }
   },
   methods: {
+    downloadAnswerImg (imgSrc) {
+      console.debug(imgSrc)
+      window.location.href = imgSrc
+    },
     copyActiveCode (e, text) {
       // console.debug(this.$children[0].survey)
       console.debug(this.survey)
