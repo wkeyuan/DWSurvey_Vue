@@ -25,7 +25,7 @@
             <el-row :span="24" type="flex" justify="space-between" align="middle">
               <el-col :span="4"><h3>用户管理</h3></el-col>
               <el-col :span="20" style="text-align: right;">
-                <el-button v-has-dw-role="'dwAdmin'" type="primary" size="medium" @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true">添加用户</el-button>
+                <el-button v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" type="primary" size="medium" @click="dialogTitle = '创建用户';userFormRules.pwd = { required: false };userForm.id=null;dialogFormVisible = true">添加用户</el-button>
               </el-col>
             </el-row>
           </div>
