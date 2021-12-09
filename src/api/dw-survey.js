@@ -123,6 +123,18 @@ export function dwSurveyAnswerList (pageSize, current, surveyId) {
   })
 }
 /**
+ * 更新问卷信息
+ * @param data
+ * @returns {*}
+ */
+export function dwSurveyAnswerDelete (data) {
+  return request({
+    url: API.surveyAnswerDelete,
+    method: 'delete',
+    data
+  })
+}
+/**
  * 获取问卷答卷详情
  * @param answerId
  * @returns {*}
