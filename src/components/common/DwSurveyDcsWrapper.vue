@@ -6,7 +6,10 @@
           <div class="dw-dcs-main-survey-title">
             <el-row type="flex" justify="space-between" align="middle">
               <el-col>
-                <div class="dw-dcs-main-survey-title-content"> <div v-html="survey.surveyName"></div> </div>
+                <div class="dw-dcs-main-survey-title-content">
+                  <div v-if="survey.surveyNameText != null" v-text="survey.surveyNameText"></div>
+                  <div v-else v-html="survey.surveyName"></div>
+                </div>
               </el-col>
               <el-col :span="4">
                 <el-select :value="survey.surveyState" placeholder="请选择">

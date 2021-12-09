@@ -39,7 +39,8 @@
                 <el-popover trigger="hover" placement="top">
                   <p v-html="scope.row.surveyName" ></p>
                   <div slot="reference" class="name-wrapper">
-                    <div v-html="scope.row.surveyName"></div>
+                    <div v-if="scope.row.surveyNameText != null" v-text="scope.row.surveyNameText"></div>
+                    <div v-else v-html="scope.row.surveyName"></div>
                   </div>
                 </el-popover>
               </template>
