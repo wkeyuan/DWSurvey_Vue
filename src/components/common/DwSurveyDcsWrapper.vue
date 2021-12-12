@@ -12,7 +12,7 @@
                 </div>
               </el-col>
               <el-col :span="4">
-                <el-select :value="survey.surveyState" placeholder="请选择">
+                <el-select :value="survey.surveyState" v-model="survey.surveyState" placeholder="请选择" @change="surveyStateChange" >
                   <el-option key="0" :value="0" label="设计中" ></el-option>
                   <el-option key="1" :value="1" label="发布收集" ></el-option>
                   <el-option key="2" :value="2" label="收集结束" ></el-option>
@@ -94,6 +94,7 @@
 
 <script>
 import {dwSurveyInfo} from '@/api/dw-survey'
+import {dwSurveyUpState} from '../../api/dw-survey'
 export default {
   name: 'DwSurveyDcsWrapper',
   props: {
@@ -114,7 +115,8 @@ export default {
         sid: '',
         answerUrl: '',
         answerUrlQR: '',
-        siteCompCodeRoot: ''
+        siteCompCodeRoot: '',
+        surveyState: ''
       }
     }
   },
@@ -126,8 +128,19 @@ export default {
     buttonClickA (href) {
       window.location.href = href
     },
-    handlePush: function (to) {
+    handlePush (to) {
       this.$router.push(to)
+    },
+    surveyStateChange () {
+      console.debug(this.survey.surveyState)
+      dwSurveyUpState(this.$route.params.id, this.survey.surveyState).then((response) => {
+        const httpResult = response.data
+        if (httpResult.resultCode === 200) {
+          this.$message.success('问卷状态设置成功')
+        } else {
+          this.$message.error('问卷状态设置失败')
+        }
+      })
     },
     getSurveyInfo () {
       dwSurveyInfo(this.$route.params.id).then((response) => {

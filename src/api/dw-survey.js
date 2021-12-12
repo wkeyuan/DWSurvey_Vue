@@ -32,6 +32,24 @@ export function dwSurveyCreate (data) {
     data
   })
 }
+
+/**
+ * 更新问卷状态
+ * @param surveyId
+ * @param surveyState
+ * @returns {*}
+ */
+export function dwSurveyUpState (surveyId, surveyState) {
+  const params = {
+    surveyId,
+    surveyState
+  }
+  return request({
+    url: API.surveyUpState,
+    method: 'post',
+    params
+  })
+}
 /**
  * 复制问卷
  * @param data
