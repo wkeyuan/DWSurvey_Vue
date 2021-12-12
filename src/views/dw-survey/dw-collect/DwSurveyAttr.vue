@@ -111,6 +111,7 @@ export default {
         this.survey.surveyDetail.refresh = resultData.surveyDetail.refresh === 1
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
+        this.survey.surveyDetail.endNum = resultData.surveyDetail.endNum
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
       })
     },
