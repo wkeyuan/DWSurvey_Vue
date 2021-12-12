@@ -10,7 +10,7 @@
             <el-col :span="20">
               <div style="padding: 30px;width: 400px;">
                 <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-width="100px" label-position="top">
-                  <el-form-item label="原密码" prop="age">
+                  <el-form-item label="原密码" prop="oldPass">
                     <el-input v-model="ruleForm.oldPass" autocomplete="off" show-password></el-input>
                   </el-form-item>
                   <el-form-item label="密码" prop="pass">
@@ -70,13 +70,18 @@ export default {
       },
       rules: {
         pass: [
+          {required: true, message: '请输入新登录密码', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'},
           {validator: validatePass, trigger: 'blur'}
         ],
         checkPass: [
+          {required: true, message: '请再次输入新登录密码', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'},
           {validator: validatePass2, trigger: 'blur'}
         ],
         oldPass: [
-          {required: true, message: '请输入原登录密码', trigger: 'blur'}
+          {required: true, message: '请输入原登录密码', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
         ]
       }
     }
