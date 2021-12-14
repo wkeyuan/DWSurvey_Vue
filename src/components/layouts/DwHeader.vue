@@ -7,7 +7,7 @@
             <el-row type="flex" justify="space-between" align="middle">
               <el-col :span="4" >
                 <a href="/#/">
-                  <el-image src="https://www.diaowen.net/images/20181214_logo.png" ></el-image>
+                  <el-image :src="require('@/assets/logo.png')" ></el-image>
                   <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">OSS</span>
                 </a>
               </el-col>
