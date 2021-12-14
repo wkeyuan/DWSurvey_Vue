@@ -2,10 +2,11 @@ import request from '@/utils/request'
 import API from '@/api/index.js'
 
 // 登录方法
-export function dwLogin (username, password) {
+export function dwLogin (userName, password) {
   const params = {
-    username,
-    password
+    userName,
+    password,
+    type: 'account'
   }
   return request({
     url: API.loginIn,

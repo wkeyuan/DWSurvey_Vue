@@ -68,8 +68,8 @@ body{
 }
 .dw-layout-body{
   background-image: url("/static/diaowen/images/style-model/login_bg/1.jpg");
-  -moz-background-size: auto 100%;
-  background-size: auto 100%;
+  -moz-background-size: cover;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 </style>
