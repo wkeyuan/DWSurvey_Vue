@@ -160,7 +160,11 @@ export default {
     handleCopy (index, row) {
       console.log(index, row)
       this.form.id = row.id
-      this.form.name = `${row.surveyName}`
+      if (row.surveyNameText !== undefined && row.surveyNameText !== null) {
+        this.form.name = `${row.surveyNameText}`
+      } else {
+        this.form.name = `复制问卷标题`
+      }
       this.dialogFormVisible = true
       this.dialogTitle = '复制问卷'
     },
