@@ -27,38 +27,38 @@
                   <router-link class="dw-link dw-link-1" to="/"><i class="el-icon-edit"></i>问卷设计</router-link>
                 </el-col>
                 <el-col :span="3" >
-                  <router-link :to="'/dw/survey/c/url/' + survey.id" :class="{ 'dw-link-primary' : isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>问卷收集</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>问卷收集</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/d/chart/' + survey.id" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
                   <el-button type="primary" size="small" @click="buttonClickA(`/static/diaowen/design.html?surveyId=${survey.id}`)" >问卷设计</el-button>
-                  <el-button size="small" @click="handlePush(`/dw/survey/c/url/${survey.id}`)" >答卷地址</el-button>
+                  <el-button size="small" @click="handlePush(`${prevPath}/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
             </div>
             <div class="dw-dcs-main-survey-step-item" style="padding-left: 16px;">
               <el-row v-show="isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx">
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/c/url/' + survey.id" :class="{ 'dw-link-primary' : isAnswerUrl}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/c/attr/' + survey.id" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
+                  <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/c/comp/' + survey.id" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-discount"></i>网站组件</router-link>
+                  <router-link :to="`${prevPath}/survey/c/comp/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-discount"></i>网站组件</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/c/weixin/' + survey.id" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-chat-dot-round"></i>微信收集</router-link>
+                  <router-link :to="`${prevPath}/survey/c/weixin/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-chat-dot-round"></i>微信收集</router-link>
                 </el-col>
               </el-row>
               <el-row v-show="isSurveyChart || isAnswerData">
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/d/chart/' + survey.id" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
+                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="'/dw/survey/d/data/' + survey.id" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
                 </el-col>
                 <el-col :span="3"></el-col>
                 <el-col :span="3"></el-col>
@@ -117,7 +117,8 @@ export default {
         answerUrlQR: '',
         siteCompCodeRoot: '',
         surveyState: ''
-      }
+      },
+      prevPath: '/dw'
     }
   },
   mounted () {
