@@ -114,6 +114,7 @@ export default {
       survey: {
         sid: '',
         answerUrl: '',
+        answerUrl1: '',
         answerUrlQR: '',
         siteCompCodeRoot: '',
         surveyState: ''
@@ -148,6 +149,7 @@ export default {
         const resultData = response.data.data
         this.survey = resultData
         this.survey.answerUrl = location.origin + '/#/diaowen/' + this.survey.sid
+        this.survey.answerUrl1 = location.origin + '/static/diaowen/answer-p.html?sid=' + this.survey.sid
         this.survey.answerUrlQR = process.env.DW_API_URL+'/api/dwsurvey/anon/response/answerTD.do?surveyId=' + this.survey.id
         this.survey.siteCompCodeRoot = '<div id="dwsurveyWebAnswerCompCode"><div id="dwsurveyWebSiteFixed" style="position: fixed; right: 0px; left: auto; top: 520px; z-index: 99999;"><a target=\'_blank\' id="dwsurveyWebSiteFixedA" href="' + this.survey.answerUrl + '" style="background-color: rgb(24, 144, 255); width: 15px; display: block; padding: 10px 6px 10px 10px; color: white; cursor: pointer; float: right; vertical-align: middle; text-decoration: none; font-size: 12px; box-sizing: content-box; line-height: 20px;">问卷调查</a></div></div>'
         this.survey.surveyDetail.effective = resultData.surveyDetail.effective === 1

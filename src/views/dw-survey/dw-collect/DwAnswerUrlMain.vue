@@ -6,10 +6,25 @@
         <div class="dw-dcs-main-p">复制下面的问卷链接到QQ，Email等工具中直接发给被用户</div>
       </div>
       <div class="dw-dcs-main-content">
-        <el-input id="copyCodeInput" v-model="survey.answerUrl" readonly style="width: 400px;" ></el-input>
+        <div class="dw-dcs-main-title">
+          <div class="dw-dcs-main-p">简短地址：此地址只支持现代浏览器</div>
+        </div>
+        <el-input id="copyCodeInput" v-model="survey.answerUrl" readonly style="width: 500px;" ></el-input>
         <el-button-group>
           <el-button type="primary" icon="el-icon-copy-document" @click="copyActiveCode($event,survey.answerUrl )" >复制地址</el-button>
           <el-link :href="survey.answerUrl" :underline="false" target="_blank" ><el-button icon="el-icon-link" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" >打开问卷</el-button></el-link>
+        </el-button-group>
+      </div>
+      <div class="dw-dcs-main-content">
+        <div class="dw-dcs-main-title">
+          <div class="dw-dcs-main-p">
+            兼容地址：此地址支持所有浏览器中使用，如IE等。
+          </div>
+        </div>
+        <el-input id="copyCodeInput" v-model="survey.answerUrl1" readonly style="width: 500px;" ></el-input>
+        <el-button-group>
+          <el-button type="primary" icon="el-icon-copy-document" @click="copyActiveCode($event,survey.answerUrl1 )" >复制地址</el-button>
+          <el-link :href="survey.answerUrl1" :underline="false" target="_blank" ><el-button icon="el-icon-link" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" >打开问卷</el-button></el-link>
         </el-button-group>
       </div>
     </div>
@@ -91,5 +106,8 @@ export default {
 }
 .dw-dcs-main-img{
   border: 1px solid rgb(241, 242, 245);
+}
+.dw-dcs-main-title{
+  padding-bottom: 10px;
 }
 </style>
