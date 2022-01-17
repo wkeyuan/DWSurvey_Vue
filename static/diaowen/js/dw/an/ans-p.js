@@ -28,6 +28,7 @@ $(document).ready(function(){
   $.answerPage("p",sid,function(){
     querySurveyAll(function(){
       sww();
+      wwwUpload();
       if(!$("#preview_head_top")[0]){
         checkAnswerSurvey(sid);
       }
