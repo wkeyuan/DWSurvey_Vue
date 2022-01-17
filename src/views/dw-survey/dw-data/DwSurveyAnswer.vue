@@ -60,6 +60,22 @@
         </div>
       </template>
     </dw-survey-dcs-wrapper>
+
+    <el-dialog title="导出答卷数据" :visible.sync="dialogFormVisible" append-to-body width="40%"  >
+      <div style="line-height: 30px;">是否同时下载上传题的文件</div>
+      <div style="color: grey;line-height: 30px;font-size: 12px;"><span>如果有上传题，选择压缩下载可能比较占用系统资源及时间，请在空闲时间压缩下载</span></div>
+      <el-switch
+        v-model="expUpQu"
+        active-text="同时压缩上传的文件并下载"
+        inactive-text="仅下载数据Excel"
+        active-value="1"
+        inactive-value="0">
+      </el-switch>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="executeExportData">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -78,7 +94,9 @@ export default {
       tableData: [],
       pageSize: 10,
       currentPage: 1,
-      total: 0
+      total: 0,
+      dialogFormVisible: false,
+      expUpQu: 0
     }
   },
   mounted () {
@@ -111,7 +129,11 @@ export default {
       this.queryList(val)
     },
     handleExport () {
-      const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}`
+      this.dialogFormVisible = true
+    },
+    executeExportData () {
+      const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}&expUpQu=${this.expUpQu}`
+      this.dialogFormVisible = false
       window.location.href = downUrl
     },
     queryList (pageNo) {
