@@ -176,8 +176,6 @@ export default {
                     break
                   }
                 }
-              }  else if (quType==='UPLOADFILE') {
-
               }
             }
           }

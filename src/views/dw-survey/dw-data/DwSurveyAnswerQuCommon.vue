@@ -38,8 +38,8 @@
             </el-form-item>
           </div>
           <div v-if="question.quType === 'UPLOADFILE'">
-            <div v-for="(item,index) in question.anUplodFiles" :key="item.id" >
-              <a :href="process.env.DW_API_URL+item.filePath">{{item.fileName}}</a>
+            <div v-for="(item) in question.anUplodFiles" :key="item.id" >
+              <a :href="`${dwResourceUrl}${item.filePath}`" target="_blank">{{ item.fileName }}</a>
             </div>
           </div>
         </div>
@@ -96,10 +96,13 @@ export default {
         value: '选项5',
         label: '北京烤鸭'
       }],
-      value: ''
+      value: '',
+      dwResourceUrl: ''
     }
   },
   mounted () {
+    console.debug(process.env.DW_RESOURCE_URL)
+    this.dwResourceUrl = process.env.DW_RESOURCE_URL
   },
   methods: {
     goBack () {

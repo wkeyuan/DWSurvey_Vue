@@ -5,10 +5,10 @@
       <span v-html="question.quTitle" ></span>
       <span>【{{ question.quTypeName }}】</span>
     </div>
-    <div v-if="question.quType === 'FILLBLANK'" style="padding: 30px;">
+    <div v-if="question.quType === 'FILLBLANK' || question.quType === 'UPLOADFILE'" style="padding: 30px;">
       填写回答：{{ question.anCount }} 份
     </div>
-    <div v-if="question.quType !== 'FILLBLANK'">
+    <div v-if="question.quType !== 'FILLBLANK' && question.quType !== 'UPLOADFILE'">
       <el-table
         :data="question.quStatOptions"
         style="width: 100%">
@@ -52,22 +52,22 @@
           <template slot-scope="scope">{{ scope.row.anCount }} 次</template>
         </el-table-column>
       </el-table>
-    </div>
-    <div v-if="question.quType !=='FILLBLANK'">
-      <el-tabs v-model="activeName" style="width: 100%;" @tab-click="handleClick" >
-        <el-tab-pane label="柱状图" name="bar">
-          <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
-        </el-tab-pane>
-        <el-tab-pane label="拆线图" name="line">
-          <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
-        </el-tab-pane>
-        <el-tab-pane label="拼状图" name="pie">
-          <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
-        </el-tab-pane>
-        <el-tab-pane label="条形图" name="barY">
-          <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
-        </el-tab-pane>
-      </el-tabs>
+      <div>
+        <el-tabs v-model="activeName" style="width: 100%;" @tab-click="handleClick" >
+          <el-tab-pane label="柱状图" name="bar">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="拆线图" name="line">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="拼状图" name="pie">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="条形图" name="barY">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
   </div>
 </template>
