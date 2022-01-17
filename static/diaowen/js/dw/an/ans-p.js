@@ -1030,6 +1030,8 @@ function validateCheck(quItemBody,isSubForm){
           }
         }
       }
+    }else if(quType === "UPLOADFILE"){
+      validateStatus=quItemBody.find(".fileuploadSaveValue")[0];
     }else if(quType==="submitSurveyBtn" || quType==="PARAGRAPH" || quType==="PAGETAG"){
       return true;
     }
