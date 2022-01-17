@@ -37,6 +37,11 @@
               <el-input v-model="item.answer" style="width: 360px;" ></el-input>
             </el-form-item>
           </div>
+          <div v-if="question.quType === 'UPLOADFILE'">
+            <div v-for="(item,index) in question.anUplodFiles" :key="item.id" >
+              <a :href="process.env.DW_API_URL+item.filePath">{{item.fileName}}</a>
+            </div>
+          </div>
         </div>
       </div>
     </el-form>

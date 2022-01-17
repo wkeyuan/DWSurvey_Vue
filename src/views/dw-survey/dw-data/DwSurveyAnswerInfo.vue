@@ -134,6 +134,8 @@ export default {
           } else if (quType==='MULTIFILLBLANK') {
             questionData.quTypeName = '多项填空题'
             quOptionsObj = questionData.quMultiFillblanks
+          } else if (quType==='UPLOADFILE') {
+            questionData.quTypeName = '文件上传题'
           } else {
             questionData.quTypeName = quType
           }
@@ -174,6 +176,8 @@ export default {
                     break
                   }
                 }
+              }  else if (quType==='UPLOADFILE') {
+
               }
             }
           }
