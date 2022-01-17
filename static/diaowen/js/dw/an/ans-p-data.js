@@ -83,9 +83,13 @@ function parseSurvey(data,tag){
   $("#id").val(data.id);
   $("#surveyId").val(data.id);
   $("#dwSurveyName").html(data.surveyName);
-  $("title").text($("#dwSurveyName").text());
   $("#dwSurveyNoteEdit").html(data.surveyDetail.surveyNote);
   $("#breakpoint1").val(data.surveyDetail.breakpoint1);
+  try{
+    $("title").text($("#dwSurveyName").text());
+  }catch (err){
+    document.title = $("#dwSurveyName").text();
+  }
 }
 
 
