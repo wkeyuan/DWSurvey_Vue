@@ -1,6 +1,7 @@
 <template>
-  <div id="dw-layout" :style="{height: pageH}" class="dw-layout-body" >
-    <el-container style="padding: 0px;">
+  <div id="dw-layout" style="height: 100vh;" class="dw-layout-body" >
+    <el-container>
+    <el-container style="padding: 0px;height: calc(100vh - 80px);">
       <el-header height="80" style="padding: 0px;" >
         <dw-header-login></dw-header-login>
       </el-header>
@@ -9,9 +10,10 @@
           <el-main style="padding: 20px 0px;" >
             <router-view></router-view>
           </el-main>
-          <el-footer height="80" class="dw-footer-container"><dw-footer></dw-footer></el-footer>
         </el-container>
       </el-container>
+    </el-container>
+    <el-footer height="80" class="dw-footer-container"><dw-footer></dw-footer></el-footer>
     </el-container>
   </div>
 </template>
@@ -59,7 +61,6 @@ body{
   /*#ffb25c*/
 }
 .dw-footer-container{
-  position: fixed;
   bottom: 0px;
   width: 100%;
   text-align: center;
