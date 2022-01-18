@@ -437,6 +437,12 @@ $(document).ready(function(){
 			if(quType=="RADIO" || quType=="CHECKBOX" || quType=="FILLBLANK"){
 				quItemBody.find("input[name='contactsAttr']").val(setAutoContacts[0]?1:0);
 				quItemBody.find("input[name='contactsField']").val(setContactsField);
+        if(quType=="CHECKBOX"){
+          var minNum = $("#dwCommonDialog .minNumLi input[name='minNum']").val();
+          var maxNum = $("#dwCommonDialog .maxNumLi input[name='maxNum']").val();
+          quItemBody.find("input[name='paramInt01']").val(minNum);
+          quItemBody.find("input[name='paramInt02']").val(maxNum);
+        }
 			}else if(quType==="MULTIFILLBLANK"){
 				var paramInt01=$("#dwCommonDialog .minMaxLi .minNum");
 				if(paramInt01[0]){
@@ -1480,6 +1486,8 @@ function showDialog(thDialogObj){
 		$("#dwCommonDialog .optionRangeHv").hide();
 		$("#dwCommonDialog .scoreMinMax").hide();
 		$("#dwCommonDialog .minMaxLi").hide();
+    $("#dwCommonDialog .minNumLi").hide();
+    $("#dwCommonDialog .maxNumLi").hide();
 		if(isRequired==1){
 			$("#dwCommonDialog input[name='setIsRequired']").prop("checked",true);
 		}
@@ -1514,6 +1522,7 @@ function showDialog(thDialogObj){
 			}
 		}
 
+    $("#dwCommonDialog .fileTypeExtsLi").hide();
 		//单选，多选，填空题情况下才启用关联到联系设置项
 		if((quType=="RADIO" || quType=="CHECKBOX" || quType=="FILLBLANK")){
 			if( contactsAttr==1){
@@ -1521,6 +1530,12 @@ function showDialog(thDialogObj){
 				$("#dwCommonDialog .contactsFieldLi").show();
 				$("#dwCommonDialog select[name='setContactsField']").val(contactsField);
 			}
+      if(quType == "CHECKBOX"){
+        $("#dwCommonDialog .minNumLi").show();
+        $("#dwCommonDialog .maxNumLi").show();
+        $("#dwCommonDialog .minNumLi input[name='minNum']").val(paramInt01.val());
+        $("#dwCommonDialog .maxNumLi input[name='maxNum']").val(paramInt02.val());
+      }
     } else if(quType==="UPLOADFILE"){
       // fileTypeExtsLi
       if(paramInt01[0]){
@@ -1925,10 +1940,13 @@ function saveCheckbox(quItemBody,callback){
 		var cellCount=quItemBody.find("input[name='cellCount']").val();
 		var contactsAttr=quItemBody.find("input[name='contactsAttr']").val();
 		var contactsField=quItemBody.find("input[name='contactsField']").val();
+    var paramInt01=quItemBody.find("input[name='paramInt01']").val();
+    var paramInt02=quItemBody.find("input[name='paramInt02']").val();
 
 		var data="belongId="+questionBelongId+"&orderById="+orderById+"&tag="+svTag+"&quType="+quType+"&quId="+quId;
 		data+="&isRequired="+isRequired+"&hv="+hv+"&randOrder="+randOrder+"&cellCount="+cellCount;
 		data+="&contactsAttr="+contactsAttr+"&contactsField="+contactsField;
+    data+="&paramInt01="+paramInt01+"&paramInt02="+paramInt02;
 
 		var quTitleSaveTag=quItemBody.find("input[name='quTitleSaveTag']").val();
 		if(quTitleSaveTag==0){

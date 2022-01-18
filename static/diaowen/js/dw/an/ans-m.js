@@ -407,6 +407,18 @@ function sww(){
           dwQuInputLabel.addClass("checked");
           thObj.addClass("active");
         }
+        var checkeds = quItemBody.find("input[type='checkbox']:checked");
+        var paramInt02 = quItemBody.find(".paramInt02").val();
+        if(paramInt02>0){
+          if(checkeds[0]&&checkeds.size()>paramInt02){
+            dwQuInputLabel.removeClass("checked");
+            thObj.find("input[type='checkbox']").prop("checked",false);
+            thObj.removeClass("active");
+            alert("最多只支持选择"+paramInt02+"项内容！");
+            return false;
+          }
+        }
+
         runlogic(thObj.find("input[type='checkbox']"));
       }else if("MULTIFILLBLANK"===quType){
 
@@ -954,11 +966,11 @@ function sww(){
         validateStatus=quItemBody.find("input[type='checkbox']:checked")[0];
         var paramInt01 = quItemBody.find(".paramInt01").val();
         if(paramInt01>0){
-          /*var checkeds = quItemBody.find("input[type='checkbox']:checked");
+          var checkeds = quItemBody.find("input[type='checkbox']:checked");
           if(checkeds[0]&&checkeds.size()<paramInt01){
             errorMsg = "请保证最少选择"+paramInt01+"项内容";
             validateStatus = false;
-          }*/
+          }
         }
         if(validateStatus){
 //					isNote checkType isRequiredFill

@@ -61,7 +61,7 @@
       </template>
     </dw-survey-dcs-wrapper>
 
-    <el-dialog title="导出答卷数据" :visible.sync="dialogFormVisible" append-to-body width="40%"  >
+    <el-dialog :visible.sync="dialogFormVisible" append-to-body title="导出答卷数据" width="40%" >
       <div style="line-height: 30px;">是否同时下载上传题的文件</div>
       <div style="color: grey;line-height: 30px;font-size: 12px;"><span>如果有上传题，选择压缩下载可能比较占用系统资源及时间，请在空闲时间压缩下载</span></div>
       <el-switch
