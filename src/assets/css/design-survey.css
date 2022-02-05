@@ -1,0 +1,222 @@
+.dw-design-container{
+  background: #E8E9EB;
+}
+.grid-content{
+  min-height: 36px;
+}
+#tools_wrap{
+  background: #D6DCE4;
+  padding-top:1px;
+  position: fixed;
+  z-index:200;
+  width: 100%;
+  box-shadow:  4px 1px 3px rgba(224, 229, 233, 0.44);
+  top: 60px;
+}
+#tools_wrap /deep/ .el-tabs__content{
+  padding: 0px;
+}
+.toolbars-contents{
+  background: #F7F7F7;
+  border-bottom: 1px solid #BCBCBC;
+}
+.toolbars-contents-body{
+  display: flex;
+}
+#tools_wrap /deep/ .el-tabs__header .el-tabs__item.is-active{
+  background: #F7F7F7;
+}
+.toolbars .toolbars-draggable{
+
+}
+.toolbars .toolbars-draggable-group{
+  display: flex;
+}
+.toolbars{
+  margin: 5px;
+}
+.toolbars .toolbar-item .dwToolbar_icon{
+  width: 50px;
+  height: 60px;
+  margin: 0px;
+  display:block;
+  padding: 0px;
+  text-align: center;
+}
+.toolbars .toolbar-item .dwToolbar_icon{
+  width: auto;
+  height: auto;
+  background: none;
+  font-size: 56px;
+  color: #001529;
+  color: #085097;
+}
+@media screen and (max-width: 2560px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 80px;
+  }
+}
+@media screen and (max-width: 1820px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 76px;
+  }
+}
+@media screen and (max-width: 1760px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 72px;
+  }
+}
+@media screen and (max-width: 1680px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 70px;
+  }
+}
+@media screen and (max-width: 1660px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 68px;
+  }
+}
+@media screen and (max-width: 1620px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 66px;
+  }
+}
+@media screen and (max-width: 1600px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 64px;
+  }
+}
+@media screen and (max-width: 1560px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 62px;
+  }
+}
+@media screen and (max-width: 1520px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 60px;
+  }
+}
+@media screen and (max-width: 1480px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 58px;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 56px;
+  }
+}
+@media screen and (max-width: 1400px) {
+  .toolbars ul li .dwToolbar_icon {
+    font-size: 54px;
+  }
+}
+@media screen and (max-width: 1360px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 52px;
+  }
+}
+@media screen and (max-width: 1320px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 50px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .toolbars .toolbar-item .dwToolbar_icon {
+    font-size: 48px;
+  }
+}
+.toolbars .toolbar-item:hover .dwToolbar_icon,.toolbars .toolbar-item.hover .dwToolbar_icon{
+  background-color: dodgerblue;
+  color: white;
+}
+.toolbars .toolbar-item .dwQuTypeModel{
+  display: none;
+}
+
+.toolbars .dragClass{
+  background-color: #eeeded !important;
+  /*opacity: 0.6 !important;*/
+  box-shadow:none !important;
+  outline:none !important;
+  background-image:none !important;
+}
+.toolbars .dragClass .toolbar-item-content{
+  display: none!important;
+}
+.toolbars .cloneQuRoot{
+  display: none;
+}
+.toolbars .dragClass .cloneQuRoot{
+  display: block!important;
+  width: 900px!important;
+  background-color: white !important;
+  border: 1px solid #cacad3;
+}
+.tools_item{
+  border-right: 1px dashed #C7C7C7;
+}
+.toolbars-text{
+  height: 20px;
+  background: #F1F2F4;
+  font-size: 12px;
+  font-family: "新宋体";
+  color: #707781;
+  line-height: 20px;
+  text-align: center;
+  padding: 3px 0px;
+  border-top: 1px dashed #C7C7C7;
+}
+
+
+.dw-container-body{
+
+}
+.dw-container-body-center{
+  background: white;
+}
+.quTools{
+  padding: 0px;
+  width: 40px;
+  text-align: center;
+}
+.quToolsItem{
+  margin: 5px;
+}
+.quItem{
+  display: flex;
+  padding: 10px 0px;
+}
+.quBody{
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.quTitle{
+  font-size: 16px;
+}
+.quOption{
+  padding: 6px 0px;
+  display: flex;
+  align-items:center;/*垂直居中*/
+  justify-content: center;/*水平居中*/
+}
+.quOption .optionInput{
+  margin-right: 10px;
+}
+.quOption .optionTitle{
+  font-size: 14px;
+  color: #333;
+}
+
+.dw-container-body /deep/ .el-radio{
+  /*margin-right: 0px;*/
+  cursor: text;
+}
+.dw-container-body /deep/ .el-radio__inner{
+  /*width: 18px;
+  height: 18px;*/
+}
+.dw-container-body /deep/ .el-radio__input.is-checked .el-radio__inner::after{
+  /*width: 6px;
+  height: 6px;*/
+}
