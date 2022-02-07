@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="m-logbg"><img src="http://localhost:8181/diaowen/images/style-model/login_bg/1.jpg" style="margin-top:0px; margin-left: 0px; opacity: 1;" width="100%" ></div>
+      <div class="m-logbg"></div>
     </div>
     <div>
       <el-row style="background-color: #34495e;opacity:0.85;" >
