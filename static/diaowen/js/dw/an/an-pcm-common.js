@@ -37,3 +37,7 @@ function checkAnswerSurvey(sid){
     }
   });
 }
+function refreshAutoCode(codeImgId){
+  var ctx = $("#ctx").val();
+  $("#"+codeImgId).attr("src",ctx+"/jcap/jcaptcha.do");
+}
