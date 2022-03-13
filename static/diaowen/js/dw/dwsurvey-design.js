@@ -3095,6 +3095,7 @@ function addQuDialogLogicTr(autoClass,trueCallback,falseCallback){
 					return false;
 				}
 			});
+      eachTag = true;
 			if(eachTag){
 				dwQuOptionSel.append("<option value='"+optionId+"'>"+optionText+"</option>");
 			}
