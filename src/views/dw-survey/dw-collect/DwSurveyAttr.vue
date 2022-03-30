@@ -109,10 +109,11 @@ export default {
         this.survey.surveyDetail.effective = resultData.surveyDetail.effective === 1
         this.survey.surveyDetail.effectiveIp = resultData.surveyDetail.effectiveIp === 1
         this.survey.surveyDetail.refresh = resultData.surveyDetail.refresh === 1
-        this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
+        this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 3
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.endNum = resultData.surveyDetail.endNum
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
+        this.survey.surveyDetail.ruleCode = resultData.surveyDetail.ruleCode
       })
     },
     onSubmit () {
@@ -123,11 +124,12 @@ export default {
         effective: surveyDetail.effective ? 1 : 0,
         effectiveIp: surveyDetail.effectiveIp ? 1 : 0,
         refresh: surveyDetail.refresh ? 1 : 0,
-        rule: surveyDetail.rule ? 1 : 0,
+        rule: surveyDetail.rule ? 3 : 0,
         ynEndNum: surveyDetail.ynEndNum ? 1 : 0,
         ynEndTime: surveyDetail.ynEndTime ? 1 : 0,
         endNum: surveyDetail.endNum,
-        endTime: surveyDetail.endTime
+        endTime: surveyDetail.endTime,
+        ruleCode: surveyDetail.ruleCode
       }
       console.log(data)
       dwSurveyUpdate(data).then((response) => {
