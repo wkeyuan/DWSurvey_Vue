@@ -38,6 +38,8 @@
                             <draggable
                               v-model="questions"
                               :group="{ name: 'people', pull: 'clone', put: false }"
+                              :sort="false"
+                              :forceFallback="true"
                               animation="300"
                               class="toolbars-draggable"
                               dragClass="dragClass"
@@ -233,7 +235,7 @@
                     </el-col>
                     <el-col :span="6">
                       <div style="text-align: right;padding-right: 10px;">
-                        <el-button type="primary" icon="el-icon-share">发布</el-button>
+                        <el-button type="primary" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
                         <el-button plain icon="el-icon-document-checked">保存</el-button>
                         <el-button plain icon="el-icon-view">预览</el-button>
                       </div>
@@ -248,10 +250,10 @@
           <div style="margin-top: 157px;" >
             <div class="dw-container-body">
               <el-row>
-                <el-col :span="5">
+                <el-col :span="4">
                   <div class="grid-content"></div>
                 </el-col>
-                <el-col :span="14">
+                <el-col :span="16">
                   <div class="dw-container-body-center">
                     <div style="min-height: 600px;">
                       <div style="text-align: center;padding: 20px;font-size: 22px;font-weight: bold;">问卷设计 Hello DWSurvey</div>
@@ -260,7 +262,80 @@
                       </div>
                       <div>
                         <div>
-                          <div class="quItem">
+                          <draggable
+                            v-model="survey.questions"
+                            :forceFallback="true"
+                            handle=".dwMoveSortQu"
+                            :group="{ name: 'people', pull: true, put: true }"
+                            animation="300"
+                            dragClass="dragClass"
+                            ghostClass="ghostClass"
+                            chosenClass="chosenClass"
+                            @start="onStart"
+                            @end="onEnd">
+                            <transition-group>
+                              <div v-for="(item, index) in survey.questions" :key="index" >
+                                <div v-if="item.quType === 'RADIO'">
+                                  <div v-if="item.hv === 4">
+                                    <div class="dw-question-body">
+                                      <div style="padding: 0px;">AAA</div>
+                                    </div>
+                                  </div>
+                                  <div v-else>
+                                    <dw-question-design></dw-question-design>
+                                  </div>
+                                </div>
+                                <div v-if="item.quType === 'CHECKBOX'">
+                                  <dw-question-design></dw-question-design>
+                                </div>
+                                <div v-if="item.quType === 'FILLBLANK'">
+                                  <div v-if="item.answerInputRow > 1">
+                                    <div class="dw-question-body">
+                                      <div><i class="dwMoveSortQu fa fa-arrows" aria-hidden="true"></i></div>
+                                      <div style="padding: 0px;">AAA</div>
+                                    </div>
+                                  </div>
+                                  <div v-else>
+                                    <div class="dw-question-body">
+                                      <div><i class="dwMoveSortQu fa fa-arrows" aria-hidden="true"></i></div>
+                                      <div style="padding: 0px;">AAA</div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div v-if="item.quType === 'SCORE'">
+                                  <div class="dw-question-body">
+                                    <div><i class="dwMoveSortQu fa fa-arrows" aria-hidden="true"></i></div>
+                                    <div style="padding: 0px;">AAA</div>
+                                  </div>
+                                </div>
+                                <div v-if="item.quType === 'ORDERQU'">
+                                  <div class="toolbar-item-content">
+                                    <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-paixu"></div>
+                                  </div>
+                                  <div class="cloneQuRoot">
+                                    <div style="padding: 0px;">AAA</div>
+                                  </div>
+                                </div>
+                                <div v-if="item.quType === 'MULTIFILLBLANK'">
+                                  <div class="toolbar-item-content">
+                                    <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangtiankong"></div>
+                                  </div>
+                                  <div class="cloneQuRoot">
+                                    <div style="padding: 0px;">AAA</div>
+                                  </div>
+                                </div>
+                                <div v-if="item.quType === 'UPLOADFILE'">
+                                  <div class="toolbar-item-content">
+                                    <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-shangchuan"></div>
+                                  </div>
+                                  <div class="cloneQuRoot">
+                                    <div style="padding: 0px;">AAA</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </transition-group>
+                          </draggable>
+<!--                          <div class="quItem">
                             <div class="quTools" >
                               <div style="display: none;">
                                 <div class="quToolsItem" style="margin-top: 0px;"><el-button icon="el-icon-rank" circle size="mini"></el-button></div>
@@ -286,67 +361,13 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="quItem">
-                            <div class="quTools">
-                              <div style="display: none;">
-                                <div class="quToolsItem" style="margin-top: 0px;"><el-button icon="el-icon-rank" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-s-tools" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-share" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-delete" circle size="mini"></el-button></div>
-                              </div>
-                            </div>
-                            <div class="quContent">
-                              <div class="quTitle" >2、题标题</div>
-                              <div class="quBody">
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="radio" /></div>
-                                  <div class="optionTitle">备选项1</div>
-                                </div>
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="radio" /></div>
-                                  <div class="optionTitle">备选项2</div>
-                                </div>
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="radio" /></div>
-                                  <div class="optionTitle">备选项3</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="quItem">
-                            <div class="quTools">
-                              <div style="display: none;">
-                                <div class="quToolsItem" style="margin-top: 0px;"><el-button icon="el-icon-rank" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-s-tools" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-share" circle size="mini"></el-button></div>
-                                <div class="quToolsItem"><el-button icon="el-icon-delete" circle size="mini"></el-button></div>
-                              </div>
-                            </div>
-                            <div class="quContent">
-                              <div class="quTitle" >3、题标题</div>
-                              <div class="quBody">
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="checkbox" /></div>
-                                  <div class="optionTitle">备选项1</div>
-                                </div>
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="checkbox" /></div>
-                                  <div class="optionTitle">备选项2</div>
-                                </div>
-                                <div class="quOption">
-                                  <div class="optionInput"><input type="checkbox" /></div>
-                                  <div class="optionTitle">备选项3</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          </div>-->
                         </div>
                       </div>
                     </div>
                   </div>
                 </el-col>
-                <el-col :span="5">
+                <el-col :span="4">
                   <div  class="grid-content"></div>
                 </el-col>
               </el-row>
@@ -362,10 +383,12 @@
 
 import draggable from 'vuedraggable'
 import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
+import DwQuestionDesign from './dw-design-survey-question/DwDesignQuestion'
 
 export default {
   name: 'DwDesignSurveyComp',
   components: {
+    DwQuestionDesign,
     draggable
   },
   data () {
@@ -374,7 +397,11 @@ export default {
       drag:false,
       headerQuToolbarStyle: '',
       questions: [],
-      radio: '1'
+      survey: {
+        questions: [{quType:'CHECKBOX'},{quType:'RADIO'}]
+      },
+      radio: '1',
+      hover: false
     }
   },
   mounted () {

@@ -18,6 +18,7 @@ import DwUserPwd from '@/views/dw-user/DwUserPwd'
 import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
 import DwDesignSurvey from '../views/dw-survey/dw-design/DwDesignSurvey'
+import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 
 Vue.use(Router)
 
@@ -115,6 +116,11 @@ export default new Router({
           path: '/dw-design/survey/:id',
           name: 'DwDesignSurvey',
           component: DwDesignSurvey
+        },
+        {
+          path: '/dw-design/survey1',
+          name: 'DwDesign',
+          component: DwDesign
         }
       ]
     },
