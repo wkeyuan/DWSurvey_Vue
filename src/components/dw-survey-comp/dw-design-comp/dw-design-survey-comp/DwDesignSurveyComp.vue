@@ -282,11 +282,11 @@
                                     </div>
                                   </div>
                                   <div v-else>
-                                    <dw-question-design></dw-question-design>
+                                    <dw-question-design-common></dw-question-design-common>
                                   </div>
                                 </div>
                                 <div v-if="item.quType === 'CHECKBOX'">
-                                  <dw-question-design></dw-question-design>
+                                  <dw-question-design-common></dw-question-design-common>
                                 </div>
                                 <div v-if="item.quType === 'FILLBLANK'">
                                   <div v-if="item.answerInputRow > 1">
@@ -383,12 +383,12 @@
 
 import draggable from 'vuedraggable'
 import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
-import DwQuestionDesign from './dw-design-survey-question/DwDesignQuestion'
+import DwQuestionDesignCommon from './dw-design-survey-question/DwDesignQuestionCommon'
 
 export default {
   name: 'DwDesignSurveyComp',
   components: {
-    DwQuestionDesign,
+    DwQuestionDesignCommon,
     draggable
   },
   data () {
