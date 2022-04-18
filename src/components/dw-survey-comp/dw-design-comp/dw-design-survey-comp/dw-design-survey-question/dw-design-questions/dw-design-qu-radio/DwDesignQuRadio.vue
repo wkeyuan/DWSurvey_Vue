@@ -1,5 +1,5 @@
 <template>
-  <dw-design-question-common :index="index" v-model:question="questionObj">
+  <dw-design-question-common :index="index" v-model="survey">
     <template v-slot:editQuContent>
       <dw-qu-option-common-type1></dw-qu-option-common-type1>
     </template>
@@ -14,17 +14,11 @@ export default {
   components: {DwQuOptionCommonType1, DwDesignQuestionCommon},
   props: {
     index: { type: Number, default: 0 },
-    question: { type: Object, default: () => {} },
+    survey: { type: Object, default: () => {} },
   },
-  computed: {
-    questionObj: {
-      get () {
-        return this.question
-      },
-      set (value) {
-        this.$emit('update:question', value)
-      }
-    }
+  model: {
+    prop: 'survey',
+    event: 'update-survey',
   }
 }
 </script>

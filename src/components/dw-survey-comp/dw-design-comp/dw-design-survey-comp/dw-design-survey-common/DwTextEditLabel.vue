@@ -2,7 +2,7 @@
   <div class="dwEditorRoot" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start">
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @click="focus=true" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="true" >ssss</div>
+        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="plaintext-only" >{{ valueObj }}</div>
       </div>
       <div class="dw-edit-toolbar">
         <div v-show=" hover || focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
@@ -16,9 +16,10 @@
         custom-class="edit-dialog-root"
         :append-to-body="true"
         :destroy-on-close="true"
-        :show-close="false"
+        :show-close="true"
         :close-on-click-modal="false"
-        :close-on-press-escape="false">
+        :close-on-press-escape="false"
+        @close="closeDialogCommon">
         <DwEditor></DwEditor>
         <span slot="footer" class="dialog-footer">
           <el-button @click="editDialogClose">取 消</el-button>
@@ -58,7 +59,8 @@ export default {
       editable: false,
       toolbar: [],
       toolbarStatus: false,
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      editorText: ''
     }
   },
   methods: {
@@ -75,6 +77,9 @@ export default {
       this.valueObj = e.target.innerHTML
       this.hover = false
       this.focus = false
+    },
+    inputEdit (e) {
+      this.valueObj = e.target.innerHTML
     },
     mouseleave () {
       this.hover = false

@@ -6,7 +6,7 @@
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
           <div v-show="hover" class="dw-display-flex-right">
             <el-tooltip class="item" effect="dark" content="复制本题" placement="top">
-              <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa fa-copy" aria-hidden="true"></i></div>
+              <div class="dw-question-toolbar dw-margin-right-10" ><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa fa-copy" aria-hidden="true"></i></div>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="向上移" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa el-icon-top" aria-hidden="true"></i></div>
@@ -50,7 +50,7 @@
                   <div v-show="hover">
                     <div class="dw-display-flex-left">
                       <el-tooltip class="item" effect="dark" content="添加选项" placement="left">
-                        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
+                        <div class="dw-question-toolbar dw-margin-right-10" @click="dwAddQuItem"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
                       </el-tooltip>
                       <el-tooltip class="item" effect="dark" content="批量添加选项" placement="right">
                         <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
@@ -91,17 +91,11 @@ export default {
         return { themeColor: 'red' }
       }
     },
-    question: { type: Object, default: () => {} }
+    survey: { type: Object, default: () => {} }
   },
-  computed: {
-    questionObj: {
-      get () {
-        return this.question
-      },
-      set (value) {
-        this.$emit('update:question', value)
-      }
-    }
+  model: {
+    prop: 'survey',
+    event: 'update-survey',
   },
   data () {
     return {
@@ -122,6 +116,11 @@ export default {
     },
     mouseoverItem () {
       this.itemHover = true
+    },
+    dwAddQuItem () {
+      this.survey.questions[this.index].quTitle = 'wooooooo'
+      this.survey.surveyNode = '更新问卷副标题备注'
+      this.$emit('update-question', this.survey)
     }
   }
 }
