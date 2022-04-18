@@ -37,19 +37,13 @@
         <div class="dw-question-body-center">
           <div class="dw-question-body-center-body" >
             <div class="dw-qu-content">
-              <div class="dw-qu-title-body">
-                <div>{{index+1}}、</div><div>请输入题目标题</div>
+              <div class="dw-qu-title-body dw-display-flex">
+                <div class="dw-qu-num">{{index+1}}、</div><div class="dw-flex-item-auto"><dw-text-edit-label v-model:value="quTitle" btn-size="15px"></dw-text-edit-label></div>
               </div>
               <div class="dw-qu-content-body">
 
                 <div class="dw-qu-content-body-content">
-
-                  <slot name="items" ></slot>
-
-                  <dw-qu-option-common-type1-item></dw-qu-option-common-type1-item>
-                  <dw-qu-option-common-type1-item></dw-qu-option-common-type1-item>
-                  <dw-qu-option-common-type1-item></dw-qu-option-common-type1-item>
-
+                  <slot name="editQuContent" ></slot>
                 </div>
 
                 <div class="dw-question-body-bottom dw-padding-top-10">
@@ -85,13 +79,35 @@
 <script>
 
 import DwQuOptionCommonType1Item from './dw-design-options/DwQuOptionCommonType1Item'
+import DwTextEditLabel from '../dw-design-survey-common/DwTextEditLabel'
 export default {
-  name: 'DwQuestionDesignCommon',
-  components: {DwQuOptionCommonType1Item},
+  name: 'DwDesignQuestionCommon',
+  components: {DwTextEditLabel, DwQuOptionCommonType1Item},
+  props: {
+    index: { type: Number, default: 0 },
+    options: {
+      type: Object,
+      default () {
+        return { themeColor: 'red' }
+      }
+    },
+    question: { type: Object, default: () => {} }
+  },
+  computed: {
+    questionObj: {
+      get () {
+        return this.question
+      },
+      set (value) {
+        this.$emit('update:question', value)
+      }
+    }
+  },
   data () {
     return {
       hover: false,
-      itemHover: false
+      itemHover: false,
+      quTitle: 'text'
     }
   },
   methods: {
@@ -112,6 +128,9 @@ export default {
 </script>
 
 <style scoped>
+.dw-question-root{
+  padding: 5px 0px;
+}
 .dw-question-top{
   height: 20px;
 }
@@ -121,10 +140,12 @@ export default {
   margin: 0px;
   display: grid;
   grid-template-columns: 40px auto 40px;
+  padding-top: 2px;
 }
 .dw-question-body-left,.dw-question-body-right{
   /*background: grey;*/
   text-align: center;
+  padding-top: 2px;
 }
 .dw-question-body-left{
 
@@ -169,12 +190,22 @@ export default {
   border: 1px solid #095aaa;
   background: #e5f5f5;
 }
+.dw-bg-white{
+  background-color: white;
+}
 .dw-question-body-center-body{
   color: #333;
 }
 
 .dw-qu-title-body{
-  display: inline-flex;
+  width: 100%;
+}
+.dw-qu-title-body .dw-qu-num{
+  min-width: 20px;
+  max-width: 60px;
+}
+.dw-flex-item-auto{
+  flex: auto;
 }
 
 .dw-question-body-bottom{

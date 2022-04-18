@@ -63,7 +63,9 @@
                                         <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-danxuan"></div>
                                       </div>
                                       <div class="cloneQuRoot">
-                                        <div style="padding: 0px;">AAA</div>
+                                        <div style="padding: 0px;">
+                                          AAA
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -257,8 +259,9 @@
                   <div class="dw-container-body-center">
                     <div style="min-height: 600px;">
                       <div style="text-align: center;padding: 20px;font-size: 22px;font-weight: bold;">问卷设计 Hello DWSurvey</div>
-                      <div style="padding: 20px 40px;">
-                        非常感谢您的参与！如有涉及个人信息，我们将严格保密。
+                      <div style="padding: 0px 40px;">
+<!--                        非常感谢您的参与！如有涉及个人信息，我们将严格保密。-->
+                        <dw-text-edit-label v-model:value="survey.surveyNode" btn-size="15px"></dw-text-edit-label>
                       </div>
                       <div>
                         <div>
@@ -282,11 +285,13 @@
                                     </div>
                                   </div>
                                   <div v-else>
-                                    <dw-question-design-common></dw-question-design-common>
+<!--                                    <dw-question-design-common></dw-question-design-common>-->
+                                    <dw-design-question :index="index" v-model:question="survey.questions[index]" ></dw-design-question>
                                   </div>
                                 </div>
                                 <div v-if="item.quType === 'CHECKBOX'">
-                                  <dw-question-design-common></dw-question-design-common>
+<!--                                  <dw-question-design-common></dw-question-design-common>-->
+                                  <dw-design-question :index="index" v-model:question="survey.questions[index]" ></dw-design-question>
                                 </div>
                                 <div v-if="item.quType === 'FILLBLANK'">
                                   <div v-if="item.answerInputRow > 1">
@@ -382,13 +387,15 @@
 <script>
 
 import draggable from 'vuedraggable'
-import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
-import DwQuestionDesignCommon from './dw-design-survey-question/DwDesignQuestionCommon'
+import {questionComps} from './api/dw-design-survey-api'
+import DwDesignQuestion from './dw-design-survey-question/DwDesignQuestion'
+import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
 
 export default {
   name: 'DwDesignSurveyComp',
   components: {
-    DwQuestionDesignCommon,
+    DwTextEditLabel,
+    DwDesignQuestion,
     draggable
   },
   data () {
@@ -398,6 +405,7 @@ export default {
       headerQuToolbarStyle: '',
       questions: [],
       survey: {
+        surveyNode: '非常感谢您的参与！如有涉及个人信息，我们将严格保密。',
         questions: [{quType:'CHECKBOX'},{quType:'RADIO'}]
       },
       radio: '1',
@@ -465,5 +473,13 @@ export default {
   font-weight: 400;
   font-size: 16px;
   vertical-align: top;
+}
+.dragClass{
+  border: 1px solid dodgerblue;
+  background: #f5f5f5;
+}
+.ghostClass{
+  background: #d0cfcf;
+  border: 1px dashed dodgerblue;
 }
 </style>

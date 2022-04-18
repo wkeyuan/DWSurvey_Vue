@@ -3,15 +3,16 @@
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
         <i class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o"></i>
-        <div :class="itemHover ? 'dw-input-focus':''" class="dw-input-default dw-qu-option-text">选项1</div>
+<!--        <div :class="itemHover ? 'dw-input-focus':''" class="dw-input-default dw-qu-option-text" contenteditable="true">选项1</div>-->
+        <dw-text-edit-label v-model:value="text" btn-size="15px"></dw-text-edit-label>
       </div>
     </div>
     <div v-show="itemHover" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
@@ -21,11 +22,14 @@
 </template>
 
 <script>
+import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 export default {
   name: 'DwQuOptionCommonType1Item',
+  components: {DwTextEditLabel},
   data () {
     return {
-      itemHover: false
+      itemHover: false,
+      text:'aaa',
     }
   },
   methods: {
@@ -53,6 +57,9 @@ export default {
 .dw-margin-right-10{
   margin-right: 10px;
 }
+.dw-margin-left-10{
+  margin-left: 10px;
+}
 .dw-display-flex{
   display: flex;
   align-items: center;
@@ -69,13 +76,6 @@ export default {
 }
 .dw-event-color{
   color: #095aaa;
-}
-.dw-input-default{
-  border: 1px solid transparent;
-}
-.dw-input-focus{
-  border: 1px solid #095aaa;
-  background: #e5f5f5;
 }
 .dw-margin-right-10{
   margin-right: 10px;
@@ -107,5 +107,13 @@ export default {
   /*margin:auto;*/
   width: 100%;
   padding: 6px;
+}
+
+.dw-input-default{
+  border: 1px solid transparent;
+}
+.dw-input-focus{
+  border: 1px solid #095aaa;
+  background: #e5f5f5;
 }
 </style>
