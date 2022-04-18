@@ -2,7 +2,7 @@
   <div class="dwEditorRoot" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start">
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="plaintext-only" >{{ valueObj }}</div>
+        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="plaintext-only" >{{value}}</div>
       </div>
       <div class="dw-edit-toolbar">
         <div v-show=" hover || focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
@@ -41,15 +41,9 @@ export default {
     value: { type: String, default: '' },
     btnSize: { type: String, default: '15px' }
   },
-  computed: {
-    valueObj: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('update:value', value)
-      }
-    }
+  model: {
+    prop: 'value',
+    event: 'update-input',
   },
   data () {
     return {
@@ -65,7 +59,8 @@ export default {
   },
   methods: {
     upText () {
-      this.valueObj = 'xxxxww'
+      this.value = 'xxxxww'
+      this.$emit('update-input', this.value)
     },
     showText () {
       this.isShow = true
@@ -74,12 +69,15 @@ export default {
       this.editable = true
     },
     blur (e) {
-      this.valueObj = e.target.innerHTML
+      this.value = e.target.innerHTML
       this.hover = false
       this.focus = false
+      this.$emit('update-input', this.value)
     },
     inputEdit (e) {
-      this.valueObj = e.target.innerHTML
+      this.value = e.target.innerHTML
+      this.$emit('update-input', this.value)
+      this.$refs.curEdit.focus()
     },
     mouseleave () {
       this.hover = false

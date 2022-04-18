@@ -38,7 +38,7 @@
           <div class="dw-question-body-center-body" >
             <div class="dw-qu-content">
               <div class="dw-qu-title-body dw-display-flex">
-                <div class="dw-qu-num">{{index+1}}、</div><div class="dw-flex-item-auto"><dw-text-edit-label v-model:value="quTitle" btn-size="15px"></dw-text-edit-label></div>
+                <div class="dw-qu-num">{{index+1}}、</div><div class="dw-flex-item-auto"><dw-text-edit-label v-model="survey.questions[index].quTitle" btn-size="15px"></dw-text-edit-label></div>
               </div>
               <div class="dw-qu-content-body">
 

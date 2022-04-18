@@ -1,6 +1,26 @@
 <template>
   <div>
-    <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    <div v-if="item.quType === 'RADIO'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'CHECKBOX'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'FILLBLANK'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'SCORE'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'ORDERQU'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'MULTIFILLBLANK'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
+    <div v-if="item.quType === 'UPLOADFILE'">
+      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+    </div>
   </div>
 </template>
 
@@ -13,11 +33,12 @@ export default {
   components: {DwDesignQuRadio},
   props: {
     index: { type: Number, default: 0 },
-    survey: { type: Object, default: () => { } },
+    item: { type: Object, default: () => { } },
+    survey: { type: Object, default: () => { } }
   },
   model: {
     prop: 'survey',
-    event: 'update-survey',
+    event: 'update-survey'
   }
 }
 </script>

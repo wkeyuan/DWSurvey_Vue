@@ -1,7 +1,7 @@
 <template>
   <div>
     <draggable
-      v-model="quOptions"
+      v-model="options"
       :forceFallback="true"
       handle=".dwMoveSortQuOption"
       :group="{ name: 'option', pull: false, put: false }"
@@ -12,8 +12,8 @@
       @start="onStart"
       @end="onEnd">
       <transition-group>
-        <div v-for="(item,index) in quOptions" :key="item.id" >
-          <dw-qu-option-common-type1-item></dw-qu-option-common-type1-item>
+        <div v-for="(item,optionIndex) in options" :key="item.id" >
+          <dw-qu-option-common-type1-item :index="optionIndex" :options="options" v-model="question" ></dw-qu-option-common-type1-item>
         </div>
       </transition-group>
     </draggable>
@@ -27,10 +27,18 @@ import draggable from 'vuedraggable'
 export default {
   name: 'DwQuOptionCommonType1',
   components: {DwQuOptionCommonType1Item,draggable},
+  props: {
+    index: { type: Number, default: 0 },
+    options: { type: Object, default: () => {} },
+    question: { type: Object, default: () => {} },
+  },
+  model: {
+    prop: 'question',
+    event: 'update-question'
+  },
   data () {
     return {
-      drag:false,
-      quOptions: [{id:'1'},{id:'2'}, {id:'3'}]
+      drag:false
     }
   },
   methods: {

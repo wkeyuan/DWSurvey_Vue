@@ -279,7 +279,7 @@
                             <transition-group>
                               <div v-for="(item, index) in survey.questions" :key="index" >
                                 <div>{{item.quTitle}}</div>
-                                <dw-design-question :index="index" v-model="survey"></dw-design-question>
+                                <dw-design-question :index="index" :item="item" v-model="survey"></dw-design-question>
                               </div>
                             </transition-group>
                           </draggable>
@@ -324,7 +324,10 @@ export default {
       questions: [],
       survey: {
         surveyNode: '非常感谢您的参与！如有涉及个人信息，我们将严格保密。',
-        questions: [{quTitle: 'aaaa',quType:'CHECKBOX'},{quTitle:'abc',quType:'RADIO'}]
+        questions: [
+          {quTitle: 'aaaa',quType:'CHECKBOX', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]},
+          {quTitle:'abc',quType:'RADIO', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]}
+        ]
       },
       radio: '1',
       hover: false

@@ -12,7 +12,7 @@
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+        <div @click="addOptionBefore" class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
@@ -26,6 +26,15 @@ import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 export default {
   name: 'DwQuOptionCommonType1Item',
   components: {DwTextEditLabel},
+  props: {
+    index: { type: Number, default: 0 },
+    options: { type: Object, default: () => {} },
+    question: { type: Object, default: () => {} },
+  },
+  model: {
+    prop: 'question',
+    event: 'update-question'
+  },
   data () {
     return {
       itemHover: false,
@@ -38,6 +47,11 @@ export default {
     },
     mouseoverItem () {
       this.itemHover = true
+    },
+    addOptionBefore () {
+      this.options.push({id:'5'})
+      this.question.quRadios = this.options;
+      this.$emit('update-question',this.question)
     }
   }
 }
