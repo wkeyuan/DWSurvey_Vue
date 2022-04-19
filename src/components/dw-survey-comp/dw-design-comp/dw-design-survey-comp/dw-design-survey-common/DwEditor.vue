@@ -18,7 +18,7 @@
         :mode="mode"
       />
       <Editor
-        style="height: 260px; overflow-y: hidden;"
+        style="height: 300px; overflow-y: hidden;"
         v-model="html"
         :defaultConfig="editorConfig"
         :mode="mode"
@@ -61,13 +61,14 @@ export default {
     },
     upEditHtml (htmlValue) {
       console.log('htmlValue',htmlValue)
-      if(htmlValue.indexOf('<p>')<=0){
+      if(htmlValue.indexOf('<p>')<0){
         const newHtml = htmlValue.split(/\n/).map(line => `<p>${line}</p>`).join('\n')
         console.log('newHtml',newHtml)
-        this.html = newHtml
+        // this.html = newHtml
       }else{
-        this.html = htmlValue
+        // this.html = htmlValue
       }
+      this.html = htmlValue
     },
     confirm () {
       this.html = '<p>模拟 Ajax 异步设置内容 HTML</p>'
@@ -79,7 +80,7 @@ export default {
       this.closeDialogCommon()
     },
     closeDialogCommon () {
-      this.$emit('upVisible',false, this.html)
+      this.$emit('upVisible',false, this.editor.getHtml())
     }
   },
   mounted() {

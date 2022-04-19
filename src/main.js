@@ -12,6 +12,7 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import './utils/dw-common'
 import 'font-awesome/css/font-awesome.min.css'
+import './assets/css/wangeditor/view.css'
 
 Vue.config.productionTip = false
 

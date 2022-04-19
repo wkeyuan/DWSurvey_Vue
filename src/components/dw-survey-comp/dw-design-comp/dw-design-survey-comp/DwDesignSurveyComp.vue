@@ -258,9 +258,10 @@
                 <el-col :span="16">
                   <div class="dw-container-body-center">
                     <div style="min-height: 600px;">
-                      <div style="text-align: center;padding: 20px;font-size: 22px;font-weight: bold;">问卷设计 Hello DWSurvey</div>
+                      <div style="text-align: center;padding: 20px;">
+                        <dw-text-edit-label v-model="survey.surveyName" btn-size="15px"></dw-text-edit-label>
+                      </div>
                       <div style="padding: 0px 40px;">
-<!--                        非常感谢您的参与！如有涉及个人信息，我们将严格保密。-->
                         <dw-text-edit-label v-model="survey.surveyNode" btn-size="15px"></dw-text-edit-label>
                       </div>
                       <div>
@@ -278,7 +279,6 @@
                             @end="onEnd">
                             <transition-group>
                               <div v-for="(item, index) in survey.questions" :key="index" >
-                                <div v-html="item.quTitle"></div>
                                 <dw-design-question :index="index" :item="item" v-model="survey"></dw-design-question>
                               </div>
                             </transition-group>
@@ -323,10 +323,12 @@ export default {
       headerQuToolbarStyle: '',
       questions: [],
       survey: {
-        surveyNode: '非常感谢您的参与！如有涉及个人信息，我们将严格保密。',
+        // font-size: 22px;font-weight: bold;
+        surveyName: '<h1>问卷设计 Hello DWSurvey</h1>',
+        surveyNode: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>',
         questions: [
-          {quTitle: 'aaaa',quType:'CHECKBOX', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]},
-          {quTitle:'abc',quType:'RADIO', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]}
+          {quTitle: '<p>aaaa</p>',quType:'CHECKBOX', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]},
+          {quTitle:'<p>abcd</p>',quType:'RADIO', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]}
         ]
       },
       radio: '1',
@@ -373,7 +375,6 @@ export default {
 <style scoped>
 @import '../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
 @import '../../../../assets/css/design-survey.css';
-
 
 .header .header-content-left{
   display: flex;
