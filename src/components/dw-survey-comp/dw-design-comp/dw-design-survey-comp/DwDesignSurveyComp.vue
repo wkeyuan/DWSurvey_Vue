@@ -261,7 +261,7 @@
                       <div style="text-align: center;padding: 20px;font-size: 22px;font-weight: bold;">问卷设计 Hello DWSurvey</div>
                       <div style="padding: 0px 40px;">
 <!--                        非常感谢您的参与！如有涉及个人信息，我们将严格保密。-->
-                        <dw-text-edit-label v-model:value="survey.surveyNode" btn-size="15px"></dw-text-edit-label>
+                        <dw-text-edit-label v-model="survey.surveyNode" btn-size="15px"></dw-text-edit-label>
                       </div>
                       <div>
                         <div>
@@ -278,7 +278,7 @@
                             @end="onEnd">
                             <transition-group>
                               <div v-for="(item, index) in survey.questions" :key="index" >
-                                <div>{{item.quTitle}}</div>
+                                <div v-html="item.quTitle"></div>
                                 <dw-design-question :index="index" :item="item" v-model="survey"></dw-design-question>
                               </div>
                             </transition-group>

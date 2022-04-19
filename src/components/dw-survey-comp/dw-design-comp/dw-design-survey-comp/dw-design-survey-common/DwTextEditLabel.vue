@@ -2,30 +2,14 @@
   <div class="dwEditorRoot" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start">
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="plaintext-only" >{{value}}</div>
+        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue" contenteditable="plaintext-only" v-html="editorText" ></div>
       </div>
       <div class="dw-edit-toolbar">
         <div v-show=" hover || focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
       </div>
     </div>
     <div>
-      <el-dialog
-        title="高级编辑器"
-        :visible.sync="centerDialogVisible"
-        width="70%"
-        custom-class="edit-dialog-root"
-        :append-to-body="true"
-        :destroy-on-close="true"
-        :show-close="true"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
-        @close="closeDialogCommon">
-        <DwEditor></DwEditor>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="editDialogClose">取 消</el-button>
-          <el-button type="primary" @click="editConfirm">确 定</el-button>
-        </span>
-      </el-dialog>
+      <DwEditor ref="curDwEditor" @upVisible="upVisible" :center-dialog-visible="centerDialogVisible" :value-html="value" ></DwEditor>
     </div>
   </div>
 </template>
@@ -54,10 +38,25 @@ export default {
       toolbar: [],
       toolbarStatus: false,
       centerDialogVisible: false,
-      editorText: ''
+      editorText: this.value
+    }
+  },
+  watch: {
+    value () {
+      // 解决光标跳动
+      if (!this.focus) {
+        // this.editorText = this.value
+      }
     }
   },
   methods: {
+    upVisible (visible,html) {
+      this.centerDialogVisible = visible
+      this.focus = true
+      this.editorText = html
+      // this.$emit('update-input', html)
+      this.$refs.curEdit.focus()
+    },
     upText () {
       this.value = 'xxxxww'
       this.$emit('update-input', this.value)
@@ -69,15 +68,14 @@ export default {
       this.editable = true
     },
     blur (e) {
-      this.value = e.target.innerHTML
+      // this.value = e.target.innerHTML
       this.hover = false
       this.focus = false
-      this.$emit('update-input', this.value)
+      this.$emit('update-input', e.target.innerHTML)
     },
     inputEdit (e) {
-      this.value = e.target.innerHTML
-      this.$emit('update-input', this.value)
-      this.$refs.curEdit.focus()
+      // this.value = e.target.innerHTML
+      this.$emit('update-input', e.target.innerHTML)
     },
     mouseleave () {
       this.hover = false
@@ -88,6 +86,7 @@ export default {
     },
     addToolbar () {
       this.centerDialogVisible = true
+      this.$refs.curDwEditor.upEditHtml(this.value)
       if (this.toolbar.length > 0) {
         this.toolbar = []
         this.focus = false
@@ -102,17 +101,6 @@ export default {
         this.toolbarStatus = true
         // this.$refs.curEdit.focus()
       }
-    },
-    editDialogClose () {
-      this.closeDialogCommon()
-    },
-    editConfirm () {
-      this.closeDialogCommon()
-    },
-    closeDialogCommon () {
-      this.centerDialogVisible = false
-      this.focus = true
-      this.$refs.curEdit.focus()
     }
   }
 }
@@ -170,6 +158,13 @@ export default {
   padding: 10px;
 }
 /deep/ .edit-dialog-root.el-dialog .el-dialog__body{
+  padding: 0px;
+}
+/deep/ .edit-dialog-root.el-dialog .el-dialog__headerbtn{
+  top: 13px;
+}
+/deep/ p{
+  margin: 0px;
   padding: 0px;
 }
 </style>
