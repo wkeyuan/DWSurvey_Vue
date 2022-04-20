@@ -2,10 +2,10 @@
   <div class="dwEditorRoot" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start">
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="hover || focus ? 'dw-input-focus':'dwEditRoot'" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" contenteditable="plaintext-only" v-html="editorText" ></div>
+        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="focus ? 'dw-input-focus':'dwEditRoot' " class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" contenteditable="plaintext-only" v-html="editorText" ></div>
       </div>
       <div class="dw-edit-toolbar">
-        <div v-show=" hover || focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
+        <div v-show=" focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
       </div>
     </div>
     <div>
