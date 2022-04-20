@@ -64,10 +64,12 @@
           </div>
         </div>
         <div class="dw-question-body-right">
-          <div v-show="false">
-            <div class="dw-question-toolbar"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-copy" aria-hidden="true"></i></div>
-            <div class="dw-question-toolbar"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-top" aria-hidden="true"></i></div>
-            <div class="dw-question-toolbar"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-bottom" aria-hidden="true"></i></div>
+          <div v-show="hover">
+            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-clipboard" aria-hidden="true"></i></div>
+            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrow-up" aria-hidden="true"></i></div>
+            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrow-down" aria-hidden="true"></i></div>
+<!--            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-top" aria-hidden="true"></i></div>-->
+<!--            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-bottom" aria-hidden="true"></i></div>-->
           </div>
         </div>
       </div>
@@ -132,6 +134,7 @@ export default {
 }
 .dw-question-top{
   height: 20px;
+  display: none;
 }
 .dw-question-body{
   padding: 0px;

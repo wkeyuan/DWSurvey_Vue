@@ -220,3 +220,10 @@
   /*width: 6px;
   height: 6px;*/
 }
+
+.dw-container-body-lr{
+  position: relative;
+  z-index:200;
+  box-shadow:  4px 1px 3px rgba(224, 229, 233, 0.44);
+  top: 0px;
+}

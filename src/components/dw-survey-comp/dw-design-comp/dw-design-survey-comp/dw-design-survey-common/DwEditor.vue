@@ -77,10 +77,10 @@ export default {
       this.closeDialogCommon()
     },
     editConfirm () {
-      this.closeDialogCommon()
+      this.$emit('upHtmlValue', this.editor.getHtml())
     },
     closeDialogCommon () {
-      this.$emit('upVisible',false, this.editor.getHtml())
+      this.$emit('upVisible',false)
     }
   },
   mounted() {
@@ -99,6 +99,9 @@ export default {
 </script>
 
 <style scoped>
+/deep/ .w-e-text-container [data-slate-editor]{
+  padding-top: 5px;
+}
 /deep/ p{
   margin: 0px!important;
   padding: 0px!important;

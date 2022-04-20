@@ -11,11 +11,11 @@
       chosenClass="chosenClass"
       @start="onStart"
       @end="onEnd">
-      <transition-group>
-        <div v-for="(item,optionIndex) in options" :key="item.id" >
-          <dw-qu-option-common-type1-item :index="optionIndex" :question="question" v-model="options" ></dw-qu-option-common-type1-item>
+      <div class="dw-grid">
+        <div v-for="(item,optionIndex) in options" :key="item.id" style="width: 100%;" >
+          <dw-qu-option-common-type1-item :index="optionIndex" :question="question" v-model="options" :is-toolbar="false" ></dw-qu-option-common-type1-item>
         </div>
-      </transition-group>
+      </div>
     </draggable>
   </div>
 </template>
@@ -25,7 +25,7 @@ import DwQuOptionCommonType1Item from './DwQuOptionCommonType1Item'
 import draggable from 'vuedraggable'
 
 export default {
-  name: 'DwQuOptionCommonType1',
+  name: 'DwQuOptionCommonType2',
   components: {DwQuOptionCommonType1Item,draggable},
   props: {
     index: { type: Number, default: 0 },
@@ -63,5 +63,14 @@ export default {
 .ghostClass{
   background: #d0cfcf;
   border: 1px dashed dodgerblue;
+}
+.dw-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto,1fr));
+  grid-gap: 10px;
+  align-items: center;
+  align-content: center;
+  justify-items: start;
+  justify-content: start;
 }
 </style>

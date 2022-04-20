@@ -1,13 +1,13 @@
 <template>
-  <div class="dw-qu-item" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+  <div class="dw-qu-item" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" :style="isToolbar?'grid-template-columns: auto 90px;':'grid-template-columns: auto 0px;'" >
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
         <i class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o"></i>
 <!--        <div :class="itemHover ? 'dw-input-focus':''" class="dw-input-default dw-qu-option-text" contenteditable="true">选项1</div>-->
-        <dw-text-edit-label v-model:value="text" btn-size="15px"></dw-text-edit-label>
+        <dw-text-edit-label v-model="options[index].optionTitle" btn-size="15px"></dw-text-edit-label>
       </div>
     </div>
-    <div v-show="itemHover" class="dw-qu-item-toolbar dw-display-flex-right" >
+    <div v-show="itemHover && isToolbar" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
       </el-tooltip>
@@ -27,13 +27,14 @@ export default {
   name: 'DwQuOptionCommonType1Item',
   components: {DwTextEditLabel},
   props: {
+    isToolbar: { type: Boolean, default: true },
     index: { type: Number, default: 0 },
     options: { type: Object, default: () => {} },
     question: { type: Object, default: () => {} },
   },
   model: {
-    prop: 'question',
-    event: 'update-question'
+    prop: 'options',
+    event: 'update-options'
   },
   data () {
     return {
@@ -49,9 +50,9 @@ export default {
       this.itemHover = true
     },
     addOptionBefore () {
-      this.options.push({id:'5'})
-      this.question.quRadios = this.options;
-      this.$emit('update-question',this.question)
+      this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
+      // this.question.quRadios = this.options;
+      this.$emit('update-options',this.options)
     }
   }
 }

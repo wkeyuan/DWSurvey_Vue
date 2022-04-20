@@ -1,7 +1,7 @@
 <template>
   <dw-design-question-common :index="index" v-model="survey">
     <template v-slot:editQuContent>
-      <dw-qu-option-common-type1 :options="survey.questions[index].quRadios" v-model="survey.questions[index]" ></dw-qu-option-common-type1>
+      <dw-qu-option-common-type1 v-model="survey.questions[index].quRadios" :question="survey.questions[index]" ></dw-qu-option-common-type1>
     </template>
   </dw-design-question-common>
 </template>

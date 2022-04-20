@@ -9,7 +9,7 @@
       </div>
     </div>
     <div>
-      <DwEditor ref="curDwEditor" @upVisible="upVisible" :center-dialog-visible="centerDialogVisible" :value-html="value" ></DwEditor>
+      <DwEditor ref="curDwEditor" @upVisible="upVisible" @upHtmlValue="upHtmlValue" :center-dialog-visible="centerDialogVisible" :value-html="value" ></DwEditor>
     </div>
   </div>
 </template>
@@ -50,11 +50,15 @@ export default {
     }
   },
   methods: {
-    upVisible (visible,html) {
+    upVisible (visible) {
       this.centerDialogVisible = visible
       this.focus = true
+      this.$refs.curEdit.focus()
+    },
+    upHtmlValue (html) {
       this.editorText = html
-      // this.$emit('update-input', html)
+      this.centerDialogVisible = false
+      this.focus = true
       this.$refs.curEdit.focus()
     },
     upText () {

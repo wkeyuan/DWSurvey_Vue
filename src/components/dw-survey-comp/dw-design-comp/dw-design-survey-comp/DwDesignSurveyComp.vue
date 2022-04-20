@@ -249,11 +249,37 @@
               <el-tab-pane label="常用题库">常用题库</el-tab-pane>
             </el-tabs>
           </div>
-          <div style="margin-top: 157px;" >
+          <div style="margin-top: 157px;margin-bottom: 30px;" >
             <div class="dw-container-body">
-              <el-row>
+              <el-row :gutter="10">
                 <el-col :span="4">
-                  <div class="grid-content"></div>
+                  <div :style="containerLRStyle" class="dw-container-body-center-left dw-container-body-lr">
+                    <el-tabs type="border-card">
+                      <el-tab-pane label="大纲">目录</el-tab-pane>
+                      <el-tab-pane label="题库">
+                        <el-collapse accordion>
+                          <el-collapse-item title="联系人" name="1">
+                            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+                            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                          </el-collapse-item>
+                          <el-collapse-item title="满意度" name="2">
+                            <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
+                            <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+                          </el-collapse-item>
+                          <el-collapse-item title="市场调研" name="3">
+                            <div>简化流程：设计简洁直观的操作流程；</div>
+                            <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
+                            <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                          </el-collapse-item>
+                          <el-collapse-item title="疫情防控" name="4">
+                            <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
+                            <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                          </el-collapse-item>
+                        </el-collapse>
+                      </el-tab-pane>
+                      <!--                      <el-tab-pane label="选项">选项属性</el-tab-pane>-->
+                    </el-tabs>
+                  </div>
                 </el-col>
                 <el-col :span="16">
                   <div class="dw-container-body-center">
@@ -285,11 +311,19 @@
                           </draggable>
                         </div>
                       </div>
+                      <div style="padding: 10px 20px;text-align: center;">
+                      </div>
                     </div>
                   </div>
                 </el-col>
                 <el-col :span="4">
-                  <div  class="grid-content"></div>
+                  <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
+                    <el-tabs type="border-card">
+                      <el-tab-pane label="问卷">问卷属性</el-tab-pane>
+                      <el-tab-pane label="题目">题目属性</el-tab-pane>
+<!--                      <el-tab-pane label="选项">选项属性</el-tab-pane>-->
+                    </el-tabs>
+                  </div>
                 </el-col>
               </el-row>
             </div>
@@ -321,14 +355,15 @@ export default {
       surveyId: '',
       drag:false,
       headerQuToolbarStyle: '',
+      containerLRStyle: '',
       questions: [],
       survey: {
         // font-size: 22px;font-weight: bold;
-        surveyName: '<h1>问卷设计 Hello DWSurvey</h1>',
+        surveyName: '<h1>Hello DWSurvey</h1>',
         surveyNode: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>',
         questions: [
-          {quTitle: '<p>aaaa</p>',quType:'CHECKBOX', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]},
-          {quTitle:'<p>abcd</p>',quType:'RADIO', quRadios: [{id:'1'},{id:'2'}, {id:'3'}]}
+          {quTitle: '<p>aaaa</p>',quType:'CHECKBOX', quRadios: [{id:'1',optionTitle:'<p>aa</p>'},{id:'2',optionTitle:'<p>bb</p>'}, {id:'3',optionTitle:'<p>cc</p>'}]},
+          {quTitle:'<p>abcd</p>',quType:'RADIO', quRadios: [{id:'1',optionTitle:'<p>dd</p>'},{id:'2',optionTitle:'<p>ee</p>'}, {id:'3',optionTitle:'<p>ff</p>'}]}
         ]
       },
       radio: '1',
@@ -363,9 +398,12 @@ export default {
       const headerHeight = 60
       if (scrollTop >= headerHeight) {
         this.headerQuToolbarStyle = 'top:0px;'
+        const newTop1 = scrollTop - headerHeight
+        this.containerLRStyle = `top:${newTop1}px;`
       } else {
         const newTop = headerHeight - scrollTop
         this.headerQuToolbarStyle = `top:${newTop}px;`
+        this.containerLRStyle = 'top:0px;'
       }
     }
   }

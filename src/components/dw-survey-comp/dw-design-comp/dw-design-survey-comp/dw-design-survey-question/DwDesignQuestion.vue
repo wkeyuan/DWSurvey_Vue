@@ -4,7 +4,7 @@
       <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
     </div>
     <div v-if="item.quType === 'CHECKBOX'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+      <dw-design-qu-checkbox :index="index" v-model="survey" ></dw-design-qu-checkbox>
     </div>
     <div v-if="item.quType === 'FILLBLANK'">
       <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
@@ -27,10 +27,11 @@
 <script>
 
 import DwDesignQuRadio from './dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
+import DwDesignQuCheckbox from './dw-design-questions/dw-design-qu-checkbox/DwDesignQuCheckbox'
 
 export default {
   name: 'DwDesignQuestion',
-  components: {DwDesignQuRadio},
+  components: {DwDesignQuCheckbox, DwDesignQuRadio},
   props: {
     index: { type: Number, default: 0 },
     item: { type: Object, default: () => { } },

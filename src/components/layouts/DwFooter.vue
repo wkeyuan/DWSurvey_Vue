@@ -54,6 +54,7 @@ export default {
   line-height: 30px;
   padding-top: 0px;
   padding-bottom: 20px;
+  background: #E8E9EB;
 }
 .dw-footer-main a{
   text-decoration: none;
