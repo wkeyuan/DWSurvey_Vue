@@ -1,6 +1,6 @@
 <template>
-  <div class="dw-qu-item" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <div v-show="itemHover" class="dw-qu-item-toolbar" >
+  <div class="dw-qu-item" @click="clickItem" @focusout="blurItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+    <div v-show="itemClick" class="dw-qu-item-toolbar" >
       <div class="dw-display-grid">
         <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
         <div @click="addOptionBefore" class="dw-question-toolbar"><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>

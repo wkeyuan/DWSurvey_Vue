@@ -1,5 +1,5 @@
 <template>
-  <div class="dw-design-container">
+  <div class="dw-design-container" @click="documentClick">
     <el-container>
       <el-header class="header" style="">
         <el-row type="flex" justify="space-between" align="middle" >
@@ -405,6 +405,9 @@ export default {
         this.headerQuToolbarStyle = `top:${newTop}px;`
         this.containerLRStyle = 'top:0px;'
       }
+    },
+    documentClick () {
+      
     }
   }
 }

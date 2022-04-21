@@ -1,11 +1,11 @@
 <template>
-  <div class="dwEditorRoot" @mouseover="mouseover" @mouseleave="mouseleave" >
-    <div class="dw-flex dw-items-start">
+  <div class="dwEditorRoot" @click="focus=true" @focusout.self="focusout" @mouseover="mouseover" @mouseleave="mouseleave" >
+    <div class="dw-flex dw-items-start" >
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @click="focus=true" @input="inputEdit" @blur="blur" :class="focus ? 'dw-input-focus':'dwEditRoot' " class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" contenteditable="plaintext-only" v-html="editorText" ></div>
+        <div ref="curEdit" @input="inputEdit" :class="[focus ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" contenteditable="plaintext-only" v-html="editorText" ></div>
       </div>
-      <div class="dw-edit-toolbar">
-        <div v-show=" focus " class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
+      <div class="dw-edit-toolbar" >
+        <div v-show=" focus " @click="addToolbar" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" ><i class="fa fa-align-left"></i></div>
       </div>
     </div>
     <div>
@@ -73,8 +73,6 @@ export default {
     },
     blur (e) {
       // this.value = e.target.innerHTML
-      this.hover = false
-      this.focus = false
       this.$emit('update-input', e.target.innerHTML)
     },
     inputEdit (e) {
@@ -83,28 +81,20 @@ export default {
     },
     mouseleave () {
       this.hover = false
-      this.toolbar = []
+      // this.toolbar = []
     },
     mouseover () {
       this.hover = true
     },
+    focusout () {
+      this.hover = false
+      this.focus = false
+    },
     addToolbar () {
       this.centerDialogVisible = true
       this.$refs.curDwEditor.upEditHtml(this.value)
-      if (this.toolbar.length > 0) {
-        this.toolbar = []
-        this.focus = false
-        this.hover = false
-        this.toolbarStatus = false
-      } else {
-        this.toolbar = [
-          ['bold', 'italic', 'strike', 'underline'],
-          ['upload', 'save']
-        ]
-        this.focus = true
-        this.toolbarStatus = true
-        // this.$refs.curEdit.focus()
-      }
+      this.focus = true
+      this.toolbarStatus = true
     }
   }
 }
@@ -135,6 +125,9 @@ export default {
   border: 1px solid #095aaa;
   background: #f6f8f8;
   outline-width: 1px;
+}
+.dw-input-hover{
+  background: #f6f8f8;
 }
 .dw-flex{
   display: flex;
