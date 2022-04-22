@@ -1,7 +1,7 @@
 <template>
   <div class="grid-content">
     <div class="quContent">
-      <div class="quTitle" >{{quNum}}、题标题</div>
+      <div class="quTitle" >{{ quNum }}、题标题</div>
       <div class="quBody">
         <el-radio-group v-model="radio">
           <el-radio :label="3">备选项</el-radio>
@@ -17,16 +17,16 @@
 export default {
   name: 'QuRedio',
   props: {
-    quNum: {type: String, default: ''},
+    quNum: {type: String, default: ''}
   },
-  data() {
+  data () {
     return {
       radio: 3
     }
   },
   methods: {
     clickText (id) {
-      this.$emit('show-text-editor',id)
+      this.$emit('show-text-editor', id)
     }
   }
 }

@@ -26,7 +26,7 @@
       </el-header>
       <el-main style="padding: 0px;">
         <div>
-          <div :style="headerQuToolbarStyle" id="tools_wrap" >
+          <div id="tools_wrap" :style="headerQuToolbarStyle" >
             <el-tabs type="border-card">
               <el-tab-pane label="常用题型" style="padding: 0px;">
                 <div class="toolbars-contents">
@@ -39,16 +39,16 @@
                               v-model="questions"
                               :group="{ name: 'people', pull: 'clone', put: false }"
                               :sort="false"
-                              :forceFallback="true"
+                              :force-fallback="true"
                               animation="300"
                               class="toolbars-draggable"
-                              dragClass="dragClass"
-                              ghostClass="ghostClass"
-                              chosenClass="chosenClass"
+                              drag-class="dragClass"
+                              ghost-class="ghostClass"
+                              chosen-class="chosenClass"
                               @start="onStart"
                               @end="onEnd">
                               <transition-group class="toolbars-draggable-group">
-                                <div class="toolbar-item" v-for="(item, index) in questions" :key="index" >
+                                <div v-for="(item, index) in questions" :key="`base${index}`" class="toolbar-item" >
                                   <div v-if="item.quType === 'RADIO'">
                                     <div v-if="item.hv === 4">
                                       <div class="toolbar-item-content">
@@ -142,13 +142,13 @@
                               :group="{ name: 'people', pull: 'clone', put: false }"
                               animation="300"
                               class="toolbars-draggable"
-                              dragClass="dragClass"
-                              ghostClass="ghostClass"
-                              chosenClass="chosenClass"
+                              drag-class="dragClass"
+                              ghost-class="ghostClass"
+                              chosen-class="chosenClass"
                               @start="onStart"
                               @end="onEnd">
                               <transition-group class="toolbars-draggable-group">
-                                <div class="toolbar-item" v-for="(item, index) in questions" :key="index" >
+                                <div v-for="(item, index) in questions" :key="`base2${index}`" class="toolbar-item" >
                                   <div v-if="item.quType === 'RADIO'">
                                     <div v-if="item.hv === 4">
                                       <div class="toolbar-item-content">
@@ -285,27 +285,27 @@
                   <div class="dw-container-body-center">
                     <div style="min-height: 600px;">
                       <div style="text-align: center;padding: 20px;">
-                        <dw-text-edit-label v-model="survey.surveyName" btn-size="15px"></dw-text-edit-label>
+                        <dw-text-edit-label-common v-model="survey.surveyName" :survey="survey" ></dw-text-edit-label-common>
                       </div>
                       <div style="padding: 0px 40px;">
-                        <dw-text-edit-label v-model="survey.surveyNode" btn-size="15px"></dw-text-edit-label>
+                        <dw-text-edit-label-common v-model="survey.surveyNode" :survey="survey" ></dw-text-edit-label-common>
                       </div>
                       <div>
                         <div>
                           <draggable
                             v-model="survey.questions"
-                            :forceFallback="true"
-                            handle=".dwMoveSortQu"
+                            :force-fallback="true"
                             :group="{ name: 'people', pull: true, put: true }"
+                            handle=".dwMoveSortQu"
                             animation="300"
-                            dragClass="dragClass"
-                            ghostClass="ghostClass"
-                            chosenClass="chosenClass"
+                            drag-class="dragClass"
+                            ghost-class="ghostClass"
+                            chosen-class="chosenClass"
                             @start="onStart"
                             @end="onEnd">
                             <transition-group>
-                              <div v-for="(item, index) in survey.questions" :key="index" >
-                                <dw-design-question :index="index" :item="item" v-model="survey"></dw-design-question>
+                              <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+                                <dw-design-question :index="index" :item="item" v-model="survey" ></dw-design-question>
                               </div>
                             </transition-group>
                           </draggable>
@@ -321,7 +321,6 @@
                     <el-tabs type="border-card">
                       <el-tab-pane label="问卷">问卷属性</el-tab-pane>
                       <el-tab-pane label="题目">题目属性</el-tab-pane>
-<!--                      <el-tab-pane label="选项">选项属性</el-tab-pane>-->
                     </el-tabs>
                   </div>
                 </el-col>
@@ -341,10 +340,12 @@ import {questionComps} from './api/dw-design-survey-api'
 import DwDesignQuestion from './dw-design-survey-question/DwDesignQuestion'
 import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from './dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
+import DwTextEditLabelCommon from './dw-design-survey-common/DwTextEditLabelCommon'
 
 export default {
   name: 'DwDesignSurveyComp',
   components: {
+    DwTextEditLabelCommon,
     DwDesignQuRadio,
     DwTextEditLabel,
     DwDesignQuestion,
@@ -353,7 +354,7 @@ export default {
   data () {
     return {
       surveyId: '',
-      drag:false,
+      drag: false,
       headerQuToolbarStyle: '',
       containerLRStyle: '',
       questions: [],
@@ -362,9 +363,11 @@ export default {
         surveyName: '<h1>Hello DWSurvey</h1>',
         surveyNode: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>',
         questions: [
-          {quTitle: '<p>aaaa</p>',quType:'CHECKBOX', quRadios: [{id:'1',optionTitle:'<p>aa</p>'},{id:'2',optionTitle:'<p>bb</p>'}, {id:'3',optionTitle:'<p>cc</p>'}]},
-          {quTitle:'<p>abcd</p>',quType:'RADIO', quRadios: [{id:'1',optionTitle:'<p>dd</p>'},{id:'2',optionTitle:'<p>ee</p>'}, {id:'3',optionTitle:'<p>ff</p>'}]}
-        ]
+          {quTitle: '<p>aaaa</p>', quType: 'CHECKBOX', quRadios: [{id: '1', optionTitle: '<p>aa</p>', itemClick: false}, {id: '2', optionTitle: '<p>bb</p>', itemClick: false}, {id: '3', optionTitle: '<p>cc</p>', itemClick: false}]},
+          {quTitle: '<p>abcd</p>', quType: 'RADIO', quRadios: [{id: '1', optionTitle: '<p>dd</p>', itemClick: false}, {id: '2', optionTitle: '<p>ee</p>', itemClick: false}, {id: '3', optionTitle: '<p>ff</p>', itemClick: false}]}
+        ],
+        surveyTest: '',
+        curEditObj: [{itemClick: false}]
       },
       radio: '1',
       hover: false
@@ -375,13 +378,11 @@ export default {
     window.addEventListener('scroll', this.onScroll)
   },
   methods: {
-    //开始拖拽事件
-    onStart(){
-      this.drag=true;
+    onStart () {
+      this.drag=true
     },
-    //拖拽结束事件
-    onEnd() {
-      this.drag=false;
+    onEnd () {
+      this.drag=false
     },
     loadDesignSurveyData () {
       questionComps().then((response) => {
@@ -407,7 +408,11 @@ export default {
       }
     },
     documentClick () {
-      
+      // this.survey.curEditObj = false
+      const curObjs = this.survey.curEditObj
+      for (let i = 0; i < curObjs.length; i++) {
+        this.survey.curEditObj[i].itemClick = false
+      }
     }
   }
 }

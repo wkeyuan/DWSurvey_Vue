@@ -1,7 +1,7 @@
 <template>
   <div class="grid-content">
     <div class="quContent">
-      <div class="quTitle">{{quNum}}、题标题</div>
+      <div class="quTitle">{{ quNum }}、题标题</div>
       <div class="quBody">
         <el-select v-model="value" placeholder="请选择">
           <el-option
@@ -20,9 +20,9 @@
 export default {
   name: 'QuSelect',
   props: {
-    quNum: {type: String, default: ''},
+    quNum: {type: String, default: ''}
   },
-  data() {
+  data () {
     return {
       options: [{
         value: '选项1',
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     clickText (id) {
-      this.$emit('show-text-editor',id)
+      this.$emit('show-text-editor', id)
     }
   }
 }

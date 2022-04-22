@@ -1,5 +1,5 @@
 <template>
-  <div id="dwCommonEditRoot" class="editorContent" :style="textEditorVisible">
+  <div id="dwCommonEditRoot" :style="textEditorVisible" class="editorContent" >
     <div class="dwEditor" contenteditable="true" @keydown="keydown" ></div>
   </div>
 </template>
@@ -8,44 +8,44 @@
 
 import $ from 'jquery'
 
-const cityOptions = ['上海', '北京', '广州', '深圳'];
+const cityOptions = ['上海', '北京', '广州', '深圳']
 
 export default {
   name: 'DwTextEditor',
   props: {
-    quNum: {type: String, default: ''},
+    quNum: {type: String, default: ''}
   },
-  data() {
+  data () {
     return {
       checkAll: false,
       checkedCities: ['上海', '北京'],
       cities: cityOptions,
       isIndeterminate: true,
       textEditorVisible: '',
-      domId: '',
-    };
+      domId: ''
+    }
   },
   methods: {
     showEditor (id) {
       // this.textEditorVisible = "display: block"
-      const idObj = $(`#${id}`);
-      const offset = idObj.offset();
+      const idObj = $(`#${id}`)
+      const offset = idObj.offset()
       console.debug('dwoffset')
       console.debug(offset)
-      $("#dwCommonEditRoot").show()
-      $("#dwCommonEditRoot").offset({top:offset.top, left:offset.left});
-      $("#dwCommonEditRoot").width(idObj.width()+30)
-      $("#dwCommonEditRoot").height(idObj.outerHeight())
-      $("#dwCommonEditRoot .dwEditor").focus();
-      this.domId = id;
+      $('#dwCommonEditRoot').show()
+      $('#dwCommonEditRoot').offset({top: offset.top, left: offset.left})
+      $('#dwCommonEditRoot').width(idObj.width()+30)
+      $('#dwCommonEditRoot').height(idObj.outerHeight())
+      $('#dwCommonEditRoot .dwEditor').focus()
+      this.domId = id
     },
     hideEditor () {
       // this.textEditorVisible = 'display: none'
       console.debug('this.curDomId')
-      $("#dwCommonEditRoot").hide()
+      $('#dwCommonEditRoot').hide()
     },
     getText () {
-      return $("#dwCommonEditRoot").text()
+      return $('#dwCommonEditRoot').text()
     },
     keydown () {
       this.$emit('set-edit-text')

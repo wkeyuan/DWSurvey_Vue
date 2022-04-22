@@ -1,5 +1,5 @@
 <template>
-  <div class="quOptionContent" :id="`${domId}`" :style="active" @click.stop="clickText(`${domId}`)" @mouseover="mouseover" @mouseleave="mouseleave">{{content}}</div>
+  <div :id="`${domId}`" :style="active" class="quOptionContent" @click.stop="clickText(`${domId}`)" @mouseover="mouseover" @mouseleave="mouseleave" >{{ content }}</div>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ export default {
   name: 'QuOptions',
   props: {
     domId: {type: String, default: ''},
-    oldContent: {type: String, default: ''},
+    oldContent: {type: String, default: ''}
   },
   data () {
     return {
@@ -17,13 +17,13 @@ export default {
   },
   methods: {
     mouseleave () {
-      this.active = '';
+      this.active = ''
     },
     mouseover () {
       this.active = 'background-color: #FDF9CD;'
     },
     clickText (id) {
-      this.$emit('show-text-editor',id)
+      this.$emit('show-text-editor', id)
     },
     text2Div (content) {
       console.debug('text2Divcontent')

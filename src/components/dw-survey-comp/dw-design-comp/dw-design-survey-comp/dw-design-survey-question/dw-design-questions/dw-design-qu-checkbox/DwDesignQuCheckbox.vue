@@ -1,25 +1,24 @@
 <template>
   <dw-design-question-common :index="index" v-model="survey">
     <template v-slot:editQuContent>
-      <dw-qu-option-common-type2 v-model="survey.questions[index].quRadios" :question="survey.questions[index]" ></dw-qu-option-common-type2>
+      <dw-qu-checkbox-options v-model="survey" :index="index" ></dw-qu-checkbox-options>
     </template>
   </dw-design-question-common>
 </template>
 
 <script>
-import DwQuOptionCommonType1 from '../../dw-design-options/DwQuOptionCommonType1'
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
-import DwQuOptionCommonType2 from '../../dw-design-options/DwQuOptionCommonType2'
+import DwQuCheckboxOptions from './components/DwQuCheckboxOptions'
 export default {
   name: 'DwDesignQuCheckbox',
-  components: {DwQuOptionCommonType2, DwQuOptionCommonType1, DwDesignQuestionCommon},
-  props: {
-    index: { type: Number, default: 0 },
-    survey: { type: Object, default: () => {} },
-  },
+  components: {DwQuCheckboxOptions, DwDesignQuestionCommon},
   model: {
     prop: 'survey',
-    event: 'update-survey',
+    event: 'update-survey'
+  },
+  props: {
+    index: {type: Number, default: 0},
+    survey: {type: Object, default: () => {}}
   }
 }
 </script>

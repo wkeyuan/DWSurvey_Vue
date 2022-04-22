@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dw-question-root"  @mouseover="mouseover" @mouseleave="mouseleave">
+    <div class="dw-question-root" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-top" >
         <div class="">
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
@@ -38,7 +38,10 @@
           <div class="dw-question-body-center-body" >
             <div class="dw-qu-content">
               <div class="dw-qu-title-body dw-display-flex">
-                <div class="dw-qu-num">{{index+1}}、</div><div class="dw-flex-item-auto"><dw-text-edit-label v-model="survey.questions[index].quTitle" btn-size="15px"></dw-text-edit-label></div>
+                <div class="dw-qu-num">{{ index+1 }}、</div>
+                <div class="dw-flex-item-auto">
+                  <dw-text-edit-label-common v-model="survey.questions[index].quTitle" :survey="survey" ></dw-text-edit-label-common>
+                </div>
               </div>
               <div class="dw-qu-content-body">
 
@@ -68,8 +71,8 @@
             <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-clipboard" aria-hidden="true"></i></div>
             <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrow-up" aria-hidden="true"></i></div>
             <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrow-down" aria-hidden="true"></i></div>
-<!--            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-top" aria-hidden="true"></i></div>-->
-<!--            <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-bottom" aria-hidden="true"></i></div>-->
+            <!--<div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-top" aria-hidden="true"></i></div>-->
+            <!--<div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-bottom" aria-hidden="true"></i></div>-->
           </div>
         </div>
       </div>
@@ -80,24 +83,24 @@
 
 <script>
 
-import DwQuOptionCommonType1Item from './dw-design-options/DwQuOptionCommonType1Item'
 import DwTextEditLabel from '../dw-design-survey-common/DwTextEditLabel'
+import DwTextEditLabelCommon from '../dw-design-survey-common/DwTextEditLabelCommon'
 export default {
   name: 'DwDesignQuestionCommon',
-  components: {DwTextEditLabel, DwQuOptionCommonType1Item},
+  components: {DwTextEditLabelCommon, DwTextEditLabel},
+  model: {
+    prop: 'survey',
+    event: 'update-survey'
+  },
   props: {
-    index: { type: Number, default: 0 },
+    index: {type: Number, default: 0},
     options: {
       type: Object,
       default () {
-        return { themeColor: 'red' }
+        return {themeColor: 'red'}
       }
     },
-    survey: { type: Object, default: () => {} }
-  },
-  model: {
-    prop: 'survey',
-    event: 'update-survey',
+    survey: {type: Object, default: () => {}}
   },
   data () {
     return {

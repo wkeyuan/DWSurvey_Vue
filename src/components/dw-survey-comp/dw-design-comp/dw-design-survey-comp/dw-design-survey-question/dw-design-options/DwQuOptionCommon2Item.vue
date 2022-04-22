@@ -1,17 +1,16 @@
 <template>
-  <div class="dw-qu-item" @click="clickItem" @focusout="blurItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <div v-show="itemClick" class="dw-qu-item-toolbar" >
+  <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar" >
       <div class="dw-display-grid">
         <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
-        <div @click="addOptionBefore" class="dw-question-toolbar"><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar" @click="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
         <div class="dw-question-toolbar"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
       </div>
     </div>
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
         <i class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o"></i>
-<!--        <div :class="itemHover ? 'dw-input-focus':''" class="dw-input-default dw-qu-option-text" contenteditable="true">选项1</div>-->
-        <dw-text-edit-label v-model="options[index].optionTitle" btn-size="15px" ></dw-text-edit-label>
+        <dw-text-edit-label v-model="options[optionIndex].optionTitle" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
     </div>
   </div>
@@ -20,31 +19,40 @@
 <script>
 import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 export default {
-  name: 'DwQuOptionCommonType2Item',
+  name: 'DwQuOptionCommon2Item',
   components: {DwTextEditLabel},
   props: {
-    isToolbar: { type: Boolean, default: true },
-    index: { type: Number, default: 0 },
-    options: { type: Object, default: () => {} },
-    question: { type: Object, default: () => {} },
-  },
-  model: {
-    prop: 'options',
-    event: 'update-options'
+    optionIndex: {type: Number, default: 0},
+    options: {type: Array, default: () => []},
+    survey: {type: Object, default: () => {}}
   },
   data () {
     return {
       itemHover: false,
       itemClick: false,
-      text:'aaa',
+      itemIndex: 0
     }
   },
   methods: {
     clickItem () {
-      this.itemClick = true
+      if (this.itemIndex === 0) {
+        this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
+      }
+      this.survey.curEditObj[this.itemIndex].itemClick = true
+      const curObjs = this.survey.curEditObj
+      for (let i = 0; i < curObjs.length; i++) {
+        if (i !== this.itemIndex) {
+          this.survey.curEditObj[i].itemClick = false
+        }
+      }
+      // this.$emit('update-survey',this.survey)
     },
-    blurItem () {
-      this.itemClick = false
+    upItemClick (visible) {
+      if (this.itemIndex === 0) {
+        this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
+      }
+      this.survey.curEditObj[this.itemIndex].itemClick = true
+      // this.$emit('update-survey',this.survey)
     },
     mouseleaveItem () {
       this.itemHover = false
@@ -53,9 +61,12 @@ export default {
       this.itemHover = true
     },
     addOptionBefore () {
-      this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
+      // this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
       // this.question.quRadios = this.options;
-      this.$emit('update-options',this.options)
+      // this.$emit('update-survey',this.options)
+    },
+    upValue (html) {
+      // 此处使用了引用类型可以不传更新
     }
   }
 }

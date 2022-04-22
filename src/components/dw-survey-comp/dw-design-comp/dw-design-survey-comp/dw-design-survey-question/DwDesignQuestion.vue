@@ -32,14 +32,14 @@ import DwDesignQuCheckbox from './dw-design-questions/dw-design-qu-checkbox/DwDe
 export default {
   name: 'DwDesignQuestion',
   components: {DwDesignQuCheckbox, DwDesignQuRadio},
-  props: {
-    index: { type: Number, default: 0 },
-    item: { type: Object, default: () => { } },
-    survey: { type: Object, default: () => { } }
-  },
   model: {
     prop: 'survey',
     event: 'update-survey'
+  },
+  props: {
+    index: {type: Number, default: 0},
+    item: {type: Object, default: () => {}},
+    survey: {type: Object, default: () => {}}
   }
 }
 </script>

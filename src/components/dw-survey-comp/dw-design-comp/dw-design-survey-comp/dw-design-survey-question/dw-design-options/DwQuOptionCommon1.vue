@@ -1,19 +1,19 @@
 <template>
   <div>
     <draggable
-      v-model="options"
-      :forceFallback="true"
-      handle=".dwMoveSortQuOption"
+      v-model="dragOptions"
+      :force-fallback="true"
       :group="{ name: 'option', pull: false, put: false }"
+      handle=".dwMoveSortQuOption"
       animation="300"
-      dragClass="dragClass"
-      ghostClass="ghostClass"
-      chosenClass="chosenClass"
+      drag-class="dragClass"
+      ghost-class="ghostClass"
+      chosen-class="chosenClass"
       @start="onStart"
       @end="onEnd">
       <transition-group>
         <div v-for="(item,optionIndex) in options" :key="item.id" >
-          <dw-qu-option-common-type1-item :index="optionIndex" :question="question" v-model="options" ></dw-qu-option-common-type1-item>
+          <dw-qu-option-common1-item :options="options" :survey="survey" :option-index="optionIndex" ></dw-qu-option-common1-item>
         </div>
       </transition-group>
     </draggable>
@@ -21,35 +21,34 @@
 </template>
 
 <script>
-import DwQuOptionCommonType1Item from './DwQuOptionCommonType1Item'
 import draggable from 'vuedraggable'
+import DwQuOptionCommon1Item from './DwQuOptionCommon1Item'
 
 export default {
-  name: 'DwQuOptionCommonType1',
-  components: {DwQuOptionCommonType1Item,draggable},
-  props: {
-    index: { type: Number, default: 0 },
-    options: { type: Object, default: () => {} },
-    question: { type: Object, default: () => {} },
-  },
+  name: 'DwQuOptionCommon1',
+  components: {DwQuOptionCommon1Item, draggable},
   model: {
     prop: 'options',
     event: 'update-options'
   },
+  props: {
+    index: {type: Number, default: 0},
+    options: {type: Array, default: () => []},
+    survey: {type: Object, default: () => {}}
+  },
   data () {
     return {
-      drag:false
+      dragOptions: this.options,
+      drag: false
     }
   },
   methods: {
-    //开始拖拽事件
     onStart () {
-      this.drag = true;
+      this.drag = true
     },
-    //拖拽结束事件
     onEnd () {
-      console.debug('drag',this.drag)
       this.drag = false
+      this.$emit('update-options', this.dragOptions)
     }
   }
 }

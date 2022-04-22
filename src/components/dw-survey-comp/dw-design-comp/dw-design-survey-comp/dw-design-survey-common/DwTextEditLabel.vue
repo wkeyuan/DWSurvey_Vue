@@ -1,15 +1,15 @@
 <template>
-  <div class="dwEditorRoot" @click="focus=true" @focusout.self="focusout" @mouseover="mouseover" @mouseleave="mouseleave" >
+  <div class="dwEditorRoot" @click="editClick" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start" >
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" @input="inputEdit" :class="[focus ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" contenteditable="plaintext-only" v-html="editorText" ></div>
+        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @input="inputEdit" v-html="editorText" ></div>
       </div>
       <div class="dw-edit-toolbar" >
-        <div v-show=" focus " @click="addToolbar" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" ><i class="fa fa-align-left"></i></div>
+        <div v-show="itemClick" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
       </div>
     </div>
     <div>
-      <DwEditor ref="curDwEditor" @upVisible="upVisible" @upHtmlValue="upHtmlValue" :center-dialog-visible="centerDialogVisible" :value-html="value" ></DwEditor>
+      <DwEditor ref="curDwEditor" :center-dialog-visible="centerDialogVisible" @upVisible="upVisible" @upHtmlValue="upHtmlValue" ></DwEditor>
     </div>
   </div>
 </template>
@@ -21,80 +21,53 @@ import DwEditor from './DwEditor'
 export default {
   name: 'DwTextEditLabel',
   components: {DwEditor},
-  props: {
-    value: { type: String, default: '' },
-    btnSize: { type: String, default: '15px' }
-  },
   model: {
     prop: 'value',
-    event: 'update-input',
+    event: 'update-input'
+  },
+  props: {
+    value: {type: String, default: ''},
+    itemClick: {type: Boolean, default: false},
+    btnSize: {type: String, default: '15px'}
   },
   data () {
     return {
-      isShow: false,
       hover: false,
-      focus: false,
-      editable: false,
-      toolbar: [],
-      toolbarStatus: false,
-      centerDialogVisible: false,
-      editorText: this.value
-    }
-  },
-  watch: {
-    value () {
-      // 解决光标跳动
-      if (!this.focus) {
-        // this.editorText = this.value
-      }
+      editorText: this.value,
+      centerDialogVisible: false
     }
   },
   methods: {
     upVisible (visible) {
       this.centerDialogVisible = visible
-      this.focus = true
       this.$refs.curEdit.focus()
     },
     upHtmlValue (html) {
       this.editorText = html
       this.centerDialogVisible = false
-      this.focus = true
-      this.$refs.curEdit.focus()
-    },
-    upText () {
-      this.value = 'xxxxww'
-      this.$emit('update-input', this.value)
-    },
-    showText () {
-      this.isShow = true
+      // this.$refs.curEdit.focus()
+      this.$emit('update-input', html)
+      this.$emit('upValue', html)
     },
     editClick () {
-      this.editable = true
-    },
-    blur (e) {
-      // this.value = e.target.innerHTML
-      this.$emit('update-input', e.target.innerHTML)
+      if (!this.itemClick) this.$emit('upItemClick', true)
     },
     inputEdit (e) {
-      // this.value = e.target.innerHTML
       this.$emit('update-input', e.target.innerHTML)
+      this.$emit('upValue', e.target.innerHTML)
     },
     mouseleave () {
       this.hover = false
-      // this.toolbar = []
     },
     mouseover () {
       this.hover = true
     },
     focusout () {
       this.hover = false
-      this.focus = false
     },
     addToolbar () {
       this.centerDialogVisible = true
       this.$refs.curDwEditor.upEditHtml(this.value)
-      this.focus = true
-      this.toolbarStatus = true
     }
   }
 }
