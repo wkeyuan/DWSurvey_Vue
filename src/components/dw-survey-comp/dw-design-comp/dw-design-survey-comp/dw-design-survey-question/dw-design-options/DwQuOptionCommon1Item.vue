@@ -43,12 +43,7 @@ export default {
         this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       }
       this.survey.curEditObj[this.itemIndex].itemClick = true
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) {
-        if (i !== this.itemIndex) {
-          this.survey.curEditObj[i].itemClick = false
-        }
-      }
+      this.upAllItemClick()
       // this.$emit('update-survey',this.survey)
     },
     upItemClick (visible) {
@@ -57,6 +52,14 @@ export default {
       }
       this.survey.curEditObj[this.itemIndex].itemClick = true
       // this.$emit('update-survey',this.survey)
+    },
+    upAllItemClick () {
+      const curObjs = this.survey.curEditObj
+      for (let i = 0; i < curObjs.length; i++) {
+        if (i !== this.itemIndex) {
+          this.survey.curEditObj[i].itemClick = false
+        }
+      }
     },
     mouseleaveItem () {
       this.itemHover = false

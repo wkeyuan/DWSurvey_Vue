@@ -20,7 +20,7 @@
       <Editor
         v-model="html"
         :default-config="editorConfig"
-        :auto-focus="true"
+        :auto-focus="false"
         :mode="mode"
         style="height: 300px; overflow-y: hidden;"
         @onCreated="onCreated"
