@@ -26,6 +26,7 @@
       </el-header>
       <el-main style="padding: 0px;">
         <div>
+
           <div id="tools_wrap" :style="headerQuToolbarStyle" >
             <el-tabs type="border-card">
               <el-tab-pane label="常用题型" style="padding: 0px;">
@@ -249,7 +250,9 @@
               <el-tab-pane label="常用题库">常用题库</el-tab-pane>
             </el-tabs>
           </div>
+
           <div style="margin-top: 157px;margin-bottom: 30px;" >
+
             <div class="dw-container-body">
               <el-row :gutter="10">
                 <el-col :span="4">
@@ -326,6 +329,7 @@
                 </el-col>
               </el-row>
             </div>
+
           </div>
         </div>
       </el-main>
@@ -336,7 +340,7 @@
 <script>
 
 import draggable from 'vuedraggable'
-import {questionComps} from './api/dw-design-survey-api'
+import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
 import DwDesignQuestion from './dw-design-survey-question/DwDesignQuestion'
 import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from './dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
@@ -388,6 +392,15 @@ export default {
       questionComps().then((response) => {
         console.debug('response')
         console.debug(response)
+        const httpResult = response.data
+        if (httpResult.resultCode === 200) {
+          this.questions = httpResult.data
+        }
+      })
+      const surveyId = this.$route.params.id
+      const params = {surveyId}
+      querySurveyAll(params).then((response) => {
+        console.debug('querySurveyAll',response)
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
           this.questions = httpResult.data

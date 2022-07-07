@@ -7,10 +7,7 @@ export function questionComps () {
   })
 }
 
-export function querySurveyAll (surveyId) {
-  const params = {
-    surveyId
-  }
+export function querySurveyAll (params) {
   return request({
     url: '/api/dwsurvey/anon/response/design/survey-design/surveyAll.do',
     method: 'post',
