@@ -1,5 +1,7 @@
 <template>
-  <dw-design-top-bottom-layout></dw-design-top-bottom-layout>
+  <div>
+    <dw-design-top-bottom-layout></dw-design-top-bottom-layout>
+  </div>
 </template>
 
 <script>

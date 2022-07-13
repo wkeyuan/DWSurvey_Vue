@@ -17,6 +17,12 @@
                         <el-button type="primary" icon="el-icon-share">收集</el-button>
                         <el-button type="primary" icon="el-icon-delete">统计</el-button>
                       </el-button-group>-->
+        <el-switch
+          v-model="switchValue"
+          active-text="左右"
+          inactive-text="上下">
+        </el-switch>
+
       </div>
     </el-col>
   </el-row>
@@ -24,7 +30,12 @@
 
 <script>
 export default {
-  name: 'DwDesignHeader'
+  name: 'DwDesignHeader',
+  data () {
+    return {
+      switchValue: '上下'
+    }
+  }
 }
 </script>
 

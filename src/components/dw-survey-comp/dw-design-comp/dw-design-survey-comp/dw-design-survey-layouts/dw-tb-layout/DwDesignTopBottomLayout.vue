@@ -71,6 +71,7 @@ export default {
       drag: false,
       headerQuToolbarStyle: '',
       containerLRStyle: '',
+      lrContentHeight: '',
       questions: [],
       survey: {
         surveyName: '<h1>Hello DWSurvey</h1>',
@@ -122,11 +123,19 @@ export default {
       if (scrollTop >= headerHeight) {
         this.headerQuToolbarStyle = 'top:0px;'
         const newTop1 = scrollTop - headerHeight
+        const lrHeight = window.innerHeight - (157) - 10
+        console.debug('lrHeight',lrHeight)
         this.containerLRStyle = `top:${newTop1}px;`
+        // height:${lrHeight}px;
+        this.lrContentHeight = lrHeight;
       } else {
         const newTop = headerHeight - scrollTop
         this.headerQuToolbarStyle = `top:${newTop}px;`
-        this.containerLRStyle = 'top:0px;'
+        console.debug('window.innerHeight',window.innerHeight)
+        const lrHeight = window.innerHeight - (157+newTop) - 10
+        this.containerLRStyle = `top:0px;`
+        // height:${lrHeight}px;
+        this.lrContentHeight = lrHeight;
       }
     },
     documentClick () {
@@ -171,5 +180,9 @@ export default {
 .ghostClass{
   background: #d0cfcf;
   border: 1px dashed dodgerblue;
+}
+.dw-container-body-lr{
+  background-color: white;
+  overflow-y: scroll;
 }
 </style>

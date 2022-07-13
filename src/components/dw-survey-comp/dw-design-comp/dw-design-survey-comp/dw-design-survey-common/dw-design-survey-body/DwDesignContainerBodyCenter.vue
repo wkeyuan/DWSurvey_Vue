@@ -31,6 +31,7 @@
       <div style="padding: 10px 20px;text-align: center;">
       </div>
     </div>
+    <div style=""><dw-footer></dw-footer></div>
   </div>
 </template>
 
@@ -42,10 +43,12 @@ import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions
 import DwTextEditLabel from '../DwTextEditLabel'
 import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import draggable from 'vuedraggable'
+import DwFooter from '../../../../../layouts/DwFooter'
 
 export default {
   name: 'DwDesignContainerBodyCenter',
   components: {
+    DwFooter,
     DwDesignToolbar,
     DwDesignHeader,
     DwTextEditLabelCommon,

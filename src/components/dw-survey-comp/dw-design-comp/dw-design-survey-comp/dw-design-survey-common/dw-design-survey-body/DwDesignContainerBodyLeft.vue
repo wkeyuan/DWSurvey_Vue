@@ -1,7 +1,48 @@
 <template>
   <div>
     <el-tabs type="border-card">
-      <el-tab-pane label="大纲">目录</el-tab-pane>
+      <el-tab-pane label="大纲">
+        <div :style="contentStyle" style="overflow-y: scroll;">
+          <el-collapse>
+            <el-collapse-item title="第1页" name="1">
+              <ul class="dw_left_ul">
+                <li>Q1、您的姓名</li>
+                <li>Q2、您的姓名</li>
+                <li>Q3、您的姓名</li>
+                <li>Q4、您的姓名</li>
+                <li>Q5、您的姓名</li>
+              </ul>
+            </el-collapse-item>
+            <el-collapse-item title="第2页" name="2">
+              <ul class="dw_left_ul">
+                <li>Q6、您的姓名</li>
+                <li>Q7、您的姓名</li>
+                <li>Q8、您的姓名</li>
+                <li>Q9、您的姓名</li>
+                <li>Q10、您的姓名</li>
+              </ul>
+            </el-collapse-item>
+            <el-collapse-item title="第3页" name="3">
+              <ul class="dw_left_ul">
+                <li>Q11、您的姓名</li>
+                <li>Q12、您的姓名</li>
+                <li>Q13、您的姓名</li>
+                <li>Q14、您的姓名</li>
+                <li>Q15、您的姓名</li>
+              </ul>
+            </el-collapse-item>
+            <el-collapse-item title="第4页" name="4">
+              <ul class="dw_left_ul">
+                <li>Q16、您的姓名</li>
+                <li>Q17、您的姓名</li>
+                <li>Q18、您的姓名</li>
+                <li>Q19、您的姓名</li>
+                <li>Q20、您的姓名</li>
+              </ul>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
+      </el-tab-pane>
       <el-tab-pane label="题库">
         <el-collapse accordion>
           <el-collapse-item title="联系人" name="1">
@@ -30,10 +71,47 @@
 
 <script>
 export default {
-  name: 'DwDesignContainerBodyLeft'
+  name: 'DwDesignContainerBodyLeft',
+  data () {
+    return {
+      contentStyle : ''
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  methods: {
+    onScroll () {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      const headerHeight = 60
+      if (scrollTop >= headerHeight) {
+        const lrHeight = window.innerHeight - (157+60) - 20
+        this.contentStyle = `height:${lrHeight}px;`
+      } else {
+        const newTop = headerHeight - scrollTop
+        const lrHeight = window.innerHeight - (157+60+newTop) - 20
+        this.contentStyle = `height:${lrHeight}px;`
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+.dw_left_ul{
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.dw_left_ul li{
+  padding: 0px 5px;
+  margin: 0px;
+}
+/deep/ .el-collapse-item__header{
+  height: 38px;
+  line-height: 38px;
+}
+/deep/ .el-collapse-item__content{
+  padding-bottom: 10px;
+}
 </style>

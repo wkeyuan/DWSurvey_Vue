@@ -52,7 +52,7 @@ export default {
   font-size: 12px;
   color: grey;
   line-height: 30px;
-  padding-top: 0px;
+  padding-top: 20px;
   padding-bottom: 20px;
   background: #E8E9EB;
 }
