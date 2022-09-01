@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-design-top-bottom-layout></dw-design-top-bottom-layout>
+    <dw-design-top-bottom-layout v-model="survey"></dw-design-top-bottom-layout>
   </div>
 </template>
 
@@ -24,6 +24,13 @@ export default {
     DwDesignQuestion,
     draggable
   },
+  model: {
+    prop: 'survey',
+    event: 'update-survey'
+  },
+  props: {
+    survey: {type: Object, default: () => {}}
+  },
   data () {
     return {
       surveyId: '',
@@ -31,17 +38,6 @@ export default {
       headerQuToolbarStyle: '',
       containerLRStyle: '',
       questions: [],
-      survey: {
-        // font-size: 22px;font-weight: bold;
-        surveyName: '<h1>Hello DWSurvey</h1>',
-        surveyNode: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>',
-        questions: [
-          {quTitle: '<p>aaaa</p>', quType: 'CHECKBOX', quRadios: [{id: '1', optionTitle: '<p>aa</p>', itemClick: false}, {id: '2', optionTitle: '<p>bb</p>', itemClick: false}, {id: '3', optionTitle: '<p>cc</p>', itemClick: false}]},
-          {quTitle: '<p>abcd</p>', quType: 'RADIO', quRadios: [{id: '1', optionTitle: '<p>dd</p>', itemClick: false}, {id: '2', optionTitle: '<p>ee</p>', itemClick: false}, {id: '3', optionTitle: '<p>ff</p>', itemClick: false}]}
-        ],
-        surveyTest: '',
-        curEditObj: [{itemClick: false}]
-      },
       radio: '1',
       hover: false
     }

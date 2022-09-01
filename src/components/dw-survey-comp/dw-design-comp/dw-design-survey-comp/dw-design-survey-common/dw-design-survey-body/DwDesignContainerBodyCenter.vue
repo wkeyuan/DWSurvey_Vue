@@ -87,5 +87,12 @@ export default {
 </script>
 
 <style scoped>
-
+.dragClass{
+  border: 1px solid dodgerblue;
+  background: #f5f5f5;
+}
+.ghostClass{
+  background: #d0cfcf;
+  border: 1px dashed dodgerblue;
+}
 </style>
