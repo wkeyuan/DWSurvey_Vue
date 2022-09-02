@@ -3,7 +3,7 @@
     <el-tabs type="border-card">
       <el-tab-pane label="大纲">
         <div :style="contentStyle" style="overflow-y: scroll;">
-          <el-collapse>
+<!--          <el-collapse>
             <el-collapse-item title="第1页" name="1">
               <ul class="dw_left_ul">
                 <li>Q1、您的姓名</li>
@@ -13,34 +13,25 @@
                 <li>Q5、您的姓名</li>
               </ul>
             </el-collapse-item>
-            <el-collapse-item title="第2页" name="2">
-              <ul class="dw_left_ul">
-                <li>Q6、您的姓名</li>
-                <li>Q7、您的姓名</li>
-                <li>Q8、您的姓名</li>
-                <li>Q9、您的姓名</li>
-                <li>Q10、您的姓名</li>
-              </ul>
-            </el-collapse-item>
-            <el-collapse-item title="第3页" name="3">
-              <ul class="dw_left_ul">
-                <li>Q11、您的姓名</li>
-                <li>Q12、您的姓名</li>
-                <li>Q13、您的姓名</li>
-                <li>Q14、您的姓名</li>
-                <li>Q15、您的姓名</li>
-              </ul>
-            </el-collapse-item>
-            <el-collapse-item title="第4页" name="4">
-              <ul class="dw_left_ul">
-                <li>Q16、您的姓名</li>
-                <li>Q17、您的姓名</li>
-                <li>Q18、您的姓名</li>
-                <li>Q19、您的姓名</li>
-                <li>Q20、您的姓名</li>
-              </ul>
-            </el-collapse-item>
-          </el-collapse>
+          </el-collapse>-->
+          <div class="dw_left_ul">
+            <draggable
+              v-model="survey.questions"
+              :force-fallback="true"
+              :group="{ name: 'people', pull: true, put: true }"
+              animation="300"
+              drag-class="dragClass"
+              ghost-class="ghostClass"
+              chosen-class="chosenClass"
+              @start="onStart"
+              @end="onEnd">
+              <transition-group>
+                <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+                  <div class="qu-catalogue-item">Q{{ index+1 }}、{{ item.quTitle }}</div>
+                </div>
+              </transition-group>
+            </draggable>
+          </div>
         </div>
       </el-tab-pane>
       <el-tab-pane label="题库">
@@ -70,17 +61,37 @@
 </template>
 
 <script>
+
+import draggable from 'vuedraggable'
+
 export default {
   name: 'DwDesignContainerBodyLeft',
+  components: {
+    draggable
+  },
+  model: {
+    prop: 'survey',
+    event: 'update-survey'
+  },
+  props: {
+    survey: {type: Object, default: () => {}}
+  },
   data () {
     return {
-      contentStyle : ''
+      contentStyle : '',
+      drag: false
     }
   },
   mounted () {
     window.addEventListener('scroll', this.onScroll)
   },
   methods: {
+    onStart () {
+      this.drag = true
+    },
+    onEnd () {
+      this.drag = false
+    },
     onScroll () {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const headerHeight = 60
@@ -113,5 +124,24 @@ export default {
 }
 /deep/ .el-collapse-item__content{
   padding-bottom: 10px;
+}
+.qu-catalogue-item{
+  padding: 5px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 13px;
+  margin-top: 5px;
+}
+.qu-catalogue-item:hover{
+  /*border: 1px solid dodgerblue;*/
+  background: #f5f5f5;
+}
+.dragClass{
+  border: 1px solid dodgerblue;
+  background: #f5f5f5;
+}
+.ghostClass{
+  background: #d0cfcf;
+  border: 1px dashed dodgerblue;
 }
 </style>

@@ -16,7 +16,7 @@
               <el-row :gutter="10">
                 <el-col :span="4">
                   <div :style="containerLRStyle" class="dw-container-body-center-left dw-container-body-lr">
-                    <dw-design-container-body-left></dw-design-container-body-left>
+                    <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
                   </div>
                 </el-col>
                 <el-col :span="16">
