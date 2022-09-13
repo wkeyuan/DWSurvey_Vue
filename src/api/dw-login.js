@@ -24,9 +24,9 @@ export function logout () {
 }
 
 // 获取登录类型
-export function oathType () {
+export function oauthType () {
   return request({
-    url: API.oathType,
+    url: API.oauthType,
     method: 'get'
   })
 }

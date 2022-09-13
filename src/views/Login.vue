@@ -35,7 +35,7 @@
 
 import DwAuthorized from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
-import {dwLogin, oathType} from '@/api/dw-login'
+import {dwLogin, oauthType} from '@/api/dw-login'
 
 export default {
   name: 'Login',
@@ -59,14 +59,14 @@ export default {
   },
   async mounted () {
     this.pageH = window.height
-    const type = await this.getOathType()
+    const type = await this.getOauthType()
     if (type === 'casdoor') {
       this.casdoorSsoLogin()
     }
   },
   methods: {
-    getOathType: async function () {
-      const response = await oathType()
+    getOauthType: async function () {
+      const response = await oauthType()
       const data = response.data
       return data.data
     },
