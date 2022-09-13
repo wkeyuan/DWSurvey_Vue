@@ -2,6 +2,7 @@ export default {
   /**  账号密码登录登出  **/
   loginIn: `/api/dwsurvey/anon/security/login-pwd.do`,
   logOut: `/api/dwsurvey/anon/security/logout.do`,
+  oathType: `/api/dwsurvey/anon/web/oath-type.do`,
   /** 问卷数据  **/
   surveyList: `/api/dwsurvey/app/survey/list.do`,
   surveyInfo: `/api/dwsurvey/app/survey/info.do`,

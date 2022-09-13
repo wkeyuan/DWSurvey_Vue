@@ -35,7 +35,7 @@
 
 import DwAuthorized from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
-import {dwLogin} from '@/api/dw-login'
+import {dwLogin, oathType} from '@/api/dw-login'
 
 export default {
   name: 'Login',
@@ -57,10 +57,22 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
     this.pageH = window.height
+    const type = await this.getOathType()
+    if (type === 'casdoor') {
+      this.casdoorSsoLogin()
+    }
   },
   methods: {
+    getOathType: async function () {
+      const response = await oathType()
+      const data = response.data
+      return data.data
+    },
+    casdoorSsoLogin () {
+      window.location.href = this.getSigninUrl()
+    },
     submitForm (formName) {
       // 进行登录验证
       this.$refs[formName].validate((valid) => {

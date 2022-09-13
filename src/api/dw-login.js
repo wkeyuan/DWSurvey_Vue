@@ -23,3 +23,10 @@ export function logout () {
   })
 }
 
+// 获取登录类型
+export function oathType () {
+  return request({
+    url: API.oathType,
+    method: 'get'
+  })
+}
