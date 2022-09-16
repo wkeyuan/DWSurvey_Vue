@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/layouts/Layout.vue'
 import LoginLayout from '@/components/layouts/LoginLayout.vue'
+import CallbackLayout from '@/components/layouts/CallbackLayout.vue'
 import NoTopLayout from '@/components/layouts/NoTopLayout.vue'
 import DwAnswer from '@/views/dw-survey/dw-collect/DwAnswer'
 import DwSurveyList from '@/views/dw-survey/DwSurveyList'
@@ -17,6 +18,7 @@ import DwUser from '@/views/dw-user/DwUser'
 import DwUserPwd from '@/views/dw-user/DwUserPwd'
 import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
+import Casdoor from '@/views/Casdoor'
 
 Vue.use(Router)
 
@@ -114,6 +116,18 @@ export default new Router({
           path: '/',
           name: 'Login',
           component: Login
+        }
+      ]
+    },
+    {
+      path: '/callback',
+      name: 'CallbackLayout',
+      component: CallbackLayout,
+      children: [
+        {
+          path: 'casdoor',
+          name: 'Casdoor',
+          component: Casdoor
         }
       ]
     }

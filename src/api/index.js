@@ -3,6 +3,7 @@ export default {
   loginIn: `/api/dwsurvey/anon/security/login-pwd.do`,
   logOut: `/api/dwsurvey/anon/security/logout.do`,
   oauthType: `/api/dwsurvey/anon/web/oauth-type.do`,
+  casdoorCallback: `/api/dwsurvey/anon/security/callback/casdoor.do`,
   /** 问卷数据  **/
   surveyList: `/api/dwsurvey/app/survey/list.do`,
   surveyInfo: `/api/dwsurvey/app/survey/info.do`,

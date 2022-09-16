@@ -30,3 +30,12 @@ export function oauthType () {
     method: 'get'
   })
 }
+
+// Casdoor callback
+export function casdoorCallback (params) {
+  return request({
+    url: API.casdoorCallback,
+    method: 'get',
+    params
+  })
+}
