@@ -47,11 +47,11 @@ export default {
       },
       rules: {
         email: [
-          {required: true, message: '请输入邮箱地址', trigger: 'blur'},
-          {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+          {required: true, message: '请输入登录账号', trigger: 'blur'}
+          // {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
         ],
         pass: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: '请输入登录密码', trigger: 'blur'},
           {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
         ]
       }
