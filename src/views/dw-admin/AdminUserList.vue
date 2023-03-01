@@ -141,8 +141,8 @@ export default {
       userFormRules: {
         loginName: [
           {required: true, message: '请输入登录账号', trigger: 'blur'},
-          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'},
-          {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
+          // {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
         ],
         pwd: [
           {required: true, message: '请输入登录密码', trigger: 'blur'},
