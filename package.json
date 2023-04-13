@@ -21,7 +21,7 @@
     "echarts": "^5.2.2",
     "element-ui": "^2.15.6",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.6.1",
+    "jquery": "^3.6.4",
     "normalize.css": "^8.0.1",
     "vue": "^2.5.2",
     "vue-awesome": "^4.3.1",
