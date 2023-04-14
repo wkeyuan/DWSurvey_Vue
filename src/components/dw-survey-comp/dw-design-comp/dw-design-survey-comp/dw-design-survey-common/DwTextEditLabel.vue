@@ -26,14 +26,14 @@ export default {
     event: 'update-input'
   },
   props: {
-    value: {type: String, default: ''},
+    value: {type: Object, default: () => {}},
     itemClick: {type: Boolean, default: false},
     btnSize: {type: String, default: '15px'}
   },
   data () {
     return {
       hover: false,
-      editorText: this.value,
+      editorText: this.value.dwHtml,
       centerDialogVisible: false
     }
   },
@@ -43,7 +43,7 @@ export default {
       this.$refs.curEdit.focus()
     },
     upHtmlValue (html) {
-      this.editorText = html
+      this.editorText = html.dwHtml
       this.centerDialogVisible = false
       this.$emit('update-input', html)
       this.$emit('upValue', html)
@@ -54,8 +54,11 @@ export default {
       if (!this.itemClick) this.$emit('upItemClick', true)
     },
     inputEdit (e) {
-      this.$emit('update-input', e.target.innerHTML)
-      this.$emit('upValue', e.target.innerHTML)
+      // this.$emit('update-input', e.target.innerHTML)
+      // this.$emit('upValue', e.target.innerHTML)
+      const dwValue = {dwText: e.target.innerText, dwHtml: e.target.innerHTML}
+      this.$emit('update-input', dwValue)
+      this.$emit('upValue', dwValue)
     },
     mouseleave () {
       this.hover = false
@@ -68,7 +71,7 @@ export default {
     },
     addToolbar () {
       this.centerDialogVisible = true
-      this.$refs.curDwEditor.upEditHtml(this.value)
+      this.$refs.curDwEditor.upEditHtml(this.value.dwHtml)
     }
   }
 }

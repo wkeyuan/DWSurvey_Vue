@@ -13,10 +13,12 @@ import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from './dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
 import DwTextEditLabelCommon from './dw-design-survey-common/DwTextEditLabelCommon'
 import DwDesignTopBottomLayout from './dw-design-survey-layouts/dw-tb-layout/DwDesignTopBottomLayout'
+import DwDesignLeftRightLayout from './dw-design-survey-layouts/dw-lr-layout/DwDesignLeftRightLayout'
 
 export default {
   name: 'DwDesignSurveyCore',
   components: {
+    DwDesignLeftRightLayout,
     DwDesignTopBottomLayout,
     DwTextEditLabelCommon,
     DwDesignQuRadio,

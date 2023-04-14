@@ -3,7 +3,7 @@
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
         <i class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o"></i>
-        <dw-text-edit-label v-model="options[optionIndex].optionTitle" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+        <dw-text-edit-label v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
     </div>
     <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >

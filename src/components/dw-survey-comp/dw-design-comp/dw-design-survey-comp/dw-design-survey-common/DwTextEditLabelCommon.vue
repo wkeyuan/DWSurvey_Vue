@@ -14,7 +14,7 @@ export default {
     event: 'update-input'
   },
   props: {
-    value: {type: String, default: ''},
+    value: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}}
   },
   data () {
@@ -58,6 +58,7 @@ export default {
       // this.$emit('update-survey',this.options)
     },
     upValue (html) {
+      console.debug('html',html)
       this.$emit('update-input', html)
     }
   }

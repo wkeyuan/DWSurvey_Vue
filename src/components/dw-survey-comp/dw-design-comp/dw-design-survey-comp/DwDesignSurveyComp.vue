@@ -364,11 +364,12 @@ export default {
       questions: [],
       survey: {
         // font-size: 22px;font-weight: bold;
-        surveyName: '<h1>Hello DWSurvey</h1>',
-        surveyNode: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>',
+        surveyName: {dwHtml: '<h1>Hello DWSurvey</h1>', dwText: 'Hello DWSurvey'},
+        surveyNode: {dwHtml: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>', dwText: '非常感谢您的参与！如有涉及个人信息，我们将严格保密。'},
         questions: [
-          {quTitle: '<p>aaaa</p>', quType: 'CHECKBOX', quOptions: [{id: '1', optionTitle: '<p>aa</p>', itemClick: false}, {id: '2', optionTitle: '<p>bb</p>', itemClick: false}, {id: '3', optionTitle: '<p>cc</p>', itemClick: false}]},
-          {quTitle: '<p>abcd</p>', quType: 'RADIO', quOptions: [{id: '1', optionTitle: '<p>dd</p>', itemClick: false}, {id: '2', optionTitle: '<p>ee</p>', itemClick: false}, {id: '3', optionTitle: '<p>ff</p>', itemClick: false}]}
+          {quTitle: {dwHtml: '<p>aaaa</p>', dwText: 'aaaa'}, quType: 'CHECKBOX', quOptions: [{id: '1', optionTitle: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitle:  {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitle:  {dwHtml: '<p>cc</p>', dwText: 'aaaa'}, itemClick: false}]},
+          {quTitle: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quOptions: [{id: '1', optionTitle:  {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitle:  {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitle:  {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]},
+          {quTitle: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quOptions: [{id: '1', optionTitle:  {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitle:  {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitle:  {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]}
         ],
         surveyTest: '',
         curEditObj: [{itemClick: false}]

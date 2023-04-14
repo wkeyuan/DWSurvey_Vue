@@ -40,7 +40,7 @@
               <div class="dw-qu-title-body dw-display-flex">
                 <div class="dw-qu-num">{{ index+1 }}、</div>
                 <div class="dw-flex-item-auto">
-                  <dw-text-edit-label-common v-model="survey.questions[index].quTitle" :survey="survey" ></dw-text-edit-label-common>
+                  <dw-text-edit-label-common v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
                 </div>
               </div>
               <div class="dw-qu-content-body">

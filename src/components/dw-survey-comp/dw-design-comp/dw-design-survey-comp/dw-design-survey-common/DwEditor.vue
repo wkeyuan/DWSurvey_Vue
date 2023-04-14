@@ -81,7 +81,8 @@ export default {
       this.closeDialogCommon()
     },
     editConfirm () {
-      this.$emit('upHtmlValue', this.editor.getHtml())
+      const dwValue = {dwText: this.editor.getText(), dwHtml: this.editor.getHtml()}
+      this.$emit('upHtmlValue', dwValue)
     },
     closeDialogCommon () {
       this.$emit('upVisible', false)

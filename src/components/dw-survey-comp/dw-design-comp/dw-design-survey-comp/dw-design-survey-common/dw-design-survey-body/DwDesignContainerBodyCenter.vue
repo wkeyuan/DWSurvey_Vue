@@ -2,10 +2,10 @@
   <div class="dw-container-body-center">
     <div style="min-height: 600px;">
       <div style="text-align: center;padding: 20px;">
-        <dw-text-edit-label-common v-model="survey.surveyName" :survey="survey" ></dw-text-edit-label-common>
+        <dw-text-edit-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-text-edit-label-common>
       </div>
       <div style="padding: 0px 40px;">
-        <dw-text-edit-label-common v-model="survey.surveyNode" :survey="survey" ></dw-text-edit-label-common>
+        <dw-text-edit-label-common v-model="survey.surveyNodeObj" :survey="survey" ></dw-text-edit-label-common>
       </div>
       <div>
         <div>

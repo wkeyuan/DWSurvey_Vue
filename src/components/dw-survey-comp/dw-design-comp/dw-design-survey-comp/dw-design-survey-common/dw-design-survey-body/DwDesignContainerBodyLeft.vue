@@ -27,7 +27,7 @@
               @end="onEnd">
               <transition-group>
                 <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
-                  <div class="qu-catalogue-item">Q{{ index+1 }}、{{ item.quTitle }}</div>
+                  <div class="qu-catalogue-item">Q{{ index+1 }}、{{ item.quTitleObj.dwText }}</div>
                 </div>
               </transition-group>
             </draggable>
