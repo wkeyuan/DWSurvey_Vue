@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-qu-option-common1 v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
+    <dw-qu-option-common1 v-model="survey.questions[index].quOrderbys" :survey="survey" :index="index" :qu-type="survey.questions[index].quType" ></dw-qu-option-common1>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import DwQuOptionCommon2Item from '../../../dw-design-options/DwQuOptionCommon2I
 import DwQuOptionCommon1 from '../../../dw-design-options/DwQuOptionCommon1'
 
 export default {
-  name: 'DwQuRadioOptions',
+  name: 'DwQuOrderbyOptions',
   components: {DwQuOptionCommon1, DwQuOptionCommon2Item, DwQuOptionCommon2},
   model: {
     prop: 'survey',

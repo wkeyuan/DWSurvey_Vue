@@ -1,7 +1,9 @@
 <template>
   <dw-design-question-common v-model="survey" :index="index" >
     <template v-slot:editQuContent>
-      <dw-qu-radio-options v-model="survey" :index="index" ></dw-qu-radio-options>
+      <div style="padding: 10px;">
+        <el-input v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
+      </div>
     </template>
   </dw-design-question-common>
 </template>
@@ -9,11 +11,9 @@
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
 import DwQuOptionCommon1 from '../../dw-design-options/DwQuOptionCommon1'
-import DwQuRadioOptions from './components/DwQuRadioOptions'
-import DwDesignQuestionBottomType1 from '../../dw-design-common/DwDesignQuestionBottomType1'
 export default {
-  name: 'DwDesignQuRadio',
-  components: {DwDesignQuestionBottomType1, DwQuRadioOptions, DwQuOptionCommon1, DwDesignQuestionCommon},
+  name: 'DwDesignQuFbk',
+  components: {DwDesignQuestionCommon},
   model: {
     prop: 'survey',
     event: 'update-survey'
@@ -21,6 +21,11 @@ export default {
   props: {
     index: {type: Number, default: 0},
     survey: {type: Object, default: () => {}}
+  },
+  data () {
+    return {
+      inputText: ''
+    }
   }
 }
 </script>

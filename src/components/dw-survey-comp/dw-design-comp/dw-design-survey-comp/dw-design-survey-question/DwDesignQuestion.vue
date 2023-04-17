@@ -7,13 +7,13 @@
       <dw-design-qu-checkbox :index="index" v-model="survey" ></dw-design-qu-checkbox>
     </div>
     <div v-if="item.quType === 'FILLBLANK'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+      <dw-design-qu-fbk :index="index" v-model="survey" ></dw-design-qu-fbk>
     </div>
     <div v-if="item.quType === 'SCORE'">
       <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
     </div>
     <div v-if="item.quType === 'ORDERQU'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+      <dw-design-qu-oderby :index="index" v-model="survey" ></dw-design-qu-oderby>
     </div>
     <div v-if="item.quType === 'MULTIFILLBLANK'">
       <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
@@ -28,10 +28,12 @@
 
 import DwDesignQuRadio from './dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
 import DwDesignQuCheckbox from './dw-design-questions/dw-design-qu-checkbox/DwDesignQuCheckbox'
+import DwDesignQuFbk from './dw-design-questions/dw-design-qu-fbk/DwDesignQuFbk'
+import DwDesignQuOderby from './dw-design-questions/dw-design-qu-orderby/DwDesignQuOderby'
 
 export default {
   name: 'DwDesignQuestion',
-  components: {DwDesignQuCheckbox, DwDesignQuRadio},
+  components: {DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
   model: {
     prop: 'survey',
     event: 'update-survey'

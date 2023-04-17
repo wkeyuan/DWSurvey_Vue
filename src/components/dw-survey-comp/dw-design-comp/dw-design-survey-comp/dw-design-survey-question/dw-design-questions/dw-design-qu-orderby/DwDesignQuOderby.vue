@@ -1,19 +1,20 @@
 <template>
   <dw-design-question-common v-model="survey" :index="index" >
     <template v-slot:editQuContent>
-      <dw-qu-radio-options v-model="survey" :index="index" ></dw-qu-radio-options>
+      <dw-qu-orderby-options v-model="survey" :index="index" ></dw-qu-orderby-options>
     </template>
   </dw-design-question-common>
 </template>
 
 <script>
+
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
 import DwQuOptionCommon1 from '../../dw-design-options/DwQuOptionCommon1'
-import DwQuRadioOptions from './components/DwQuRadioOptions'
-import DwDesignQuestionBottomType1 from '../../dw-design-common/DwDesignQuestionBottomType1'
+import DwQuOrderbyOptions from './components/DwQuOrderbyOptions'
+
 export default {
-  name: 'DwDesignQuRadio',
-  components: {DwDesignQuestionBottomType1, DwQuRadioOptions, DwQuOptionCommon1, DwDesignQuestionCommon},
+  name: 'DwDesignQuOderby',
+  components: {DwQuOrderbyOptions, DwQuOptionCommon1, DwDesignQuestionCommon},
   model: {
     prop: 'survey',
     event: 'update-survey'

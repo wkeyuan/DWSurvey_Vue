@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-qu-option-common2 v-model="survey.questions[index].quOptions" :survey="survey" :index="index"></dw-qu-option-common2>
+    <dw-qu-option-common2 v-model="survey.questions[index].quCheckboxs" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common2>
   </div>
 </template>
 

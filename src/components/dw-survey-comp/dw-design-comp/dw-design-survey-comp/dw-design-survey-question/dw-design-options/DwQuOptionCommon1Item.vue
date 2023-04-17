@@ -2,7 +2,10 @@
   <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
-        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o"></i>
+        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
+        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
+<!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-dot-circle-o "></i>-->
+<!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-check-square "></i>-->
         <dw-text-edit-label v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
     </div>
@@ -28,7 +31,8 @@ export default {
   props: {
     optionIndex: {type: Number, default: 0},
     options: {type: Array, default: () => []},
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    quType: {type: String, default: ''}
   },
   data () {
     return {

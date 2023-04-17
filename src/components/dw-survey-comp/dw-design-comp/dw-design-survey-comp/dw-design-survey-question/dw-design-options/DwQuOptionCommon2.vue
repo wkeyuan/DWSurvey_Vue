@@ -13,8 +13,8 @@
         @start="onStart"
         @end="onEnd">
         <transition-group class="dw-grid">
-          <div v-for="(item,optionIndex) in options" :key="item.id" style="width: 100%;" >
-            <dw-qu-option-common2-item :options="options" :survey="survey" :option-index="optionIndex" ></dw-qu-option-common2-item>
+          <div v-for="(item,optionIndex) in options" :key="`quOption-${optionIndex}`" style="width: 100%;" >
+            <dw-qu-option-common2-item :options="options" :survey="survey" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common2-item>
           </div>
         </transition-group>
       </draggable>
@@ -36,7 +36,8 @@ export default {
   props: {
     index: {type: Number, default: 0},
     options: {type: Array, default: () => []},
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    quType: {type: String, default: ''}
   },
   data () {
     return {

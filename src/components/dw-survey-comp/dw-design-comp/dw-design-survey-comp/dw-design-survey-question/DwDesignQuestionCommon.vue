@@ -42,6 +42,9 @@
                 <div class="dw-flex-item-auto">
                   <dw-text-edit-label-common v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
                 </div>
+                <div v-show="hover" class="dw-qu-type-name">
+                  <div class="dw-font-12 dw-color-12">{{survey.questions[index].quTypeName}}</div>
+                </div>
               </div>
               <div class="dw-qu-content-body">
 
@@ -50,16 +53,19 @@
                 </div>
 
                 <div class="dw-question-body-bottom dw-padding-top-10">
-                  <div v-show="hover">
-                    <div class="dw-display-flex-left">
-                      <el-tooltip class="item" effect="dark" content="添加选项" placement="left">
-                        <div class="dw-question-toolbar dw-margin-right-10" @click="dwAddQuItem"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
-                      </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="批量添加选项" placement="right">
-                        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
-                      </el-tooltip>
+                  <div>
+                    <div v-show="hover">
+                      <div class="dw-display-flex-left">
+                        <el-tooltip class="item" effect="dark" content="添加选项" placement="left">
+                          <div class="dw-question-toolbar dw-margin-right-10" @click="dwAddQuItem"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" content="批量添加选项" placement="right">
+                          <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
+                        </el-tooltip>
+                      </div>
                     </div>
                   </div>
+
                 </div>
 
               </div>
@@ -123,9 +129,21 @@ export default {
       this.itemHover = true
     },
     dwAddQuItem () {
-      this.survey.questions[this.index].quTitle = 'wooooooo'
-      this.survey.surveyNode = '更新问卷副标题备注'
-      this.$emit('update-question', this.survey)
+      // this.survey.questions[this.index].quTitleObj = {dwHtml: 'wooooooo', dwText: 'wooooooo'}
+      // this.survey.surveyDetail.surveyNodeObj = {dwHtml: '更新问卷副标题备注', dwText: '更新问卷副标题备注'}
+      const quType = this.survey.questions[this.index].quType
+      const quOption = {id: null, optionTitleObj: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}
+      if (quType === 'RADIO') {
+        const quOptions = this.survey.questions[this.index].quRadios
+        quOptions.push(quOption)
+        this.survey.questions[this.index].quRadios = quOptions
+      }else if (quType === 'CHECKBOX') {
+        const quOptions = this.survey.questions[this.index].quCheckboxs
+        quOptions.push(quOption)
+        this.survey.questions[this.index].quCheckboxs = quOptions
+      }
+      console.debug('question',this.survey.questions[this.index])
+      this.$emit('update-survey', this.survey)
     }
   }
 }
@@ -218,5 +236,14 @@ export default {
 }
 .dw-cursor-pointer{
   cursor: pointer;
+}
+.dw-qu-type-name{
+  padding-left: 8px;
+}
+.dw-font-12{
+  font-size: 12px;
+}
+.dw-color-12{
+  color: lightgrey;
 }
 </style>

@@ -9,7 +9,7 @@ export function questionComps () {
 
 export function querySurveyAll (params) {
   return request({
-    url: '/api/dwsurvey/anon/response/design/survey-design/surveyAll.do',
+    url: '/api/dwsurvey/app/design/survey-design/surveyAll.do',
     method: 'post',
     params
   })

@@ -3,6 +3,7 @@
     <div class="dw-flex dw-items-start" >
       <div class="dw-flex-item-auto">
         <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
+<!--        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
       </div>
       <div class="dw-edit-toolbar" >
         <div v-show="itemClick" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
