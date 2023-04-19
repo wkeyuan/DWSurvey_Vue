@@ -19,7 +19,7 @@
       <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
     </div>
     <div v-if="item.quType === 'UPLOADFILE'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+      <dw-design-qu-upload :index="index" v-model="survey" ></dw-design-qu-upload>
     </div>
   </div>
 </template>
@@ -30,10 +30,11 @@ import DwDesignQuRadio from './dw-design-questions/dw-design-qu-radio/DwDesignQu
 import DwDesignQuCheckbox from './dw-design-questions/dw-design-qu-checkbox/DwDesignQuCheckbox'
 import DwDesignQuFbk from './dw-design-questions/dw-design-qu-fbk/DwDesignQuFbk'
 import DwDesignQuOderby from './dw-design-questions/dw-design-qu-orderby/DwDesignQuOderby'
+import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesignQuUpload'
 
 export default {
   name: 'DwDesignQuestion',
-  components: {DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
+  components: {DwDesignQuUpload, DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
   model: {
     prop: 'survey',
     event: 'update-survey'
