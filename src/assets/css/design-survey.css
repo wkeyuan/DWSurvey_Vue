@@ -18,7 +18,7 @@
 }
 .toolbars-contents{
   background: #F7F7F7;
-  border-bottom: 1px solid #BCBCBC;
+  /*border-bottom: 1px solid #BCBCBC;*/
 }
 .toolbars-contents-body{
   display: flex;
@@ -51,7 +51,7 @@
   color: #001529;
   color: #085097;
 }
-@media screen and (max-width: 2560px) {
+/*@media screen and (max-width: 2560px) {
   .toolbars .toolbar-item .dwToolbar_icon {
     font-size: 80px;
   }
@@ -115,7 +115,7 @@
   .toolbars .toolbar-item .dwToolbar_icon {
     font-size: 52px;
   }
-}
+}*/
 @media screen and (max-width: 1320px) {
   .toolbars .toolbar-item .dwToolbar_icon {
     font-size: 50px;

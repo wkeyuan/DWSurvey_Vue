@@ -43,8 +43,11 @@
                   <dw-text-edit-label-common v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
                 </div>
                 <div v-show="hover" class="dw-qu-type-name">
-                  <div class="dw-font-12 dw-color-12">{{survey.questions[index].quTypeName}}</div>
+                  <div class="dw-font-12 dw-color-grey-10">{{ survey.questions[index].quTypeName }}</div>
                 </div>
+              </div>
+              <div>
+                <dw-text-edit-label-common v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
               </div>
               <div class="dw-qu-content-body">
 
@@ -137,12 +140,12 @@ export default {
         const quOptions = this.survey.questions[this.index].quRadios
         quOptions.push(quOption)
         this.survey.questions[this.index].quRadios = quOptions
-      }else if (quType === 'CHECKBOX') {
+      } else if (quType === 'CHECKBOX') {
         const quOptions = this.survey.questions[this.index].quCheckboxs
         quOptions.push(quOption)
         this.survey.questions[this.index].quCheckboxs = quOptions
       }
-      console.debug('question',this.survey.questions[this.index])
+      console.debug('question', this.survey.questions[this.index])
       this.$emit('update-survey', this.survey)
     }
   }
@@ -242,6 +245,9 @@ export default {
 }
 .dw-font-12{
   font-size: 12px;
+}
+.dw-color-grey-10{
+  color: #afafb0;
 }
 .dw-color-12{
   color: lightgrey;

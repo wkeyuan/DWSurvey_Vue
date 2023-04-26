@@ -4,10 +4,11 @@
       <div class="dw-qu-item-el-checkbox-radio">
         <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
         <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
-<!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-dot-circle-o "></i>-->
-<!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-check-square "></i>-->
+        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-dot-circle-o "></i>-->
+        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-check-square "></i>-->
         <dw-text-edit-label v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
+      <el-input v-show="quType==='MULTIFILLBLANK'" v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
     </div>
     <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
@@ -38,7 +39,8 @@ export default {
     return {
       itemHover: false,
       itemClick: false,
-      itemIndex: 0
+      itemIndex: 0,
+      inputText: ''
     }
   },
   methods: {
