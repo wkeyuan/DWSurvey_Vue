@@ -1,7 +1,7 @@
 <template>
   <dw-design-question-common v-model="survey" :index="index" >
     <template v-slot:editQuContent>
-      <div style="padding: 10px;">
+      <div style="padding: 10px 0;" class="dw-qu-item">
         <el-input v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
       </div>
     </template>
@@ -31,5 +31,8 @@ export default {
 </script>
 
 <style scoped>
-
+.dw-qu-item{
+  display: grid;
+  grid-template-columns: auto 90px;
+}
 </style>

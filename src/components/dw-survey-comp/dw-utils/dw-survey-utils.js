@@ -37,23 +37,23 @@ export function parseSurvey (survey) {
  */
 function parseQuestion (questions) {
   if (questions !== null && questions.length > 0) {
-    //循环然后定义以上内容
+    // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
       const quName = question.quName !== null ? question.quName : question.quTitle
       question.quTitleObj = {dwHtml: question.quTitle, dwText: quName}
       const quType = question.quType
       if (quType === 'RADIO') {
         parseQuRadio(question)
-      }else if (quType === 'CHECKBOX') {
+      } else if (quType === 'CHECKBOX') {
         parseQuCheckbox(question)
-      }else if (quType === 'ORDERQU') {
+      } else if (quType === 'ORDERQU') {
         parseQuOrderbys(question)
-      }else if (quType === 'MULTIFILLBLANK') {
+      } else if (quType === 'MULTIFILLBLANK') {
         parseQuMultiFillblanks(question)
-      }else if (quType === 'SCORE') {
+      } else if (quType === 'SCORE') {
         parseQuScores(question)
-      }else if (quType === 'FILLBLANK') {
-        parseQuFbk(question);
+      } else if (quType === 'FILLBLANK') {
+        parseQuFbk(question)
       }
     })
   }
@@ -112,16 +112,16 @@ function parseQuFbk (question) {
   question.quTypeName = '填空题'
 }
 
-
 /**
  * 用于解析单选、多选、排序、多项填空题的选项
  * @param quOptions
  */
 function parseQuOptionType1 (quOptions) {
   if (quOptions !==null && quOptions.length>0) {
-    quOptions.forEach((quOption,optionIndex) => {
+    quOptions.forEach((quOption, optionIndex) => {
       const optionName = quOption.optionName !== null ? quOption.optionName : ''
-      quOption.optionTitleObj = {dwHtml: quOption.optionTitle, dwText: optionName}
+      const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : ''
+      quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle}
     })
   }
 }

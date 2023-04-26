@@ -1,5 +1,5 @@
 <template>
-<!--  编辑器上下结构 -->
+  <!--  编辑器上下结构 -->
   <div class="dw-design-container" @click="documentClick">
     <el-container>
       <el-header class="header" style="">
@@ -7,11 +7,11 @@
       </el-header>
       <el-main style="padding: 0px;">
         <div>
-          <div id="tools_wrap" :style="headerQuToolbarStyle" >
+          <div id="tools_wrap" ref="toolsWrap" :style="headerQuToolbarStyle" >
             <dw-design-toolbar></dw-design-toolbar>
           </div>
 
-          <div style="margin-top: 157px;margin-bottom: 30px;" >
+          <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 30px;" >
             <div class="dw-container-body">
               <el-row :gutter="10">
                 <el-col :span="4">
@@ -20,7 +20,7 @@
                   </div>
                 </el-col>
                 <el-col :span="16">
-                  <dw-design-container-body-center v-model="survey" ref="designContainerBody" ></dw-design-container-body-center>
+                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" ></dw-design-container-body-center>
                 </el-col>
                 <el-col :span="4">
                   <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
@@ -79,6 +79,7 @@ export default {
       headerQuToolbarStyle: '',
       containerLRStyle: '',
       lrContentHeight: '',
+      containerBodyStyle: '',
       questions: [],
       radio: '1',
       hover: false
@@ -113,26 +114,35 @@ export default {
           this.questions = httpResult.data
         }
       }) */
+      this.contetnMarginTop()
+    },
+    contetnMarginTop () {
+      let contetnMarginTop = 157
+      const windowInnerHeight = window.innerHeight
+      if (windowInnerHeight > 1280) contetnMarginTop = 160
+      this.containerBodyStyle = `margin-top:${contetnMarginTop}px;`
+      return contetnMarginTop
     },
     onScroll (position) {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const headerHeight = 60
+      const contentMarginTop = this.contetnMarginTop()
       if (scrollTop >= headerHeight) {
         this.headerQuToolbarStyle = 'top:0px;'
         const newTop1 = scrollTop - headerHeight
-        const lrHeight = window.innerHeight - (157) - 10
-        console.debug('lrHeight',lrHeight)
+        const lrHeight = window.innerHeight - (contentMarginTop) - 10
+        console.debug('lrHeight', lrHeight)
         this.containerLRStyle = `top:${newTop1}px;`
         // height:${lrHeight}px;
-        this.lrContentHeight = lrHeight;
+        this.lrContentHeight = lrHeight
       } else {
         const newTop = headerHeight - scrollTop
         this.headerQuToolbarStyle = `top:${newTop}px;`
-        console.debug('window.innerHeight',window.innerHeight)
-        const lrHeight = window.innerHeight - (157+newTop) - 10
+        console.debug('window.innerHeight', window.innerHeight)
+        const lrHeight = window.innerHeight - (contentMarginTop+newTop) - 10
         this.containerLRStyle = `top:0px;`
         // height:${lrHeight}px;
-        this.lrContentHeight = lrHeight;
+        this.lrContentHeight = lrHeight
       }
     },
     documentClick () {
