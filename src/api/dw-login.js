@@ -23,3 +23,19 @@ export function logout () {
   })
 }
 
+// 获取登录类型
+export function oauthType () {
+  return request({
+    url: API.oauthType,
+    method: 'get'
+  })
+}
+
+// Casdoor callback
+export function casdoorCallback (params) {
+  return request({
+    url: API.casdoorCallback,
+    method: 'get',
+    params
+  })
+}

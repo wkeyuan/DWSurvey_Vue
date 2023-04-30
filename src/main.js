@@ -11,9 +11,18 @@ import 'normalize.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import './utils/dw-common'
+import Casdoor from 'casdoor-vue-sdk'
 
 Vue.config.productionTip = false
 
+const casdoorConfig = {
+  serverUrl: 'http://localhost:8000',
+  clientId: '4262bea2b293539fe45e',
+  organizationName: 'casbin',
+  appName: 'app-casnode',
+  redirectPath: '/#/callback/casdoor'
+}
+Vue.use(Casdoor, casdoorConfig)
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.component('icon', Icon)
