@@ -14,3 +14,16 @@ export function querySurveyAll (params) {
     params
   })
 }
+
+/**
+ * 创建用户
+ * @param data
+ * @returns {*}
+ */
+export function dwSaveSurveyJson (data) {
+  return request({
+    url: '/api/dwsurvey/app/dw-design-survey/save-survey-json.do',
+    method: 'post',
+    data
+  })
+}

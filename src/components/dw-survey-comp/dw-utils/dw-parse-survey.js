@@ -18,16 +18,17 @@ export function parseSurvey (survey) {
       curEditObj: [{itemClick: false}]
   } */
   if (survey !== null) {
-    survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText}
+    survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText, dwPlaceholder: '请输入问卷标题'}
     const surveyDetail = survey.surveyDetail
     if (surveyDetail !== null) {
       const surveyNoteText = surveyDetail.surveyNoteText !== null ? surveyDetail.surveyNoteText : ''
-      surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText}
+      // surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText}
+      survey.surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText, dwPlaceholder: '请输入问卷介绍'}
     }
     parseQuestion(survey.questions)
+    survey.surveyTest = ''
+    survey.curEditObj = [{itemClick: false}]
   }
-  survey.surveyTest = ''
-  survey.curEditObj = [{itemClick: false}]
   return survey
 }
 
@@ -40,7 +41,9 @@ function parseQuestion (questions) {
     // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
       const quName = question.quName !== null ? question.quName : question.quTitle
-      question.quTitleObj = {dwHtml: question.quTitle, dwText: quName}
+      question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
+      const quNote = question.quNote
+      question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
       const quType = question.quType
       if (quType === 'RADIO') {
         parseQuRadio(question)
@@ -119,9 +122,23 @@ function parseQuFbk (question) {
 function parseQuOptionType1 (quOptions) {
   if (quOptions !==null && quOptions.length>0) {
     quOptions.forEach((quOption, optionIndex) => {
-      const optionName = quOption.optionName !== null ? quOption.optionName : ''
-      const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : ''
-      quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle}
+      const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
+      // oss版本把html保存在 optionTitle
+      const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
+      quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
     })
   }
 }
+
+// 如果SurveyJson没有，则从结构化的数据中取问卷数据。
+// 编辑的时候只保存JSON结构副本，直到发布好一步才生成结构化数据。
+// 发布时保存的方案，结构化数据提交到数据库，如果有ID则更新对应的数据，如果没有ID，则新增，同时把最新的结构化数据返回。
+// 对于新增在保存的时候需要进行生复判断，防止生成重复数据。
+// 对于已经删除的数据，如果同步呢，删除的时候真删除，直接调用后台删除功能。
+
+/*
+      <div>{{ item.optionTitleObj.dwText }}</div>
+          <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
+            <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
+          </el-tooltip>
+ */

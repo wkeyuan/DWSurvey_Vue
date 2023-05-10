@@ -4,14 +4,14 @@
       <div class="dw-question-top" >
         <div class="">
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
-          <div v-show="hover" class="dw-display-flex-right">
-            <el-tooltip class="item" effect="dark" content="复制本题" placement="top">
+          <div v-show="hover || survey.curEditObj[itemIndex].itemClick" class="dw-display-flex-right">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="复制本题" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10" ><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa fa-copy" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="向上移" placement="top">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="向上移" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa el-icon-top" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="向下移" placement="top">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="向下移" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa el-icon-bottom" aria-hidden="true"></i></div>
             </el-tooltip>
           </div>
@@ -19,17 +19,17 @@
       </div>
       <div class="dw-question-body" >
         <div class="dw-question-body-left">
-          <div v-show="hover">
-            <el-tooltip class="item" effect="dark" content="移动本题" placement="left">
+          <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="移动本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrows" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="题目设置" placement="left">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目设置" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-cog" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="题目逻辑" placement="left">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目逻辑" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除本题" placement="left">
+            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="删除本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-trash fa fa-arrows" aria-hidden="true"></i></div>
             </el-tooltip>
           </div>
@@ -46,8 +46,8 @@
                   <div class="dw-font-12 dw-color-grey-10">{{ survey.questions[index].quTypeName }}</div>
                 </div>
               </div>
-              <div>
-                <dw-text-edit-label-common v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
+              <div style="font-size: 12px;color: grey;margin-bottom: 5px;" >
+                <dw-text-edit-label-common v-model="survey.questions[index].quNoteObj" :survey="survey" ></dw-text-edit-label-common>
               </div>
               <div class="dw-qu-content-body">
 
@@ -57,14 +57,27 @@
 
                 <div class="dw-question-body-bottom dw-padding-top-10">
                   <div>
-                    <div v-show="hover">
-                      <div class="dw-display-flex-left">
-                        <el-tooltip class="item" effect="dark" content="添加选项" placement="left">
-                          <div class="dw-question-toolbar dw-margin-right-10" @click="dwAddQuItem"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
-                        </el-tooltip>
-                        <el-tooltip class="item" effect="dark" content="批量添加选项" placement="right">
-                          <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
-                        </el-tooltip>
+                    <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
+                      <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
+                        <template v-if="survey.questions[index].hv===4">
+                          <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="修改选项" placement="left">
+                            <dw-popover-more-options v-model="survey" :index="index" add-or-edit="edit" popover-title="修改题目选项" text-placeholder="请输入修改的内容" @click-item="clickItem" >
+                              <i class="dw-cursor-pointer dw-event-color fa fa-pencil" aria-hidden="true"></i>
+                            </dw-popover-more-options>
+                          </el-tooltip>
+                        </template>
+                        <template v-else>
+                          <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="单项添加选项" placement="left">
+                            <div class="dw-question-toolbar dw-margin-right-10" @click="dwAddQuItemEvent"><i class="dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
+                          </el-tooltip>
+                        </template>
+                        <template>
+                          <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="批量添加选项" placement="right">
+                            <dw-popover-more-options v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
+                              <i class="dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i>
+                            </dw-popover-more-options>
+                          </el-tooltip>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -94,9 +107,12 @@
 
 import DwTextEditLabel from '../dw-design-survey-common/DwTextEditLabel'
 import DwTextEditLabelCommon from '../dw-design-survey-common/DwTextEditLabelCommon'
+import DwPopoverMoreOptions from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverMoreOptions.vue'
+import {dwSurveyQuAddOption} from '../../../dw-utils/dw-update-survey-question'
+import {clickQuItem} from "../../../dw-utils/dw-update-survey-item-click";
 export default {
   name: 'DwDesignQuestionCommon',
-  components: {DwTextEditLabelCommon, DwTextEditLabel},
+  components: {DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
   model: {
     prop: 'survey',
     event: 'update-survey'
@@ -115,7 +131,10 @@ export default {
     return {
       hover: false,
       itemHover: false,
-      quTitle: 'text'
+      quTitle: 'text',
+      itemIndex: 0,
+      moreOptionText: '',
+      openDelay: 300
     }
   },
   methods: {
@@ -131,22 +150,16 @@ export default {
     mouseoverItem () {
       this.itemHover = true
     },
-    dwAddQuItem () {
-      // this.survey.questions[this.index].quTitleObj = {dwHtml: 'wooooooo', dwText: 'wooooooo'}
-      // this.survey.surveyDetail.surveyNodeObj = {dwHtml: '更新问卷副标题备注', dwText: '更新问卷副标题备注'}
-      const quType = this.survey.questions[this.index].quType
-      const quOption = {id: null, optionTitleObj: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}
-      if (quType === 'RADIO') {
-        const quOptions = this.survey.questions[this.index].quRadios
-        quOptions.push(quOption)
-        this.survey.questions[this.index].quRadios = quOptions
-      } else if (quType === 'CHECKBOX') {
-        const quOptions = this.survey.questions[this.index].quCheckboxs
-        quOptions.push(quOption)
-        this.survey.questions[this.index].quCheckboxs = quOptions
-      }
-      console.debug('question', this.survey.questions[this.index])
-      this.$emit('update-survey', this.survey)
+    clickItem () {
+      clickQuItem(this.survey, this.itemIndex, this.index, (survey, itemIndex) => {
+        this.survey = survey
+        this.itemIndex = itemIndex
+      })
+    },
+    dwAddQuItemEvent () {
+      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
+      const newSurvey = dwSurveyQuAddOption(this.survey, this.index, quOption)
+      this.$emit('update-survey', newSurvey)
     }
   }
 }
@@ -252,4 +265,17 @@ export default {
 .dw-color-12{
   color: lightgrey;
 }
+</style>
+<style>
+.el-popover.dw-qu-set-popper{
+  background: #eee! important;
+  border-color: #eee;
+}
+.el-popper.dw-qu-set-popper[x-placement^=right] .popper__arrow{
+  border-right-color: #eee! important;
+}
+.el-popover.dw-qu-set-popper[x-placement^=right] .popper__arrow::after{
+  border-right-color: #eee! important;
+}
+
 </style>

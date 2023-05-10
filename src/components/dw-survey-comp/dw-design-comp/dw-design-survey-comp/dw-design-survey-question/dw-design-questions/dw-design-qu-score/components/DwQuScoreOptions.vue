@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-qu-option-common1 v-model="survey.questions[index].quMultiFillblanks" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
+    <dw-qu-option-common1 v-model="survey.questions[index].quScores" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import DwQuOptionCommon1 from '../../../dw-design-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
 
 export default {
-  name: 'DwQuMFbkOptions',
+  name: 'DwQuScoreOptions',
   components: {DwQuOptionCommon1},
   model: {
     prop: 'survey',

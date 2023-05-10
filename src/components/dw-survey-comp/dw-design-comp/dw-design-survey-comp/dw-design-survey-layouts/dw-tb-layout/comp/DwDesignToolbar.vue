@@ -210,7 +210,7 @@
           <el-col :span="6">
             <div style="text-align: right;padding-right: 10px;">
               <el-button type="primary" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
-              <el-button plain icon="el-icon-document-checked">保存</el-button>
+              <el-button plain icon="el-icon-document-checked" @click="saveSurvey">保存</el-button>
               <el-button plain icon="el-icon-view">预览</el-button>
             </div>
           </el-col>
@@ -224,13 +224,20 @@
 
 <script>
 
-import {questionComps} from '../../../api/dw-design-survey-api'
+import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
 
 export default {
   name: 'DwDesignToolbar',
   components: {
     draggable
+  },
+  model: {
+    prop: 'survey',
+    event: 'update-survey'
+  },
+  props: {
+    survey: {type: Object, default: () => {}}
   },
   data () {
     return {
@@ -258,6 +265,21 @@ export default {
         }
       })
     },
+    saveSurvey () {
+      const surveyId = this.survey.id
+      const surveyJsonText = JSON.stringify(this.survey)
+      const data = {surveyId, surveyJsonText}
+      console.debug('surveyJson data', data)
+      dwSaveSurveyJson(data).then((response) => {
+        console.debug('dwSaveSurveyJson-response', response)
+        const httpResult = response.data
+        if (httpResult.resultCode === 200) {
+          this.$message.success('保存成功！')
+        } else {
+          this.$message.success('保存失败！')
+        }
+      })
+    }
   }
 }
 </script>

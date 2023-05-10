@@ -2,8 +2,8 @@
   <div class="dwEditorRoot" @input="inputEdit" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex dw-items-start" >
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
-<!--        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
+        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
+        <!--<div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
       </div>
       <div class="dw-edit-toolbar" >
         <div v-show="itemClick" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
@@ -46,7 +46,7 @@ export default {
     upHtmlValue (html) {
       this.editorText = html.dwHtml
       this.centerDialogVisible = false
-      this.$emit('update-input', html)
+      // this.$emit('update-input', html)
       this.$emit('upValue', html)
       this.$refs.curEdit.focus()
     },
@@ -58,7 +58,7 @@ export default {
       // this.$emit('update-input', e.target.innerHTML)
       // this.$emit('upValue', e.target.innerHTML)
       const dwValue = {dwText: e.target.innerText, dwHtml: e.target.innerHTML}
-      this.$emit('update-input', dwValue)
+      // this.$emit('update-input', dwValue)
       this.$emit('upValue', dwValue)
     },
     mouseleave () {
@@ -73,6 +73,9 @@ export default {
     addToolbar () {
       this.centerDialogVisible = true
       this.$refs.curDwEditor.upEditHtml(this.value.dwHtml)
+    },
+    upEditorText (htmlValue) {
+      this.editorText = htmlValue
     }
   }
 }
@@ -95,6 +98,10 @@ export default {
   padding: 6px;
   word-break: break-word;
   outline: none;
+}
+.dw-input-default:empty::before {
+  content: attr(placeholder);
+  color: lightgrey;
 }
 .dw-width-100bfb{
   width: 100%;

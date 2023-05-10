@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import DwQuOptionCommon2 from '../../../dw-design-options/DwQuOptionCommon2'
-import DwQuOptionCommon2Item from '../../../dw-design-options/DwQuOptionCommon2Item'
-import DwQuOptionCommon1 from '../../../dw-design-options/DwQuOptionCommon1'
+import DwQuOptionCommon2 from '../../../dw-design-options/dw-qu-option-common1/DwQuOptionCommon1.vue'
+import DwQuOptionCommon2Item from '../../../dw-design-options/dw-qu-option-common1/DwQuOptionCommon1Item.vue'
+import DwQuOptionCommon1 from '../../../dw-design-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
 
 export default {
   name: 'DwQuOrderbyOptions',

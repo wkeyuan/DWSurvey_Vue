@@ -5,10 +5,10 @@
       <el-header class="header" style="">
         <dw-design-header></dw-design-header>
       </el-header>
-      <el-main style="padding: 0px;">
-        <div>
+      <el-main style="padding: 0;">
+        <div v-if="survey!=null">
           <div id="tools_wrap" ref="toolsWrap" :style="headerQuToolbarStyle" >
-            <dw-design-toolbar></dw-design-toolbar>
+            <dw-design-toolbar v-model="survey"></dw-design-toolbar>
           </div>
 
           <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 30px;" >

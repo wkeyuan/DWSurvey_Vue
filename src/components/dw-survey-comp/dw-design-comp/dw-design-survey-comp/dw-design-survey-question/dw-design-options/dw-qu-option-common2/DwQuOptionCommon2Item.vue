@@ -2,17 +2,16 @@
   <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
-        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
-        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
-        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-dot-circle-o "></i>-->
-        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-check-square "></i>-->
-        <dw-text-edit-label v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+        <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
+        <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
+        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
-      <el-input v-show="quType==='MULTIFILLBLANK'" v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
+      <el-input v-if="quType==='MULTIFILLBLANK'" v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
+      <el-rate v-if="quType==='SCORE'" show-text></el-rate>
     </div>
     <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10" @click="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
@@ -25,15 +24,23 @@
 </template>
 
 <script>
-import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
+import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel.vue'
+import DwTextEditLabelCommon from "../../../dw-design-survey-common/DwTextEditLabelCommon.vue";
 export default {
-  name: 'DwQuOptionCommon1Item',
-  components: {DwTextEditLabel},
+  name: 'DwQuOptionCommon2Item',
+  components: {DwTextEditLabelCommon, DwTextEditLabel},
+  model: {
+    prop: 'value',
+    event: 'update-input'
+  },
   props: {
+    quIndex: {type: Number, default: 0},
     optionIndex: {type: Number, default: 0},
     options: {type: Array, default: () => []},
+    option: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}},
-    quType: {type: String, default: ''}
+    quType: {type: String, default: ''},
+    value: {type: Object, default: () => {}}
   },
   data () {
     return {
@@ -80,6 +87,12 @@ export default {
     },
     upValue (html) {
       // 此处使用了引用类型可以不传更新
+      console.debug('html', html)
+      this.$emit('update-input', html)
+    },
+    dragClick () {
+      this.$refs.dwEditLabel.upEditorText(this.value.dwHtml)
+      this.upAllItemClick()
     }
   }
 }

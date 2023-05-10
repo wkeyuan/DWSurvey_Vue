@@ -10,7 +10,7 @@
       <dw-design-qu-fbk :index="index" v-model="survey" ></dw-design-qu-fbk>
     </div>
     <div v-if="item.quType === 'SCORE'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
+      <dw-design-qu-score :index="index" v-model="survey" ></dw-design-qu-score>
     </div>
     <div v-if="item.quType === 'ORDERQU'">
       <dw-design-qu-oderby :index="index" v-model="survey" ></dw-design-qu-oderby>
@@ -32,10 +32,13 @@ import DwDesignQuFbk from './dw-design-questions/dw-design-qu-fbk/DwDesignQuFbk'
 import DwDesignQuOderby from './dw-design-questions/dw-design-qu-orderby/DwDesignQuOderby'
 import DwDesignQuMFbk from "./dw-design-questions/dw-design-qu-mfbk/DwDesignQuMFbk.vue";
 import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesignQuUpload'
+import DwDesignQuScore from "./dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue";
 
 export default {
   name: 'DwDesignQuestion',
-  components: {DwDesignQuUpload, DwDesignQuMFbk, DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
+  components: {
+    DwDesignQuScore,
+    DwDesignQuUpload, DwDesignQuMFbk, DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
   model: {
     prop: 'survey',
     event: 'update-survey'

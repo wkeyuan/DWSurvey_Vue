@@ -13,8 +13,8 @@
         @start="onStart"
         @end="onEnd">
         <transition-group class="dw-grid">
-          <div v-for="(item,optionIndex) in options" :key="`quOption-${optionIndex}`" style="width: 100%;" >
-            <dw-qu-option-common2-item :options="options" :survey="survey" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common2-item>
+          <div v-for="(item,optionIndex) in dragOptions" :key="`quOption-${optionIndex}`" style="width: 100%;" >
+            <dw-qu-option-common1-item ref="quCommonItem" v-model="item.optionTitleObj" :survey="survey" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common1-item>
           </div>
         </transition-group>
       </draggable>
@@ -24,11 +24,12 @@
 
 <script>
 import draggable from 'vuedraggable'
-import DwQuOptionCommon2Item from './DwQuOptionCommon2Item'
+import DwQuOptionCommon1Item from './DwQuOptionCommon1Item.vue'
+import DwQuOptionCommon2Item from "../dw-qu-option-common2/DwQuOptionCommon2Item.vue";
 
 export default {
-  name: 'DwQuOptionCommon2',
-  components: {DwQuOptionCommon2Item, draggable},
+  name: 'DwQuOptionCommon1',
+  components: {DwQuOptionCommon2Item, DwQuOptionCommon1Item, draggable},
   model: {
     prop: 'options',
     event: 'update-options'
@@ -52,6 +53,8 @@ export default {
     onEnd () {
       this.drag = false
       this.$emit('update-options', this.dragOptions)
+      const quCommonItems = this.$refs.quCommonItem
+      for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick()
     }
   }
 }

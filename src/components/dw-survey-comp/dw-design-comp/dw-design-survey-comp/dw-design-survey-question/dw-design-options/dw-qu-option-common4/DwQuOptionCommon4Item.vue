@@ -1,26 +1,35 @@
 <template>
   <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar" >
-      <div class="dw-display-grid">
-        <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
-        <div class="dw-question-toolbar" @click="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
-        <div class="dw-question-toolbar"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
-      </div>
-    </div>
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
-        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
-        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
+        <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
+        <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
+        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-dot-circle-o "></i>-->
+        <!--        <i class="dw-qu-item-el-checkbox-radio-icon fa fa-check-square "></i>-->
         <dw-text-edit-label v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
+      <el-input v-if="quType==='MULTIFILLBLANK'" v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
+      <el-rate v-if="quType==='SCORE'" v-model="inputText" show-text>
+      </el-rate>
+    </div>
+    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
+      <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
+        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
+      </el-tooltip>
+      <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
+        <div class="dw-question-toolbar dw-margin-right-10" @click="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+      </el-tooltip>
+      <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
+        <div class="dw-question-toolbar dw-margin-right-10"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
+      </el-tooltip>
     </div>
   </div>
 </template>
 
 <script>
-import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
+import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel'
 export default {
-  name: 'DwQuOptionCommon2Item',
+  name: 'DwQuOptionCommon4Item',
   components: {DwTextEditLabel},
   props: {
     optionIndex: {type: Number, default: 0},
@@ -32,7 +41,8 @@ export default {
     return {
       itemHover: false,
       itemClick: false,
-      itemIndex: 0
+      itemIndex: 0,
+      inputText: ''
     }
   },
   methods: {
@@ -41,12 +51,7 @@ export default {
         this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       }
       this.survey.curEditObj[this.itemIndex].itemClick = true
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) {
-        if (i !== this.itemIndex) {
-          this.survey.curEditObj[i].itemClick = false
-        }
-      }
+      this.upAllItemClick()
       // this.$emit('update-survey',this.survey)
     },
     upItemClick (visible) {
@@ -55,6 +60,14 @@ export default {
       }
       this.survey.curEditObj[this.itemIndex].itemClick = true
       // this.$emit('update-survey',this.survey)
+    },
+    upAllItemClick () {
+      const curObjs = this.survey.curEditObj
+      for (let i = 0; i < curObjs.length; i++) {
+        if (i !== this.itemIndex) {
+          this.survey.curEditObj[i].itemClick = false
+        }
+      }
     },
     mouseleaveItem () {
       this.itemHover = false
@@ -102,9 +115,8 @@ export default {
 }
 .dw-display-flex-right{
   display: flex;
-  /*justify-content: flex-end;*/
-  /*align-items: center;*/
-  /*align-content: center;*/
+  justify-content: flex-end;
+  align-items: center;
 }
 .dw-event-color{
   color: #095aaa;
@@ -113,9 +125,8 @@ export default {
   margin-right: 10px;
 }
 .dw-qu-item{
-  /*display: grid;*/
-  /*grid-template-columns: auto 90px;*/
-  position: relative;
+  display: grid;
+  grid-template-columns: auto 90px;
 }
 .dw-qu-item-body{
   margin: 0px;
@@ -148,26 +159,5 @@ export default {
 .dw-input-focus{
   border: 1px solid #095aaa;
   background: #e5f5f5;
-}
-.dw-display-grid{
-  display: grid;
-  grid-template-columns: repeat(3,auto);
-  grid-column-gap: 5px;
-  align-items: center;
-  align-content: center;
-  justify-items: start;
-  justify-content: start;
-}
-.dw-qu-item-toolbar{
-  position: absolute;
-  right: 40px;
-  top: -20px;
-  z-index: 10;
-  /*border: 1px solid #095aaa;*/
-}
-.dw-qu-item-toolbar .dw-question-toolbar{
-  padding: 2px 3px 0px 3px;
-  /*background: red;*/
-  line-height: normal;
 }
 </style>

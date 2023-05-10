@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <dw-design-survey-comp></dw-design-survey-comp>-->
+    <!--    <dw-design-survey-comp></dw-design-survey-comp>-->
     <dw-design-survey-core v-model="survey" ></dw-design-survey-core>
   </div>
 </template>
@@ -8,43 +8,44 @@
 <script>
 import {querySurveyAll} from './api/dw-design-survey-api'
 import DwDesignSurveyCore from './DwDesignSurveyCore'
-import {parseSurvey} from '../../dw-utils/dw-survey-utils'
+import {parseSurvey} from '../../dw-utils/dw-parse-survey'
 export default {
   name: 'DwDesignSurveyMain',
   components: {DwDesignSurveyCore},
   data () {
     return {
-      survey: {
+      survey: null
+      /* survey: {
         // font-size: 22px;font-weight: bold;
-        surveyNameObj: {dwHtml: '<h1>Hello DWSurvey</h1>', dwText: 'Hello DWSurvey'},
+        surveyNameObj: {dwHtml: '', dwText: ''},
         surveyDetail: {
-          surveyNodeObj: {dwHtml: '<div>非常感谢您的参与！如有涉及个人信息，我们将严格保密。</div>', dwText: '非常感谢您的参与！如有涉及个人信息，我们将严格保密。'}
+          surveyNodeObj: {dwHtml: '', dwText: ''}
         },
         questions: [
-          {quTitleObj: {dwHtml: '<p>aaaa</p>', dwText: 'aaaa'}, quType: 'CHECKBOX', quCheckboxs: [{id: '1', optionTitleObj: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj:  {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj:  {dwHtml: '<p>cc</p>', dwText: 'aaaa'}, itemClick: false}]},
-          {quTitleObj: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quRadios: [{id: '1', optionTitleObj:  {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj:  {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj:  {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]},
-          {quTitleObj: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quRadios: [{id: '1', optionTitleObj:  {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj:  {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj:  {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]}
+          // {quTitleObj: {dwHtml: '<p>aaaa</p>', dwText: 'aaaa'}, quType: 'CHECKBOX', quCheckboxs: [{id: '1', optionTitleObj: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj: {dwHtml: '<p>aa</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj: {dwHtml: '<p>cc</p>', dwText: 'aaaa'}, itemClick: false}]},
+          // {quTitleObj: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quRadios: [{id: '1', optionTitleObj: {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj: {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj: {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]},
+          // {quTitleObj: {dwHtml: '<p>abcd</p>', dwText: 'abcd'}, quType: 'RADIO', quRadios: [{id: '1', optionTitleObj: {dwHtml: '<p>bb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '2', optionTitleObj: {dwHtml: '<p>bbb</p>', dwText: 'aaaa'}, itemClick: false}, {id: '3', optionTitleObj: {dwHtml: '<p>ddd</p>', dwText: 'aaaa'}, itemClick: false}]}
         ],
         surveyTest: '',
         curEditObj: [{itemClick: false}]
-      },
+      } */
     }
   },
   mounted () {
     this.loadSurvey()
   },
   methods: {
-    loadSurvey() {
+    loadSurvey () {
       const surveyId = this.$route.params.id
       const params = {surveyId}
       querySurveyAll(params).then((response) => {
-        console.debug('querySurveyAll',response)
+        console.debug('querySurveyAll', response)
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
           // this.survey = httpResult.data
-          console.debug('httpResult.data',httpResult.data)
+          console.debug('httpResult.data', httpResult.data)
           const surveyData = parseSurvey(httpResult.data)
-          console.debug('parseResultData',surveyData)
+          console.debug('parseResultData', surveyData)
           this.survey = surveyData
           // quRadios
         }

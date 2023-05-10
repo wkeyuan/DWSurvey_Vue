@@ -19,7 +19,6 @@ export default {
   },
   data () {
     return {
-      valueHtml: this.value,
       itemHover: false,
       itemClick: false,
       itemIndex: 0
@@ -58,7 +57,7 @@ export default {
       // this.$emit('update-survey',this.options)
     },
     upValue (html) {
-      console.debug('html',html)
+      console.debug('html', html)
       this.$emit('update-input', html)
     }
   }

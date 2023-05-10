@@ -22,7 +22,7 @@
 
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
-import DwQuOptionCommon1 from '../../dw-design-options/DwQuOptionCommon1'
+import DwQuOptionCommon1 from '../../dw-design-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
 export default {
   name: 'DwDesignQuUpload',
   components: {DwDesignQuestionCommon},

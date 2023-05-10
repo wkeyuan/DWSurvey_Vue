@@ -7,7 +7,7 @@
 <script>
 
 import draggable from 'vuedraggable'
-import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
+import {questionComps} from './api/dw-design-survey-api'
 import DwDesignQuestion from './dw-design-survey-question/DwDesignQuestion'
 import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from './dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
