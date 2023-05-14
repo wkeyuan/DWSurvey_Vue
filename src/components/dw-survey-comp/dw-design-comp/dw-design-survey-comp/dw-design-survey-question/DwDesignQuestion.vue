@@ -1,26 +1,30 @@
 <template>
   <div>
-    <div v-if="item.quType === 'RADIO'">
-      <dw-design-qu-radio :index="index" v-model="survey" ></dw-design-qu-radio>
-    </div>
-    <div v-if="item.quType === 'CHECKBOX'">
-      <dw-design-qu-checkbox :index="index" v-model="survey" ></dw-design-qu-checkbox>
-    </div>
-    <div v-if="item.quType === 'FILLBLANK'">
-      <dw-design-qu-fbk :index="index" v-model="survey" ></dw-design-qu-fbk>
-    </div>
-    <div v-if="item.quType === 'SCORE'">
-      <dw-design-qu-score :index="index" v-model="survey" ></dw-design-qu-score>
-    </div>
-    <div v-if="item.quType === 'ORDERQU'">
-      <dw-design-qu-oderby :index="index" v-model="survey" ></dw-design-qu-oderby>
-    </div>
-    <div v-if="item.quType === 'MULTIFILLBLANK'">
-      <dw-design-qu-m-fbk :index="index" v-model="survey" ></dw-design-qu-m-fbk>
-    </div>
-    <div v-if="item.quType === 'UPLOADFILE'">
-      <dw-design-qu-upload :index="index" v-model="survey" ></dw-design-qu-upload>
-    </div>
+    <dw-design-question-common ref="dwDesignQuestionCommon" v-model="survey" :index="index" >
+      <template v-slot:editQuContent>
+        <div v-if="item.quType === 'RADIO'">
+          <dw-design-qu-radio ref="dwQuRadio" :index="index" v-model="survey" ></dw-design-qu-radio>
+        </div>
+        <div v-if="item.quType === 'CHECKBOX'">
+          <dw-design-qu-checkbox ref="dwQuCheckbox" :index="index" v-model="survey" ></dw-design-qu-checkbox>
+        </div>
+        <div v-if="item.quType === 'FILLBLANK'">
+          <dw-design-qu-fbk ref="dwQuFbk" :index="index" v-model="survey" ></dw-design-qu-fbk>
+        </div>
+        <div v-if="item.quType === 'SCORE'">
+          <dw-design-qu-score ref="dwQuScore" :index="index" v-model="survey" ></dw-design-qu-score>
+        </div>
+        <div v-if="item.quType === 'ORDERQU'">
+          <dw-design-qu-oderby ref="dwQuOderby" :index="index" v-model="survey" ></dw-design-qu-oderby>
+        </div>
+        <div v-if="item.quType === 'MULTIFILLBLANK'">
+          <dw-design-qu-m-fbk ref="dwQuMfbk" :index="index" v-model="survey" ></dw-design-qu-m-fbk>
+        </div>
+        <div v-if="item.quType === 'UPLOADFILE'">
+          <dw-design-qu-upload ref="dwQuUpload" :index="index" v-model="survey" ></dw-design-qu-upload>
+        </div>
+      </template>
+    </dw-design-question-common>
   </div>
 </template>
 
@@ -30,13 +34,17 @@ import DwDesignQuRadio from './dw-design-questions/dw-design-qu-radio/DwDesignQu
 import DwDesignQuCheckbox from './dw-design-questions/dw-design-qu-checkbox/DwDesignQuCheckbox'
 import DwDesignQuFbk from './dw-design-questions/dw-design-qu-fbk/DwDesignQuFbk'
 import DwDesignQuOderby from './dw-design-questions/dw-design-qu-orderby/DwDesignQuOderby'
-import DwDesignQuMFbk from "./dw-design-questions/dw-design-qu-mfbk/DwDesignQuMFbk.vue";
+import DwDesignQuMFbk from './dw-design-questions/dw-design-qu-mfbk/DwDesignQuMFbk.vue'
 import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesignQuUpload'
-import DwDesignQuScore from "./dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue";
+import DwDesignQuScore from './dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue'
+import DwDesignQuestionCommon from "./DwDesignQuestionCommon.vue";
+import DwQuRadioOptions from "./dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue";
 
 export default {
   name: 'DwDesignQuestion',
   components: {
+    DwQuRadioOptions,
+    DwDesignQuestionCommon,
     DwDesignQuScore,
     DwDesignQuUpload, DwDesignQuMFbk, DwDesignQuOderby, DwDesignQuFbk, DwDesignQuCheckbox, DwDesignQuRadio},
   model: {

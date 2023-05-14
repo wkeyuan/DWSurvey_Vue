@@ -1,0 +1,35 @@
+/** dw-qu-set-popper **/
+.el-popover.dw-qu-set-popper{
+  /*f8f8f8 #e4e7ed*/
+  background: #fcfcfc! important;
+  border-color: #d7ebff;
+  box-shadow: 2px 2px 2px #eaf4ff;
+  text-align: left;
+}
+.el-popper.dw-qu-set-popper[x-placement^=right] .popper__arrow{
+  border-right-color: #d7ebff! important;
+}
+.el-popover.dw-qu-set-popper[x-placement^=right] .popper__arrow::after{
+  border-right-color: #fcfcfc! important;
+}
+
+/*dw-popover-more-options*/
+.el-popover.dw-popover-more-options{
+  /*background: #f5f7fa! important;*/
+  background: #ebeef5! important;
+  border-color: #e4e7ed;
+  box-shadow:2px 2px 2px #c0c4cc;
+}
+.el-popper.dw-popover-more-options[x-placement^=right] .popper__arrow{
+  border-right-color: #ebeef5! important;
+}
+.el-popover.dw-popover-more-options[x-placement^=right] .popper__arrow::after{
+  border-right-color: #e4e7ed! important;
+}
+.el-popper.dw-popover-more-options[x-placement^=bottom] .popper__arrow{
+  border-bottom-color:  #e4e7ed! important;
+}
+.el-popover.dw-popover-more-options[x-placement^=bottom] .popper__arrow::after{
+  border-bottom-color:  #ebeef5! important;
+}
+

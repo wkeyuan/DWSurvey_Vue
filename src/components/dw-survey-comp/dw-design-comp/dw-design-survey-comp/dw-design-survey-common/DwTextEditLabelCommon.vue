@@ -1,6 +1,6 @@
 <template>
   <div @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <dw-text-edit-label v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+    <dw-text-edit-label ref="curEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
   </div>
 </template>
 
@@ -59,6 +59,11 @@ export default {
     upValue (html) {
       console.debug('html', html)
       this.$emit('update-input', html)
+    },
+    upEditorText (htmlValue) {
+      // console.debug('upEditorText', htmlValue)
+      // this.$refs.curEditLabel.upEditorText(htmlValue)
+      // this.$refs.curEditLabel.upEditorText(htmlValue)
     }
   }
 }

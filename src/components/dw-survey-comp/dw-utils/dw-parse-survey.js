@@ -58,6 +58,7 @@ function parseQuestion (questions) {
       } else if (quType === 'FILLBLANK') {
         parseQuFbk(question)
       }
+      question.dateAttrs = []
     })
   }
 }
@@ -68,6 +69,7 @@ function parseQuestion (questions) {
  */
 function parseQuRadio (question) {
   question.quTypeName = '单选题'
+  if (question.cellCount === 0) question.cellCount = 2
   parseQuOptionType1(question.quRadios)
 }
 
@@ -77,6 +79,7 @@ function parseQuRadio (question) {
  */
 function parseQuCheckbox (question) {
   question.quTypeName = '多选题'
+  if (question.cellCount === 0) question.cellCount = 2
   parseQuOptionType1(question.quCheckboxs)
 }
 
@@ -113,6 +116,8 @@ function parseQuScores (question) {
  */
 function parseQuFbk (question) {
   question.quTypeName = '填空题'
+  if (!question.hasOwnProperty('placeholder')) question.placeholder = '请输入'
+  if (!question.hasOwnProperty('step')) question.step = '00:05'
 }
 
 /**
@@ -126,6 +131,7 @@ function parseQuOptionType1 (quOptions) {
       // oss版本把html保存在 optionTitle
       const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
       quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
+      quOption.dateAttrs = []
     })
   }
 }

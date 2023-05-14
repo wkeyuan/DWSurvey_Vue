@@ -1,0 +1,112 @@
+/**
+ 在DW中定义的全局样式
+ */
+.dw-display-flex{
+  display: flex;
+  align-items: center;
+}
+.dw-display-flex-left{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.dw-display-flex-right{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.dw-flex-item-auto{
+  flex: auto;
+}
+
+.dw-flex-start{
+  display: flex;
+  align-items: flex-start;
+}
+.dw-flex-item-auto{
+  flex: auto;
+}
+
+.dw-margin-bottom-10{
+  margin-bottom: 10px;
+}
+.dw-margin-left-right-10{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.dw-margin-right-5{
+  margin-right: 5px;
+}
+.dw-margin-right-10{
+  margin-right: 10px;
+}
+.dw-padding-top-2{
+  padding-top: 2px;
+}
+.dw-padding-top-10{
+  padding-top: 10px;
+}
+.dw-padding-tb-5{
+  padding: 5px 0;
+}
+.dw-padding-left-10{
+  padding-left: 10px;
+}
+.dw-text-align-center{
+  text-align: center;
+}
+.dw-cursor-pointer{
+  cursor: pointer;
+}
+.dw-font-12{
+  font-size: 12px;
+}
+.dw-color-grey-10{
+  color: #afafb0;
+}
+.dw-color-12{
+  color: lightgrey;
+}
+.dw-color-333{
+  color: #333;
+}
+.dw-bg-white{
+  background-color: white;
+}
+.dw-width-100bf{
+  width: 100%;
+}
+.dw-height-20px{
+  height: 20px;
+}
+.dw-event-color{
+  color: #095aaa;
+}
+
+.dw-btn-blue-1{
+  border: 1px solid #095aaa;
+  background: #b5d8fc;
+  color: #095aaa;
+  text-align: center;
+}
+
+.dwDragClass{
+  border: 1px solid dodgerblue;
+  background: #f5f5f5;
+}
+.dwGhostClass{
+  background: #e5ecfa;
+  border: 1px dashed dodgerblue;
+}
+
+/** 横向等分排列，默认2等分 **/
+.dw-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto,1fr));
+  grid-column-gap: 10px;
+  grid-row-gap: 0;
+  align-items: center;
+  align-content: center;
+  justify-items: start;
+  justify-content: start;
+}

@@ -1,13 +1,15 @@
 <template>
-  <div class="dwEditorRoot" @input="inputEdit" @mouseover="mouseover" @mouseleave="mouseleave" >
-    <div class="dw-flex dw-items-start" >
+  <div class="dwEditorRoot dw-width-100bf" @input="inputEdit" @mouseover="mouseover" @mouseleave="mouseleave" >
+    <div class="dw-flex-start" >
       <div class="dw-flex-item-auto">
         <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
         <!--<div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
       </div>
       <div class="dw-edit-toolbar" >
-        <div v-show="itemClick" class="dw-input-default dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
+        <div v-show="itemClick" class="dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
       </div>
+      <!--      itemClick: {{ itemClick }}  hover: {{ hover }}-->
+      <!--      dwHtml: {{ value.dwHtml }}-->
     </div>
     <div>
       <DwEditor ref="curDwEditor" :center-dialog-visible="centerDialogVisible" @upVisible="upVisible" @upHtmlValue="upHtmlValue" ></DwEditor>
@@ -36,6 +38,19 @@ export default {
       hover: false,
       editorText: this.value.dwHtml,
       centerDialogVisible: false
+    }
+  },
+  watch: {
+    value: function (newValue, oldValue) {
+      console.log('firstName changed from ' + oldValue + ' to ' + newValue)
+      // this.dragOptions = newValue
+      // const quCommonItems = this.$refs.quCommonItem
+      // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
+      if (this.value.isRefreshValue) {
+        this.editorText = this.value.dwHtml
+        this.$refs.curEdit.innerHTML = this.editorText
+        this.value.isRefreshValue = false
+      }
     }
   },
   methods: {
@@ -75,16 +90,20 @@ export default {
       this.$refs.curDwEditor.upEditHtml(this.value.dwHtml)
     },
     upEditorText (htmlValue) {
-      this.editorText = htmlValue
+      // console.debug('upEditorText', htmlValue)
+      // this.editorText = htmlValue
+      // this.$refs.curEdit.innerHTML = htmlValue
+      this.editorText = this.value.dwHtml
+      this.$refs.curEdit.innerHTML = this.editorText
+    },
+    editFocus () {
+      this.$refs.curEdit.focus()
     }
   }
 }
 </script>
 
 <style scoped >
-.dwEditorRoot{
-  width: 100%;
-}
 .dwEditor{
   width: 100%;
   font-size: 14px;
@@ -103,37 +122,18 @@ export default {
   content: attr(placeholder);
   color: lightgrey;
 }
-.dw-width-100bfb{
-  width: 100%;
-}
 .dw-input-focus{
   border: 1px solid #095aaa;
   background: #f6f8f8;
+  /*background: white;*/
   outline-width: 1px;
 }
 .dw-input-hover{
   background: #f6f8f8;
-}
-.dw-flex{
-  display: flex;
-}
-.dw-items-start{
-  align-items: flex-start;
-}
-.dw-flex-item-auto{
-  flex: auto;
+  /*background: white;*/
 }
 .dw-edit-toolbar{
   width: 40px;
-}
-.dw-btn-blue-1{
-  border: 1px solid #095aaa;
-  background: #b5d8fc;
-  color: #095aaa;
-  text-align: center;
-}
-.dw-cursor-pointer{
-  cursor: pointer;
 }
 /deep/ .edit-dialog-root.el-dialog .el-dialog__header {
   /*display: none;*/
@@ -146,7 +146,7 @@ export default {
   top: 13px;
 }
 /deep/ p{
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 </style>

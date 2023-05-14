@@ -2,17 +2,18 @@
   <div>
     <!-- 根据属性确定用哪种展现方案 -->
     <!-- 横向显示   -->
-    <dw-qu-option-common1 v-if="survey.questions[index].hv === 2" v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
+    <dw-qu-option-common1 v-if="survey.questions[index].hv === 1" v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
     <!-- 竖向显示   -->
-    <dw-qu-option-common2 v-if="survey.questions[index].hv === 1" v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common2>
+    <dw-qu-option-common2 v-if="survey.questions[index].hv === 2" v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common2>
     <!-- SELECT显示  -->
     <dw-qu-option-common4 v-if="survey.questions[index].hv === 4" v-model="survey.questions[index].quRadios" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common4>
-
+    <!--
     <div style="background: #0AA5A0;">
       <div v-for="(item,optionIndex) in survey.questions[index].quRadios" :key="`aaquOption-${optionIndex}`" >
         <div style="border: 1px solid red;">{{ item.optionTitleObj.dwHtml }}</div>
       </div>
     </div>
+    -->
   </div>
 </template>
 
@@ -45,22 +46,5 @@ export default {
 </script>
 
 <style scoped>
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
-}
-.dw-grid{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(auto,1fr));
-  grid-column-gap: 10px;
-  grid-row-gap: 0px;
-  align-items: center;
-  align-content: center;
-  justify-items: start;
-  justify-content: start;
-}
+
 </style>

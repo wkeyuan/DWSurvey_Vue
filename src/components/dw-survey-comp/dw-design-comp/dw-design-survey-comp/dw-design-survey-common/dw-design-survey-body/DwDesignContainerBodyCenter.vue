@@ -15,14 +15,14 @@
             :group="{ name: 'people', pull: true, put: true }"
             handle=".dwMoveSortQu"
             animation="300"
-            drag-class="dragClass"
-            ghost-class="ghostClass"
-            chosen-class="chosenClass"
+            drag-class="dwDragClass"
+            ghost-class="dwGhostClass"
+            chosen-class="dwChosenClass"
             @start="onStart"
             @end="onEnd">
             <transition-group>
               <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
-                <dw-design-question :index="index" :item="item" v-model="survey" ></dw-design-question>
+                <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
             </transition-group>
           </draggable>
@@ -44,10 +44,17 @@ import DwTextEditLabel from '../DwTextEditLabel'
 import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
+import DwDesignQuestionCommon from "../../dw-design-survey-question/DwDesignQuestionCommon.vue";
+import {
+  dwResetQuestionRefreshValue,
+  dwResetQuOptionObjRefreshValue,
+  dwResetSurveyQuestionRefreshValue
+} from "../../../../dw-utils/dw-update-survey-question";
 
 export default {
   name: 'DwDesignContainerBodyCenter',
   components: {
+    DwDesignQuestionCommon,
     DwFooter,
     DwDesignToolbar,
     DwDesignHeader,
@@ -73,26 +80,42 @@ export default {
     onStart () {
       this.drag = true
     },
-    onEnd () {
+    onEnd (attrs) {
+      console.debug('attrs', attrs)
       this.drag = false
+      // 更新状态
+      const newIndex = attrs.newIndex
+      const oldIndex = attrs.oldIndex
+      if (newIndex>oldIndex) {
+        this.refreshData(oldIndex)
+      } else {
+        this.refreshData(newIndex)
+      }
     },
     documentClick () {
       const curObjs = this.survey.curEditObj
       for (let i = 0; i < curObjs.length; i++) {
         this.survey.curEditObj[i].itemClick = false
       }
+    },
+    refreshQuData (data) {
+      // 关于状态的刷新，除通过方法调用硬刷新，还可以通过选项数据上绑定的itemClick实现
+      this.$nextTick(() => {
+        const quCommonItems = this.$refs.designQuestion
+        for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].refreshQuData(data)
+      })
+    },
+    refreshData (quIndex) {
+      const questions = this.survey.questions
+      questions.forEach((item, index) => {
+        if (index>=quIndex) this.survey.questions.splice(index, 1, dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+      })
+      this.documentClick()
     }
   }
 }
 </script>
 
 <style scoped>
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
-}
+
 </style>

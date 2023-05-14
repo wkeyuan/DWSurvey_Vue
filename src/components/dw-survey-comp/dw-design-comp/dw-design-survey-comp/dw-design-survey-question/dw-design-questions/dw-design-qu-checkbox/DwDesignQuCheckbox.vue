@@ -1,9 +1,5 @@
 <template>
-  <dw-design-question-common :index="index" v-model="survey">
-    <template v-slot:editQuContent>
-      <dw-qu-checkbox-options v-model="survey" :index="index" ></dw-qu-checkbox-options>
-    </template>
-  </dw-design-question-common>
+  <dw-qu-checkbox-options ref="dwQuestion" v-model="survey" :index="index" ></dw-qu-checkbox-options>
 </template>
 
 <script>

@@ -5,7 +5,7 @@
  * @param callback
  */
 export function clickItem (survey, itemIndex, callback) {
-  return clickQuItem(survey, itemIndex, null, callback)
+  clickQuItem(survey, itemIndex, null, callback)
 }
 
 /**

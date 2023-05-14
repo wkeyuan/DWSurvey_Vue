@@ -1,5 +1,5 @@
 <template>
-  <el-popover :value="survey.curEditObj[itemIndex].itemClick" placement="right" width="400" trigger="manual" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
+  <el-popover :value="survey.curEditObj[itemIndex].itemClick" placement="bottom-start" width="400" trigger="manual" popper-class="dw-popover-more-options" @show="showPopoverLoad" >
     <div>
       <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>
       <el-input v-model="moreOptionText" :placeholder="textPlaceholder" type="textarea" rows="10" ></el-input>
@@ -8,7 +8,7 @@
         <el-button type="primary" size="small" style="margin-top:5px;" @click="addMoreOptionEvent">确认</el-button>
       </div>
     </div>
-    <div slot="reference" class="dw-question-toolbar dw-margin-right-10" @click.stop="clickShowPopoverEvent">
+    <div slot="reference" @click.stop="clickShowPopoverEvent">
       <slot/>
     </div>
   </el-popover>
@@ -84,26 +84,8 @@ export default {
 </script>
 
 <style scoped>
-.dw-margin-right-10{
-  margin-right: 10px;
-}
-.dw-cursor-pointer{
-  cursor: pointer;
-}
-.dw-event-color{
-  color: #095aaa;
-}
+
 </style>
 <style>
-.el-popover.dw-qu-set-popper{
-  background: #eee! important;
-  border-color: #eee;
-}
-.el-popper.dw-qu-set-popper[x-placement^=right] .popper__arrow{
-  border-right-color: #eee! important;
-}
-.el-popover.dw-qu-set-popper[x-placement^=right] .popper__arrow::after{
-  border-right-color: #eee! important;
-}
 
 </style>

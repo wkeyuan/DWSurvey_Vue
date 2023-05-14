@@ -13,11 +13,10 @@
 
 <script>
 import draggable from 'vuedraggable'
-import DwQuOptionCommon4Item from './DwQuOptionCommon4Item.vue'
 
 export default {
   name: 'DwQuOptionCommon4',
-  components: {DwQuOptionCommon4Item, draggable},
+  components: {draggable},
   model: {
     prop: 'options',
     event: 'update-options'
@@ -39,12 +38,5 @@ export default {
 </script>
 
 <style scoped>
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
-}
+
 </style>

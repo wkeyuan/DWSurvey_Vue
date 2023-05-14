@@ -24,8 +24,20 @@ export function dwSurveyQuAddOption (survey, index, quOption) {
     const quOptions = survey.questions[index].quCheckboxs
     quOptions.push(quOption)
     survey.questions[index].quCheckboxs = quOptions
+  } else if (quType === 'SCORE') {
+    const quOptions = survey.questions[index].quScores
+    quOptions.push(quOption)
+    survey.questions[index].quScores = quOptions
+  } else if (quType === 'ORDERQU') {
+    const quOptions = survey.questions[index].quOrderbys
+    quOptions.push(quOption)
+    survey.questions[index].quOrderbys = quOptions
+  } else if (quType === 'MULTIFILLBLANK') {
+    const quOptions = survey.questions[index].quMultiFillblanks
+    quOptions.push(quOption)
+    survey.questions[index].quMultiFillblanks = quOptions
   }
-  console.debug('question', survey.questions[index])
+  // console.debug('question', survey.questions[index])
   return survey
 }
 
@@ -60,4 +72,53 @@ export function dwOption2Texts (survey, index) {
     optionText += item.optionTitleObj.dwText + '\r\n'
   })
   return optionText
+}
+
+/**
+ * 刷新question刷新状态
+ * @param question
+ * @param callback
+ */
+export function dwResetQuestionRefreshValue (question) {
+  // 进行重置
+  question.quTitleObj.isRefreshValue = true
+  question.quNoteObj.isRefreshValue = true
+  const quType = question.quType
+  if (quType === 'RADIO') {
+    question.quRadios.forEach((item, index) => {
+      item.optionTitleObj.isRefreshValue = true
+      return item
+    })
+  } else if (quType === 'CHECKBOX') {
+    question.quCheckboxs.forEach((item, index) => {
+      item.optionTitleObj.isRefreshValue = true
+      return item
+    })
+  } else if (quType === 'SCORE') {
+    question.quScores.forEach((item, index) => {
+      item.optionTitleObj.isRefreshValue = true
+      return item
+    })
+  } else if (quType === 'ORDERQU') {
+    question.quOrderbys.forEach((item, index) => {
+      item.optionTitleObj.isRefreshValue = true
+      return item
+    })
+  }
+  return question
+}
+
+/**
+ * 刷新所有question
+ * @param survey
+ * @returns {*}
+ */
+export function dwResetSurveyQuestionRefreshValue (survey) {
+  // 进行重置
+  const questions = survey.questions
+  questions.forEach((item, index) => {
+    return dwResetQuestionRefreshValue(item)
+  })
+  survey.questions = questions
+  return survey
 }

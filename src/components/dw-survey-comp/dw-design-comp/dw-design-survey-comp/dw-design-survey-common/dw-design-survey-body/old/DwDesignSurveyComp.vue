@@ -339,12 +339,16 @@
 
 <script>
 
+/**
+ * 已经拆分到不同组件
+ */
+
 import draggable from 'vuedraggable'
-import {querySurveyAll, questionComps} from './api/dw-design-survey-api'
-import DwDesignQuestion from './dw-design-survey-question/DwDesignQuestion'
-import DwTextEditLabel from './dw-design-survey-common/DwTextEditLabel'
-import DwDesignQuRadio from './dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
-import DwTextEditLabelCommon from './dw-design-survey-common/DwTextEditLabelCommon'
+import {querySurveyAll, questionComps} from '../../../api/dw-design-survey-api'
+import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
+import DwTextEditLabel from '../../DwTextEditLabel.vue'
+import DwDesignQuRadio from '../../../dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio.vue'
+import DwTextEditLabelCommon from '../../DwTextEditLabelCommon.vue'
 
 export default {
   name: 'DwDesignSurveyComp',
@@ -433,8 +437,8 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
-@import '../../../../assets/css/design-survey.css';
+@import '../../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
+@import '../../../../../../../assets/css/design-survey.css';
 
 .header .header-content-left{
   display: flex;

@@ -6,17 +6,22 @@
       :group="{ name: 'qu-option', pull: false, put: false }"
       handle=".dwMoveSortQuOption"
       animation="300"
-      drag-class="dragClass"
-      ghost-class="ghostClass"
-      chosen-class="chosenClass"
+      drag-class="dwDragClass"
+      ghost-class="dwGhostClass"
+      chosen-class="dwChosenClass"
       @start="onStart"
       @end="onEnd">
       <transition-group>
         <div v-for="(item,optionIndex) in dragOptions" :key="`quOption-${optionIndex}`" >
-          <dw-qu-option-common2-item ref="quCommon2Item" v-model="item.optionTitleObj" :survey="survey" :qu-index="index" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common2-item>
+          <dw-qu-option-common2-item ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="optionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-qu-option-common2-item>
         </div>
       </transition-group>
     </draggable>
+    <!--    <div style="background: #014ab6;">
+      <div v-for="(item,optionIndex) in dragOptions" :key="`a11aquOption-${optionIndex}`" >
+        <div style="border: 1px solid #ad4f74;">{{ item.optionTitleObj.dwHtml }}</div>
+      </div>
+    </div>-->
   </div>
 </template>
 
@@ -43,27 +48,45 @@ export default {
       drag: false
     }
   },
+  watch: {
+    options: function (newValue, oldValue) {
+      // console.log('firstName changed from ' + oldValue + ' to ' + newValue)
+      // this.dragOptions = newValue
+      // const quCommonItems = this.$refs.quCommonItem
+      // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
+      this.refreshData()
+    }
+  },
   methods: {
     onStart () {
       this.drag = true
     },
     onEnd () {
       this.drag = false
+      this.refreshOptions(null)
+    },
+    upAllItemClick () {
+      const curObjs = this.survey.curEditObj
+      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
+    },
+    refreshOptions (focusIndex) {
       this.$emit('update-options', this.dragOptions)
-      const quCommon2Items = this.$refs.quCommon2Item
-      for (let i=0; i<quCommon2Items.length; i++) quCommon2Items[i].dragClick()
+      // 关于状态的刷新，除通过方法调用硬刷新，还可以通过选项数据上绑定的itemClick实现
+      // 先重置所有状态
+      this.upAllItemClick()
+      this.$nextTick(() => {
+        const quCommonItems = this.$refs.quCommonItem
+        for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(focusIndex)
+      })
+    },
+    refreshData () {
+      // 外层option发生变动时同步刷新
+      this.dragOptions = this.options
     }
   }
 }
 </script>
 
 <style scoped>
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
-}
+
 </style>

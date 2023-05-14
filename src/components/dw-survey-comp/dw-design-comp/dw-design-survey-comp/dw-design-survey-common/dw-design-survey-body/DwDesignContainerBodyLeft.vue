@@ -20,9 +20,9 @@
               :force-fallback="true"
               :group="{ name: 'people', pull: true, put: true }"
               animation="300"
-              drag-class="dragClass"
-              ghost-class="ghostClass"
-              chosen-class="chosenClass"
+              drag-class="dwDragClass"
+              ghost-class="dwGhostClass"
+              chosen-class="dwChosenClass"
               @start="onStart"
               @end="onEnd">
               <transition-group>
@@ -135,13 +135,5 @@ export default {
 .qu-catalogue-item:hover{
   /*border: 1px solid dodgerblue;*/
   background: #f5f5f5;
-}
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
 }
 </style>

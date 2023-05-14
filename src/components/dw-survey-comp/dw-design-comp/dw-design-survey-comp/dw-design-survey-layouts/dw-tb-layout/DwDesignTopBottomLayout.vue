@@ -160,34 +160,6 @@ export default {
 @import '../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
 @import '../../../../../../assets/css/design-survey.css';
 
-.header .header-content-left{
-  display: flex;
-}
-.header .header-content-left .logo{
-  width: 200px;
-  text-align: center;
-  line-height: 60px;
-  vertical-align: middle;
-}
-.header .header-content-left img{
-  vertical-align: middle;
-}
-.header .header-content-left .logo h1{
-  display: inline-block;
-  margin: 0 0 0 12px;
-  color: #fff;
-  font-weight: 400;
-  font-size: 16px;
-  vertical-align: top;
-}
-.dragClass{
-  border: 1px solid dodgerblue;
-  background: #f5f5f5;
-}
-.ghostClass{
-  background: #d0cfcf;
-  border: 1px dashed dodgerblue;
-}
 .dw-container-body-lr{
   background-color: white;
   overflow-y: scroll;

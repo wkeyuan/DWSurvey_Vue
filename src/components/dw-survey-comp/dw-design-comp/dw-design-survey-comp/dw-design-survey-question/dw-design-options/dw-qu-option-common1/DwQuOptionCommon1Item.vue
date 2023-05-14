@@ -3,15 +3,16 @@
     <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar" >
       <div class="dw-display-grid">
         <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
-        <div class="dw-question-toolbar" @click="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
-        <div class="dw-question-toolbar"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
       </div>
     </div>
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
         <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
         <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
-        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+        <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
+        <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
     </div>
   </div>
@@ -22,9 +23,14 @@ import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel.vu
 export default {
   name: 'DwQuOptionCommon1Item',
   components: {DwTextEditLabel},
+  /*
   model: {
     prop: 'value',
     event: 'update-input'
+  },*/
+  model: {
+    prop: 'options',
+    event: 'update-options'
   },
   props: {
     optionIndex: {type: Number, default: 0},
@@ -40,29 +46,26 @@ export default {
       itemIndex: 0
     }
   },
+  mounted () {
+    // console.debug('itemIndex', this.optionIndex)
+    if (this.options[this.optionIndex].itemClick) {
+      this.upItemClick()
+      this.editFocus()
+      this.options[this.optionIndex].itemClick = false
+    }
+  },
   methods: {
     clickItem () {
-      if (this.itemIndex === 0) {
-        this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
-      }
-      this.survey.curEditObj[this.itemIndex].itemClick = true
+      this.upItemClick()
       this.upAllItemClick()
-      // this.$emit('update-survey',this.survey)
     },
-    upItemClick (visible) {
-      if (this.itemIndex === 0) {
-        this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
-      }
+    upItemClick () {
+      if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       this.survey.curEditObj[this.itemIndex].itemClick = true
-      // this.$emit('update-survey',this.survey)
     },
     upAllItemClick () {
       const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) {
-        if (i !== this.itemIndex) {
-          this.survey.curEditObj[i].itemClick = false
-        }
-      }
+      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
     },
     mouseleaveItem () {
       this.itemHover = false
@@ -71,18 +74,34 @@ export default {
       this.itemHover = true
     },
     addOptionBefore () {
-      // this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
-      // this.question.quRadios = this.options;
-      // this.$emit('update-survey',this.options)
+      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
+      this.options.splice(this.optionIndex+1, 0, quOption)
+      this.$emit('update-options', this.options)
+      this.$emit('refresh-options', this.optionIndex+1)
     },
     upValue (html) {
       // 此处使用了引用类型可以不传更新
-      console.debug('html', html)
-      this.$emit('update-input', html)
+      // console.debug('html', html)
+      // this.$emit('update-input', html)
+      this.options[this.optionIndex].optionTitleObj = html
+      this.$emit('update-options', this.options)
     },
-    dragClick () {
-      this.$refs.dwEditLabel.upEditorText(this.value.dwHtml)
-      this.upAllItemClick()
+    dragClick (focusIndex) {
+      // this.$refs.dwEditLabel.upEditorText(this.value.dwHtml)
+      // this.upAllItemClick()
+      this.$refs.dwEditLabel.upEditorText(this.options[this.optionIndex].optionTitleObj.dwHtml)
+      if (focusIndex !==null && this.optionIndex === focusIndex) {
+        this.upItemClick()
+        this.editFocus()
+      }
+    },
+    editFocus () {
+      this.$refs.dwEditLabel.editFocus()
+    },
+    deleteOption () {
+      // console.debug('delete')
+      this.options.splice(this.optionIndex, 1)
+      this.$emit('refresh-options', null)
     }
   }
 }

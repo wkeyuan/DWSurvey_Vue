@@ -1,9 +1,5 @@
 <template>
-  <dw-design-question-common v-model="survey" :index="index" >
-    <template v-slot:editQuContent>
-      <dw-qu-orderby-options v-model="survey" :index="index" ></dw-qu-orderby-options>
-    </template>
-  </dw-design-question-common>
+  <dw-qu-orderby-options v-model="survey" :index="index" ></dw-qu-orderby-options>
 </template>
 
 <script>
