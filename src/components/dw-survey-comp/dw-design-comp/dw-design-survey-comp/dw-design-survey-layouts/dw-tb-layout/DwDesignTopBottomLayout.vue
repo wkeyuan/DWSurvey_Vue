@@ -20,7 +20,7 @@
                   </div>
                 </el-col>
                 <el-col :span="16">
-                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" ></dw-design-container-body-center>
+                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag="onStart" @end-drag="onEnd" ></dw-design-container-body-center>
                 </el-col>
                 <el-col :span="4">
                   <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
@@ -92,9 +92,11 @@ export default {
   methods: {
     onStart () {
       this.drag=true
+      this.headerQuToolbarStyle = `z-index: 10; ${this.headerQuToolbarStyle}`
     },
     onEnd () {
       this.drag=false
+      this.headerQuToolbarStyle = `${this.headerQuToolbarStyle}`
     },
     loadDesignSurveyData () {
       questionComps().then((response) => {

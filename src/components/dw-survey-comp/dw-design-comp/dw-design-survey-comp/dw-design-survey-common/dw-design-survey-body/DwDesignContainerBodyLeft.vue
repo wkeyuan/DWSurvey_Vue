@@ -3,7 +3,7 @@
     <el-tabs type="border-card">
       <el-tab-pane label="大纲">
         <div :style="contentStyle" style="overflow-y: scroll;">
-<!--          <el-collapse>
+          <!--          <el-collapse>
             <el-collapse-item title="第1页" name="1">
               <ul class="dw_left_ul">
                 <li>Q1、您的姓名</li>
@@ -18,7 +18,7 @@
             <draggable
               v-model="survey.questions"
               :force-fallback="true"
-              :group="{ name: 'people', pull: true, put: true }"
+              :group="{ name: 'leftQuList', pull: true, put: true }"
               animation="300"
               drag-class="dwDragClass"
               ghost-class="dwGhostClass"
@@ -63,6 +63,7 @@
 <script>
 
 import draggable from 'vuedraggable'
+import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-update-survey-question'
 
 export default {
   name: 'DwDesignContainerBodyLeft',
@@ -78,7 +79,7 @@ export default {
   },
   data () {
     return {
-      contentStyle : '',
+      contentStyle: '',
       drag: false
     }
   },
@@ -89,8 +90,16 @@ export default {
     onStart () {
       this.drag = true
     },
-    onEnd () {
+    onEnd (attrs) {
       this.drag = false
+      // 更新状态
+      const newIndex = attrs.newIndex
+      const oldIndex = attrs.oldIndex
+      if (newIndex>oldIndex) {
+        this.refreshData(oldIndex)
+      } else {
+        this.refreshData(newIndex)
+      }
     },
     onScroll () {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
@@ -103,6 +112,12 @@ export default {
         const lrHeight = window.innerHeight - (157+60+newTop) - 20
         this.contentStyle = `height:${lrHeight}px;`
       }
+    },
+    refreshData (quIndex) {
+      const questions = this.survey.questions
+      questions.forEach((item, index) => {
+        if (index>=quIndex) this.survey.questions.splice(index, 1, dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+      })
     }
   }
 }

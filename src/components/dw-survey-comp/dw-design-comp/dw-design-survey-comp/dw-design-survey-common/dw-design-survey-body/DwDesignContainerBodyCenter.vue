@@ -44,12 +44,8 @@ import DwTextEditLabel from '../DwTextEditLabel'
 import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
-import DwDesignQuestionCommon from "../../dw-design-survey-question/DwDesignQuestionCommon.vue";
-import {
-  dwResetQuestionRefreshValue,
-  dwResetQuOptionObjRefreshValue,
-  dwResetSurveyQuestionRefreshValue
-} from "../../../../dw-utils/dw-update-survey-question";
+import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
+import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-update-survey-question'
 
 export default {
   name: 'DwDesignContainerBodyCenter',
@@ -79,8 +75,10 @@ export default {
   methods: {
     onStart () {
       this.drag = true
+      this.$emit('start-drag')
     },
     onEnd (attrs) {
+      this.$emit('end-drag')
       console.debug('attrs', attrs)
       this.drag = false
       // 更新状态
@@ -117,5 +115,10 @@ export default {
 </script>
 
 <style scoped>
-
+.dw-container-body-center{
+  position: relative;
+  z-index: 50;
+  width: 100%;
+  border:1px solid #f3f3f3;
+}
 </style>
