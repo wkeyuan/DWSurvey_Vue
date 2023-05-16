@@ -46,10 +46,15 @@ export default {
       // this.dragOptions = newValue
       // const quCommonItems = this.$refs.quCommonItem
       // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
-      if (this.value.isRefreshValue) {
+      if (this.value.hasOwnProperty('isRefreshValue') && this.value.isRefreshValue) {
         this.editorText = this.value.dwHtml
         this.$refs.curEdit.innerHTML = this.editorText
         this.value.isRefreshValue = false
+      }
+      if (this.value.hasOwnProperty('isNew') && this.value.isNew) {
+        this.editClick()
+        this.editFocus()
+        this.value.isNew = false
       }
     }
   },

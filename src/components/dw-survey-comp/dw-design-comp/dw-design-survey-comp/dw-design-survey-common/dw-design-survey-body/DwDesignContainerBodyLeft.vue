@@ -18,7 +18,7 @@
             <draggable
               v-model="survey.questions"
               :force-fallback="true"
-              :group="{ name: 'leftQuList', pull: true, put: true }"
+              :group="{ name: 'leftQuList', pull: false, put: true }"
               animation="300"
               drag-class="dwDragClass"
               ghost-class="dwGhostClass"

@@ -64,6 +64,9 @@ export default {
       // console.debug('upEditorText', htmlValue)
       // this.$refs.curEditLabel.upEditorText(htmlValue)
       // this.$refs.curEditLabel.upEditorText(htmlValue)
+    },
+    editFocus () {
+      this.$refs.curEditLabel.editFocus()
     }
   }
 }

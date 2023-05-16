@@ -91,12 +91,18 @@ export default {
   },
   methods: {
     onStart () {
-      this.drag=true
-      this.headerQuToolbarStyle = `z-index: 10; ${this.headerQuToolbarStyle}`
+      this.drag = true
+      this.toolbarIndex()
     },
     onEnd () {
-      this.drag=false
+      this.drag = false
       this.headerQuToolbarStyle = `${this.headerQuToolbarStyle}`
+    },
+    toolbarIndex () {
+      if (this.drag) {
+        this.headerQuToolbarStyle = `z-index: 10; ${this.headerQuToolbarStyle}`
+        this.containerLRStyle = `z-index: 10; ${this.containerLRStyle}`
+      }
     },
     loadDesignSurveyData () {
       questionComps().then((response) => {
@@ -116,23 +122,23 @@ export default {
           this.questions = httpResult.data
         }
       }) */
-      this.contetnMarginTop()
+      this.centerMarginTop()
     },
-    contetnMarginTop () {
-      let contetnMarginTop = 157
+    centerMarginTop () {
+      let centerMarginTop = 157
       const windowInnerHeight = window.innerHeight
-      if (windowInnerHeight > 1280) contetnMarginTop = 160
-      this.containerBodyStyle = `margin-top:${contetnMarginTop}px;`
-      return contetnMarginTop
+      if (windowInnerHeight > 1280) centerMarginTop = 160
+      this.containerBodyStyle = `margin-top:${centerMarginTop}px;`
+      return centerMarginTop
     },
     onScroll (position) {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const headerHeight = 60
-      const contentMarginTop = this.contetnMarginTop()
+      const centerMarginTop = this.centerMarginTop()
       if (scrollTop >= headerHeight) {
         this.headerQuToolbarStyle = 'top:0px;'
         const newTop1 = scrollTop - headerHeight
-        const lrHeight = window.innerHeight - (contentMarginTop) - 10
+        const lrHeight = window.innerHeight - (centerMarginTop) - 10
         console.debug('lrHeight', lrHeight)
         this.containerLRStyle = `top:${newTop1}px;`
         // height:${lrHeight}px;
@@ -141,11 +147,12 @@ export default {
         const newTop = headerHeight - scrollTop
         this.headerQuToolbarStyle = `top:${newTop}px;`
         console.debug('window.innerHeight', window.innerHeight)
-        const lrHeight = window.innerHeight - (contentMarginTop+newTop) - 10
+        const lrHeight = window.innerHeight - (centerMarginTop+newTop) - 10
         this.containerLRStyle = `top:0px;`
         // height:${lrHeight}px;
         this.lrContentHeight = lrHeight
       }
+      this.toolbarIndex()
     },
     documentClick () {
       const curObjs = this.survey.curEditObj

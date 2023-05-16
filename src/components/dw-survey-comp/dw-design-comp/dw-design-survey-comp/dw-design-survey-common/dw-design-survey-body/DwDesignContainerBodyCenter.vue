@@ -12,12 +12,13 @@
           <draggable
             v-model="survey.questions"
             :force-fallback="true"
-            :group="{ name: 'people', pull: true, put: true }"
+            :group="{ name: 'people', pull: false, put: true }"
             handle=".dwMoveSortQu"
             animation="300"
             drag-class="dwDragClass"
             ghost-class="dwGhostClass"
             chosen-class="dwChosenClass"
+            @add="onAdd"
             @start="onStart"
             @end="onEnd">
             <transition-group>
@@ -73,6 +74,13 @@ export default {
     }
   },
   methods: {
+    onAdd (attrs) {
+      console.debug('onAdd attrs', attrs)
+      // 自动执行focus事件
+      const newIndex = attrs.newIndex
+      this.refreshData(newIndex)
+      this.survey.questions[newIndex].quTitleObj.isNew = true
+    },
     onStart () {
       this.drag = true
       this.$emit('start-drag')
@@ -89,6 +97,7 @@ export default {
       } else {
         this.refreshData(newIndex)
       }
+      this.documentClick()
     },
     documentClick () {
       const curObjs = this.survey.curEditObj
@@ -108,7 +117,6 @@ export default {
       questions.forEach((item, index) => {
         if (index>=quIndex) this.survey.questions.splice(index, 1, dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
       })
-      this.documentClick()
     }
   }
 }

@@ -6,7 +6,10 @@
         <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
         <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
-      <el-input v-if="quType==='MULTIFILLBLANK'" v-model="inputText" placeholder="请输入内容" style="width: 50%;" />
+      <template v-if="quType==='MULTIFILLBLANK'" >
+        <el-input v-if="options[optionIndex].answerInputRow>1" v-model="inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
+        <el-input v-else v-model="inputText" :placeholder="options[optionIndex].placeholder" />
+      </template>
       <el-rate v-if="quType==='SCORE'" :max="survey.questions[quIndex].paramInt02" ></el-rate>
     </div>
     <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >

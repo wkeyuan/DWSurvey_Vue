@@ -27,7 +27,7 @@
                               <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-xialati"></div>
                             </div>
                             <div class="cloneQuRoot">
-                              <div style="padding: 0px;">AAA</div>
+                              <div style="padding: 0;">AAA</div>
                             </div>
                           </div>
                           <div v-else>
@@ -226,6 +226,7 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
+import {parseQuestion, parseSurvey} from "../../../../../dw-utils/dw-parse-survey";
 
 export default {
   name: 'DwDesignToolbar',
@@ -260,8 +261,8 @@ export default {
         console.debug('questionComps-response')
         console.debug(response)
         const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          this.questions = httpResult.data
+        if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
+          this.questions = parseQuestion(httpResult.data)
         }
       })
     },
@@ -273,7 +274,7 @@ export default {
       dwSaveSurveyJson(data).then((response) => {
         console.debug('dwSaveSurveyJson-response', response)
         const httpResult = response.data
-        if (httpResult.resultCode === 200) {
+        if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
           this.$message.success('保存成功！')
         } else {
           this.$message.success('保存失败！')

@@ -1,12 +1,13 @@
 <template>
   <div style="padding: 10px 0;" class="dw-qu-item">
-    <el-input v-model="inputText" :placeholder="survey.questions[index].placeholder" style="width: 50%;" />
+    <el-input v-if="survey.questions[index].answerInputRow>1" v-model="inputText" :placeholder="survey.questions[index].placeholder" :autosize="{ minRows: survey.questions[index].answerInputRow }" type="textarea" ></el-input>
+    <el-input v-else v-model="inputText" :placeholder="survey.questions[index].placeholder" />
   </div>
 </template>
 
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
-import DwQuOptionCommon1 from '../../dw-design-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
+
 export default {
   name: 'DwDesignQuFbk',
   components: {DwDesignQuestionCommon},

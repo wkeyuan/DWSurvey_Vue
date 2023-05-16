@@ -36,7 +36,7 @@ export function parseSurvey (survey) {
  * 解析题目
  * @param questions
  */
-function parseQuestion (questions) {
+export function parseQuestion (questions) {
   if (questions !== null && questions.length > 0) {
     // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
@@ -61,6 +61,7 @@ function parseQuestion (questions) {
       question.dateAttrs = []
     })
   }
+  return questions
 }
 
 /**
