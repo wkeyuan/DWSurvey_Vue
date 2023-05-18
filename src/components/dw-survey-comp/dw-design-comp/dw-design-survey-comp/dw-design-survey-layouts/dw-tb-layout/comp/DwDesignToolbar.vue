@@ -9,7 +9,7 @@
                 <div class="toolbars">
                   <draggable
                     v-model="questions"
-                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    :group="{ name: 'questionGroup', pull: 'clone', put: false }"
                     :sort="false"
                     :force-fallback="true"
                     animation="300"
@@ -111,7 +111,9 @@
                 <div class="toolbars">
                   <draggable
                     v-model="questions"
-                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    :group="{ name: 'questionGroup', pull: 'clone', put: false }"
+                    :sort="false"
+                    :force-fallback="true"
                     animation="300"
                     class="toolbars-draggable"
                     drag-class="dragClass"
@@ -120,14 +122,14 @@
                     @start="onStart"
                     @end="onEnd">
                     <transition-group class="toolbars-draggable-group">
-                      <div v-for="(item, index) in questions" :key="`base2${index}`" class="toolbar-item" >
+                      <div v-for="(item, index) in questions" :key="`base${index}`" class="toolbar-item" >
                         <div v-if="item.quType === 'RADIO'">
                           <div v-if="item.hv === 4">
                             <div class="toolbar-item-content">
                               <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-xialati"></div>
                             </div>
                             <div class="cloneQuRoot">
-                              <div style="padding: 0px;">AAA</div>
+                              <div style="padding: 0;">AAA</div>
                             </div>
                           </div>
                           <div v-else>
@@ -135,7 +137,9 @@
                               <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-danxuan"></div>
                             </div>
                             <div class="cloneQuRoot">
-                              <div style="padding: 0px;">AAA</div>
+                              <div style="padding: 0px;">
+                                AAA
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -202,7 +206,109 @@
                   </draggable>
                 </div>
                 <div>
-                  <div class="toolbars-text">基本题型</div>
+                  <div class="toolbars-text">常用题型</div>
+                </div>
+              </div>
+              <div class="tools_item">
+                <div class="toolbars">
+                  <draggable
+                    v-model="questions"
+                    :group="{ name: 'questionGroup', pull: 'clone', put: false }"
+                    :sort="false"
+                    :force-fallback="true"
+                    animation="300"
+                    class="toolbars-draggable"
+                    drag-class="dragClass"
+                    ghost-class="ghostClass"
+                    chosen-class="chosenClass"
+                    @start="onStart"
+                    @end="onEnd">
+                    <transition-group class="toolbars-draggable-group">
+                      <div v-for="(item, index) in questions" :key="`base${index}`" class="toolbar-item" >
+                        <div v-if="item.quType === 'RADIO'">
+                          <div v-if="item.hv === 4">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-xialati"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0;">AAA</div>
+                            </div>
+                          </div>
+                          <div v-else>
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-danxuan"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">
+                                AAA
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'CHECKBOX'">
+                          <div class="toolbar-item-content">
+                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxuan"></div>
+                          </div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0px;">AAA</div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'FILLBLANK'">
+                          <div v-if="item.answerInputRow > 1">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangwenben"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
+                          </div>
+                          <div v-else>
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-tiankong"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'SCORE'">
+                          <div class="toolbar-item-content">
+                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-pingfen"></div>
+                          </div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0px;">AAA</div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'ORDERQU'">
+                          <div class="toolbar-item-content">
+                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-paixu"></div>
+                          </div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0px;">AAA</div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'MULTIFILLBLANK'">
+                          <div class="toolbar-item-content">
+                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangtiankong"></div>
+                          </div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0px;">AAA</div>
+                          </div>
+                        </div>
+                        <div v-if="item.quType === 'UPLOADFILE'">
+                          <div class="toolbar-item-content">
+                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-shangchuan"></div>
+                          </div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0px;">AAA</div>
+                          </div>
+                        </div>
+                      </div>
+                    </transition-group>
+                  </draggable>
+                </div>
+                <div>
+                  <div class="toolbars-text">辅助组件</div>
                 </div>
               </div>
             </div>
@@ -217,8 +323,6 @@
         </el-row>
       </div>
     </el-tab-pane>
-    <el-tab-pane label="矩阵扩展">矩阵扩展</el-tab-pane>
-    <el-tab-pane label="常用题库">常用题库</el-tab-pane>
   </el-tabs>
 </template>
 
@@ -226,7 +330,7 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {parseQuestion, parseSurvey} from "../../../../../dw-utils/dw-parse-survey";
+import {parseQuestion} from '../../../../../dw-utils/dw-parse-survey'
 
 export default {
   name: 'DwDesignToolbar',
@@ -243,6 +347,7 @@ export default {
   data () {
     return {
       questions: [],
+      questions1: [],
       drag: false
     }
   },
@@ -263,6 +368,7 @@ export default {
         const httpResult = response.data
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
           this.questions = parseQuestion(httpResult.data)
+          this.questions1 = parseQuestion(httpResult.data)
         }
       })
     },

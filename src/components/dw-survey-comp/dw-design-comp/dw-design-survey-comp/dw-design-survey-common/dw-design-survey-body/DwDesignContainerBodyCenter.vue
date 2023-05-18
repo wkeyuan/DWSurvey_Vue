@@ -12,7 +12,7 @@
           <draggable
             v-model="survey.questions"
             :force-fallback="true"
-            :group="{ name: 'people', pull: false, put: true }"
+            :group="{ name: 'questionGroup', pull: false, put: true }"
             handle=".dwMoveSortQu"
             animation="300"
             drag-class="dwDragClass"
@@ -29,10 +29,8 @@
           </draggable>
         </div>
       </div>
-      <div style="padding: 10px 20px;text-align: center;">
-      </div>
     </div>
-    <div style=""><dw-footer></dw-footer></div>
+<!--    <div style=""><dw-footer></dw-footer></div>-->
   </div>
 </template>
 

@@ -18,11 +18,12 @@
             <draggable
               v-model="survey.questions"
               :force-fallback="true"
-              :group="{ name: 'leftQuList', pull: false, put: true }"
+              :group="{ name: 'questionGroup', pull: false, put: true }"
               animation="300"
               drag-class="dwDragClass"
               ghost-class="dwGhostClass"
               chosen-class="dwChosenClass"
+              @onAdd="onAdd"
               @start="onStart"
               @end="onEnd">
               <transition-group>
@@ -87,6 +88,13 @@ export default {
     window.addEventListener('scroll', this.onScroll)
   },
   methods: {
+    onAdd (attrs) {
+      console.debug('onAdd attrs', attrs)
+      // 自动执行focus事件
+      const newIndex = attrs.newIndex
+      this.refreshData(newIndex)
+      this.survey.questions[newIndex].quTitleObj.isNew = true
+    },
     onStart () {
       this.drag = true
     },

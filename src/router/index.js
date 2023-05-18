@@ -19,6 +19,7 @@ import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
 import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 import DwSurveyDesignContent from '../views/dw-survey/dw-design/DwSurveyDesignContent'
+import DwAnswerSurvey from "../views/dw-survey/dw-answer/DwAnswerSurvey.vue";
 
 Vue.use(Router)
 
@@ -108,19 +109,24 @@ export default new Router({
       ]
     },
     {
-      path: '/dw-design/',
+      path: '/v6/diaowen/',
       name: 'NoTopLayout',
       component: NoTopLayout,
       children: [
         {
-          path: '/dw-design/survey/:id',
+          path: '/v6/diaowen/design/survey/:id',
           name: 'DwSurveyDesignContent',
           component: DwSurveyDesignContent
         },
         {
-          path: '/dw-design/survey1',
+          path: '/dw-survey-v6/dw-design/survey1',
           name: 'DwDesign',
           component: DwDesign
+        },
+        {
+          path: '/v6/diaowen/answer/survey/:id',
+          name: 'DwSurveyDesignContent',
+          component: DwAnswerSurvey
         }
       ]
     },

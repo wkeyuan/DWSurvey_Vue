@@ -11,7 +11,7 @@
             <dw-design-toolbar v-model="survey"></dw-design-toolbar>
           </div>
 
-          <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 30px;" >
+          <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
             <div class="dw-container-body">
               <el-row :gutter="10">
                 <el-col :span="4">
@@ -31,6 +31,7 @@
             </div>
           </div>
         </div>
+        <div style=""><dw-footer></dw-footer></div>
       </el-main>
     </el-container>
   </div>
@@ -50,10 +51,12 @@ import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyLeft'
 import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyRight'
+import DwFooter from "../../../../../layouts/DwFooter.vue";
 
 export default {
   name: 'DwDesignTopBottomLayout',
   components: {
+    DwFooter,
     DwDesignContainerBodyRight,
     DwDesignContainerBodyLeft,
     DwDesignContainerBodyCenter,
