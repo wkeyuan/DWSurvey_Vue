@@ -5,8 +5,8 @@
     </div>
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
-        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon fa fa-circle-thin "></i>
-        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon fa fa-square-o "></i>
+        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
+        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
         <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
         <dw-html-label-common ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-html-label-common>
       </div>

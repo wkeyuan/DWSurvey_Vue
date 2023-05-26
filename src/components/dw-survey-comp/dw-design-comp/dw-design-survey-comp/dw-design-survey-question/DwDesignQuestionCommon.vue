@@ -24,14 +24,16 @@
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="移动本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrows" aria-hidden="true"></i></div>
             </el-tooltip>
-            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目设置" placement="left">
-              <dw-popover-qu-attrs v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
-                <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-cog" aria-hidden="true"></i></div>
-              </dw-popover-qu-attrs>
-            </el-tooltip>
-            <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目逻辑" placement="left">
-              <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
-            </el-tooltip>
+            <template v-if="survey.questions[index].quType !== 'PARAGRAPH' && survey.questions[index].quType !== 'PAGETAG'" >
+              <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目设置" placement="left">
+                <dw-popover-qu-attrs v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
+                  <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-cog" aria-hidden="true"></i></div>
+                </dw-popover-qu-attrs>
+              </el-tooltip>
+              <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目逻辑" placement="left">
+                <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
+              </el-tooltip>
+            </template>
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="删除本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10" @click="deleteQu" ><i class="dw-cursor-pointer dw-event-color fa fa-trash-alt" aria-hidden="true"></i></div>
             </el-tooltip>
@@ -40,8 +42,8 @@
         <div class="dw-question-body-center">
           <div class="dw-question-body-center-body dw-color-333" >
             <div class="dw-qu-content">
-              <div class="dw-qu-title-body dw-display-flex dw-width-100bf">
-                <div class="dw-qu-num">{{ index+1 }}、</div>
+              <div v-if="survey.questions[index].quType !== 'PAGETAG'" class="dw-qu-title-body dw-display-flex dw-width-100bf">
+                <div v-show="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-num">{{ index+1 }}、</div>
                 <div class="dw-flex-item-auto">
                   <dw-text-edit-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
                 </div>
@@ -59,7 +61,7 @@
                 </div>
 
                 <div class="dw-question-body-bottom dw-padding-top-10 dw-height-20px">
-                  <div>
+                  <div v-if="survey.questions[index].quType !== 'PARAGRAPH' && survey.questions[index].quType !== 'PAGETAG'">
                     <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
                       <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
                         <template v-if="survey.questions[index].hv===4">

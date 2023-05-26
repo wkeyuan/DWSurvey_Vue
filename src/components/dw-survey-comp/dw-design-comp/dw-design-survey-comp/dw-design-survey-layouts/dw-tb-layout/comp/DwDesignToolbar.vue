@@ -1,11 +1,10 @@
 <template>
-  <el-tabs type="border-card">
+  <el-tabs v-loading="loading" v-if="tabs.length>0" type="border-card" >
     <el-tab-pane label="常用题型" style="padding: 0px;">
       <div class="toolbars-contents">
         <el-row type="flex" justify="space-between" align="middle" >
           <el-col :span="18" >
             <div class="toolbars-contents-body">
-
               <div v-for="item in tabs[0].tabQus" class="tools_item">
                 <div class="toolbars">
                   <draggable
@@ -22,100 +21,110 @@
                     @end="onEnd">
                     <transition-group class="toolbars-draggable-group">
                       <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" >
-                        <div v-if="item.quType === 'RADIO'">
-                          <div v-if="item.hv === 4">
-                            <div class="toolbar-item-content">
-                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-xialati"></div>
-                            </div>
-                            <div class="cloneQuRoot">
-                              <div style="padding: 0;">AAA</div>
-                            </div>
+                        <template v-if="item.dwsurveyfont !== null">
+                          <div class="toolbar-item-content">
+                            <div :class="item.dwsurveyfont" class="dwToolbar_icon dwsurveyfont "></div>
                           </div>
-                          <div v-else>
-                            <div class="toolbar-item-content">
-                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-danxuan"></div>
+                          <div class="cloneQuRoot">
+                            <div style="padding: 0;">AAA</div>
+                          </div>
+                        </template>
+                        <template v-else>
+                          <div v-if="item.quType === 'RADIO'">
+                            <div v-if="item.hv === 4">
+                              <div class="toolbar-item-content">
+                                <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-xialati"></div>
+                              </div>
+                              <div class="cloneQuRoot">
+                                <div style="padding: 0;">AAA</div>
+                              </div>
                             </div>
-                            <div class="cloneQuRoot">
-                              <div style="padding: 0px;">
-                                AAA
+                            <div v-else>
+                              <div class="toolbar-item-content">
+                                <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-danxuan"></div>
+                              </div>
+                              <div class="cloneQuRoot">
+                                <div style="padding: 0px;">
+                                  AAA
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div v-if="item.quType === 'CHECKBOX'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxuan"></div>
-                          </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
-                          </div>
-                        </div>
-                        <div v-if="item.quType === 'FILLBLANK'">
-                          <div v-if="item.answerInputRow > 1">
+                          <div v-if="item.quType === 'CHECKBOX'">
                             <div class="toolbar-item-content">
-                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangwenben"></div>
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxuan"></div>
                             </div>
                             <div class="cloneQuRoot">
                               <div style="padding: 0px;">AAA</div>
                             </div>
                           </div>
-                          <div v-else>
+                          <div v-if="item.quType === 'FILLBLANK'">
+                            <div v-if="item.answerInputRow > 1">
+                              <div class="toolbar-item-content">
+                                <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangwenben"></div>
+                              </div>
+                              <div class="cloneQuRoot">
+                                <div style="padding: 0px;">AAA</div>
+                              </div>
+                            </div>
+                            <div v-else>
+                              <div class="toolbar-item-content">
+                                <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-tiankong"></div>
+                              </div>
+                              <div class="cloneQuRoot">
+                                <div style="padding: 0px;">AAA</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div v-if="item.quType === 'SCORE'">
                             <div class="toolbar-item-content">
-                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-tiankong"></div>
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-pingfen"></div>
                             </div>
                             <div class="cloneQuRoot">
                               <div style="padding: 0px;">AAA</div>
                             </div>
                           </div>
-                        </div>
-                        <div v-if="item.quType === 'SCORE'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-pingfen"></div>
+                          <div v-if="item.quType === 'ORDERQU'">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-paixu"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
                           </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
+                          <div v-if="item.quType === 'MULTIFILLBLANK'">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangtiankong"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
                           </div>
-                        </div>
-                        <div v-if="item.quType === 'ORDERQU'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-paixu"></div>
+                          <div v-if="item.quType === 'UPLOADFILE'">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-shangchuan"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
                           </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
+                          <div v-if="item.quType === 'PAGETAG'">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-fenye"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
                           </div>
-                        </div>
-                        <div v-if="item.quType === 'MULTIFILLBLANK'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangtiankong"></div>
+                          <div v-if="item.quType === 'PARAGRAPH'">
+                            <div class="toolbar-item-content">
+                              <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-fenduan"></div>
+                            </div>
+                            <div class="cloneQuRoot">
+                              <div style="padding: 0px;">AAA</div>
+                            </div>
                           </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
-                          </div>
-                        </div>
-                        <div v-if="item.quType === 'UPLOADFILE'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-shangchuan"></div>
-                          </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
-                          </div>
-                        </div>
-                        <div v-if="item.quType === 'PAGETAG'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-fenye"></div>
-                          </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
-                          </div>
-                        </div>
-                        <div v-if="item.quType === 'PARAGRAPH'">
-                          <div class="toolbar-item-content">
-                            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-fenduan"></div>
-                          </div>
-                          <div class="cloneQuRoot">
-                            <div style="padding: 0px;">AAA</div>
-                          </div>
-                        </div>
+                        </template>
                       </div>
                     </transition-group>
                   </draggable>
@@ -162,7 +171,8 @@ export default {
       questions: [],
       questions1: [],
       tabs: [],
-      drag: false
+      drag: false,
+      loading: true
     }
   },
   mounted () {
@@ -191,6 +201,7 @@ export default {
             })
           })
           this.tabs = tabs
+          this.loading = false
         }
       })
     },

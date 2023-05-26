@@ -60,6 +60,10 @@ export function parseQuestion (questions) {
         parseQuFbk(question)
       } else if (quType === 'UPLOADFILE') {
         parseQuUploadFile(question)
+      } else if (quType === 'PAGETAG') {
+        question.quTypeName = '分页组件'
+      } else if (quType === 'PARAGRAPH') {
+        question.quTypeName = '分段组件'
       }
       question.dateAttrs = []
     })

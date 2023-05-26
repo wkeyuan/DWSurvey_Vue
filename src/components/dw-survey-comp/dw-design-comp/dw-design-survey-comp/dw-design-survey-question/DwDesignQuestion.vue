@@ -23,6 +23,12 @@
         <div v-if="item.quType === 'UPLOADFILE'">
           <dw-design-qu-upload ref="dwQuUpload" :index="index" v-model="survey" ></dw-design-qu-upload>
         </div>
+        <div v-if="item.quType === 'PAGETAG'">
+          <dw-design-qu-page ref="dwQuPage" :index="index" v-model="survey" ></dw-design-qu-page>
+        </div>
+        <div v-if="item.quType === 'PARAGRAPH'">
+          <dw-design-qu-paragraph ref="dwQuUpload" :index="index" v-model="survey" ></dw-design-qu-paragraph>
+        </div>
       </template>
     </dw-design-question-common>
   </div>
@@ -39,10 +45,14 @@ import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesign
 import DwDesignQuScore from './dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue'
 import DwDesignQuestionCommon from './DwDesignQuestionCommon.vue'
 import DwQuRadioOptions from './dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue'
+import DwDesignQuPage from "./dw-design-questions/dw-design-qu-pagetag/DwDesignQuPage.vue";
+import DwDesignQuParagraph from "./dw-design-questions/dw-design-paragraph/DwDesignQuParagraph.vue";
 
 export default {
   name: 'DwDesignQuestion',
   components: {
+    DwDesignQuParagraph,
+    DwDesignQuPage,
     DwQuRadioOptions,
     DwDesignQuestionCommon,
     DwDesignQuScore,
