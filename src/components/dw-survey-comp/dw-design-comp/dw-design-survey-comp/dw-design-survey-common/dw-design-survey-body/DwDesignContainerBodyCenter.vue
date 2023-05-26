@@ -22,7 +22,7 @@
             @start="onStart"
             @end="onEnd">
             <transition-group>
-              <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+              <div v-for="(item, index) in survey.questions" :key="item" >
                 <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
             </transition-group>

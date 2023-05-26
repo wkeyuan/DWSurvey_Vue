@@ -33,7 +33,7 @@
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
             </el-tooltip>
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="删除本题" placement="left">
-              <div class="dw-question-toolbar dw-margin-bottom-10" @click="deleteQu" ><i class="dw-cursor-pointer dw-event-color fa fa-trash fa fa-arrows" aria-hidden="true"></i></div>
+              <div class="dw-question-toolbar dw-margin-bottom-10" @click="deleteQu" ><i class="dw-cursor-pointer dw-event-color fa fa-trash-alt" aria-hidden="true"></i></div>
             </el-tooltip>
           </div>
         </div>
@@ -112,7 +112,6 @@ import DwTextEditLabelCommon from '../dw-design-survey-common/DwTextEditLabelCom
 import DwPopoverMoreOptions from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverMoreOptions.vue'
 import {
   dwResetQuestionRefreshValue,
-  dwResetQuOptionObjRefreshValue,
   dwSurveyQuAddOption
 } from '../../../dw-utils/dw-update-survey-question'
 import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-update-survey-item-click'

@@ -7,13 +7,23 @@ import DwAnswerSurveyBody from './dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import {querySurveyAll} from '../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api'
 import {parseSurvey} from '../dw-utils/dw-parse-survey'
 import DwAnswerDefaultLayout from './dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
+import {buildAnswerSurveyObj} from "../dw-utils/dw-answer-survey";
 
 export default {
   name: 'DwAnswerSurveyMain',
   components: {DwAnswerDefaultLayout, DwAnswerSurveyBody},
   data () {
     return {
-      survey: {}
+      survey: {
+        surveyNameObj: {dwHtml: '', dwText: ''},
+        surveyDetail: {
+          surveyNodeObj: {dwHtml: '', dwText: ''}
+        },
+        answer: {questions: []},
+        surveyStyle: {
+          themeColor: 'none'
+        }
+      }
     }
   },
   mounted () {
@@ -31,8 +41,10 @@ export default {
           console.debug('httpResult.data', httpResult.data)
           const surveyData = parseSurvey(httpResult.data)
           console.debug('parseResultData', surveyData)
-          this.survey = surveyData
           // quRadios
+          // surveyData.answer = buildAnswerSurveyObj(surveyData)
+          surveyData.surveyStyle.themeColor = '#3f9eff'
+          this.survey = surveyData
         }
       })
     }

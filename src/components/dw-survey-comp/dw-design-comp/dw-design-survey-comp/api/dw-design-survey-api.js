@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function questionComps () {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/questions.do',
+    url: '/api/dwsurvey/app/dw-design-survey/toolbar-qus.do',
     method: 'get'
   })
 }

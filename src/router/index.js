@@ -20,6 +20,7 @@ import Login from '@/views/Login'
 import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 import DwSurveyDesignContent from '../views/dw-survey/dw-design/DwSurveyDesignContent'
 import DwAnswerSurvey from "../views/dw-survey/dw-answer/DwAnswerSurvey.vue";
+import DwSurveyPreview from "../views/dw-survey/dw-design/DwSurveyPreview.vue";
 
 Vue.use(Router)
 
@@ -122,6 +123,11 @@ export default new Router({
           path: '/dw-survey-v6/dw-design/survey1',
           name: 'DwDesign',
           component: DwDesign
+        },
+        {
+          path: '/v6/diaowen/preview/survey/:id',
+          name: 'DwSurveyPreview',
+          component: DwSurveyPreview
         },
         {
           path: '/v6/diaowen/answer/survey/:id',

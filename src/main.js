@@ -11,7 +11,8 @@ import 'normalize.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import './utils/dw-common'
-import 'font-awesome/css/font-awesome.min.css'
+// import 'font-awesome/css/font-awesome.min.css' // fa4
+import '@fortawesome/fontawesome-free/css/all.css' // fa5
 import './assets/css/wangeditor/view.css'
 import './assets/css/dw-common.css'
 import './assets/css/dw-element-style-override.css'

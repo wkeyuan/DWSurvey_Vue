@@ -1,15 +1,11 @@
 <template>
   <div class="dw-answer-container" >
     <el-container>
-      <el-main style="padding: 0;margin-top: 30px;">
+      <el-main style="padding: 0;">
         <div v-if="survey!=null">
           <div>
             <div class="dw-container-body">
-              <el-row :gutter="10">
-                <el-col :span="16" :offset="4">
-                  <dw-answer-survey-body ref="designContainerBody" v-model="survey" ></dw-answer-survey-body>
-                </el-col>
-              </el-row>
+              <dw-answer-survey-body ref="designContainerBody" v-model="survey" ></dw-answer-survey-body>
             </div>
           </div>
         </div>
@@ -25,6 +21,7 @@ import DwDesignContainerBodyCenter
   from '../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter.vue'
 import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwFooter from '../../../../layouts/DwFooter.vue'
+import {buildAnswerSurveyObj} from "../../../dw-utils/dw-answer-survey";
 
 export default {
   name: 'DwAnswerDefaultLayout',
@@ -38,7 +35,8 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    answer: {type: Object, default: () => {}}
   },
   data () {
     return {
@@ -50,12 +48,13 @@ export default {
       containerBodyStyle: '',
       questions: [],
       radio: '1',
-      hover: false
+      hover: false,
+      answerSurvey: {
+        questions: []
+      }
     }
   },
   mounted () {
-    this.loadDesignSurveyData()
-    window.addEventListener('scroll', this.onScroll)
   },
   methods: {
   }

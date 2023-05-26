@@ -1,0 +1,134 @@
+<template>
+  <div class="dw-qu-order-group">
+    <!--   v-for的key不能是index，如下用item，不然动画会没有效果 -->
+    <transition-group name="flip-list" >
+      <div v-for="item in dragOptions" :key="item" class="dw-qu-order-group-item dwMoveSortQuOption" >
+        <div class="dw-qu-item" @click="clickItem(item)" >
+          <div class="dw-qu-item-body">
+            <div class="dw-qu-item-el-checkbox-radio">
+              <i v-if="item.orderIndex>0" :style="`background: ${themeColor};border-color: ${themeColor}`" class="fa dw-qu-order-num dw-num-order" >{{ item.orderIndex }}</i>
+              <i v-else class="fa dw-qu-order-num dw-num-empty" > {{ item.orderIndex }} </i>
+              <dw-html-label-common ref="dwEditLabel" :value="item.optionTitleObj" ></dw-html-label-common>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition-group>
+  </div>
+</template>
+
+<script>
+
+import DwQuOptionCommon2 from '../../../dw-answer-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
+import DwQuOptionCommon2Item
+  from '../../../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-question/dw-design-options/dw-qu-option-common2/DwQuOptionCommon2Item.vue'
+import DwTextEditLabel
+  from '../../../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-common/DwTextEditLabel.vue'
+import DwHtmlLabelCommon from '../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
+import draggable from 'vuedraggable'
+
+export default {
+  name: 'DwQuOrderOptions',
+  components: {DwHtmlLabelCommon, DwTextEditLabel, DwQuOptionCommon2Item, DwQuOptionCommon2, draggable},
+  model: {
+    prop: 'survey',
+    event: 'update-survey'
+  },
+  props: {
+    index: {type: Number, default: 0},
+    survey: {type: Object, default: () => {}}
+  },
+  data () {
+    return {
+      dragOptions: this.survey.questions[this.index].quOrderbys,
+      dataNum: 0,
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      themeColor: this.survey.surveyStyle.themeColor
+    }
+  },
+  methods: {
+    onStart () {
+      this.drag = true
+    },
+    onEnd (attrs) {
+      this.drag = false
+    },
+    clickItem (item) {
+      const length = this.dragOptions.length
+      // const item = this.dragOptions[itemIndex]
+      if (item.hasOwnProperty('orderIndex') && item.orderIndex > 0) {
+        const itemOrderIndex = item.orderIndex
+        this.dragOptions.forEach((option, index) => {
+          if (itemOrderIndex < option.orderIndex) {
+            option.orderIndex = option.orderIndex - 1
+          }
+        })
+        item.orderIndex = 0
+        const newNum = this.dataNum - 1
+        if (newNum >= 0) this.dataNum = newNum
+      } else {
+        const newNum = this.dataNum + 1
+        if (newNum <= length) {
+          item.orderIndex = newNum
+          this.dataNum = newNum
+        }
+      }
+
+      // 重新排序
+      this.dragOptions.sort(function (a, b) {
+        const x = a.orderIndex === 0 ? length + 1 : a.orderIndex
+        const y = b.orderIndex === 0 ? length + 1 : b.orderIndex
+        return ((x < y) ? -1 : (x > y) ? 1 : 0)
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.dw-qu-order-group{
+
+}
+.dw-qu-order-group .dw-qu-order-group-item{
+  border: 1px solid #dddfe6;
+  margin-bottom: -1px;
+  /*border-radius: 0.25rem;*/
+  background: white;
+}
+.dw-qu-order-group .dw-qu-order-group-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.dw-qu-item-el-checkbox-radio{
+  /*display: inline-flex;*/
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 3px 5px;
+}
+.dw-qu-item-el-checkbox-radio-icon{
+  /*background: red;*/
+}
+.dw-qu-order-num{
+  border: 1px solid #dcdfe6;
+  font-size: 10px;
+  padding: 3px 5px;
+  margin-right: 5px;
+  font-family: "Antic", "Tahoma", serif;
+  border-radius: 3px;
+}
+.dw-qu-order-num.dw-num-empty{
+  color: white;
+  background: white;
+}
+.dw-qu-order-num.dw-num-order{
+  color: white;
+  background: #097ef3;
+  border: 1px solid #097ef3;
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+</style>

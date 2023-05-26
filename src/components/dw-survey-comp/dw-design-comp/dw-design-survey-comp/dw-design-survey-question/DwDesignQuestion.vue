@@ -37,8 +37,8 @@ import DwDesignQuOderby from './dw-design-questions/dw-design-qu-orderby/DwDesig
 import DwDesignQuMFbk from './dw-design-questions/dw-design-qu-mfbk/DwDesignQuMFbk.vue'
 import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesignQuUpload'
 import DwDesignQuScore from './dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue'
-import DwDesignQuestionCommon from "./DwDesignQuestionCommon.vue";
-import DwQuRadioOptions from "./dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue";
+import DwDesignQuestionCommon from './DwDesignQuestionCommon.vue'
+import DwQuRadioOptions from './dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue'
 
 export default {
   name: 'DwDesignQuestion',

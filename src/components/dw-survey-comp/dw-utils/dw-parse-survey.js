@@ -28,6 +28,7 @@ export function parseSurvey (survey) {
     parseQuestion(survey.questions)
     survey.surveyTest = ''
     survey.curEditObj = [{itemClick: false}]
+    survey.surveyStyle = {themeColor: 'red'}
   }
   return survey
 }
@@ -57,6 +58,8 @@ export function parseQuestion (questions) {
         parseQuScores(question)
       } else if (quType === 'FILLBLANK') {
         parseQuFbk(question)
+      } else if (quType === 'UPLOADFILE') {
+        parseQuUploadFile(question)
       }
       question.dateAttrs = []
     })
@@ -121,6 +124,12 @@ function parseQuFbk (question) {
   if (!question.hasOwnProperty('step')) question.step = '00:05'
 }
 
+function parseQuUploadFile (question) {
+  question.quTypeName = '上传题'
+  if (!question.hasOwnProperty('placeholder')) question.placeholder = '请输入'
+  if (!question.hasOwnProperty('step')) question.step = '00:05'
+}
+
 /**
  * 用于解析单选、多选、排序、多项填空题的选项
  * @param quOptions
@@ -133,6 +142,8 @@ function parseQuOptionType1 (quOptions) {
       const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
       quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
       quOption.dateAttrs = []
+      quOption.checked = false
+      quOption.orderIndex = 0
     })
   }
 }
@@ -148,4 +159,12 @@ function parseQuOptionType1 (quOptions) {
           <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
             <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
           </el-tooltip>
+ */
+/**
+ * 1、编辑器工具栏通过布置并从后台返回工具信息
+ * 2、模板库通过后台返回
+ * 3、发布问卷并保存
+ * 4、回答问卷并保存答案
+ * 5、完善基础版本编辑器未完成的功能
+ * 6、升级编辑器与企业版目前提供的功能同步
  */
