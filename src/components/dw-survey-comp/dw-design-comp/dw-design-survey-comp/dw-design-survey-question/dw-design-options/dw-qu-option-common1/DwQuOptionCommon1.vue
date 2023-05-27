@@ -46,6 +46,15 @@ export default {
       drag: false
     }
   },
+  watch: {
+    options: function (newValue, oldValue) {
+      // console.log('firstName changed from ' + oldValue + ' to ' + newValue)
+      // this.dragOptions = newValue
+      // const quCommonItems = this.$refs.quCommonItem
+      // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
+      this.refreshData()
+    }
+  },
   methods: {
     onStart () {
       this.drag = true
@@ -66,6 +75,10 @@ export default {
         const quCommonItems = this.$refs.quCommonItem
         for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(focusIndex)
       })
+    },
+    refreshData () {
+      // 外层option发生变动时同步刷新
+      this.dragOptions = this.options
     }
   }
 }

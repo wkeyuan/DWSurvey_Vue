@@ -19,12 +19,7 @@ export function parseSurvey (survey) {
   } */
   if (survey !== null) {
     survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText, dwPlaceholder: '请输入问卷标题'}
-    const surveyDetail = survey.surveyDetail
-    if (surveyDetail !== null) {
-      const surveyNoteText = surveyDetail.surveyNoteText !== null ? surveyDetail.surveyNoteText : ''
-      // surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText}
-      survey.surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText, dwPlaceholder: '请输入问卷介绍'}
-    }
+    parseSurveyDetail(survey)
     parseQuestion(survey.questions)
     survey.surveyTest = ''
     survey.curEditObj = [{itemClick: false}]
@@ -33,6 +28,21 @@ export function parseSurvey (survey) {
   return survey
 }
 
+export function parseSurveyDetail (survey) {
+  const surveyDetail = survey.surveyDetail
+  if (surveyDetail !== null) {
+    const surveyNoteText = surveyDetail.surveyNoteText !== null ? surveyDetail.surveyNoteText : ''
+    // surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText}
+    survey.surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText, dwPlaceholder: '请输入问卷介绍'}
+  }
+  survey.surveyDetail.effective_model = survey.surveyDetail.effective === 1
+  survey.surveyDetail.effectiveIp_model = survey.surveyDetail.effectiveIp === 1
+  survey.surveyDetail.refresh_model = survey.surveyDetail.refresh === 1
+  survey.surveyDetail.rule_model = survey.surveyDetail.rule === 3
+  survey.surveyDetail.ynEndNum_model = survey.surveyDetail.ynEndNum === 1
+  survey.surveyDetail.endNum_model = survey.surveyDetail.endNum
+  survey.surveyDetail.ynEndTime_model = survey.surveyDetail.ynEndTime === 1
+}
 /**
  * 解析题目
  * @param questions
@@ -166,6 +176,7 @@ function parseQuOptionType1 (quOptions) {
  */
 /**
  * 1、编辑器工具栏通过布置并从后台返回工具信息
+ * 2、编辑器问卷基本属性配置
  * 2、模板库通过后台返回
  * 3、发布问卷并保存
  * 4、回答问卷并保存答案

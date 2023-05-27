@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 10px;border-top:5px solid #efefef;">
-    <div style="text-align: right;color: grey;font-size: 13px;">下一页(1/2)</div>
+    <div style="text-align: right;color: grey;font-size: 13px;">下一页({{ pageNum }}/{{ pageSize }})</div>
   </div>
 </template>
 
@@ -21,6 +21,24 @@ export default {
   data () {
     return {
       inputText: ''
+    }
+  },
+  computed: {
+    pageSize () {
+      const questions = this.survey.questions
+      let pageSize = 1
+      questions.forEach((item, index) => {
+        if (item.quType === 'PAGETAG') pageSize++
+      })
+      return pageSize
+    },
+    pageNum () {
+      const questions = this.survey.questions
+      let pageNum = 0
+      questions.forEach((item, index) => {
+        if (item.quType === 'PAGETAG' && index <= this.index) pageNum++
+      })
+      return pageNum
     }
   }
 }

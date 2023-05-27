@@ -43,8 +43,8 @@
           <div class="dw-question-body-center-body dw-color-333" >
             <div class="dw-qu-content">
               <div v-if="survey.questions[index].quType !== 'PAGETAG'" class="dw-qu-title-body dw-display-flex dw-width-100bf">
-                <div v-show="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-num">{{ index+1 }}、</div>
-                <div class="dw-flex-item-auto">
+                <div v-if="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-num">{{ quNum }}、</div>
+                <div :class="survey.questions[index].quType !== 'PARAGRAPH' ? '':'dw-qu-paragraph'" class="dw-flex-item-auto" >
                   <dw-text-edit-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-text-edit-label-common>
                 </div>
                 <div class="dw-qu-type-name dw-padding-left-10" >
@@ -146,6 +146,16 @@ export default {
       openDelay: 300
     }
   },
+  computed: {
+    quNum () {
+      const questions = this.survey.questions
+      let quNum = 0
+      questions.forEach((item, index) => {
+        if (item.quType !== 'PAGETAG' && item.quType !== 'PARAGRAPH' && index <= this.index) quNum++
+      })
+      return quNum
+    }
+  },
   watch: {
     survey: function (newValue, oldValue) {
       console.log('firstName changed from ' + oldValue + ' to ' + newValue)
@@ -232,6 +242,9 @@ export default {
 .dw-input-focus{
   border: 1px solid #095aaa;
   background: #e5f5f5;
+}
+.dw-qu-paragraph{
+  font-weight: bold;
 }
 </style>
 <style>

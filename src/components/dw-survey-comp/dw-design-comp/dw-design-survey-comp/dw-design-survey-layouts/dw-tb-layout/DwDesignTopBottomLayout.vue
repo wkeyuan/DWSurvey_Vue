@@ -49,7 +49,7 @@ import DwDesignToolbar from './comp/DwDesignToolbar'
 import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
-import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyLeft'
+import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
 import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyRight'
 import DwFooter from "../../../../../layouts/DwFooter.vue";
 

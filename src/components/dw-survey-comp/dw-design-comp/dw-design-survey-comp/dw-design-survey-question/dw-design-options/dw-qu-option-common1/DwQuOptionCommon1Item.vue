@@ -46,6 +46,16 @@ export default {
       itemIndex: 0
     }
   },
+  watch: {
+    options: function (newValue, oldValue) {
+      // console.debug(newValue)
+      // console.log('upEditorText changed from ' + oldValue + ' to ' + newValue)
+      // console.debug('newValue', newValue)
+      // console.debug('oldValue', oldValue)
+      // console.debug('watch-options', this.options[this.optionIndex].optionTitleObj.dwHtml)
+      // this.$refs.dwEditLabel.upEditorText(this.options[this.optionIndex].optionTitleObj.dwHtml)
+    }
+  },
   mounted () {
     // console.debug('itemIndex', this.optionIndex)
     if (this.options[this.optionIndex].itemClick) {
