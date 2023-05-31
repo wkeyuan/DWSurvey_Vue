@@ -113,7 +113,7 @@ import DwTextEditLabel from '../dw-design-survey-common/DwTextEditLabel'
 import DwTextEditLabelCommon from '../dw-design-survey-common/DwTextEditLabelCommon'
 import DwPopoverMoreOptions from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverMoreOptions.vue'
 import {
-  dwResetQuestionRefreshValue,
+  dwResetQuestionRefreshValue, dwResetSurveyQuestionRefreshValue,
   dwSurveyQuAddOption
 } from '../../../dw-utils/dw-update-survey-question'
 import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-update-survey-item-click'
@@ -191,12 +191,21 @@ export default {
       // 要刷新通知下层排序项
     },
     deleteQu () {
-      this.$confirm('确认删除？').then(_ => { this.survey.questions.splice(this.index, 1) }).catch(_ => {})
+      this.$confirm('确认删除？').then(_ => {
+        this.survey.questions.splice(this.index, 1)
+        // 需要强制触发所有题目刷新
+        this.survey = dwResetSurveyQuestionRefreshValue(this.survey)
+        this.survey.isRefreshAllQu = true // 实际中没有使用
+      }).catch(_ => {})
     },
     copyQu () {
+      // 复制题
       const question = this.survey.questions[this.index]
-      const newQu = JSON.parse(JSON.stringify(question))
+      const newQu = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(question)))
       this.survey.questions.splice(this.index+1, 0, newQu)
+      // 需要强制触发所有题目刷新
+      this.survey = dwResetSurveyQuestionRefreshValue(this.survey)
+      this.survey.isRefreshAllQu = true // 实际中没有使用
     },
     upQu () {
       // this.survey.questions.splice(this.index-1, 1, ...this.survey.questions.splice(this.index, 1, this.survey.questions[this.index-1]))

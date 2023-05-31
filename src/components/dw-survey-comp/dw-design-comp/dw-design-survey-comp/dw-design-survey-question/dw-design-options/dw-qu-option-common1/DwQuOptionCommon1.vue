@@ -48,10 +48,10 @@ export default {
   },
   watch: {
     options: function (newValue, oldValue) {
-      // console.log('firstName changed from ' + oldValue + ' to ' + newValue)
       // this.dragOptions = newValue
       // const quCommonItems = this.$refs.quCommonItem
       // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
+      console.debug('index', this.index)
       this.refreshData()
     }
   },
@@ -79,6 +79,11 @@ export default {
     refreshData () {
       // 外层option发生变动时同步刷新
       this.dragOptions = this.options
+      /*
+      if (this.survey.isRefreshAllQu) {
+        this.refreshOptions(null)
+        this.survey.isRefreshAllQu = false
+      }*/
     }
   }
 }

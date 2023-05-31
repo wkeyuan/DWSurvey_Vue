@@ -24,7 +24,7 @@
                 </el-col>
                 <el-col :span="4">
                   <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
-                    <dw-design-container-body-right></dw-design-container-body-right>
+                    <dw-design-container-body-right v-model="survey" ></dw-design-container-body-right>
                   </div>
                 </el-col>
               </el-row>
@@ -50,7 +50,7 @@ import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
-import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyRight'
+import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/DwDesignContainerBodyRight.vue'
 import DwFooter from "../../../../../layouts/DwFooter.vue";
 
 export default {

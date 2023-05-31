@@ -120,7 +120,7 @@ export default {
     },
     copyQu () {
       const question = this.survey.questions[this.index]
-      const newQu = JSON.parse(JSON.stringify(question))
+      const newQu = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(question)))
       this.survey.questions.splice(this.index+1, 0, newQu)
     },
     upQu () {
