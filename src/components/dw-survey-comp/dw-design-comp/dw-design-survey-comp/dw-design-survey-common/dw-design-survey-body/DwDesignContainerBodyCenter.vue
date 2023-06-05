@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import DwDesignToolbar from '../../dw-design-survey-layouts/dw-tb-layout/comp/DwDesignToolbar'
+import DwDesignToolbar from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/DwDesignToolbar.vue'
 import DwDesignHeader from '../../dw-design-survey-layouts/dw-tb-layout/comp/DwDesignHeader'
 import DwTextEditLabelCommon from '../DwTextEditLabelCommon'
 import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
@@ -74,6 +74,7 @@ export default {
   methods: {
     onAdd (attrs) {
       console.debug('onAdd attrs', attrs)
+      this.documentClick()
       // 自动执行focus事件
       const newIndex = attrs.newIndex
       this.refreshData(newIndex)
@@ -81,7 +82,7 @@ export default {
     },
     onStart () {
       this.drag = true
-      this.$emit('start-drag')
+      this.$emit('start-drag-container')
     },
     onEnd (attrs) {
       this.$emit('end-drag')
@@ -127,4 +128,5 @@ export default {
   width: 100%;
   border:1px solid #f3f3f3;
 }
+
 </style>

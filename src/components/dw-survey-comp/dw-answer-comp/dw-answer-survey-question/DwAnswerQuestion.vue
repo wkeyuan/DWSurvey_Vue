@@ -38,7 +38,6 @@ import DwAnswerQuScore from './dw-answer-questions/dw-answer-qu-score/DwAnswerQu
 import DwAnswerQuOrder from './dw-answer-questions/dw-answer-qu-orderby/DwAnswerQuOrder.vue'
 import DwAnswerQuMFbk from './dw-answer-questions/dw-answer-qu-mfbk/DwAnswerQuMFbk.vue'
 import DwAnswerQuUpload from './dw-answer-questions/dw-answer-qu-upload/DwAnswerQuUpload.vue'
-import {buildAnswerSurveyObj} from "../../dw-utils/dw-answer-survey";
 
 export default {
   name: 'DwAnswerQuestion',

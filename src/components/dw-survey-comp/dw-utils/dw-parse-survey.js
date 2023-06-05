@@ -24,6 +24,7 @@ export function parseSurvey (survey) {
     survey.surveyTest = ''
     survey.curEditObj = [{itemClick: false}]
     survey.surveyStyle = {themeColor: 'red'}
+    survey.tempDataType = 'none'
   }
   return survey
 }
@@ -175,10 +176,12 @@ function parseQuOptionType1 (quOptions) {
           </el-tooltip>
  */
 /**
- * 1、编辑器工具栏通过布置并从后台返回工具信息
- * 2、编辑器问卷基本属性配置
- * 2、模板库通过后台返回
- * 2、完善拖动的预览效果
+ * 1、编辑器工具栏通过布置并从后台返回工具信息 OK
+ * 2、编辑器问卷基本属性配置 OK
+ * 2、模板库通过后台返回 OK
+ * 2、右边题库拖入效果优化 OK
+ * 2、完善拖动的预览效果 OK
+ * 2、拖动后index层改变的问题
  * 3、发布问卷并保存
  * 4、回答问卷并保存答案
  * 5、完善基础版本编辑器未完成的功能

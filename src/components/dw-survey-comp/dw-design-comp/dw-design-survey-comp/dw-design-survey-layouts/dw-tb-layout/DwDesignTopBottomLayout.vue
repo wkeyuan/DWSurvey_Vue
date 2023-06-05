@@ -8,7 +8,7 @@
       <el-main style="padding: 0;">
         <div v-if="survey!=null">
           <div id="tools_wrap" ref="toolsWrap" :style="headerQuToolbarStyle" >
-            <dw-design-toolbar v-model="survey"></dw-design-toolbar>
+            <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
           </div>
 
           <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
@@ -20,11 +20,11 @@
                   </div>
                 </el-col>
                 <el-col :span="16">
-                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag="onStart" @end-drag="onEnd" ></dw-design-container-body-center>
+                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
                 </el-col>
                 <el-col :span="4">
                   <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
-                    <dw-design-container-body-right v-model="survey" ></dw-design-container-body-right>
+                    <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
                   </div>
                 </el-col>
               </el-row>
@@ -45,13 +45,13 @@ import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
 import DwTextEditLabelCommon from '../../dw-design-survey-common/DwTextEditLabelCommon'
 import DwDesignHeader from './comp/DwDesignHeader'
-import DwDesignToolbar from './comp/DwDesignToolbar'
+import DwDesignToolbar from './dw-design-toolbar/DwDesignToolbar.vue'
 import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
 import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/DwDesignContainerBodyRight.vue'
-import DwFooter from "../../../../../layouts/DwFooter.vue";
+import DwFooter from '../../../../../layouts/DwFooter.vue'
 
 export default {
   name: 'DwDesignTopBottomLayout',
@@ -95,17 +95,37 @@ export default {
   methods: {
     onStart () {
       this.drag = true
-      this.toolbarIndex()
     },
     onEnd () {
       this.drag = false
       this.headerQuToolbarStyle = `${this.headerQuToolbarStyle}`
     },
-    toolbarIndex () {
+    containerLRStyleIndex (zIndex) {
       if (this.drag) {
-        this.headerQuToolbarStyle = `z-index: 10; ${this.headerQuToolbarStyle}`
-        this.containerLRStyle = `z-index: 10; ${this.containerLRStyle}`
+        this.containerLRStyle = `z-index: ${zIndex}; ${this.containerLRStyle}`
       }
+    },
+    headerQuToolbarIndex (zIndex) {
+      if (this.drag) {
+        this.headerQuToolbarStyle = `z-index: ${zIndex}; ${this.headerQuToolbarStyle}`
+      }
+    },
+    onStartToolbar () {
+      // 工具栏
+      this.onStart()
+      this.containerLRStyleIndex(10)
+    },
+    onStartDragContainer () {
+      // 内容区
+      this.onStart()
+      this.containerLRStyleIndex(10)
+      this.headerQuToolbarIndex(10)
+    },
+    onStartRight () {
+      // 右测边栏
+      this.onStart()
+      this.headerQuToolbarIndex(10)
+      this.containerLRStyleIndex(300)
     },
     loadDesignSurveyData () {
       questionComps().then((response) => {

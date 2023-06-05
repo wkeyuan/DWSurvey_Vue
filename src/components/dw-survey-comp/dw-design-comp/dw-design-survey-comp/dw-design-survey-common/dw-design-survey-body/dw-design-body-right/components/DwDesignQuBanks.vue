@@ -2,25 +2,30 @@
   <div>
     <el-collapse v-model="activeName" accordion>
       <el-collapse-item v-for="(item, index) in quBanks" :key="`quBank_${index}`" :title="item.tabQuName" :name="index">
+        <div style="padding-bottom: 5px;">
+          <el-alert title="点击或拖动可加入到问卷中" type="info" show-icon></el-alert>
+        </div>
         <template>
-          <draggable
-            v-model="item.questions"
-            :group="{ name: 'questionGroup', pull: 'clone', put: false }"
-            :sort="false"
-            :force-fallback="true"
-            animation="300"
-            class="toolbars-draggable"
-            drag-class="dragClass"
-            ghost-class="ghostClass"
-            chosen-class="chosenClass"
-            @start="onStart"
-            @end="onEnd">
-            <transition-group class="dw-list-group dw-grid">
-              <div v-for="(question,index_1) in item.questions" :key="`quBankQu_${index_1}`" class="dw-list-group-item">
-                <div class="dw-list-group-item-in"> {{ question.quName }} <span class="dw-list-group-item-in-type">[{{ question.quTypeName }}]</span> </div>
-              </div>
-            </transition-group>
-          </draggable>
+          <div class="quBanks">
+            <draggable
+              v-model="item.questions"
+              :group="{ name: 'questionGroup', pull: 'clone', put: false }"
+              :sort="false"
+              :force-fallback="true"
+              animation="300"
+              class="toolbars-draggable"
+              drag-class="dragClass"
+              ghost-class="ghostClass"
+              chosen-class="chosenClass"
+              @start="onStart"
+              @end="onEnd">
+              <transition-group class="dw-list-group dw-grid">
+                <div v-for="(question,index_1) in item.questions" :key="`quBankQu_${index_1}`" class="dw-list-group-item">
+                  <dw-design-qu-bank-question :item="question" ></dw-design-qu-bank-question>
+                </div>
+              </transition-group>
+            </draggable>
+          </div>
         </template>
       </el-collapse-item>
     </el-collapse>
@@ -31,10 +36,11 @@
 import {bankQuestions} from '../../../../api/dw-design-question-comps'
 import {parseQuestion} from '../../../../../../dw-utils/dw-parse-survey'
 import draggable from 'vuedraggable'
+import DwDesignQuBankQuestion from "./DwDesignQuBankQuestion.vue";
 
 export default {
   name: 'DwDesignQuBanks',
-  components: {draggable},
+  components: {DwDesignQuBankQuestion, draggable},
   model: {
     prop: 'survey',
     event: 'update-survey'
@@ -69,8 +75,10 @@ export default {
     },
     onStart () {
       this.drag=true
+      this.$emit('start-drag-right')
     },
     onEnd () {
+      this.$emit('end-drag')
       this.drag=false
     }
   }
@@ -78,6 +86,9 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
+@import '../../../../../../../../assets/css/design-survey.css';
+
 .dw-list-group{
   margin-bottom: 0;
   display: grid;
@@ -97,23 +108,20 @@ export default {
 }
 .dw-list-group-item{
   padding: 0;
-  /* margin-bottom: -1px; */
-  background-color: #fff;
   border: 1px solid rgba(0,0,0,.125);
-  cursor: move;
+  cursor: default;
   width: 100%;
 }
-.dw-list-group-item:first-child {
+
+.dragClass{
+  border: none;
+  background: #f5f5f5;
 }
-.dw-list-group-item-in{
-  padding: 0.25rem 0.55rem;
+.ghostClass{
+  background: #d0cfcf;
+  border: none;
 }
-.dw-list-group-item-in-type{
-  color: #afafb0;
-  font-size: 12px;
-}
-.dw-list-group-item:hover, .dw-list-group-item:hover .dw-list-group-item-in-type{
-  background-color: dodgerblue;
-  color: white;
+.chosenClass{
+  border: none;
 }
 </style>

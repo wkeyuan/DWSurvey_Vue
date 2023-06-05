@@ -1,6 +1,6 @@
 <template>
   <div class="dw-container-body-center" style="padding-bottom: 30px;">
-    <div style="min-height: 600px;padding: 0 15px;">
+    <div class="dw-survey-answer-body">
       <div style="text-align: center;padding-top: 20px;font-weight: bold;">
         <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
       </div>
@@ -75,5 +75,14 @@ export default {
   background: #0F78B0;
   padding: 20px;
   margin-top: 10px;
+}
+.dw-survey-answer-body{
+  min-height: 600px;
+  padding: 0 25px;
+}
+@media screen and (max-width: 750px) {
+  .dw-survey-answer-body{
+    padding: 0 10px;
+  }
 }
 </style>

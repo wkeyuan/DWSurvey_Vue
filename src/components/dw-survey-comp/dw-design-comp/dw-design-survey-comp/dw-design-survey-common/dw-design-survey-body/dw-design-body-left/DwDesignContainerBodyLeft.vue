@@ -15,10 +15,13 @@
             </el-collapse-item>
           </el-collapse>-->
           <div class="dw_left_ul">
+            <div style="padding-bottom: 5px;">
+              <el-alert title="拖动目录项可改题目顺序" type="info" show-icon></el-alert>
+            </div>
             <draggable
               v-model="survey.questions"
               :force-fallback="true"
-              :group="{ name: 'questionGroup', pull: false, put: true }"
+              :group="{ name: 'questionGroup', pull: false, put: false }"
               animation="300"
               drag-class="dwDragClass"
               ghost-class="dwGhostClass"
@@ -36,6 +39,9 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="问卷">
+        <div style="padding-bottom: 5px;">
+          <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
+        </div>
         <dw-design-survey-attrs v-model="survey" ></dw-design-survey-attrs>
       </el-tab-pane>
     </el-tabs>
@@ -47,7 +53,7 @@
 import draggable from 'vuedraggable'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-update-survey-question'
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
-import DwDesignSurveyAttrs from "./components/DwDesignSurveyAttrs.vue";
+import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
 
 export default {
   name: 'DwDesignContainerBodyLeft',

@@ -2,7 +2,7 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="题库">
-        <dw-design-qu-banks v-model="survey"></dw-design-qu-banks>
+        <dw-design-qu-banks v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-qu-banks>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -20,6 +20,16 @@ export default {
   },
   props: {
     survey: {type: Object, default: () => {}}
+  },
+  methods: {
+    onStartRight () {
+      this.drag=true
+      this.$emit('start-drag-right')
+    },
+    onEnd () {
+      this.$emit('end-drag')
+      this.drag=false
+    }
   }
 }
 </script>

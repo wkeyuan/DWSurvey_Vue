@@ -2,7 +2,7 @@
   <div class="dwEditorRoot dw-width-100bf" @input="inputEdit" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex-start" >
       <div class="dw-flex-item-auto">
-        <div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
+        <div id="curEdit" ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
         <!--<div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
       </div>
       <div class="dw-edit-toolbar" >
@@ -103,6 +103,8 @@ export default {
     },
     editFocus () {
       this.$refs.curEdit.focus()
+      document.execCommand('selectAll', false, null)
+      document.getSelection().collapseToEnd()
     }
   }
 }
