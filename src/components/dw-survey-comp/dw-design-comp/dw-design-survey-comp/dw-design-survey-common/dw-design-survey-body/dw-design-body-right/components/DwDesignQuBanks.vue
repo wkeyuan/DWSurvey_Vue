@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      activeName: '0',
+      activeName: 0,
       quBanks: []
     }
   },

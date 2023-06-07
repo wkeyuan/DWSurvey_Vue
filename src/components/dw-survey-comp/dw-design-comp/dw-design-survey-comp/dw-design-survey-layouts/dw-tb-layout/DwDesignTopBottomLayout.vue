@@ -3,11 +3,11 @@
   <div class="dw-design-container" @click="documentClick">
     <el-container>
       <el-header class="header" style="">
-        <dw-design-header></dw-design-header>
+        <dw-design-header v-model="survey" ></dw-design-header>
       </el-header>
       <el-main style="padding: 0;">
         <div v-if="survey!=null">
-          <div id="tools_wrap" ref="toolsWrap" :style="headerQuToolbarStyle" >
+          <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
             <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
           </div>
 
@@ -15,7 +15,7 @@
             <div class="dw-container-body">
               <el-row :gutter="10">
                 <el-col :span="4">
-                  <div :style="containerLRStyle" class="dw-container-body-center-left dw-container-body-lr">
+                  <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
                     <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
                   </div>
                 </el-col>
@@ -23,7 +23,7 @@
                   <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
                 </el-col>
                 <el-col :span="4">
-                  <div :style="containerLRStyle" class="dw-container-body-center-right dw-container-body-lr">
+                  <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
                     <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
                   </div>
                 </el-col>
@@ -79,8 +79,8 @@ export default {
     return {
       surveyId: '',
       drag: false,
-      headerQuToolbarStyle: '',
-      containerLRStyle: '',
+      headerQuToolbarStyle: {top: 60, index: 200},
+      containerLRStyle: {top: 0, index: 100},
       lrContentHeight: '',
       containerBodyStyle: '',
       questions: [],
@@ -98,34 +98,29 @@ export default {
     },
     onEnd () {
       this.drag = false
-      this.headerQuToolbarStyle = `${this.headerQuToolbarStyle}`
+      // this.headerQuToolbarStyle = `${this.headerQuToolbarStyle}`
+      this.resetStyleIndex()
     },
-    containerLRStyleIndex (zIndex) {
-      if (this.drag) {
-        this.containerLRStyle = `z-index: ${zIndex}; ${this.containerLRStyle}`
-      }
-    },
-    headerQuToolbarIndex (zIndex) {
-      if (this.drag) {
-        this.headerQuToolbarStyle = `z-index: ${zIndex}; ${this.headerQuToolbarStyle}`
-      }
+    resetStyleIndex () {
+      this.headerQuToolbarStyle.index = 200
+      this.containerLRStyle.index = 100
     },
     onStartToolbar () {
       // 工具栏
       this.onStart()
-      this.containerLRStyleIndex(10)
+      this.resetStyleIndex()
     },
     onStartDragContainer () {
       // 内容区
       this.onStart()
-      this.containerLRStyleIndex(10)
-      this.headerQuToolbarIndex(10)
+      this.headerQuToolbarStyle.index = 20
+      this.containerLRStyle.index = 10
     },
     onStartRight () {
       // 右测边栏
       this.onStart()
-      this.headerQuToolbarIndex(10)
-      this.containerLRStyleIndex(300)
+      this.headerQuToolbarStyle.index = 100
+      this.containerLRStyle.index = 200
     },
     loadDesignSurveyData () {
       questionComps().then((response) => {
@@ -159,23 +154,21 @@ export default {
       const headerHeight = 60
       const centerMarginTop = this.centerMarginTop()
       if (scrollTop >= headerHeight) {
-        this.headerQuToolbarStyle = 'top:0px;'
         const newTop1 = scrollTop - headerHeight
         const lrHeight = window.innerHeight - (centerMarginTop) - 10
         console.debug('lrHeight', lrHeight)
-        this.containerLRStyle = `top:${newTop1}px;`
-        // height:${lrHeight}px;
+        this.headerQuToolbarStyle.top = '0px'
+        this.containerLRStyle.top = `${newTop1}px`
         this.lrContentHeight = lrHeight
       } else {
         const newTop = headerHeight - scrollTop
-        this.headerQuToolbarStyle = `top:${newTop}px;`
         console.debug('window.innerHeight', window.innerHeight)
         const lrHeight = window.innerHeight - (centerMarginTop+newTop) - 10
-        this.containerLRStyle = `top:0px;`
+        this.headerQuToolbarStyle.top = `${newTop}px`
+        this.containerLRStyle.top = `0px`
         // height:${lrHeight}px;
         this.lrContentHeight = lrHeight
       }
-      this.toolbarIndex()
     },
     documentClick () {
       const curObjs = this.survey.curEditObj
@@ -191,6 +184,10 @@ export default {
 <style scoped>
 @import '../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
 @import '../../../../../../assets/css/design-survey.css';
+
+.el-header{
+  background-color: #25292E;
+}
 
 .dw-container-body-lr{
   background-color: white;

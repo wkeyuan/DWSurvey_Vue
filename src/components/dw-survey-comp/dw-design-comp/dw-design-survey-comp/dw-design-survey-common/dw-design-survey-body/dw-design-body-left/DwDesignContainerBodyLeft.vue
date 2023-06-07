@@ -16,7 +16,7 @@
           </el-collapse>-->
           <div class="dw_left_ul">
             <div style="padding-bottom: 5px;">
-              <el-alert title="拖动目录项可改题目顺序" type="info" show-icon></el-alert>
+              <el-alert title="拖动目录可修改题目排序" type="info" show-icon></el-alert>
             </div>
             <draggable
               v-model="survey.questions"

@@ -49,9 +49,6 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.el-header{
-  background-color: #25292E;
-}
 .el-footer {
   /*background-color: #B3C0D1;*/
   line-height: 60px;

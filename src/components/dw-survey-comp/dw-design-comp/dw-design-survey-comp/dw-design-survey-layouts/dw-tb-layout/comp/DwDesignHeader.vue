@@ -12,17 +12,22 @@
     </el-col>
     <el-col :span="12">
       <div style="text-align: right;">
-        <!--              <el-button-group>
-                        <el-button type="primary" icon="el-icon-edit" >编辑</el-button>
-                        <el-button type="primary" icon="el-icon-share">收集</el-button>
-                        <el-button type="primary" icon="el-icon-delete">统计</el-button>
-                      </el-button-group>-->
-        <el-switch
-          v-model="switchValue"
-          active-text="左右"
-          inactive-text="上下">
-        </el-switch>
-
+        <!--        <el-button-group>
+          <el-button type="primary" icon="el-icon-edit" >编辑</el-button>
+          <el-button type="primary" icon="el-icon-share">收集</el-button>
+          <el-button type="primary" icon="el-icon-delete">统计</el-button>
+        </el-button-group>-->
+        <el-menu
+          :default-active="defActive"
+          router
+          class="dw-design-survey-menu dw-menu-height"
+          mode="horizontal"
+          @select="handleSelect">
+          <el-menu-item :index="`/dw/survey`">我的问卷</el-menu-item>
+          <el-menu-item :index="`/dw/survey/d/chart/${$route.params.id}`">统计</el-menu-item>
+          <el-menu-item :index="`/dw/survey/c/url/${$route.params.id}`">收集</el-menu-item>
+          <el-menu-item :index="`/v6/diaowen/design/survey/${$route.params.id}`">设计</el-menu-item>
+        </el-menu>
       </div>
     </el-col>
   </el-row>
@@ -33,7 +38,13 @@ export default {
   name: 'DwDesignHeader',
   data () {
     return {
-      switchValue: '上下'
+      switchValue: '上下',
+      defActive: `/v6/diaowen/design/survey/${this.$route.params.id}`
+    }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }
@@ -63,5 +74,29 @@ export default {
   font-weight: 400;
   font-size: 16px;
   vertical-align: top;
+}
+
+/*.dw-menu-height,.dw-menu-height>.el-menu-item,.dw-menu-height>.el-submenu /deep/ .el-submenu__title{
+  height: 60px;
+  line-height: 60px;
+  font-weight: 400;
+  font-size: 16px;
+}*/
+.dw-menu-height,.dw-menu-height>.el-menu-item,.dw-menu-height>.el-submenu /deep/ .el-submenu__title{
+  font-size: 14px;
+}
+.el-menu--horizontal>.el-menu-item,.el-menu--horizontal>.el-submenu{
+  float: right;
+}
+.dw-design-survey-menu{
+  background-color: #25292E;
+}
+.dw-design-survey-menu .el-menu-item.is-active{
+  background: #047aea;
+  color: white;
+}
+.dw-design-survey-menu .el-menu-item:hover{
+  background: #131313;
+  color: white;
 }
 </style>
