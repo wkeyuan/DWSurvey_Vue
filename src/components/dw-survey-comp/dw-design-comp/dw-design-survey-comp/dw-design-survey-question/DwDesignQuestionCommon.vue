@@ -31,7 +31,11 @@
                 </dw-popover-qu-attrs>
               </el-tooltip>
               <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="题目逻辑" placement="left">
-                <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
+                <dw-popover-qu-logics v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
+                  <el-badge :hidden="survey.questions[index].questionLogics.length<=0" :value="survey.questions[index].questionLogics.length" class="dw-el-badge-logic-set" >
+                    <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-code-fork" aria-hidden="true"></i></div>
+                  </el-badge>
+                </dw-popover-qu-logics>
               </el-tooltip>
             </template>
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="删除本题" placement="left">
@@ -118,10 +122,11 @@ import {
 } from '../../../dw-utils/dw-update-survey-question'
 import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-update-survey-item-click'
 import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
+import DwPopoverQuLogics from "./dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue";
 
 export default {
   name: 'DwDesignQuestionCommon',
-  components: {DwPopoverQuAttrs, DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
+  components: {DwPopoverQuLogics, DwPopoverQuAttrs, DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
   model: {
     prop: 'survey',
     event: 'update-survey'
@@ -254,6 +259,20 @@ export default {
 }
 .dw-qu-paragraph{
   font-weight: bold;
+}
+.dw-el-badge-logic-set /deep/ .el-badge__content{
+  border-radius: 3px;
+  font-size: 8px;
+  height: 14px;
+  line-height: 14px;
+  padding: 0 4px;
+  border: none;
+}
+.dw-el-badge-logic-set /deep/ .el-badge__content.is-fixed{
+  /*top: -3px;
+  right: 30px;*/
+  top: -5px;
+  right: 5px;
 }
 </style>
 <style>
