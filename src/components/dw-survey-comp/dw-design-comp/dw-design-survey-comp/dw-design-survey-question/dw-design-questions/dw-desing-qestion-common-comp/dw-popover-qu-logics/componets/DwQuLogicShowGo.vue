@@ -8,28 +8,33 @@
               <div style="color: red;font-size: 12px;">请确认每个配置项都有合适的值</div>
             </div>
             <div class="dw-design-logic-item">
-              <span>如果本题选项</span>
-              <el-select v-model="item.cgQuItemId" placeholder="请选择本题选项" style="width: 130px;" size="mini" multiple>
-                <el-option v-for="(option,optionIndex) in options" :key="`quOption_${optionIndex}`" :value="option.optionTitleObj.dwText" :label="option.optionTitleObj.dwText"></el-option>
-              </el-select>
-              <span v-if="survey.questions[index].quType === 'ORDERQU'">排名
-                <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
-                  <el-option value="1" label="大于"></el-option>
-                  <el-option value="2" label="小于"></el-option>
+              <template v-if="survey.questions[index].quType === 'FILLBLANK' || survey.questions[index].quType === 'UPLOADFILE'">
+                <span>如果本题被回答，</span>
+              </template>
+              <template v-else>
+                <span>如果本题选项</span>
+                <el-select v-model="item.cgQuItemId" placeholder="请选择本题选项" style="width: 130px;" size="mini" multiple>
+                  <el-option v-for="(option,optionIndex) in options" :key="`quOption_${optionIndex}`" :value="option.optionTitleObj.dwText" :label="option.optionTitleObj.dwText"></el-option>
                 </el-select>
-                <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
-                名，
-              </span>
-              <span v-else-if="survey.questions[index].quType === 'SCORE'">得分
-                <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
-                  <el-option value="1" label="大于"></el-option>
-                  <el-option value="2" label="小于"></el-option>
-                </el-select>
-                <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
-                分，
-              </span>
-              <span v-else-if="survey.questions[index].quType === 'MULTIFILLBLANK'">被回答，</span>
-              <span v-else>被选项，</span>
+                <span v-if="survey.questions[index].quType === 'ORDERQU'">排名
+                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
+                    <el-option value="1" label="大于"></el-option>
+                    <el-option value="2" label="小于"></el-option>
+                  </el-select>
+                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
+                  名，
+                </span>
+                <span v-else-if="survey.questions[index].quType === 'SCORE'">得分
+                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
+                    <el-option value="1" label="大于"></el-option>
+                    <el-option value="2" label="小于"></el-option>
+                  </el-select>
+                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
+                  分，
+                </span>
+                <span v-else-if="survey.questions[index].quType === 'MULTIFILLBLANK'">被回答，</span>
+                <span v-else>被选项，</span>
+              </template>
               <span v-if="item.logicType === '1'">则跳转</span>
               <span v-else-if="item.logicType === '2'">则显示</span>
               <el-select v-model="item.skQuId" :multiple="logicType==='2'" placeholder="请选择题目" style="width: 130px;" size="mini">
@@ -55,7 +60,7 @@
 <script>
 
 import {logicNum, curQuAfterQus, getQuOptions} from '../../../../../../../dw-utils/dw-design-survey'
-import QuInput from "../../../../../../../../../views/dw-survey/dw-design1/components/dw-qus/QuInput.vue";
+import QuInput from '../../../../../../../../../views/dw-survey/dw-design1/components/dw-qus/QuInput.vue'
 
 /**
  * 处理显示逻辑配置

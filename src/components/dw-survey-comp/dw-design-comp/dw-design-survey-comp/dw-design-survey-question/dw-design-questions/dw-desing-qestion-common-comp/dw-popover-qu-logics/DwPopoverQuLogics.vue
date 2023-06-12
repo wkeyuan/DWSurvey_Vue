@@ -92,9 +92,16 @@ export default {
     checkQuLogic (isShowMsg) {
       let checkQuLogic = true
       if (this.survey.questions[this.index].questionLogics.length>0) {
+        const quType = this.survey.questions[this.index].quType
         const quLogics = this.survey.questions[this.index].questionLogics
         quLogics.forEach((item, index) => {
-          if (item.cgQuItemId === null || item.skQuId === null) {
+          let itemError = false
+          if (quType=== 'FILLBLANK' || quType === 'UPLOADFILE') {
+            if (item.skQuId === null || item.skQuId.length<=0) itemError = true
+          } else {
+            if (item.cgQuItemId === null || item.skQuId === null || item.cgQuItemId.length <= 0 || item.skQuId.length<=0) itemError = true
+          }
+          if (itemError) {
             if (isShowMsg) {
               item.error = true
               checkQuLogic = false
