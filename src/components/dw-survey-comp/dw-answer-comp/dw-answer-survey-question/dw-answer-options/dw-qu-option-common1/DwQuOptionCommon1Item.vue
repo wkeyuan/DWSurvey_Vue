@@ -1,15 +1,38 @@
 <template>
-  <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+  <div class="dw-qu-item" @click.stop="clickItem" >
     <div class="dw-qu-item-toolbar" >
       <div class="dw-display-grid"></div>
     </div>
     <div class="dw-qu-item-body">
-      <div class="dw-qu-item-el-checkbox-radio">
-        <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
-        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
-        <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
-        <dw-html-label-common ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-html-label-common>
-      </div>
+      <template v-if="quType==='RADIO'" >
+        <!--        :style="survey.questions[quIndex].quRadios[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
+        <div class="dw-qu-item-el-checkbox-radio">
+          <!--
+            <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-dot-circle dw-checked"></i>
+            <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-circle "></i>
+            -->
+          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked"></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check "></i>
+          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quRadios[optionIndex].checked }}</span>
+        </div>
+      </template>
+      <template v-else-if="quType==='CHECKBOX'" >
+        <!--        :style="survey.questions[quIndex].quCheckboxs[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
+        <div class="dw-qu-item-el-checkbox-radio">
+          <!--
+            <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-check-square dw-checked"></i>
+            <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+            -->
+          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check dw-checked" style="font-size: 22px;" ></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check" style="font-size: 22px;" ></i>
+          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
+        </div>
+      </template>
+      <template v-else>
+        <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+      </template>
     </div>
   </div>
 </template>
@@ -25,21 +48,27 @@ export default {
     event: 'update-input'
   },*/
   model: {
-    prop: 'options',
-    event: 'update-options'
+    prop: 'survey',
+    event: 'update-survey'
   },
   props: {
+    quIndex: {type: Number, default: 0},
     optionIndex: {type: Number, default: 0},
     options: {type: Array, default: () => []},
+    option: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}},
     quType: {type: String, default: ''},
-    value: {type: Object, default: () => {}}
+    value: {type: Object, default: () => {}},
+    answer: {type: Object, default: () => {}}
   },
   data () {
     return {
       itemHover: false,
       itemClick: false,
-      itemIndex: 0
+      itemIndex: 0,
+      inputText: '',
+      themeColor: this.survey.surveyStyle.themeColor,
+      rateColors: [this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor]
     }
   },
   mounted () {
@@ -52,58 +81,27 @@ export default {
   },
   methods: {
     clickItem () {
-      this.upItemClick()
-      this.upAllItemClick()
-    },
-    upItemClick () {
-      if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
-      this.survey.curEditObj[this.itemIndex].itemClick = true
-    },
-    upAllItemClick () {
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
-    },
-    mouseleaveItem () {
-      this.itemHover = false
-    },
-    mouseoverItem () {
-      this.itemHover = true
-    },
-    addOptionBefore () {
-      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
-      this.options.splice(this.optionIndex+1, 0, quOption)
-      this.$emit('update-options', this.options)
-      this.$emit('refresh-options', this.optionIndex+1)
-    },
-    upValue (html) {
-      // 此处使用了引用类型可以不传更新
-      // console.debug('html', html)
-      // this.$emit('update-input', html)
-      this.options[this.optionIndex].optionTitleObj = html
-      this.$emit('update-options', this.options)
-    },
-    dragClick (focusIndex) {
-      // this.$refs.dwEditLabel.upEditorText(this.value.dwHtml)
-      // this.upAllItemClick()
-      this.$refs.dwEditLabel.upEditorText(this.options[this.optionIndex].optionTitleObj.dwHtml)
-      if (focusIndex !==null && this.optionIndex === focusIndex) {
-        this.upItemClick()
-        this.editFocus()
+      // 如果是多选题
+      const quType = this.quType
+      console.debug('quType', quType)
+      if (quType === 'RADIO') {
+        this.survey.questions[this.quIndex].quRadios[this.optionIndex].checked = true
+        this.resetOtherRadio()
+      } else if (quType === 'CHECKBOX') {
+        this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked = !this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked
       }
     },
-    editFocus () {
-      this.$refs.dwEditLabel.editFocus()
-    },
-    deleteOption () {
-      // console.debug('delete')
-      this.options.splice(this.optionIndex, 1)
-      this.$emit('refresh-options', null)
+    resetOtherRadio () {
+      const quRadios = this.survey.questions[this.quIndex].quRadios
+      quRadios.forEach((item, index) => { if (index !== this.optionIndex) item.checked = false })
     }
   }
 }
 </script>
 
 <style scoped>
+@import '../../../../../../assets/css/dw-answer.css';
+
 .dw-padding-top-10{
   padding-top: 10px;
 }
@@ -148,27 +146,6 @@ export default {
 }
 .dw-qu-item-body{
   margin: 0px;
-}
-.dw-qu-item-el-checkbox-radio{
-  /*display: inline-flex;*/
-  display: flex;
-  align-items: center;
-  padding: 5px 0px;
-  font-size: 14px;
-}
-.dw-qu-item-el-checkbox-radio-icon{
-  /*background: red;*/
-  font-size: 18px;
-  width: 28px;
-  color: #848484;
-}
-.dw-qu-item-el-checkbox-radio-icon.dw-checked{
-  color: #0557a8;
-}
-.dw-qu-item-el-checkbox-radio .dw-qu-option-text{
-  /*margin:auto;*/
-  width: 100%;
-  padding: 6px;
 }
 
 .dw-input-default{

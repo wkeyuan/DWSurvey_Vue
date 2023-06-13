@@ -1,24 +1,12 @@
 <template>
   <div>
     <div>
-      <draggable
-        v-model="dragOptions"
-        :force-fallback="true"
-        :group="{ name: 'option', pull: false, put: false }"
-        handle=".dwMoveSortQuOption"
-        animation="300"
-        drag-class="dwDragClass"
-        ghost-class="dwGhostClass"
-        chosen-class="dwChosenClass"
-        @start="onStart"
-        @end="onEnd">
-        <transition-group :style="`grid-template-columns: repeat(${survey.questions[index].cellCount}, minmax(auto,1fr));`" class="dw-grid">
-          <div v-for="(item,optionIndex) in dragOptions" :key="`quOption-${optionIndex}`" style="width: 100%;" >
-            <!--            <dw-qu-option-common1-item ref="quCommonItem" v-model="item.optionTitleObj" :survey="survey" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common1-item>-->
-            <dw-qu-option-common1-item ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="optionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-qu-option-common1-item>
-          </div>
-        </transition-group>
-      </draggable>
+      <div :style="`grid-template-columns: repeat(${survey.questions[index].cellCount}, minmax(auto,1fr));`" class="dw-grid">
+        <div v-for="(item,optionIndex) in options" :key="`quOption1-${index}-${optionIndex}`" style="width: 100%;" >
+          <!--            <dw-qu-option-common1-item ref="quCommonItem" v-model="item.optionTitleObj" :survey="survey" :option-index="optionIndex" :qu-type="quType" ></dw-qu-option-common1-item>-->
+          <dw-qu-option-common1-item ref="quCommonItem" v-model="survey" :options="options" :qu-index="index" :option-index="optionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-qu-option-common1-item>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,14 +19,15 @@ export default {
   name: 'DwQuOptionCommon1',
   components: {DwQuOptionCommon1Item, draggable},
   model: {
-    prop: 'options',
-    event: 'update-options'
+    prop: 'survey',
+    event: 'update-survey'
   },
   props: {
     index: {type: Number, default: 0},
     options: {type: Array, default: () => []},
     survey: {type: Object, default: () => {}},
-    quType: {type: String, default: ''}
+    quType: {type: String, default: ''},
+    answer: {type: Object, default: () => {}}
   },
   data () {
     return {

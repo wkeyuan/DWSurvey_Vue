@@ -20,7 +20,7 @@
         <el-button type="primary" @click="submitAnswer">提交答卷</el-button>
       </div>
     </div>
-    <div class="dw-debug" >{{ answer }}</div>
+    <div v-show="survey.dwDebug" class="dw-debug" >{{ answer }}</div>
   </div>
 </template>
 

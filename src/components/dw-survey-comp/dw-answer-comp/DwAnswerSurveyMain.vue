@@ -44,6 +44,7 @@ export default {
           // quRadios
           // surveyData.answer = buildAnswerSurveyObj(surveyData)
           surveyData.surveyStyle.themeColor = '#3f9eff'
+          surveyData.dwDebug = false
           this.survey = surveyData
         }
       })

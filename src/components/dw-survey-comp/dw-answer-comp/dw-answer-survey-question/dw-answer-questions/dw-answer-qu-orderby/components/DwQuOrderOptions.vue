@@ -2,7 +2,7 @@
   <div class="dw-qu-order-group">
     <!--   v-for的key不能是index，如下用item，不然动画会没有效果 -->
     <transition-group name="flip-list" >
-      <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item" class="dw-qu-order-group-item dwMoveSortQuOption" >
+      <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.id" class="dw-qu-order-group-item dwMoveSortQuOption" >
         <div class="dw-qu-item" @click="clickItem(item)" >
           <div class="dw-qu-item-body">
             <div class="dw-qu-item-el-checkbox-radio">

@@ -2,7 +2,7 @@
   <div>
     <!-- 根据属性确定用哪种展现方案 -->
     <!-- 横向显示   -->
-    <dw-qu-option-common1 v-if="survey.questions[index].hv === 1" ref="dwCommon1" v-model="survey.questions[index].quCheckboxs" :survey="survey" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
+    <dw-qu-option-common1 v-if="survey.questions[index].hv === 1" ref="dwCommon1" v-model="survey" :options="survey.questions[index].quCheckboxs" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common1>
     <!-- 竖向显示   -->
     <dw-qu-option-common2 v-if="survey.questions[index].hv === 2" ref="dwCommon2" v-model="survey" :options="survey.questions[index].quCheckboxs" :index="index" :qu-type="survey.questions[index].quType"></dw-qu-option-common2>
     <!-- SELECT显示  -->

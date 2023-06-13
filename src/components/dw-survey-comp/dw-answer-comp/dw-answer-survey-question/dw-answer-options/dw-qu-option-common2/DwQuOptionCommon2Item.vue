@@ -1,29 +1,40 @@
 <template>
   <div class="dw-qu-item" @click.stop="clickItem" >
     <div class="dw-qu-item-body">
-
-      <div class="dw-qu-item-el-checkbox-radio">
-        <template v-if="quType==='RADIO'" >
-          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-dot-circle dw-checked"></i>
-          <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-circle "></i>
+      <template v-if="quType==='RADIO'" >
+        <!--        :style="survey.questions[quIndex].quRadios[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
+        <div class="dw-qu-item-el-checkbox-radio">
+          <!--
+            <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-dot-circle dw-checked"></i>
+            <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-circle "></i>
+            -->
+          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked" ></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check" ></i>
           <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
-          {{ survey.questions[quIndex].quRadios[optionIndex].checked }}
-        </template>
-        <template v-if="quType==='CHECKBOX'" >
-          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-check-square dw-checked"></i>
-          <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
-          {{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}
-        </template>
-        <template v-else>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
-        </template>
-      </div>
-      <template v-if="quType==='MULTIFILLBLANK'" >
-        <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
-        <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" />
+          <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quRadios[optionIndex].checked }} </span>
+        </div>
       </template>
-      <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].inputText" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" ></el-rate>
+      <template v-else-if="quType==='CHECKBOX'" >
+        <!--        :style="survey.questions[quIndex].quCheckboxs[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
+        <div class="dw-qu-item-el-checkbox-radio">
+          <!--
+            <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-check-square dw-checked"></i>
+            <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+            -->
+          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check dw-checked" ></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check" ></i>
+          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
+        </div>
+      </template>
+      <template v-else>
+        <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+        <template v-if="quType==='MULTIFILLBLANK'" >
+          <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
+          <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" />
+        </template>
+        <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].inputText" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" ></el-rate>
+      </template>
     </div>
     <div class="dw-qu-item-toolbar dw-display-flex-right" ></div>
   </div>
@@ -92,6 +103,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../../../../assets/css/dw-answer.css';
+
 .dw-padding-top-10{
   padding-top: 10px;
 }
@@ -134,28 +147,7 @@ export default {
 }
 .dw-qu-item-body{
   margin: 0px;
-}
-.dw-qu-item-el-checkbox-radio{
-  /*display: inline-flex;*/
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
   font-size: 14px;
-}
-.dw-qu-item-el-checkbox-radio-icon{
-  /*background: red;*/
-  font-size: 18px;
-  color: #ccc;
-  margin-right: 5px;
-}
-.dw-qu-item-el-checkbox-radio-icon.dw-checked{
-  /*color: #0557a8;*/
-  color: #409eff;
-}
-.dw-qu-item-el-checkbox-radio .dw-qu-option-text{
-  /*margin:auto;*/
-  width: 100%;
-  padding: 6px;
 }
 
 .dw-input-default{
@@ -164,5 +156,8 @@ export default {
 .dw-input-focus{
   border: 1px solid #095aaa;
   background: #e5f5f5;
+}
+/deep/ .el-rate__icon{
+  font-size: 22px;
 }
 </style>

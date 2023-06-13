@@ -1,0 +1,33 @@
+.dw-qu-item-el-checkbox-radio{
+  /*display: inline-flex;*/
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 5px 5px;
+  /*background: #f5f7fa;*/
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 1px solid #DCDFE6;
+  cursor: pointer;
+}
+.dw-qu-item-el-checkbox-radio-icon{
+  /*background: red;*/
+  font-size: 18px;
+  margin-right: 5px;
+  color: #ccc;
+}
+.dw-qu-item-el-checkbox-radio-icon.dw-checked{
+  color: #409eff;
+}
+.dw-qu-item-el-checkbox-radio .dw-qu-option-text{
+  /*margin:auto;*/
+  width: 100%;
+  padding: 6px;
+}
+
+.dw-radio-icon{
+  font-size: 20px;
+}
+.dw-checkbox-icon{
+  font-size: 22px;
+}

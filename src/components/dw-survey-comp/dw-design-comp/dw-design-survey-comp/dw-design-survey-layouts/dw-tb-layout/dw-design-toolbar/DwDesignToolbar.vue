@@ -34,9 +34,9 @@
           </el-col>
           <el-col :span="6">
             <div style="text-align: right;padding-right: 10px;">
-              <el-button type="primary" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
-              <el-button plain icon="el-icon-document-checked" @click="saveSurvey">保存</el-button>
-              <el-button plain icon="el-icon-view" @click="previewSurvey">预览</el-button>
+              <el-button type="primary" @click="previewSurvey" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
+              <el-button plain @click="saveSurvey"><i class="fa-solid fa-floppy-disk"></i>&nbsp;保存</el-button>
+              <el-button plain @click="previewSurvey"><i class="fa-solid fa-eye"></i>&nbsp;预览</el-button>
             </div>
           </el-col>
         </el-row>
@@ -109,6 +109,15 @@ export default {
       })
     },
     saveSurvey () {
+      this.saveSurveyFun(null)
+    },
+    previewSurvey () {
+      this.saveSurveyFun(() => {
+        const surveyId = this.$route.params.id
+        this.$router.push('/v6/diaowen/preview/survey/'+surveyId)
+      })
+    },
+    saveSurveyFun (callback) {
       const surveyId = this.survey.id
       const surveyJsonText = JSON.stringify(this.survey)
       const data = {surveyId, surveyJsonText}
@@ -118,14 +127,11 @@ export default {
         const httpResult = response.data
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
           this.$message.success('保存成功！')
+          if (callback!=null) callback()
         } else {
           this.$message.success('保存失败！')
         }
       })
-    },
-    previewSurvey () {
-      const surveyId = this.$route.params.id
-      this.$router.push('/v6/diaowen/preview/survey/'+surveyId)
     }
   }
 }

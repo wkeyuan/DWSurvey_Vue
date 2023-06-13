@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(item,optionIndex) in options" :key="`quOption-${optionIndex}`" >
+    <div v-for="(item,optionIndex) in options" :key="`quOption2-${index}-${optionIndex}`" >
       <dw-qu-option-common2-item ref="quCommonItem" v-model="survey" :options="options" :qu-index="index" :option-index="optionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-qu-option-common2-item>
     </div>
   </div>
