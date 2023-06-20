@@ -1,18 +1,22 @@
 <template>
   <div>
-    <el-select v-model="value" placeholder="请选择">
-      <el-option
-        v-for="(item, index) in options"
-        :key="`fa_${index}`"
-        :label="item.optionTitleObj.dwHtml"
-        :value="item.optionTitleObj.dwHtml">
-      </el-option>
-    </el-select>
+    <div>
+      <el-select v-model="value" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" placeholder="请选择" @change="onChange">
+        <el-option
+          v-for="(item, index) in options"
+          :key="`fa_${index}`"
+          :label="item.optionTitleObj.dwHtml"
+          :value="item.optionTitleObj.dwHtml">
+        </el-option>
+      </el-select>
+    </div>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
+import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
+import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
 
 export default {
   name: 'DwQuOptionCommon4',
@@ -29,14 +33,59 @@ export default {
   },
   data () {
     return {
-      value: null
+      value: null,
+      minLimit: 0,
+      maxLimit: 0
+    }
+  },
+  mounted () {
+    const question = this.survey.questions[this.index]
+    if (question.quType==='CHECKBOX') {
+      this.minLimit = question.minLimit
+      this.maxLimit = question.maxLimit
     }
   },
   methods: {
+    onChange (values) {
+      console.debug('onChange', values)
+      console.debug('onChange Value', this.value)
+      this.resetOptionChecked()
+      const quType = this.survey.questions[this.index].quType
+      if (quType==='RADIO') {
+        const quOptions = this.survey.questions[this.index].quRadios
+        this.checkQuOptions(quOptions, [values])
+      } else if (quType==='CHECKBOX') {
+        const quOptions = this.survey.questions[this.index].quCheckboxs
+        this.checkQuOptions(quOptions, values)
+      }
+      getQuestionAnswerData(this.survey.questions[this.index])
+      validateQuestion(this.survey.questions[this.index])
+    },
+    checkQuOptions (quOptions, changeValue) {
+      quOptions.forEach((quOption) => {
+        changeValue.forEach((valueItem) => {
+          if (quOption.optionTitleObj.dwHtml === valueItem) {
+            quOption.checked = true
+            return false
+          }
+        })
+      })
+    },
+    resetOptionChecked () {
+      const quType = this.survey.questions[this.index].quType
+      if (quType==='RADIO') {
+        const quRadios = this.survey.questions[this.index].quRadios
+        quRadios.forEach((item) => { item.checked = false })
+      } else if (quType==='CHECKBOX') {
+        const quCheckboxs = this.survey.questions[this.index].quCheckboxs
+        quCheckboxs.forEach((item) => { item.checked = false })
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+@import '../../../../../../assets/css/dw-answer.css';
 
 </style>

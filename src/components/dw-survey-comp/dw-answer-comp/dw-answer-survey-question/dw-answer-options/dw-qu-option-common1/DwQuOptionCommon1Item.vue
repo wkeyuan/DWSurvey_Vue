@@ -13,7 +13,7 @@
             -->
           <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked"></i>
           <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check "></i>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quRadios[optionIndex].checked }}</span>
         </div>
       </template>
@@ -26,7 +26,7 @@
             -->
           <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check dw-checked" style="font-size: 22px;" ></i>
           <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check" style="font-size: 22px;" ></i>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
         </div>
       </template>
@@ -39,6 +39,8 @@
 
 <script>
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
+import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
+import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
 export default {
   name: 'DwQuOptionCommon1Item',
   components: {DwHtmlLabelCommon},
@@ -90,6 +92,9 @@ export default {
       } else if (quType === 'CHECKBOX') {
         this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked = !this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked
       }
+      // 题目检查
+      getQuestionAnswerData(this.survey.questions[this.quIndex])
+      validateQuestion(this.survey.questions[this.quIndex])
     },
     resetOtherRadio () {
       const quRadios = this.survey.questions[this.quIndex].quRadios

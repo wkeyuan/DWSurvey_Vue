@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-model="value" placeholder="请选择">
+    <el-select v-model="value" :multiple="quType==='CHECKBOX'" placeholder="请选择" >
       <el-option
         v-for="(item, index) in options"
         :key="`fa_${index}`"

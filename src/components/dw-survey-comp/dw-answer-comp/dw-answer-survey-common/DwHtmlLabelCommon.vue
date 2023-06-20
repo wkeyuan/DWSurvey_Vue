@@ -1,7 +1,7 @@
 <template>
   <div class="dwEditorRoot dw-width-100bf" >
     <div>
-      <div ref="curEdit" class="dwEditRoot dw-input-default dw-qu-option-text dw-border-blue editor-content-view" v-html="value.dwHtml" ></div>
+      <div ref="curEdit" class="dwEditRoot dw-input-default" v-html="value.dwHtml" ></div>
     </div>
   </div>
 </template>
@@ -39,7 +39,6 @@ export default {
   border: 1px solid transparent;
 }
 .dw-qu-option-text{
-  padding: 6px 0;
   word-break: break-word;
   outline: none;
 }

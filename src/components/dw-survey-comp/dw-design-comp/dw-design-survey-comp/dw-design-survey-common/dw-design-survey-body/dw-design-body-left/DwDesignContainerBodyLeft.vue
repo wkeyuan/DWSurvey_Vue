@@ -51,7 +51,7 @@
 <script>
 
 import draggable from 'vuedraggable'
-import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-update-survey-question'
+import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
 import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
 

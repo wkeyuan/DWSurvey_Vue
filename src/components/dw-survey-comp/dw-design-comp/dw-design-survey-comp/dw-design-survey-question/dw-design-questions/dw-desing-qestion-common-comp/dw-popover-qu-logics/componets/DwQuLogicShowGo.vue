@@ -59,7 +59,7 @@
 
 <script>
 
-import {logicNum, curQuAfterQus, getQuOptions} from '../../../../../../../dw-utils/dw-design-survey'
+import {logicNum, curQuAfterQus, getQuOptions} from '../../../../../../../dw-utils/dw-survey-design'
 import QuInput from '../../../../../../../../../views/dw-survey/dw-design1/components/dw-qus/QuInput.vue'
 
 /**

@@ -21,7 +21,7 @@ import DwDesignContainerBodyCenter
   from '../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter.vue'
 import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwFooter from '../../../../layouts/DwFooter.vue'
-import {buildAnswerSurveyObj} from "../../../dw-utils/dw-answer-survey";
+import {buildAnswerSurveyObj} from "../../../dw-utils/dw-survey-answer";
 
 export default {
   name: 'DwAnswerDefaultLayout',

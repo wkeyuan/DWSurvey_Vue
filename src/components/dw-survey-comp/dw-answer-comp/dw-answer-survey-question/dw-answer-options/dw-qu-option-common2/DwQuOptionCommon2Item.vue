@@ -10,7 +10,7 @@
             -->
           <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked" ></i>
           <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check" ></i>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quRadios[optionIndex].checked }} </span>
         </div>
       </template>
@@ -23,17 +23,17 @@
             -->
           <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check dw-checked" ></i>
           <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check" ></i>
-          <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+          <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
         </div>
       </template>
       <template v-else>
-        <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
+        <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
         <template v-if="quType==='MULTIFILLBLANK'" >
-          <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
-          <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" />
+          <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" @blur="onBlur"></el-input>
+          <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" @blur="onBlur"/>
         </template>
-        <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].inputText" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" ></el-rate>
+        <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" @change="clickItem" ></el-rate>
       </template>
     </div>
     <div class="dw-qu-item-toolbar dw-display-flex-right" ></div>
@@ -42,6 +42,8 @@
 
 <script>
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
+import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
+import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
 export default {
   name: 'DwQuOptionCommon2Item',
   components: {DwHtmlLabelCommon},
@@ -66,7 +68,9 @@ export default {
       itemIndex: 0,
       inputText: '',
       themeColor: this.survey.surveyStyle.themeColor,
-      rateColors: [this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor]
+      rateColors: [this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor],
+      minLimit: 0,
+      maxLimit: 0
     }
   },
   watch: {
@@ -81,6 +85,11 @@ export default {
   },
   mounted () {
     // console.debug('itemIndex', this.optionIndex)
+    const question = this.survey.questions[this.quIndex]
+    if (question.quType==='CHECKBOX') {
+      this.minLimit = question.minLimit
+      this.maxLimit = question.maxLimit
+    }
   },
   methods: {
     clickItem () {
@@ -92,11 +101,21 @@ export default {
         this.resetOtherRadio()
       } else if (quType === 'CHECKBOX') {
         this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked = !this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked
+      } else if (quType === 'SCORE') {
+        this.survey.questions[this.quIndex].quScores[this.optionIndex].checked = true
       }
+      // 题目检查
+      this.onBlur()
     },
     resetOtherRadio () {
       const quRadios = this.survey.questions[this.quIndex].quRadios
       quRadios.forEach((item, index) => { if (index !== this.optionIndex) item.checked = false })
+    },
+    onBlur () {
+      // 同步答案
+      getQuestionAnswerData(this.survey.questions[this.quIndex])
+      // 进行验证
+      validateQuestion(this.survey.questions[this.quIndex])
     }
   }
 }

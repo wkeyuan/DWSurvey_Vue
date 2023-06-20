@@ -13,23 +13,25 @@ export function getSurveyAnswerData (survey) {
 }
 
 export function getQuestionAnswerData (question) {
-  const anQuestion = {quId: null, quType: quType}
   const quType = question.quType
+  const anQuestion = {quId: null, quType: quType}
   if (quType === 'RADIO') {
     getQuRadioAnswerData(question, anQuestion)
   } else if (quType === 'CHECKBOX') {
     getQuCheckboxAnswerData(question, anQuestion)
   } else if (quType === 'ORDERQU') {
-    anQuestion.anOrderby = []
+    getQuOrderByAnswerData(question, anQuestion)
   } else if (quType === 'MULTIFILLBLANK') {
     getQuMFbkAnswerData(question, anQuestion)
   } else if (quType === 'SCORE') {
-    anQuestion.anScores = []
+    // anQuestion.anScores = []
+    getQuScoreAnswerData(question, anQuestion)
   } else if (quType === 'FILLBLANK') {
-    anQuestion.anFillblank = {}
+    getQuFbkAnswerData(question, anQuestion)
   } else if (quType === 'UPLOADFILE') {
-    anQuestion.anUplodFiles = []
+    getQuUploadAnswerData(question, anQuestion)
   }
+  question.anQuestion = anQuestion
   return anQuestion
 }
 
@@ -52,12 +54,50 @@ function getQuCheckboxAnswerData (question, anQuestion) {
   })
 }
 
+function getQuFbkAnswerData (question, anQuestion) {
+  anQuestion.anFillblank = question.anFillblank
+  console.debug('anFillblank', anQuestion.anFillblank.answer)
+}
+
 function getQuMFbkAnswerData (question, anQuestion) {
   const quMultiFillblanks = question.quMultiFillblanks
   anQuestion.anDFillblanks = []
   quMultiFillblanks.map((option, index) => {
-    if (option.hasOwnProperty('inputText')) {
+    if (option.hasOwnProperty('inputText') && option.inputText!=='') {
       anQuestion.anDFillblanks.push({quItemId: null, name: option.optionTitleObj.dwHtml, text: option.inputText})
     }
   })
+}
+
+function getQuUploadAnswerData (question, anQuestion) {
+  anQuestion.anUplodFiles = []
+  if (question.hasOwnProperty('upFileList')) {
+    const quUpFileList = question.upFileList
+    console.debug('quUpFileList', quUpFileList)
+    quUpFileList.forEach((item, index) => {
+      if (item.hasOwnProperty('response') && item.response.hasOwnProperty('data')) {
+        const responseData = item.response.data
+        responseData.forEach((responseItem) => {
+          const anUploadFile = {belongId: null, belongAnswerId: null, quId: null, filePath: responseItem.location, fileName: responseItem.filename, randomCode: ''}
+          anQuestion.anUplodFiles.push(anUploadFile)
+        })
+      }
+    })
+    console.debug('anQuestion.anUplodFiles', anQuestion.anUplodFiles)
+  }
+}
+
+function getQuScoreAnswerData (question, anQuestion) {
+  const quScores = question.quScores
+  anQuestion.anScores = []
+  quScores.map((option, index) => {
+    if (option.hasOwnProperty('checked') && option.checked && option.hasOwnProperty('answerScore')) {
+      anQuestion.anScores.push({quRowId: null, name: option.optionTitleObj.dwHtml, answerScore: option.answerScore})
+    }
+  })
+}
+
+function getQuOrderByAnswerData (question, anQuestion) {
+  const quOrderbys = question.quOrderbys
+  anQuestion.anOrderby = []
 }

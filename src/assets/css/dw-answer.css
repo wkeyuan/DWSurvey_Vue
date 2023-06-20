@@ -31,3 +31,15 @@
 .dw-checkbox-icon{
   font-size: 22px;
 }
+.dw-qu-item-option-title{
+  padding: 5px 0;
+}
+.dw-answer-question-remind{
+  color: #afafb0;
+  font-size: 12px;
+}
+.dw-answer-question-error{
+  color: #ff6c6c;
+  font-size: 12px;
+  padding-top: 10px;
+}

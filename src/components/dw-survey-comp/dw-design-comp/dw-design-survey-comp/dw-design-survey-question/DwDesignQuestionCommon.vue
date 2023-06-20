@@ -119,8 +119,8 @@ import DwPopoverMoreOptions from './dw-design-questions/dw-desing-qestion-common
 import {
   dwResetQuestionRefreshValue, dwResetSurveyQuestionRefreshValue,
   dwSurveyQuAddOption
-} from '../../../dw-utils/dw-update-survey-question'
-import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-update-survey-item-click'
+} from '../../../dw-utils/dw-survey-update-question'
+import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-survey-update-item-click'
 import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
 import DwPopoverQuLogics from "./dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue";
 

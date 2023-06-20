@@ -5,9 +5,10 @@
 <script>
 import DwAnswerSurveyBody from './dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import {querySurveyAll} from '../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api'
-import {parseSurvey} from '../dw-utils/dw-parse-survey'
+import {parseSurvey} from '../dw-utils/dw-survey-parse'
 import DwAnswerDefaultLayout from './dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
-import {buildAnswerSurveyObj} from "../dw-utils/dw-answer-survey";
+import {buildAnswerSurveyObj} from "../dw-utils/dw-survey-answer";
+import {getSurveyJsonBySurveyId} from "../dw-utils/dw-survey-common";
 
 export default {
   name: 'DwAnswerSurveyMain',
@@ -33,6 +34,7 @@ export default {
     loadSurvey () {
       const surveyId = this.$route.params.id
       const params = {surveyId}
+      /*
       querySurveyAll(params).then((response) => {
         console.debug('querySurveyAll', response)
         const httpResult = response.data
@@ -47,6 +49,12 @@ export default {
           surveyData.dwDebug = false
           this.survey = surveyData
         }
+      })
+      */
+      getSurveyJsonBySurveyId(params, (survey) => {
+        survey.surveyStyle.themeColor = '#3f9eff'
+        survey.dwDebug = false
+        this.survey = survey
       })
     }
   }

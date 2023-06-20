@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../dw-utils/dw-update-survey-question'
-import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-update-survey-item-click'
+import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../dw-utils/dw-survey-update-question'
+import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
 
 export default {
   name: 'DwPopoverMoreOptions',

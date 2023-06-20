@@ -1,3 +1,4 @@
+
 export function logicNum (questionLogics, loginType) {
   let loginNum = 0
   if (questionLogics!==null) {
@@ -36,3 +37,4 @@ export function getQuOptions (question) {
     return question.quScores
   }
 }
+

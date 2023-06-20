@@ -34,7 +34,7 @@
 
 <script>
 import {bankQuestions} from '../../../../api/dw-design-question-comps'
-import {parseQuestion} from '../../../../../../dw-utils/dw-parse-survey'
+import {parseQuestion} from '../../../../../../dw-utils/dw-survey-parse'
 import draggable from 'vuedraggable'
 import DwDesignQuBankQuestion from "./DwDesignQuBankQuestion.vue";
 

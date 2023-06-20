@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import {clickItem, upAllItemClick} from '../../../../../../dw-utils/dw-update-survey-item-click'
+import {clickItem, upAllItemClick} from '../../../../../../dw-utils/dw-survey-update-item-click'
 import DwQuLogicShowGo from './componets/DwQuLogicShowGo.vue'
-import {logicNum} from '../../../../../../dw-utils/dw-design-survey'
+import {logicNum} from '../../../../../../dw-utils/dw-survey-design'
 
 export default {
   name: 'DwPopoverQuLogics',

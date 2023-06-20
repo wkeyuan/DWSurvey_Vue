@@ -49,7 +49,7 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {parseQuestion} from '../../../../../dw-utils/dw-parse-survey'
+import {initQuestionModels, parseQuestion} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 
@@ -100,7 +100,7 @@ export default {
           tabs.map((item, index) => {
             const tabQus = item.tabQus
             tabQus.map((item_1, index_1) => {
-              item_1.questions = parseQuestion(item_1.questions)
+              item_1.questions = initQuestionModels(parseQuestion(item_1.questions))
             })
           })
           this.tabs = tabs
@@ -114,6 +114,7 @@ export default {
     previewSurvey () {
       this.saveSurveyFun(() => {
         const surveyId = this.$route.params.id
+        // 进行数据合法性检查，主要是防止空的标题与选项
         this.$router.push('/v6/diaowen/preview/survey/'+surveyId)
       })
     },

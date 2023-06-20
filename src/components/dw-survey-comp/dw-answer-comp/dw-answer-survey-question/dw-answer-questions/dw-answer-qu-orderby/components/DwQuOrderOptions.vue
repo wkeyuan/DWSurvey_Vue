@@ -5,10 +5,10 @@
       <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.id" class="dw-qu-order-group-item dwMoveSortQuOption" >
         <div class="dw-qu-item" @click="clickItem(item)" >
           <div class="dw-qu-item-body">
-            <div class="dw-qu-item-el-checkbox-radio">
+            <div class="dw-qu-item-body-order-option">
               <i v-if="item.orderIndex>0" :style="`background: ${themeColor};border-color: ${themeColor}`" class="fa dw-qu-order-num dw-num-order" >{{ item.orderIndex }}</i>
               <i v-else class="fa dw-qu-order-num dw-num-empty" > {{ item.orderIndex }} </i>
-              <dw-html-label-common ref="dwEditLabel" :value="item.optionTitleObj" ></dw-html-label-common>
+              <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="item.optionTitleObj" ></dw-html-label-common></div>
             </div>
           </div>
         </div>
@@ -26,6 +26,7 @@ import DwTextEditLabel
   from '../../../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-common/DwTextEditLabel.vue'
 import DwHtmlLabelCommon from '../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import draggable from 'vuedraggable'
+import {validateQuestion} from "../../../../../dw-utils/dw-survey-answer-validate";
 
 export default {
   name: 'DwQuOrderOptions',
@@ -80,12 +81,22 @@ export default {
         const y = b.orderIndex === 0 ? length + 1 : b.orderIndex
         return ((x < y) ? -1 : (x > y) ? 1 : 0)
       })
+
+      const question = this.survey.questions[this.index]
+      const anQuestion = {quId: null, quType: question.quType, anOrders: []}
+      this.dragOptions.forEach((item, itemIndex) => {
+        if (item.orderIndex>0) anQuestion.anOrders.push({quId: null, quRowId: null, quRowTitle: item.optionTitleObj.dwText, orderyNum: item.orderIndex})
+      })
+      this.survey.questions[this.index].anQuestion = anQuestion
+      console.debug('anQuestion', anQuestion)
+      validateQuestion(this.survey.questions[this.index])
     }
   }
 }
 </script>
 
 <style scoped>
+@import '../../../../../../../assets/css/dw-answer.css';
 .dw-qu-order-group{
 
 }
@@ -99,15 +110,12 @@ export default {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
-.dw-qu-item-el-checkbox-radio{
+.dw-qu-item-body-order-option{
   /*display: inline-flex;*/
   display: flex;
   align-items: center;
   font-size: 14px;
   padding: 3px 5px;
-}
-.dw-qu-item-el-checkbox-radio-icon{
-  /*background: red;*/
 }
 .dw-qu-order-num{
   border: 1px solid #dcdfe6;

@@ -18,7 +18,7 @@ export function parseSurvey (survey) {
       curEditObj: [{itemClick: false}]
   } */
   if (survey !== null) {
-    survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText, dwPlaceholder: '请输入问卷标题'}
+    if (!survey.hasOwnProperty('surveyNameObj')) survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText, dwPlaceholder: '请输入问卷标题'}
     parseSurveyDetail(survey)
     parseQuestion(survey.questions)
     survey.surveyTest = ''
@@ -34,7 +34,7 @@ export function parseSurveyDetail (survey) {
   if (surveyDetail !== null) {
     const surveyNoteText = surveyDetail.surveyNoteText !== null ? surveyDetail.surveyNoteText : ''
     // surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText}
-    survey.surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText, dwPlaceholder: '请输入问卷介绍'}
+    if (!survey.surveyDetail.hasOwnProperty('surveyNodeObj')) survey.surveyDetail.surveyNodeObj = {dwHtml: surveyDetail.surveyNote, dwText: surveyNoteText, dwPlaceholder: '请输入问卷介绍'}
   }
   survey.surveyDetail.effective_model = survey.surveyDetail.effective === 1
   survey.surveyDetail.effectiveIp_model = survey.surveyDetail.effectiveIp === 1
@@ -53,9 +53,10 @@ export function parseQuestion (questions) {
     // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
       const quName = question.quName !== null ? question.quName : question.quTitle
-      question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
+      if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
       const quNote = question.quNote
-      question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
+      if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
+      if (question.questionLogics===null) question.questionLogics = []
       const quType = question.quType
       if (quType === 'RADIO') {
         parseQuRadio(question)
@@ -77,11 +78,21 @@ export function parseQuestion (questions) {
         question.quTypeName = '分段组件'
       }
       question.dateAttrs = []
+      question.validateObj = {errorText: '', isOk: true}
     })
   }
   return questions
 }
 
+export function initQuestionModels (questions) {
+  if (questions !== null && questions.length > 0) {
+    // 循环然后定义以上内容
+    questions.map((question, quIndex) => {
+      question.isRequired = 1
+    })
+  }
+  return questions
+}
 /**
  * 解析单选题
  * @param question
@@ -155,10 +166,10 @@ function parseQuOptionType1 (quOptions) {
       const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
       // oss版本把html保存在 optionTitle
       const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
-      quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
-      quOption.dateAttrs = []
-      quOption.checked = false
-      quOption.orderIndex = 0
+      if (!quOption.hasOwnProperty('optionTitleObj')) quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
+      if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
+      if (!quOption.hasOwnProperty('checked')) quOption.checked = false
+      if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
     })
   }
 }
@@ -185,10 +196,16 @@ function parseQuOptionType1 (quOptions) {
  * 2.5、编辑器加导航菜单 OK
  * 2.6、编辑器中逻辑配置 OK
  * 2.7、配置各题逻辑 OK
- * 2.8  保存编辑结果，并发布问卷 （编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容）
+ * 2.8  保存编辑结果，并发布问卷 OK
+ *（编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容(如果需求则进行转换)）
+ * 编辑，答卷都使用最新的JSON数据直接展现。
+ * 编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。
+ * 结果化数据只在统计页面使用。
+ * JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成）
  * 2.9  完成答卷页面
  * 3、发布问卷并保存
  * 4、回答问卷并保存答案
  * 5、完善基础版本编辑器未完成的功能
  * 6、升级编辑器与企业版目前提供的功能同步
+ * 修改数据结构，把QuOption合并到一起
  */

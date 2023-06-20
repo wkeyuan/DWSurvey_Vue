@@ -1,13 +1,15 @@
 <template>
   <div class="dw-container-body-center" style="padding-bottom: 30px;">
-    <div class="dw-survey-answer-body">
-      <div style="text-align: center;padding-top: 20px;font-weight: bold;">
+    <div style="padding: 20px 20px 10px 20px;">
+      <div style="text-align: center;font-weight: bold;">
         <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
       </div>
-      <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;">
+      <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
         <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
       </div>
-      <div style="padding-top: 15px;">
+    </div>
+    <div class="dw-survey-answer-body">
+      <div style="padding-top: 5px;">
         <div>
           <transition-group>
             <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
@@ -32,7 +34,8 @@ import DwDesignQuestion from '../../dw-design-comp/dw-design-survey-comp/dw-desi
 import DwFooter from '../../../layouts/DwFooter.vue'
 import DwAnswerQuestion from '../dw-answer-survey-question/DwAnswerQuestion.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
-import {buildAnswerSurveyObj, getSurveyAnswerData} from "../../dw-utils/dw-answer-survey";
+import {buildAnswerSurveyObj, getSurveyAnswerData} from "../../dw-utils/dw-survey-answer";
+import {validateQuestions, validateQuestionsBool} from "../../dw-utils/dw-survey-answer-validate";
 
 export default {
   name: 'DwAnswerSurveyBody',
@@ -62,6 +65,11 @@ export default {
       const answer = getSurveyAnswerData(this.survey)
       this.answer = answer
       console.debug('answer', answer)
+      if (validateQuestionsBool(this.survey.questions)) {
+        console.debug('submit-answer')
+      } else {
+        this.$message.warning('请根据提示完成表单！')
+      }
     }
   }
 }

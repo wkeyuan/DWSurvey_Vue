@@ -44,7 +44,7 @@ import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
-import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-update-survey-question'
+import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
 
 export default {
   name: 'DwDesignContainerBodyCenter',

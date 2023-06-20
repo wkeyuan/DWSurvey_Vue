@@ -28,8 +28,8 @@
                 <span v-show="survey.questions[index].hv === 1">每行显示列数 <el-input-number v-model="survey.questions[index].cellCount" style="margin-right: 10px;" ></el-input-number></span>
               </el-form-item>
               <el-form-item v-if="survey.questions[index].quType === 'CHECKBOX'" label="选择个数">
-                最少 <el-input-number v-model="survey.questions[index].paramInt01" style="margin-right: 10px;"></el-input-number>
-                最多 <el-input-number v-model="survey.questions[index].paramInt02"></el-input-number>
+                最少 <el-input-number v-model="survey.questions[index].minLimit" style="margin-right: 10px;"></el-input-number>
+                最多 <el-input-number v-model="survey.questions[index].maxLimit"></el-input-number>
               </el-form-item>
             </template>
             <template v-else-if="survey.questions[index].quType === 'FILLBLANK'">
@@ -71,15 +71,17 @@
             </template>
             <template v-else-if="survey.questions[index].quType === 'UPLOADFILE'">
               <el-form-item label="文件类型">
-                <el-select v-model="survey.questions[index].paramInt01" placeholder="日期格式" style="width: 290px;" >
-                  <el-option :value="7" label="自限"></el-option>
-                  <el-option :value="5" label="图片"></el-option>
-                  <el-option :value="6" label="文档"></el-option>
+                <el-select v-model="survey.questions[index].fileAccept" placeholder="请选择文件类型" style="width: 290px;" >
+                  <el-option :value="0" label="不限"></el-option>
+                  <el-option :value="1" label="图片(.jpg,.jpeg,.png,.gif,.bmp)"></el-option>
+                  <el-option :value="2" label="文档(.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx)"></el-option>
+                  <el-option :value="100" label="自定义" ></el-option>
                 </el-select>
+                <el-input v-show="survey.questions[index].fileAccept === 100" v-model="survey.questions[index].customFileAccept" style="width: 160px;"></el-input>
               </el-form-item>
               <el-form-item label="文件参数">
-                上传附件数 <el-input-number v-model="survey.questions[index].randOrder" style="margin-right: 15px;"></el-input-number>
-                单个文件最大支持 <el-input-number v-model="survey.questions[index].paramInt02"></el-input-number> M
+                上传附件数 <el-input-number v-model="survey.questions[index].fileLimit" style="margin-right: 15px;"></el-input-number>
+                单个文件最大支持 <el-input-number v-model="survey.questions[index].fileSize"></el-input-number> M
                 <div style="color: #c0c4cc;font-size: 12px;"> (空或0表示限制)</div>
               </el-form-item>
             </template>
@@ -100,7 +102,7 @@
 </template>
 
 <script>
-import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-update-survey-item-click'
+import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
 import DwInputAttrs from './DwInputAttrs.vue'
 
 export default {

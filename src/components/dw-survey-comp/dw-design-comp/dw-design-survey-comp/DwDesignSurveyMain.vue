@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import {querySurveyAll} from './api/dw-design-survey-api'
 import DwDesignSurveyCore from './DwDesignSurveyCore'
-import {parseSurvey} from '../../dw-utils/dw-parse-survey'
+import {getSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
 export default {
   name: 'DwDesignSurveyMain',
   components: {DwDesignSurveyCore},
   data () {
     return {
-      survey: null
+      survey: null,
+      surveyJsonText: null
       /* survey: {
         // font-size: 22px;font-weight: bold;
         surveyNameObj: {dwHtml: '', dwText: ''},
@@ -38,17 +38,8 @@ export default {
     loadSurvey () {
       const surveyId = this.$route.params.id
       const params = {surveyId}
-      querySurveyAll(params).then((response) => {
-        console.debug('querySurveyAll', response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          // this.survey = httpResult.data
-          console.debug('httpResult.data', httpResult.data)
-          const surveyData = parseSurvey(httpResult.data)
-          console.debug('parseResultData', surveyData)
-          this.survey = surveyData
-          // quRadios
-        }
+      getSurveyJsonBySurveyId(params, (survey) => {
+        this.survey = survey
       })
     }
   }

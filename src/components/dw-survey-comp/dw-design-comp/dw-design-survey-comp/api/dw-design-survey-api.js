@@ -16,7 +16,20 @@ export function querySurveyAll (params) {
 }
 
 /**
- * 创建用户
+ * 获取问卷设计原始JSON
+ * @param params
+ * @returns {*}
+ */
+export function surveyJsonBySurveyId (params) {
+  return request({
+    url: '/api/dwsurvey/app/dw-design-survey/survey-json-by-survey-id.do',
+    method: 'get',
+    params
+  })
+}
+
+/**
+ * 保存问卷设计原始JSON
  * @param data
  * @returns {*}
  */

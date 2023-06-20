@@ -1,16 +1,18 @@
 <template>
   <div>
     <!--    :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" -->
-    <div class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
+    <div class="dw-question-root" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-body" >
-        <div class="dw-question-body-left dw-text-align-center dw-padding-top-2"></div>
+        <!--        <div class="dw-question-body-left dw-text-align-center dw-padding-top-2"></div>-->
         <div class="dw-question-body-center">
           <div class="dw-question-body-center-body dw-color-333" >
             <div class="dw-qu-content">
-              <div class="dw-qu-title-body dw-display-flex dw-width-100bf">
-                <div class="dw-qu-num">{{ index+1 }}、</div>
-                <div>
-                  <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-html-label-common>
+              <div class="dw-qu-title-body dw-display-flex dw-width-100bf" style="align-items: baseline;flex-wrap: wrap;">
+                <div class="dw-display-flex" style="align-items: baseline;">
+                  <div class="dw-qu-num" ><span v-show="survey.questions[index].isRequired === 1" style="color: #f56c6c;margin-right: 3px;">*</span>{{ index+1 }}、</div>
+                  <div class="dw-qu-title">
+                    <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-html-label-common>
+                  </div>
                 </div>
                 <div class="dw-qu-type-name" >
                   <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
@@ -19,14 +21,19 @@
               <div v-show="survey.questions[index].quNoteObj.dwHtml !==null && survey.questions[index].quNoteObj.dwHtml !=='' " style="font-size: 12px;color: grey;margin-bottom: 5px;" >
                 <dw-html-label-common ref="dwQuNote" v-model="survey.questions[index].quNoteObj" :survey="survey" ></dw-html-label-common>
               </div>
-              <div class="dw-qu-content-body">
+              <div class="dw-qu-content-body" style="padding-top: 5px;">
 
                 <div class="dw-qu-content-body-content">
                   <slot name="editQuContent" ></slot>
                 </div>
 
-                <div class="dw-question-body-bottom dw-padding-top-10 dw-height-20px">
-                  <div></div>
+                <div class="dw-question-body-bottom">
+                  <div>
+                    <div v-show="!survey.questions[index].validateObj.isOk" class="dw-answer-question-error">
+                      <i class="fa-solid fa-circle-exclamation"></i>
+                      {{ survey.questions[index].validateObj.errorText }}
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -49,10 +56,10 @@ import DwPopoverMoreOptions from '../../dw-design-comp/dw-design-survey-comp/dw-
 import {
   dwResetQuestionRefreshValue,
   dwSurveyQuAddOption
-} from '../../dw-utils/dw-update-survey-question'
-import {clickQuItem, upAllItemClick} from '../../dw-utils/dw-update-survey-item-click'
+} from '../../dw-utils/dw-survey-update-question'
+import {clickQuItem, upAllItemClick} from '../../dw-utils/dw-survey-update-item-click'
 import DwPopoverQuAttrs from '../../dw-design-comp/dw-design-survey-comp/dw-design-survey-question/dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
-import DwHtmlLabelCommon from "../dw-answer-survey-common/DwHtmlLabelCommon.vue";
+import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 
 export default {
   name: 'DwAnswerQuestionCommon',
@@ -144,6 +151,10 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../../assets/css/dw-answer.css';
+.dw-question-root{
+  padding-bottom: 15px;
+}
 .dw-question-body{
   display: grid;
   /*grid-template-columns: 40px auto 40px;*/
@@ -151,22 +162,23 @@ export default {
   padding: 2px 0 0 0;
   margin: 0;
 }
+.dw-qu-title-body{
+  padding: 6px 0;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  color: #303133;
+}
 .dw-qu-title-body .dw-qu-num{
   min-width: 20px;
   max-width: 60px;
 }
 .dw-qu-title-body .dw-qu-type-name{
   text-align: left;
+  min-width: 100px;
 }
-.focus-question{
-  background: #f8f8f8;
-}
-.dw-input-default{
-  border: 1px solid transparent;
-}
-.dw-input-focus{
-  border: 1px solid #095aaa;
-  background: #e5f5f5;
+@media screen and (max-width: 750px) {
+  .dw-qu-type-name{
+    display: none;
+  }
 }
 </style>
 <style>
