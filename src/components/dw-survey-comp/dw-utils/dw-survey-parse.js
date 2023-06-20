@@ -100,7 +100,7 @@ export function initQuestionModels (questions) {
 function parseQuRadio (question) {
   question.quTypeName = '单选题'
   if (question.cellCount === 0) question.cellCount = 2
-  parseQuOptionType1(question.quRadios)
+  parseQuOptionType1(question, question.quRadios)
 }
 
 /**
@@ -110,7 +110,7 @@ function parseQuRadio (question) {
 function parseQuCheckbox (question) {
   question.quTypeName = '多选题'
   if (question.cellCount === 0) question.cellCount = 2
-  parseQuOptionType1(question.quCheckboxs)
+  parseQuOptionType1(question, question.quCheckboxs)
 }
 
 /**
@@ -119,7 +119,7 @@ function parseQuCheckbox (question) {
  */
 function parseQuOrderbys (question) {
   question.quTypeName = '排序题'
-  parseQuOptionType1(question.quOrderbys)
+  parseQuOptionType1(question, question.quOrderbys)
 }
 
 /**
@@ -128,7 +128,7 @@ function parseQuOrderbys (question) {
  */
 function parseQuMultiFillblanks (question) {
   question.quTypeName = '多项填空题'
-  parseQuOptionType1(question.quMultiFillblanks)
+  parseQuOptionType1(question, question.quMultiFillblanks)
 }
 
 /**
@@ -137,7 +137,7 @@ function parseQuMultiFillblanks (question) {
  */
 function parseQuScores (question) {
   question.quTypeName = '评分题'
-  parseQuOptionType1(question.quScores)
+  parseQuOptionType1(question, question.quScores)
 }
 
 /**
@@ -160,7 +160,7 @@ function parseQuUploadFile (question) {
  * 用于解析单选、多选、排序、多项填空题的选项
  * @param quOptions
  */
-function parseQuOptionType1 (quOptions) {
+function parseQuOptionType1 (question, quOptions) {
   if (quOptions !==null && quOptions.length>0) {
     quOptions.forEach((quOption, optionIndex) => {
       const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
@@ -172,6 +172,7 @@ function parseQuOptionType1 (quOptions) {
       if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
     })
   }
+  question.quOptions = quOptions
 }
 
 // 如果SurveyJson没有，则从结构化的数据中取问卷数据。
@@ -197,14 +198,17 @@ function parseQuOptionType1 (quOptions) {
  * 2.6、编辑器中逻辑配置 OK
  * 2.7、配置各题逻辑 OK
  * 2.8  保存编辑结果，并发布问卷 OK
- *（编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容(如果需求则进行转换)）
- * 编辑，答卷都使用最新的JSON数据直接展现。
- * 编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。
- * 结果化数据只在统计页面使用。
- * JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成）
- * 2.9  完成答卷页面
+ * 2.9（编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容(如果需求则进行转换)）
+ * 2.10 编辑，答卷都使用最新的JSON数据直接展现。 OK
+ * 2.11 编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。
+ * 2.12 结构化数据只在统计页面使用。
+ * 2.13 JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成）
+ * 2.14 完成答卷页面 OK
+ * 2.15 答卷表单基本验证 OK
+ * 2.16 简化JSON，如果是原始的转化成最新的JSON，最新的也可以转化成原始的，实现双向转换，如题目option选项，统一处理不再分到不同字段上面 OK
+ * 2.17 需要考虑答卷页主题修改的便利性
  * 3、发布问卷并保存
- * 4、回答问卷并保存答案
+ * 4、回答问卷并保存答案 ?
  * 5、完善基础版本编辑器未完成的功能
  * 6、升级编辑器与企业版目前提供的功能同步
  * 修改数据结构，把QuOption合并到一起

@@ -3,10 +3,10 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  padding: 5px 5px;
+  padding: 2px 5px;
   /*background: #f5f7fa;*/
   margin-bottom: 5px;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px solid #DCDFE6;
   cursor: pointer;
 }
@@ -16,9 +16,14 @@
   margin-right: 5px;
   color: #ccc;
 }
-.dw-qu-item-el-checkbox-radio-icon.dw-checked{
-  color: #409eff;
+.dw-qu-item-el-checkbox-radio.dw-item-checked{
+  border-color: #3f9eff;
+  background: #e5eff8;
 }
+.dw-qu-item-el-checkbox-radio.dw-item-checked .dw-qu-item-el-checkbox-radio-icon.dw-checked{
+  color: #3f9eff;
+}
+
 .dw-qu-item-el-checkbox-radio .dw-qu-option-text{
   /*margin:auto;*/
   width: 100%;

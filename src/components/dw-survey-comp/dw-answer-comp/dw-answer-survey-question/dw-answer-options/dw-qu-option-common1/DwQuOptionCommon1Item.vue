@@ -5,27 +5,26 @@
     </div>
     <div class="dw-qu-item-body">
       <template v-if="quType==='RADIO'" >
-        <!--        :style="survey.questions[quIndex].quRadios[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
-        <div class="dw-qu-item-el-checkbox-radio">
+        <div :class="survey.questions[quIndex].quRadios[optionIndex].checked ? `dw-item-checked`: ''" class="dw-qu-item-el-checkbox-radio">
+          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-regular fa-circle-dot dw-checked"></i>
+          <!--          fa-dot-circle-->
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-regular fa-circle "></i>
           <!--
-            <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-dot-circle dw-checked"></i>
-            <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-circle "></i>
-            -->
           <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked"></i>
-          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check "></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check "></i>-->
           <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quRadios[optionIndex].checked }}</span>
         </div>
       </template>
       <template v-else-if="quType==='CHECKBOX'" >
         <!--        :style="survey.questions[quIndex].quCheckboxs[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
-        <div class="dw-qu-item-el-checkbox-radio">
+        <div :class="survey.questions[quIndex].quCheckboxs[optionIndex].checked ? `dw-item-checked`: ''" class="dw-qu-item-el-checkbox-radio">
           <!--
             <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-check-square dw-checked"></i>
             <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
             -->
-          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check dw-checked" style="font-size: 22px;" ></i>
-          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check" style="font-size: 22px;" ></i>
+          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-regular fa-square-check dw-checked" style="font-size: 22px;" ></i>
+          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-regular fa-square" style="font-size: 22px;" ></i>
           <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
         </div>
