@@ -1,8 +1,8 @@
 <template>
   <div class="dw-answer-container" >
     <el-container>
-      <el-main style="padding: 0;">
-        <div v-if="survey!=null">
+      <el-main v-if="survey!=null" style="padding: 10px;">
+        <div>
           <div>
             <div class="dw-container-body">
               <dw-answer-survey-body ref="designContainerBody" v-model="survey" ></dw-answer-survey-body>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div style="margin-bottom: 5px;">
       <el-select v-model="value" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" placeholder="请选择" @change="onChange">
         <el-option
           v-for="(item, index) in options"

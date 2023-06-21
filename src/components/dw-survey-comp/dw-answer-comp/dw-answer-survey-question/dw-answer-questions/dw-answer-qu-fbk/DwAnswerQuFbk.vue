@@ -1,7 +1,7 @@
 <template>
-  <div style="padding: 10px 0;" class="dw-qu-item">
-    <el-input v-if="survey.questions[index].answerInputRow>1" v-model="survey.questions[index].anFillblank.answer" :placeholder="survey.questions[index].placeholder" :autosize="{ minRows: survey.questions[index].answerInputRow }" type="textarea" @blur="onBlur"></el-input>
-    <el-input v-else v-model="survey.questions[index].anFillblank.answer" :placeholder="survey.questions[index].placeholder" @blur="onBlur"/>
+  <div style="padding: 0;margin-bottom: 5px;" class="dw-qu-item">
+    <el-input v-if="survey.questions[index].answerInputRow>1" v-model="survey.questions[index].anFillblank.answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" :autosize="{ minRows: survey.questions[index].answerInputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
+    <el-input v-else v-model="survey.questions[index].anFillblank.answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" @blur="onBlur" @input="onBlur"/>
   </div>
 </template>
 
@@ -27,6 +27,12 @@ export default {
       inputText: ''
     }
   },
+  computed: {
+    isAnswer () {
+      const answer = this.survey.questions[this.index].anFillblank.answer
+      return answer !== null && answer !== undefined && answer !== ''
+    }
+  },
   methods: {
     onBlur (event) {
       getQuestionAnswerData(this.survey.questions[this.index])
@@ -37,8 +43,13 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../../../../assets/css/dw-answer.css';
+
 .dw-qu-item{
   display: grid;
   grid-template-columns: auto;
 }
+</style>
+<style>
+
 </style>

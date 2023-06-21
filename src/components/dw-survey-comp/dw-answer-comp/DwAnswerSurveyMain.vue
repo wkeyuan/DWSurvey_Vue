@@ -1,20 +1,21 @@
 <template>
-  <dw-answer-default-layout v-model="survey" ></dw-answer-default-layout>
+  <div>
+    <dw-answer-default-layout v-model="survey" ></dw-answer-default-layout>
+  </div>
 </template>
 
 <script>
 import DwAnswerSurveyBody from './dw-answer-survey-body/DwAnswerSurveyBody.vue'
-import {querySurveyAll} from '../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api'
-import {parseSurvey} from '../dw-utils/dw-survey-parse'
 import DwAnswerDefaultLayout from './dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
-import {buildAnswerSurveyObj} from "../dw-utils/dw-survey-answer";
-import {getSurveyJsonBySurveyId} from "../dw-utils/dw-survey-common";
+import {getSurveyJsonBySurveyId} from '../dw-utils/dw-survey-common'
+import {Loading} from 'element-ui'
 
 export default {
   name: 'DwAnswerSurveyMain',
   components: {DwAnswerDefaultLayout, DwAnswerSurveyBody},
   data () {
     return {
+      /*
       survey: {
         surveyNameObj: {dwHtml: '', dwText: ''},
         surveyDetail: {
@@ -24,7 +25,10 @@ export default {
         surveyStyle: {
           themeColor: 'none'
         }
-      }
+      },
+      */
+      survey: null,
+      loading: true
     }
   },
   mounted () {
@@ -32,6 +36,13 @@ export default {
   },
   methods: {
     loadSurvey () {
+      const loadingInstance = Loading.service({
+        fullscreen: true,
+        spinner: 'fa-solid fa-spinner fa-spin-pulse',
+        background: '#00000091',
+        customClass: 'dw-loading',
+        text: '问卷数据加载中'
+      })
       const surveyId = this.$route.params.id
       const params = {surveyId}
       /*
@@ -52,9 +63,13 @@ export default {
       })
       */
       getSurveyJsonBySurveyId(params, (survey) => {
-        survey.surveyStyle.themeColor = '#3f9eff'
+        survey.surveyStyle.themeColor = '#025bb7'
         survey.dwDebug = false
         this.survey = survey
+        // 以服务的方式调用的 Loading 需要异步关闭
+        this.$nextTick(() => { loadingInstance.close() })
+      }, () => {
+        this.$message.error('未找到最新的问卷JSON数据！')
       })
     }
   }
@@ -63,4 +78,10 @@ export default {
 
 <style scoped>
 
+</style>
+<style>
+.dw-loading .el-loading-spinner *{
+  font-size: 20px!important;
+  color: #023e79;
+}
 </style>

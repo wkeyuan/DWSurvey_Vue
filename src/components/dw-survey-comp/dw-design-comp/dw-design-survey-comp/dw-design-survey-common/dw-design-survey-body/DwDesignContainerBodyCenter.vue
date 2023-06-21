@@ -22,7 +22,7 @@
             @start="onStart"
             @end="onEnd">
             <transition-group>
-              <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+              <div v-for="(item, index) in survey.questions" :key="item.hasOwnProperty('dwId') ? item.dwId: `Qu_${index}`" >
                 <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
             </transition-group>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-<!--    <div style=""><dw-footer></dw-footer></div>-->
+    <!--    <div style=""><dw-footer></dw-footer></div>-->
   </div>
 </template>
 
@@ -45,6 +45,7 @@ import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
+import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 
 export default {
   name: 'DwDesignContainerBodyCenter',
@@ -79,6 +80,8 @@ export default {
       const newIndex = attrs.newIndex
       this.refreshData(newIndex)
       this.survey.questions[newIndex].quTitleObj.isNew = true
+      resetQuestion(this.survey.questions[newIndex])
+      // 还没选项的ID
     },
     onStart () {
       this.drag = true

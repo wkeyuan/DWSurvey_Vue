@@ -1,8 +1,13 @@
 <template>
   <div class="dw-footer-main" >
     <div>
-      <span><a :href="footerInfo.siteUrl" style="color: #333;"><strong>{{ footerInfo.siteName }}</strong></a>&nbsp;</span>
-      <span><a href="/" style="text-decoration: none;color: #333;">{{ footerInfo.siteIcp }}</a>&nbsp;{{ footerInfo.siteMail }}&nbsp;{{ footerInfo.sitePhone }}</span>
+      <div v-show="footerInfo.siteUrl !=='' || footerInfo.siteName !=='' || footerInfo.siteIcp !==''">
+        <span><a :href="footerInfo.siteUrl" style="color: #333;"><strong>{{ footerInfo.siteName }}</strong></a>&nbsp;</span>
+        <span><a href="/" style="text-decoration: none;color: #333;">{{ footerInfo.siteIcp }}</a></span>
+      </div>
+      <div v-show="footerInfo.siteMail !=='' || footerInfo.sitePhone !==''">
+        <span>&nbsp;{{ footerInfo.siteMail }}&nbsp;{{ footerInfo.sitePhone }}</span>
+      </div>
     </div>
     <div>
       <span>Powered by <a href="www.diaowen.net"><strong>DWSurvey</strong></a> {{ footerInfo.versionNumber }} Vue </span>

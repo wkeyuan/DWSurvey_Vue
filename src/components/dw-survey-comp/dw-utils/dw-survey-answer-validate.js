@@ -38,7 +38,7 @@ export function validateQuestions (questions) {
 export function validateQuestion (question) {
   if (question!==null) {
     const quType = question.quType
-    question.validateObj = {errorText: '', isOk: true}
+    question.validateObj = {errorText: '此题必答', isOk: true}
     if (quType !== 'PAGETAG' && quType !== 'PARAGRAPH') {
       if (quType === 'RADIO') {
         validateQuRadio(question)

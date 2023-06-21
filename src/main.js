@@ -16,13 +16,14 @@ import '@fortawesome/fontawesome-free/css/all.css' // fa5
 import './assets/css/wangeditor/view.css'
 import './assets/css/dw-common.css'
 import './assets/css/dw-element-style-override.css'
+import animated from 'animate.css'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.component('icon', Icon)
-
+Vue.use(animated)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

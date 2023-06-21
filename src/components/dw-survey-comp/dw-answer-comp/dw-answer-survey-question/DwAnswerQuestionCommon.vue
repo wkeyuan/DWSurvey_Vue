@@ -29,10 +29,16 @@
 
                 <div class="dw-question-body-bottom">
                   <div>
-                    <div v-show="!survey.questions[index].validateObj.isOk" class="dw-answer-question-error">
-                      <i class="fa-solid fa-circle-exclamation"></i>
-                      {{ survey.questions[index].validateObj.errorText }}
-                    </div>
+                    <!--
+                    animate__fadeIn
+                    animate__fadeInUp
+                    -->
+                    <transition enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipOutX">
+                      <div v-show="!survey.questions[index].validateObj.isOk" class="dw-answer-question-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        {{ survey.questions[index].validateObj.errorText }}
+                      </div>
+                    </transition>
                   </div>
                 </div>
 
@@ -152,6 +158,7 @@ export default {
 
 <style scoped>
 @import '../../../../assets/css/dw-answer.css';
+
 .dw-question-root{
   padding-bottom: 15px;
 }
@@ -161,6 +168,7 @@ export default {
   grid-template-columns: auto;
   padding: 2px 0 0 0;
   margin: 0;
+  background: white;
 }
 .dw-qu-title-body{
   padding: 6px 0;

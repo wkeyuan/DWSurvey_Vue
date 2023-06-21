@@ -7,7 +7,7 @@
 
 <script>
 import DwDesignSurveyCore from './DwDesignSurveyCore'
-import {getSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
+import {getDesignSurveyJsonBySurveyId, getSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
 export default {
   name: 'DwDesignSurveyMain',
   components: {DwDesignSurveyCore},
@@ -38,7 +38,8 @@ export default {
     loadSurvey () {
       const surveyId = this.$route.params.id
       const params = {surveyId}
-      getSurveyJsonBySurveyId(params, (survey) => {
+      getDesignSurveyJsonBySurveyId(params, (survey) => {
+        console.debug('survey', survey)
         this.survey = survey
       })
     }

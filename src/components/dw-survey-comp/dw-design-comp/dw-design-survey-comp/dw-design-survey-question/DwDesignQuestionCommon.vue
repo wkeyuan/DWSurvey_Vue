@@ -122,7 +122,9 @@ import {
 } from '../../../dw-utils/dw-survey-update-question'
 import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-survey-update-item-click'
 import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
-import DwPopoverQuLogics from "./dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue";
+import DwPopoverQuLogics from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue'
+import {v4 as uuidV4} from 'uuid'
+import {resetQuestion} from "../../../dw-utils/dw-survey-parse";
 
 export default {
   name: 'DwDesignQuestionCommon',
@@ -190,6 +192,7 @@ export default {
     },
     dwAddQuItemEvent () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}
+      quOption.dwId = uuidV4()
       const newSurvey = dwSurveyQuAddOption(this.survey, this.index, quOption)
       this.$emit('update-survey', newSurvey)
       upAllItemClick(this.survey, null, (survey) => { this.survey = survey })
@@ -207,6 +210,7 @@ export default {
       // 复制题
       const question = this.survey.questions[this.index]
       const newQu = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(question)))
+      resetQuestion(newQu)
       this.survey.questions.splice(this.index+1, 0, newQu)
       // 需要强制触发所有题目刷新
       this.survey = dwResetSurveyQuestionRefreshValue(this.survey)

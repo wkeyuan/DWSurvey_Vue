@@ -4,7 +4,7 @@
       <template v-if="quType==='RADIO'" >
         <!--        :style="survey.questions[quIndex].quRadios[optionIndex].checked ? `border-color:${themeColor}`: ''"-->
         <div :class="survey.questions[quIndex].quRadios[optionIndex].checked ? `dw-item-checked`: ''" class="dw-qu-item-el-checkbox-radio">
-          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-regular fa-circle-dot dw-checked"></i>
+          <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-dot animate__animated animate__tada dw-checked"></i>
           <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-regular fa-circle"></i>
           <!--
           <i v-if="survey.questions[quIndex].quRadios[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon dw-radio-icon fa-solid fa-circle-check dw-checked" ></i>
@@ -20,19 +20,21 @@
             <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" :style="`color: ${themeColor}`" class="dw-qu-item-el-checkbox-radio-icon far fa-check-square dw-checked"></i>
             <i v-else class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
             -->
-          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-regular fa-square-check dw-checked" ></i>
-          <i v-else class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-regular fa-square" ></i>
+          <i v-if="survey.questions[quIndex].quCheckboxs[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-solid fa-square-check animate__animated animate__tada dw-checked " ></i>
+          <i v-if="!survey.questions[quIndex].quCheckboxs[optionIndex].checked" class="dw-qu-item-el-checkbox-radio-icon dw-checkbox-icon fa-regular fa-square" ></i>
           <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <span v-show="survey.dwDebug">{{ survey.questions[quIndex].quCheckboxs[optionIndex].checked }}</span>
         </div>
       </template>
       <template v-else>
-        <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
-        <template v-if="quType==='MULTIFILLBLANK'" >
-          <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" @blur="onBlur"></el-input>
-          <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :placeholder="options[optionIndex].placeholder" @blur="onBlur"/>
-        </template>
-        <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" @change="clickItem" ></el-rate>
+        <div style="margin-bottom: 5px;">
+          <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
+          <template v-if="quType==='MULTIFILLBLANK'" >
+            <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
+            <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" @blur="onBlur" @input="onBlur"/>
+          </template>
+          <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" @change="clickItem" ></el-rate>
+        </div>
       </template>
     </div>
     <div class="dw-qu-item-toolbar dw-display-flex-right" ></div>
@@ -43,6 +45,7 @@
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
 import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
+
 export default {
   name: 'DwQuOptionCommon2Item',
   components: {DwHtmlLabelCommon},
@@ -70,6 +73,16 @@ export default {
       rateColors: [this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor, this.survey.surveyStyle.themeColor],
       minLimit: 0,
       maxLimit: 0
+    }
+  },
+  computed: {
+    isAnswer () {
+      const question = this.survey.questions[this.quIndex]
+      if (question.quType === 'MULTIFILLBLANK') {
+        const answer = question.quMultiFillblanks[this.optionIndex].inputText
+        return answer !== null && answer !== undefined && answer !== ''
+      }
+      return false
     }
   },
   watch: {
@@ -178,4 +191,5 @@ export default {
 /deep/ .el-rate__icon{
   font-size: 22px;
 }
+
 </style>

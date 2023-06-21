@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid'
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -20,11 +21,12 @@ export function parseSurvey (survey) {
   if (survey !== null) {
     if (!survey.hasOwnProperty('surveyNameObj')) survey.surveyNameObj = {dwHtml: survey.surveyName, dwText: survey.surveyNameText, dwPlaceholder: '请输入问卷标题'}
     parseSurveyDetail(survey)
-    parseQuestion(survey.questions)
+    parseQuestions(survey.questions, true)
     survey.surveyTest = ''
     survey.curEditObj = [{itemClick: false}]
     survey.surveyStyle = {themeColor: 'red'}
     survey.tempDataType = 'none'
+    if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
   }
   return survey
 }
@@ -43,45 +45,57 @@ export function parseSurveyDetail (survey) {
   survey.surveyDetail.ynEndNum_model = survey.surveyDetail.ynEndNum === 1
   survey.surveyDetail.endNum_model = survey.surveyDetail.endNum
   survey.surveyDetail.ynEndTime_model = survey.surveyDetail.ynEndTime === 1
+  if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv4()
 }
 /**
  * 解析题目
+ * @param noModel 非模型
  * @param questions
  */
-export function parseQuestion (questions) {
+export function parseQuestions (questions, noModel) {
   if (questions !== null && questions.length > 0) {
     // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
-      const quName = question.quName !== null ? question.quName : question.quTitle
-      if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
-      const quNote = question.quNote
-      if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
-      if (question.questionLogics===null) question.questionLogics = []
-      const quType = question.quType
-      if (quType === 'RADIO') {
-        parseQuRadio(question)
-      } else if (quType === 'CHECKBOX') {
-        parseQuCheckbox(question)
-      } else if (quType === 'ORDERQU') {
-        parseQuOrderbys(question)
-      } else if (quType === 'MULTIFILLBLANK') {
-        parseQuMultiFillblanks(question)
-      } else if (quType === 'SCORE') {
-        parseQuScores(question)
-      } else if (quType === 'FILLBLANK') {
-        parseQuFbk(question)
-      } else if (quType === 'UPLOADFILE') {
-        parseQuUploadFile(question)
-      } else if (quType === 'PAGETAG') {
-        question.quTypeName = '分页组件'
-      } else if (quType === 'PARAGRAPH') {
-        question.quTypeName = '分段组件'
-      }
-      question.dateAttrs = []
-      question.validateObj = {errorText: '', isOk: true}
+      parseQuestion(question, noModel)
     })
   }
   return questions
+}
+
+/**
+ * 解析题目
+ * @param question
+ * @param noModel
+ */
+export function parseQuestion (question, noModel) {
+  const quName = question.quName !== null ? question.quName : question.quTitle
+  if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
+  const quNote = question.quNote
+  if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
+  if (question.questionLogics===null) question.questionLogics = []
+  if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv4()
+  const quType = question.quType
+  if (quType === 'RADIO') {
+    parseQuRadio(question)
+  } else if (quType === 'CHECKBOX') {
+    parseQuCheckbox(question)
+  } else if (quType === 'ORDERQU') {
+    parseQuOrderbys(question)
+  } else if (quType === 'MULTIFILLBLANK') {
+    parseQuMultiFillblanks(question)
+  } else if (quType === 'SCORE') {
+    parseQuScores(question)
+  } else if (quType === 'FILLBLANK') {
+    parseQuFbk(question)
+  } else if (quType === 'UPLOADFILE') {
+    parseQuUploadFile(question)
+  } else if (quType === 'PAGETAG') {
+    question.quTypeName = '分页组件'
+  } else if (quType === 'PARAGRAPH') {
+    question.quTypeName = '分段组件'
+  }
+  question.dateAttrs = []
+  question.validateObj = {errorText: '', isOk: true}
 }
 
 export function initQuestionModels (questions) {
@@ -158,6 +172,7 @@ function parseQuUploadFile (question) {
 
 /**
  * 用于解析单选、多选、排序、多项填空题的选项
+ * @param question
  * @param quOptions
  */
 function parseQuOptionType1 (question, quOptions) {
@@ -170,9 +185,39 @@ function parseQuOptionType1 (question, quOptions) {
       if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
       if (!quOption.hasOwnProperty('checked')) quOption.checked = false
       if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
+      if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
     })
   }
-  question.quOptions = quOptions
+  // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
+}
+
+export function resetQuestion (question) {
+  question.dwId = uuidv4()
+  const quType = question.quType
+  if (quType === 'RADIO') {
+    resetQuOptionType1(question, question.quRadios)
+  } else if (quType === 'CHECKBOX') {
+    resetQuOptionType1(question, question.quCheckboxs)
+  } else if (quType === 'ORDERQU') {
+    resetQuOptionType1(question, question.quOrderbys)
+  } else if (quType === 'MULTIFILLBLANK') {
+    resetQuOptionType1(question, question.quMultiFillblanks)
+  } else if (quType === 'SCORE') {
+    resetQuOptionType1(question, question.quScores)
+  }
+}
+
+/**
+ * 重置选项
+ * @param question
+ * @param quOptions
+ */
+function resetQuOptionType1 (question, quOptions) {
+  if (quOptions !==null && quOptions.length>0) {
+    quOptions.forEach((quOption, optionIndex) => {
+      quOption.dwId = uuidv4()
+    })
+  }
 }
 
 // 如果SurveyJson没有，则从结构化的数据中取问卷数据。
@@ -200,16 +245,16 @@ function parseQuOptionType1 (question, quOptions) {
  * 2.8  保存编辑结果，并发布问卷 OK
  * 2.9（编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容(如果需求则进行转换)）
  * 2.10 编辑，答卷都使用最新的JSON数据直接展现。 OK
- * 2.11 编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。
+ * 2.11 简化JSON，编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。如题目option选项，统一处理不再分到不同字段上面。如果是原始转化成最新的JSON，最新的也可以转化成原始的，实现双向转换 ？
  * 2.12 结构化数据只在统计页面使用。
- * 2.13 JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成）
+ * 2.13 JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成） OK
  * 2.14 完成答卷页面 OK
  * 2.15 答卷表单基本验证 OK
- * 2.16 简化JSON，如果是原始的转化成最新的JSON，最新的也可以转化成原始的，实现双向转换，如题目option选项，统一处理不再分到不同字段上面 OK
  * 2.17 需要考虑答卷页主题修改的便利性
  * 3、发布问卷并保存
  * 4、回答问卷并保存答案 ?
  * 5、完善基础版本编辑器未完成的功能
  * 6、升级编辑器与企业版目前提供的功能同步
  * 修改数据结构，把QuOption合并到一起
+ *
  */

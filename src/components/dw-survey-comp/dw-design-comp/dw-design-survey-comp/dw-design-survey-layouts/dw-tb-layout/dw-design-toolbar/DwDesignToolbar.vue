@@ -49,7 +49,7 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {initQuestionModels, parseQuestion} from '../../../../../dw-utils/dw-survey-parse'
+import {initQuestionModels, parseQuestion, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 
@@ -100,7 +100,7 @@ export default {
           tabs.map((item, index) => {
             const tabQus = item.tabQus
             tabQus.map((item_1, index_1) => {
-              item_1.questions = initQuestionModels(parseQuestion(item_1.questions))
+              item_1.questions = initQuestionModels(parseQuestions(item_1.questions, false))
             })
           })
           this.tabs = tabs
@@ -120,6 +120,7 @@ export default {
     },
     saveSurveyFun (callback) {
       const surveyId = this.survey.id
+      console.debug('save this.survey', this.survey)
       const surveyJsonText = JSON.stringify(this.survey)
       const data = {surveyId, surveyJsonText}
       console.debug('surveyJson data', data)

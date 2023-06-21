@@ -1,3 +1,5 @@
+@import "dw-answer-element-style-override.css";
+
 .dw-qu-item-el-checkbox-radio{
   /*display: inline-flex;*/
   display: flex;
@@ -6,8 +8,8 @@
   padding: 2px 5px;
   /*background: #f5f7fa;*/
   margin-bottom: 5px;
-  border-radius: 3px;
-  border: 1px solid #DCDFE6;
+  border-radius: 2px;
+  border: 1px solid #efefef;
   cursor: pointer;
 }
 .dw-qu-item-el-checkbox-radio-icon{
@@ -16,14 +18,6 @@
   margin-right: 5px;
   color: #ccc;
 }
-.dw-qu-item-el-checkbox-radio.dw-item-checked{
-  border-color: #3f9eff;
-  background: #e5eff8;
-}
-.dw-qu-item-el-checkbox-radio.dw-item-checked .dw-qu-item-el-checkbox-radio-icon.dw-checked{
-  color: #3f9eff;
-}
-
 .dw-qu-item-el-checkbox-radio .dw-qu-option-text{
   /*margin:auto;*/
   width: 100%;
@@ -46,5 +40,6 @@
 .dw-answer-question-error{
   color: #ff6c6c;
   font-size: 12px;
-  padding-top: 10px;
+  background: #f9e5e5;
+  padding: 5px;
 }

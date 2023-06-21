@@ -34,9 +34,9 @@
 
 <script>
 import {bankQuestions} from '../../../../api/dw-design-question-comps'
-import {parseQuestion} from '../../../../../../dw-utils/dw-survey-parse'
+import {parseQuestions} from '../../../../../../dw-utils/dw-survey-parse'
 import draggable from 'vuedraggable'
-import DwDesignQuBankQuestion from "./DwDesignQuBankQuestion.vue";
+import DwDesignQuBankQuestion from './DwDesignQuBankQuestion.vue'
 
 export default {
   name: 'DwDesignQuBanks',
@@ -66,7 +66,7 @@ export default {
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
           const tabs = httpResult.data
           tabs.map((item, index) => {
-            item.questions = parseQuestion(item.questions)
+            item.questions = parseQuestions(item.questions, false)
           })
           this.quBanks = tabs
           this.loading = false

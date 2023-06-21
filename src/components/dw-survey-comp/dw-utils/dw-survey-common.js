@@ -5,20 +5,29 @@ import {parseSurvey} from './dw-survey-parse'
  * 根据SurveyId 取 surveyJson
  * @param params
  * @param successCallback
+ * @param noJsonCallback
  */
-export function getSurveyJsonBySurveyId (params, successCallback) {
+export function getSurveyJsonBySurveyId (params, successCallback, noJsonCallback) {
   // 先看看有没有JSON，有就取JSON数据。没有再取原来的Survey结构数据进行转换
   surveyJsonBySurveyId(params).then((response) => {
     console.debug('surveyJsonBySurveyId', response)
     const httpResult = response.data
     if (httpResult.resultCode === 200) {
       const surveyJson = httpResult.data
+      // const surveyJson = null
       if (surveyJson!==null && surveyJson.hasOwnProperty('surveyJsonText') && surveyJson.surveyJsonText!==null && surveyJson.surveyJsonText!=='') {
         successCallback(parseSurvey(JSON.parse(surveyJson.surveyJsonText)))
       } else {
-        getQuerySurvey(params, successCallback)
+        noJsonCallback()
       }
     }
+  })
+}
+
+export function getDesignSurveyJsonBySurveyId (params, successCallback) {
+  // 先看看有没有JSON，有就取JSON数据。没有再取原来的Survey结构数据进行转换
+  getSurveyJsonBySurveyId(params, successCallback, () => {
+    getQuerySurvey(params, successCallback)
   })
 }
 
@@ -42,3 +51,4 @@ export function getQuerySurvey (params, successCallback) {
     }
   })
 }
+

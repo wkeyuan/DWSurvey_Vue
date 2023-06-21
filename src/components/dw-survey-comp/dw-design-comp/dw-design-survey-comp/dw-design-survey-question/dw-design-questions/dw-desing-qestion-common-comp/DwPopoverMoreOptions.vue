@@ -17,6 +17,7 @@
 <script>
 import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../dw-utils/dw-survey-update-question'
 import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
+import {v4 as uuidV4} from "uuid";
 
 export default {
   name: 'DwPopoverMoreOptions',
@@ -68,6 +69,7 @@ export default {
           if (this.addOrEdit === 'edit') dwResetQuOptions(this.survey, this.index, (survey) => { this.survey = survey })
           for (let i=0; i<options.length; i++) {
             const quOption = {id: null, optionTitleObj: {dwHtml: options[i], dwText: options[i], dwPlaceholder: '请输入内容'}, itemClick: false}
+            quOption.dwId = uuidV4()
             this.dwAddQuItem(quOption)
           }
           this.survey.curEditObj[this.itemIndex].itemClick = false

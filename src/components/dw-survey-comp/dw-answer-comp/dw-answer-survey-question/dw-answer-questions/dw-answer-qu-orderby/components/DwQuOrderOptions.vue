@@ -2,11 +2,11 @@
   <div class="dw-qu-order-group">
     <!--   v-for的key不能是index，如下用item，不然动画会没有效果 -->
     <transition-group name="flip-list" >
-      <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.id" class="dw-qu-order-group-item dwMoveSortQuOption" >
+      <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.dwId" class="dw-qu-order-group-item dwMoveSortQuOption" >
         <div class="dw-qu-item" @click="clickItem(item)" >
           <div class="dw-qu-item-body">
-            <div class="dw-qu-item-body-order-option">
-              <i v-if="item.orderIndex>0" :style="`background: ${themeColor};border-color: ${themeColor}`" class="fa dw-qu-order-num dw-num-order" >{{ item.orderIndex }}</i>
+            <div :class="item.checked ? `dw-item-checked`: ''" class="dw-qu-item-body-order-option">
+              <i v-if="item.orderIndex>0" :style="`background: ${themeColor};border-color: ${themeColor}`" class="fa dw-qu-order-num dw-num-order animate__animated animate__tada" >{{ item.orderIndex }}</i>
               <i v-else class="fa dw-qu-order-num dw-num-empty" > {{ item.orderIndex }} </i>
               <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="item.optionTitleObj" ></dw-html-label-common></div>
             </div>
@@ -55,6 +55,7 @@ export default {
       this.drag = false
     },
     clickItem (item) {
+      item.checked = !item.checked
       const length = this.dragOptions.length
       // const item = this.dragOptions[itemIndex]
       if (item.hasOwnProperty('orderIndex') && item.orderIndex > 0) {
@@ -98,17 +99,18 @@ export default {
 <style scoped>
 @import '../../../../../../../assets/css/dw-answer.css';
 .dw-qu-order-group{
-
+  margin-bottom: 5px;
 }
 .dw-qu-order-group .dw-qu-order-group-item{
-  border: 1px solid #dddfe6;
-  margin-bottom: -1px;
-  /*border-radius: 0.25rem;*/
+  border: 1px solid #efefef;
   background: white;
+  /*margin-bottom: -1px;*/
+  margin-bottom: 5px;
+  border-radius: 2px;
 }
 .dw-qu-order-group .dw-qu-order-group-item:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  /*border-top-left-radius: 0.25rem;*/
+  /*border-top-right-radius: 0.25rem;*/
 }
 .dw-qu-item-body-order-option{
   /*display: inline-flex;*/
@@ -118,7 +120,7 @@ export default {
   padding: 3px 5px;
 }
 .dw-qu-order-num{
-  border: 1px solid #dcdfe6;
+  border: 1px solid #ccc;
   font-size: 10px;
   padding: 3px 5px;
   margin-right: 5px;

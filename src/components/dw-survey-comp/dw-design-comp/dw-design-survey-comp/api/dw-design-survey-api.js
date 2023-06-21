@@ -22,7 +22,7 @@ export function querySurveyAll (params) {
  */
 export function surveyJsonBySurveyId (params) {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/survey-json-by-survey-id.do',
+    url: '/api/dwsurvey/none/dw-answer-survey/survey-json-by-survey-id.do',
     method: 'get',
     params
   })

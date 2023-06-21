@@ -1,25 +1,27 @@
 <template>
   <div class="dw-container-body-center" style="padding-bottom: 30px;">
-    <div style="padding: 20px 20px 10px 20px;">
-      <div style="text-align: center;font-weight: bold;">
-        <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
-      </div>
-      <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
-        <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
-      </div>
-    </div>
-    <div class="dw-survey-answer-body">
-      <div style="padding-top: 5px;">
-        <div>
-          <transition-group>
-            <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
-              <dw-answer-question ref="designQuestion" v-model="survey" :index="index" :item="item" ></dw-answer-question>
-            </div>
-          </transition-group>
+    <div v-if="survey!==null">
+      <div style="padding: 20px 20px 10px 20px;">
+        <div style="text-align: center;font-weight: bold;">
+          <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
+        </div>
+        <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
+          <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
         </div>
       </div>
-      <div style="text-align: left;">
-        <el-button type="primary" @click="submitAnswer">提交答卷</el-button>
+      <div class="dw-survey-answer-body">
+        <div style="padding-top: 15px;">
+          <div>
+            <transition-group>
+              <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+                <dw-answer-question ref="designQuestion" v-model="survey" :index="index" :item="item" ></dw-answer-question>
+              </div>
+            </transition-group>
+          </div>
+        </div>
+        <div style="text-align: left;">
+          <el-button type="primary" @click="submitAnswer">提交答卷</el-button>
+        </div>
       </div>
     </div>
     <div v-show="survey.dwDebug" class="dw-debug" >{{ answer }}</div>
@@ -76,6 +78,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../../../../assets/css/dw-answer.css';
+
 .dw-container-body-center{
   background: white;
 }
@@ -90,7 +94,7 @@ export default {
 }
 @media screen and (max-width: 750px) {
   .dw-survey-answer-body{
-    padding: 0 10px;
+    padding: 0 15px;
   }
 }
 </style>
