@@ -2,7 +2,7 @@
   <div class="dw-qu-order-group">
     <!--   v-for的key不能是index，如下用item，不然动画会没有效果 -->
     <transition-group name="flip-list" >
-      <div v-for="(item, optionIndex) in dragOptions" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.dwId" class="dw-qu-order-group-item dwMoveSortQuOption" >
+      <div v-for="(item, optionIndex) in survey.questions[index].quOrderbys" :key="survey.tempDataType === 'modelComponents' ? `orderBy-${optionIndex}`: item.dwId" class="dw-qu-order-group-item dwMoveSortQuOption" >
         <div class="dw-qu-item" @click="clickItem(item)" >
           <div class="dw-qu-item-body">
             <div :class="item.checked ? `dw-item-checked`: ''" class="dw-qu-item-body-order-option">
@@ -27,6 +27,7 @@ import DwTextEditLabel
 import DwHtmlLabelCommon from '../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import draggable from 'vuedraggable'
 import {validateQuestion} from "../../../../../dw-utils/dw-survey-answer-validate";
+import {getQuestionAnswerData} from "../../../../../dw-utils/dw-survey-answer";
 
 export default {
   name: 'DwQuOrderOptions',
@@ -41,7 +42,7 @@ export default {
   },
   data () {
     return {
-      dragOptions: this.survey.questions[this.index].quOrderbys,
+      // dragOptions: this.survey.questions[this.index].quOrderbys,
       dataNum: 0,
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       themeColor: this.survey.surveyStyle.themeColor
@@ -56,8 +57,7 @@ export default {
     },
     clickItem (item) {
       item.checked = !item.checked
-      const length = this.dragOptions.length
-      // const item = this.dragOptions[itemIndex]
+      const length = this.survey.questions[this.index].quOrderbys.length
       if (item.hasOwnProperty('orderIndex') && item.orderIndex > 0) {
         const itemOrderIndex = item.orderIndex
         this.dragOptions.forEach((option, index) => {
@@ -77,19 +77,14 @@ export default {
       }
 
       // 重新排序
-      this.dragOptions.sort(function (a, b) {
+      this.survey.questions[this.index].quOrderbys.sort(function (a, b) {
         const x = a.orderIndex === 0 ? length + 1 : a.orderIndex
         const y = b.orderIndex === 0 ? length + 1 : b.orderIndex
         return ((x < y) ? -1 : (x > y) ? 1 : 0)
       })
-
-      const question = this.survey.questions[this.index]
-      const anQuestion = {quId: null, quType: question.quType, anOrders: []}
-      this.dragOptions.forEach((item, itemIndex) => {
-        if (item.orderIndex>0) anQuestion.anOrders.push({quId: null, quRowId: null, quRowTitle: item.optionTitleObj.dwText, orderyNum: item.orderIndex})
-      })
-      this.survey.questions[this.index].anQuestion = anQuestion
-      console.debug('anQuestion', anQuestion)
+      getQuestionAnswerData(this.survey.questions[this.index])
+      // .anQuestion = anQuestion
+      console.debug('dragOptions anQuestion', this.survey.questions[this.index].anQuestion)
       validateQuestion(this.survey.questions[this.index])
     }
   }

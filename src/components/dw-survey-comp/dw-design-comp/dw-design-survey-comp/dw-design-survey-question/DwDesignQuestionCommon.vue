@@ -123,7 +123,7 @@ import {
 import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-survey-update-item-click'
 import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
 import DwPopoverQuLogics from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue'
-import {v4 as uuidV4} from 'uuid'
+import {v1 as uuidV1} from 'uuid'
 import {resetQuestion} from "../../../dw-utils/dw-survey-parse";
 
 export default {
@@ -192,7 +192,7 @@ export default {
     },
     dwAddQuItemEvent () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}
-      quOption.dwId = uuidV4()
+      quOption.dwId = uuidV1()
       const newSurvey = dwSurveyQuAddOption(this.survey, this.index, quOption)
       this.$emit('update-survey', newSurvey)
       upAllItemClick(this.survey, null, (survey) => { this.survey = survey })

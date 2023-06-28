@@ -22,7 +22,7 @@ export function querySurveyAll (params) {
  */
 export function surveyJsonBySurveyId (params) {
   return request({
-    url: '/api/dwsurvey/none/dw-answer-survey/survey-json-by-survey-id.do',
+    url: '/api/dwsurvey/none/v6/dw-answer-survey/survey-json-by-survey-id.do',
     method: 'get',
     params
   })
@@ -36,6 +36,19 @@ export function surveyJsonBySurveyId (params) {
 export function dwSaveSurveyJson (data) {
   return request({
     url: '/api/dwsurvey/app/dw-design-survey/save-survey-json.do',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 保存问卷设计原始JSON
+ * @param data
+ * @returns {*}
+ */
+export function dwSaveSurveyAnswerJson (data) {
+  return request({
+    url: '/api/dwsurvey/none/v6/dw-answer-survey/save-survey-answer.do',
     method: 'post',
     data
   })

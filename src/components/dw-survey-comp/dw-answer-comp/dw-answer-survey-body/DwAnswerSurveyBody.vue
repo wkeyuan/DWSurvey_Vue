@@ -38,6 +38,7 @@ import DwAnswerQuestion from '../dw-answer-survey-question/DwAnswerQuestion.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {buildAnswerSurveyObj, getSurveyAnswerData} from "../../dw-utils/dw-survey-answer";
 import {validateQuestions, validateQuestionsBool} from "../../dw-utils/dw-survey-answer-validate";
+import {dwSaveSurveyAnswerJson} from "../../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api";
 
 export default {
   name: 'DwAnswerSurveyBody',
@@ -68,6 +69,17 @@ export default {
       this.answer = answer
       console.debug('answer', answer)
       if (validateQuestionsBool(this.survey.questions)) {
+        const surveyAnswerJsonText = JSON.stringify(answer)
+        const data = {surveyId: answer.surveyId, jsonVersion: 6, answerJson: surveyAnswerJsonText}
+        dwSaveSurveyAnswerJson(data).then((response) => {
+          const httpResult = response.data
+          if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
+            this.$message.success('保存成功！')
+            // 弹出提示
+          } else {
+            this.$message.success('保存失败！')
+          }
+        })
         console.debug('submit-answer')
       } else {
         this.$message.warning('请根据提示完成表单！')

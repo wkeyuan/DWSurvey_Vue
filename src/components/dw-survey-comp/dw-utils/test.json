@@ -1,0 +1,294 @@
+{
+  "answerQuestions": [
+    {
+      "quDwId": "b6ff7915-0c6d-4e65-9896-2a60a62c8591",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "b5a4088e-50b5-48da-b7cc-28f189c87b0e",
+          "name": "选项1"
+        },
+        {
+          "optionDwId": "60595bc7-aebf-4659-bd40-17f9f9b5dff1",
+          "name": "选项2"
+        }
+      ]
+    },
+    {
+      "quDwId": "6df4b373-f242-4be3-b80a-a9538e7214fc",
+      "quType": "FILLBLANK",
+      "anFillblank": {
+        "answer": "2222"
+      }
+    },
+    {
+      "quDwId": "59980155-7924-461e-8c44-cbc287cf3d88",
+      "quType": "FILLBLANK",
+      "anFillblank": {
+        "answer": "333"
+      }
+    },
+    {
+      "quDwId": "b821bd5b-899a-42d9-8d37-1bf1c4bb9544",
+      "quType": "ORDERQU",
+      "anOrders": [
+        {
+          "optionDwId": "72cc962d-a79f-410d-a374-29532e733074",
+          "orderNum": 1
+        },
+        {
+          "optionDwId": "7658ff21-adf1-4599-b48d-6a7d9ab1e46d",
+          "orderNum": 2
+        },
+        {
+          "optionDwId": "a3347ee9-30ae-4d55-8d2a-de0c45804c6d",
+          "orderNum": 3
+        },
+        {
+          "optionDwId": "8dbba743-f80b-444f-8500-41b52c66c446",
+          "orderNum": 4
+        },
+        {
+          "optionDwId": "9c9dc903-708a-49d1-b367-fb1482d9c221",
+          "orderNum": 5
+        },
+        {
+          "optionDwId": "339d67ed-5e02-4cce-8cc3-2fde5e6d861c",
+          "orderNum": 6
+        }
+      ]
+    },
+    {
+      "quDwId": "e25f183a-f3b1-49a3-85a7-1fa051637180",
+      "quType": "FILLBLANK",
+      "anFillblank": {
+        "answer": "2222"
+      }
+    },
+    {
+      "quDwId": "0974d4a4-8f39-4016-8272-db62aae355bf",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "753a9475-19fc-4df3-9ffe-a64e06ec2e46",
+          "name": "选项1fs"
+        }
+      ]
+    },
+    {
+      "quDwId": "d30b9cc1-5d87-4d8e-9df7-9d2121d2e70f",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "5c8bb1d0-6e81-403b-8036-08b4bbf2482f",
+          "name": "选项2"
+        }
+      ]
+    },
+    {
+      "quDwId": "1de01e8c-c6ea-46bb-bcb9-f314b43894d3",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "2ca37ab6-0cc0-4b5e-9215-fb2ed6699882",
+          "name": "选项1"
+        }
+      ]
+    },
+    {
+      "quDwId": "20012f64-cf44-42c6-aa7f-a0bbd839029e",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "dcb9f425-a6ff-4b4b-8f72-06574a8dc2d6",
+        "name": "选项2"
+      }
+    },
+    {
+      "quDwId": "ddd9e3d2-79a8-4af5-82c5-d983d921ec1a",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "2bd03dc6-e69f-48f1-a9a6-520f4aeeb397",
+          "name": "选项1"
+        }
+      ]
+    },
+    {
+      "quDwId": "5aa008e7-3cad-490c-a0ee-cbf689364647",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "c72dfadd-0732-4721-980f-ca01e040d4ef",
+        "name": "选项2"
+      }
+    },
+    {
+      "quDwId": "870437af-47d4-44de-8d17-27e6401ffe4d",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "75581cf7-365d-439f-aa90-c5aed67cdd6c",
+        "name": "3000元以下"
+      }
+    },
+    {
+      "quDwId": "9ae88fa1-7c29-4de3-b035-93f593849461",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "e2774635-ba21-423e-88e2-fdcb35523008",
+        "name": "本科"
+      }
+    },
+    {
+      "quDwId": "35da41df-f66c-4cd9-8d7a-5f9d9ecbd30b",
+      "quType": "UPLOADFILE",
+      "anUplodFiles": [
+        {
+          "filePath": "/webin/upload/kmfgpz3k/19ed7bfo2.jpg",
+          "fileName": "100d0y000000m51xc569A.jpg"
+        }
+      ]
+    },
+    {
+      "quDwId": "3d36fed1-ff75-4444-a472-ce80f966f41a",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "ebd996bf-a20a-4e5c-ba30-be9faf498629",
+        "name": "选项1"
+      }
+    },
+    {
+      "quDwId": "9ac5a3da-ba0a-47e7-9eb1-61fceea525c7",
+      "quType": "FILLBLANK",
+      "anFillblank": {
+        "answer": "16161616161616"
+      }
+    },
+    {
+      "quDwId": "ce21a6ed-35a5-4e6c-ab75-011e421b9a36",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "2455cf6e-1339-44af-a0ea-51ccd8116295",
+        "name": "选项2"
+      }
+    },
+    {
+      "quDwId": "70afe001-ced1-4482-809d-8ff660a2bf2a",
+      "quType": "SCORE",
+      "anScores": [
+        {
+          "optionDwId": "ef0c9f83-3dad-4581-935b-ebae05295162",
+          "answerScore": 4
+        },
+        {
+          "optionDwId": "899648ef-cc36-4bb7-8dc4-72a7875532f5",
+          "answerScore": 2
+        }
+      ]
+    },
+    {
+      "quDwId": "958927af-8826-492c-a552-80bbef820a73",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "32e4fa3d-c48d-46d0-a66d-aacf81863a4e",
+        "name": "选项2"
+      }
+    },
+    {
+      "quDwId": "13c4e49e-8f78-42b9-9e42-f36a9eeed296",
+      "quType": "ORDERQU",
+      "anOrders": [
+        {
+          "optionDwId": "de6c743d-1d85-48c0-9861-cacd8e5ec7c0",
+          "orderNum": 1
+        },
+        {
+          "optionDwId": "d3476932-0821-43e5-8780-4937137fd80f",
+          "orderNum": 2
+        },
+        {
+          "optionDwId": "360d5f43-bf03-4a5c-bf56-eda3431fc88f",
+          "orderNum": 3
+        }
+      ]
+    },
+    {
+      "quDwId": "c35d2aea-9d38-4d64-a056-b9b42482c107",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "4daf4207-b295-4053-9d06-c2fd119b3b2d",
+          "name": "选项2"
+        },
+        {
+          "optionDwId": "da2ecba6-6acf-4808-b2e1-d477a2f4a232",
+          "name": "选项3"
+        }
+      ]
+    },
+    {
+      "quDwId": "64aced29-1fdb-46eb-85b3-f1b492f80a78",
+      "quType": "MULTIFILLBLANK",
+      "anDFillblanks": [
+        {
+          "optionDwId": "afd795bb-bc19-4aa6-8809-e2ca02c1eea5",
+          "answer": "2222"
+        },
+        {
+          "optionDwId": "5ae06568-9e80-470d-8cf6-7f37a27312d9",
+          "answer": "22222"
+        },
+        {
+          "optionDwId": "f764c7af-41c9-4118-9c10-d7df7572b40b",
+          "answer": "232323232"
+        }
+      ]
+    },
+    {
+      "quDwId": "1cb5c5a2-8fea-4801-a130-d6361c4ae7dc",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "f0c8cbeb-52ad-4efa-8e6d-57623706763f",
+        "name": "选项2"
+      }
+    },
+    {
+      "quDwId": "9e8b7e23-b735-43be-8209-d6f742b65c00",
+      "quType": "CHECKBOX",
+      "anCheckboxs": [
+        {
+          "optionDwId": "b6965ffe-1361-49cf-aa3a-8aed05630e8b",
+          "name": "选项2"
+        },
+        {
+          "optionDwId": "2793c013-dc5a-4166-b9da-036fb1d372a6",
+          "name": "选项3"
+        }
+      ]
+    },
+    {
+      "quDwId": "48dbb4fa-0173-4668-9c17-6d2d0a9ee8bc",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "1879eb1e-05c3-4083-a27e-0cb2a4b3c589",
+        "name": "选项1"
+      }
+    },
+    {
+      "quDwId": "e56c1f50-259b-45fe-8d0a-8ba3ab843278",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "634d9c61-4d14-40b3-8b4d-bc4502d59c70",
+        "name": "选项1"
+      }
+    },
+    {
+      "quDwId": "cd268c23-5c9b-4ef8-bbaf-5f2d3cee52db",
+      "quType": "RADIO",
+      "anRadio": {
+        "optionDwId": "e89c9863-973a-40e7-84b5-44655e000da8",
+        "name": "选项1"
+      }
+    }
+  ],
+  "answerDwId": "b085eed0-5de1-4e41-8a94-8307caf7d0bc",
+  "surveyDwId": "94eccfa4-25b8-4388-ada2-bffd22d2908f"
+}

@@ -28,7 +28,7 @@
 
 <script>
 import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel.vue'
-import {v4 as uuidV4} from 'uuid'
+import {v1 as uuidV1} from 'uuid'
 
 export default {
   name: 'DwQuOptionCommon2Item',
@@ -96,7 +96,7 @@ export default {
       // this.question.quRadios = this.options;
       // this.$emit('update-survey',this.options)
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
-      quOption.dwId = uuidV4()
+      quOption.dwId = uuidV1()
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)

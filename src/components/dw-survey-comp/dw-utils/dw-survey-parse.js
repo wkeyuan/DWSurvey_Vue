@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from 'uuid'
+import {v1 as uuidv1} from 'uuid'
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -26,7 +26,7 @@ export function parseSurvey (survey) {
     survey.curEditObj = [{itemClick: false}]
     survey.surveyStyle = {themeColor: 'red'}
     survey.tempDataType = 'none'
-    if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
+    if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv1()
   }
   return survey
 }
@@ -45,7 +45,7 @@ export function parseSurveyDetail (survey) {
   survey.surveyDetail.ynEndNum_model = survey.surveyDetail.ynEndNum === 1
   survey.surveyDetail.endNum_model = survey.surveyDetail.endNum
   survey.surveyDetail.ynEndTime_model = survey.surveyDetail.ynEndTime === 1
-  if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv4()
+  if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv1()
 }
 /**
  * 解析题目
@@ -73,7 +73,7 @@ export function parseQuestion (question, noModel) {
   const quNote = question.quNote
   if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
   if (question.questionLogics===null) question.questionLogics = []
-  if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv4()
+  if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv1()
   const quType = question.quType
   if (quType === 'RADIO') {
     parseQuRadio(question)
@@ -185,14 +185,14 @@ function parseQuOptionType1 (question, quOptions) {
       if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
       if (!quOption.hasOwnProperty('checked')) quOption.checked = false
       if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
-      if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
+      if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv1()
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
 }
 
 export function resetQuestion (question) {
-  question.dwId = uuidv4()
+  question.dwId = uuidv1()
   const quType = question.quType
   if (quType === 'RADIO') {
     resetQuOptionType1(question, question.quRadios)
@@ -215,7 +215,7 @@ export function resetQuestion (question) {
 function resetQuOptionType1 (question, quOptions) {
   if (quOptions !==null && quOptions.length>0) {
     quOptions.forEach((quOption, optionIndex) => {
-      quOption.dwId = uuidv4()
+      quOption.dwId = uuidv1()
     })
   }
 }
@@ -251,10 +251,15 @@ function resetQuOptionType1 (question, quOptions) {
  * 2.14 完成答卷页面 OK
  * 2.15 答卷表单基本验证 OK
  * 2.17 需要考虑答卷页主题修改的便利性
- * 3、发布问卷并保存
+ * 3、发布问卷并保存 OK
  * 4、回答问卷并保存答案 ?
+ * 4.1、整合ES，并完成统计操作
+ * 4.2、定义ES索引结构
+ * 4.3、数据保存ID的处理，让ES自动生成ID。
  * 5、完善基础版本编辑器未完成的功能
  * 6、升级编辑器与企业版目前提供的功能同步
  * 修改数据结构，把QuOption合并到一起
- *
+ * 业务系统内dwId使用V4生成，es document使用自己生成的ID。
+ * 如果更新，则先删除之前的document, 再更新。
+ * 插入前先查询是否已经同步过，即对应的answerDwId有没有对应的值。
  */

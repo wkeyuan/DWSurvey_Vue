@@ -9,6 +9,7 @@ import DwAnswerSurveyBody from './dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwAnswerDefaultLayout from './dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
 import {getSurveyJsonBySurveyId} from '../dw-utils/dw-survey-common'
 import {Loading} from 'element-ui'
+import {v1 as uuidV1} from 'uuid'
 
 export default {
   name: 'DwAnswerSurveyMain',
@@ -27,6 +28,7 @@ export default {
         }
       },
       */
+      uuidList: [],
       survey: null,
       loading: true
     }
@@ -64,7 +66,7 @@ export default {
       */
       getSurveyJsonBySurveyId(params, (survey) => {
         survey.surveyStyle.themeColor = '#025bb7'
-        survey.dwDebug = false
+        survey.dwDebug = true
         this.survey = survey
         // 以服务的方式调用的 Loading 需要异步关闭
         this.$nextTick(() => { loadingInstance.close() })
