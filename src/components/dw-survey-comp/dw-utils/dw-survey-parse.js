@@ -1,4 +1,4 @@
-import {v1 as uuidv1} from 'uuid'
+import {v4 as uuidv4} from 'uuid'
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -26,7 +26,7 @@ export function parseSurvey (survey) {
     survey.curEditObj = [{itemClick: false}]
     survey.surveyStyle = {themeColor: 'red'}
     survey.tempDataType = 'none'
-    if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv1()
+    if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
   }
   return survey
 }
@@ -45,7 +45,7 @@ export function parseSurveyDetail (survey) {
   survey.surveyDetail.ynEndNum_model = survey.surveyDetail.ynEndNum === 1
   survey.surveyDetail.endNum_model = survey.surveyDetail.endNum
   survey.surveyDetail.ynEndTime_model = survey.surveyDetail.ynEndTime === 1
-  if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv1()
+  if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv4()
 }
 /**
  * 解析题目
@@ -73,7 +73,7 @@ export function parseQuestion (question, noModel) {
   const quNote = question.quNote
   if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
   if (question.questionLogics===null) question.questionLogics = []
-  if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv1()
+  if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv4()
   const quType = question.quType
   if (quType === 'RADIO') {
     parseQuRadio(question)
@@ -185,14 +185,14 @@ function parseQuOptionType1 (question, quOptions) {
       if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
       if (!quOption.hasOwnProperty('checked')) quOption.checked = false
       if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
-      if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv1()
+      if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
 }
 
 export function resetQuestion (question) {
-  question.dwId = uuidv1()
+  question.dwId = uuidv4()
   const quType = question.quType
   if (quType === 'RADIO') {
     resetQuOptionType1(question, question.quRadios)
@@ -215,7 +215,7 @@ export function resetQuestion (question) {
 function resetQuOptionType1 (question, quOptions) {
   if (quOptions !==null && quOptions.length>0) {
     quOptions.forEach((quOption, optionIndex) => {
-      quOption.dwId = uuidv1()
+      quOption.dwId = uuidv4()
     })
   }
 }

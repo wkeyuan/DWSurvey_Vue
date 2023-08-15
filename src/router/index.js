@@ -19,8 +19,11 @@ import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
 import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 import DwSurveyDesignContent from '../views/dw-survey/dw-design/DwSurveyDesignContent'
-import DwAnswerSurvey from "../views/dw-survey/dw-answer/DwAnswerSurvey.vue";
-import DwSurveyPreview from "../views/dw-survey/dw-design/DwSurveyPreview.vue";
+import DwAnswerSurvey from '../views/dw-survey/dw-answer/DwAnswerSurvey.vue'
+import DwSurveyPreview from '../views/dw-survey/dw-design/DwSurveyPreview.vue'
+import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
+import DwSurveyAnswerReview
+  from "../components/dw-survey-comp/dw-data-comp/dw-answer-data-comp/DwSurveyAnswerReview.vue";
 
 Vue.use(Router)
 
@@ -89,6 +92,11 @@ export default new Router({
           path: '/dw/admin/user',
           name: 'AdminUserList',
           component: AdminUserList
+        },
+        {
+          path: '/dw/survey/d/data/v6/:id',
+          name: 'DwSurveyAnswerDataListV6',
+          component: DwSurveyAnswerDataListV6
         }
       ]
     },
@@ -133,6 +141,11 @@ export default new Router({
           path: '/v6/diaowen/answer/survey/:id',
           name: 'DwSurveyDesignContent',
           component: DwAnswerSurvey
+        },
+        {
+          path: '/v6/diaowen/answer/survey/review/:id/:answerId',
+          name: 'DwSurveyAnswerReview',
+          component: DwSurveyAnswerReview
         }
       ]
     },

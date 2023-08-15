@@ -36,9 +36,9 @@ import DwDesignQuestion from '../../dw-design-comp/dw-design-survey-comp/dw-desi
 import DwFooter from '../../../layouts/DwFooter.vue'
 import DwAnswerQuestion from '../dw-answer-survey-question/DwAnswerQuestion.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
-import {buildAnswerSurveyObj, getSurveyAnswerData} from "../../dw-utils/dw-survey-answer";
-import {validateQuestions, validateQuestionsBool} from "../../dw-utils/dw-survey-answer-validate";
-import {dwSaveSurveyAnswerJson} from "../../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api";
+import {getSurveyAnswerData} from '../../dw-utils/dw-survey-answer'
+import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
+import {dwSaveSurveyAnswerJson} from '../api/dw-survey-answer'
 
 export default {
   name: 'DwAnswerSurveyBody',

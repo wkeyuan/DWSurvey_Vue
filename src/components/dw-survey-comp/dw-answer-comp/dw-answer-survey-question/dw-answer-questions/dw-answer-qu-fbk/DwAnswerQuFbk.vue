@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 0;margin-bottom: 5px;" class="dw-qu-item">
-    <el-input v-if="survey.questions[index].answerInputRow>1" v-model="survey.questions[index].anFillblank.answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" :autosize="{ minRows: survey.questions[index].answerInputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
-    <el-input v-else v-model="survey.questions[index].anFillblank.answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" @blur="onBlur" @input="onBlur"/>
+    <el-input v-if="survey.questions[index].answerInputRow>1" v-model="survey.questions[index].answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" :autosize="{ minRows: survey.questions[index].answerInputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
+    <el-input v-else v-model="survey.questions[index].answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].placeholder" @blur="onBlur" @input="onBlur"/>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     isAnswer () {
-      const answer = this.survey.questions[this.index].anFillblank.answer
+      const answer = this.survey.questions[this.index].answer
       return answer !== null && answer !== undefined && answer !== ''
     }
   },

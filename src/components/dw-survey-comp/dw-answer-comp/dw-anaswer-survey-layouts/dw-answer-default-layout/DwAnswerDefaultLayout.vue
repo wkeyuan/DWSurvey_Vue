@@ -35,8 +35,7 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}},
-    answer: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}}
   },
   data () {
     return {

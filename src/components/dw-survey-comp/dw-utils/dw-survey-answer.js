@@ -1,13 +1,20 @@
-import {v1 as uuidV1} from 'uuid'
+import {v4 as uuidV4} from 'uuid'
 
 export function getSurveyAnswerData (survey) {
   // 基于survey questions 构建答题数据模型
-  const surveyAnswer = {answerDwId: null, surveyDwId: survey.dwId, answerQuestions: []}
-  surveyAnswer.answerDwId = uuidV1() // 答卷ID，记录在数据库原始记录表中
+  const surveyDwId = survey.dwId
+  const anUser = {userId: 'aowwwewe3232aa', userName: 'xw'}
+  const anTime = {bgAnDate: '2023-06-29 11:11:11', endAnDate: '2023-06-29 11:11:11', totalTime: 832932}
+  const anIp = {ip: '192.168.6.1', city: '武汉', addr: '湖北省武汉市东湖'}
+  const anState = {anQuNum: 0, isEff: 1, handleState: 0}
+  const isDelete = 0
+  const answerDwId = uuidV4() // 答卷ID，记录在数据库原始记录表中,实现没有起对作用
+  const surveyId = survey.id
+  const surveyAnswer = {surveyId, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete, anQuestions: []}
   const questions = survey.questions
   if (questions !== undefined) {
     console.debug('questions', questions)
-    surveyAnswer.answerQuestions = questions.map((item, index) => {
+    surveyAnswer.anQuestions = questions.map((item, index) => {
       console.debug('item', item)
       return getQuestionAnswerData(item)
     })
@@ -42,7 +49,7 @@ function getQuRadioAnswerData (question, anQuestion) {
   const quRadios = question.quRadios
   quRadios.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
-      anQuestion.anRadio = {optionDwId: option.dwId, name: option.optionTitleObj.dwHtml}
+      anQuestion.anRadio = {optionDwId: option.dwId, otherText: null}
     }
   })
 }
@@ -52,29 +59,28 @@ function getQuCheckboxAnswerData (question, anQuestion) {
   anQuestion.anCheckboxs = []
   quCheckboxs.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
-      anQuestion.anCheckboxs.push({optionDwId: option.dwId, name: option.optionTitleObj.dwHtml})
+      anQuestion.anCheckboxs.push({optionDwId: option.dwId, otherText: null})
     }
   })
 }
 
 function getQuFbkAnswerData (question, anQuestion) {
-  // anQuestion.anFillblank = question.anFillblank
-  anQuestion.anFillblank = {answer: question.anFillblank.answer}
-  console.debug('anFillblank', anQuestion.anFillblank.answer)
+  anQuestion.anFbk = {answer: question.answer}
+  console.debug('anFillblank', anQuestion.anFbk.answer)
 }
 
 function getQuMFbkAnswerData (question, anQuestion) {
   const quMultiFillblanks = question.quMultiFillblanks
-  anQuestion.anDFillblanks = []
+  anQuestion.anMFbks = []
   quMultiFillblanks.map((option, index) => {
     if (option.hasOwnProperty('inputText') && option.inputText!=='') {
-      anQuestion.anDFillblanks.push({optionDwId: option.dwId, answer: option.inputText})
+      anQuestion.anMFbks.push({optionDwId: option.dwId, answer: option.inputText})
     }
   })
 }
 
 function getQuUploadAnswerData (question, anQuestion) {
-  anQuestion.anUplodFiles = []
+  anQuestion.anUploadFiles = []
   if (question.hasOwnProperty('upFileList')) {
     const quUpFileList = question.upFileList
     console.debug('quUpFileList', quUpFileList)
@@ -83,11 +89,11 @@ function getQuUploadAnswerData (question, anQuestion) {
         const responseData = item.response.data
         responseData.forEach((responseItem) => {
           const anUploadFile = {filePath: responseItem.location, fileName: responseItem.filename}
-          anQuestion.anUplodFiles.push(anUploadFile)
+          anQuestion.anUploadFiles.push(anUploadFile)
         })
       }
     })
-    console.debug('anQuestion.anUplodFiles', anQuestion.anUplodFiles)
+    console.debug('anQuestion.anUploadFiles', anQuestion.anUplodFiles)
   }
 }
 

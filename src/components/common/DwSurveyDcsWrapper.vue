@@ -58,7 +58,7 @@
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/data/v6/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
                 </el-col>
                 <el-col :span="3"></el-col>
                 <el-col :span="3"></el-col>

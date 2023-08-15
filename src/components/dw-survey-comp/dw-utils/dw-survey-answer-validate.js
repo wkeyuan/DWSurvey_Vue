@@ -126,7 +126,7 @@ function validateQuOrderbys (question) {
 function validateQuFbk (question) {
   const validateObj = question.validateObj
   let answerValue = null
-  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anFillblank')) answerValue = question.anQuestion.anFillblank.answer
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anFbk')) answerValue = question.anQuestion.anFbk.answer
   if (question.hasOwnProperty('isRequired') && question.isRequired===1 && (answerValue===null || answerValue===undefined || answerValue.length<=0)) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
@@ -142,7 +142,7 @@ function validateQuMultiFillblanks (question) {
   const quOptions = question.quMultiFillblanks
   const validateObj = question.validateObj
   let answerSize = 0
-  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anDFillblanks')) answerSize = question.anQuestion.anDFillblanks.length
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMFbks')) answerSize = question.anQuestion.anMFbks.length
   if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<quOptions.length) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
@@ -176,7 +176,7 @@ function validateQuScores (question) {
 function validateQuUploadFile (question) {
   const validateObj = question.validateObj
   let answerSize = 0
-  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anUplodFiles')) answerSize = question.anQuestion.anUplodFiles.length
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anUploadFiles')) answerSize = question.anQuestion.anUploadFiles.length
   if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<=0) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false

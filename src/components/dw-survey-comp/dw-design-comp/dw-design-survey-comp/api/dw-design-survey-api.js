@@ -40,16 +40,3 @@ export function dwSaveSurveyJson (data) {
     data
   })
 }
-
-/**
- * 保存问卷设计原始JSON
- * @param data
- * @returns {*}
- */
-export function dwSaveSurveyAnswerJson (data) {
-  return request({
-    url: '/api/dwsurvey/none/v6/dw-answer-survey/save-survey-answer.do',
-    method: 'post',
-    data
-  })
-}
