@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * 保存问卷设计原始JSON
+ * 保存答卷原始JSON
  * @param data
  * @returns {*}
  */
