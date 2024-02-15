@@ -50,23 +50,6 @@ export default {
       })
       const surveyId = this.$route.params.id
       const params = {surveyId}
-      /*
-      querySurveyAll(params).then((response) => {
-        console.debug('querySurveyAll', response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          // this.survey = httpResult.data
-          console.debug('httpResult.data', httpResult.data)
-          const surveyData = parseSurvey(httpResult.data)
-          console.debug('parseResultData', surveyData)
-          // quRadios
-          // surveyData.answer = buildAnswerSurveyObj(surveyData)
-          surveyData.surveyStyle.themeColor = '#3f9eff'
-          surveyData.dwDebug = false
-          this.survey = surveyData
-        }
-      })
-      */
       getSurveyJsonBySurveyId(params, (survey) => {
         survey.surveyStyle.themeColor = '#025bb7'
         survey.dwDebug = true
@@ -99,7 +82,10 @@ export default {
       if (this.answerData!=null) {
         // parseAnswerData(survey, this.answerData)
       }
+      console.debug('db survey', survey)
+      survey.answerMsg = {showAnswerMsg: false, answerMsgInfo: null}
       this.survey = survey
+      console.debug('this survey', survey)
     }
   }
 }

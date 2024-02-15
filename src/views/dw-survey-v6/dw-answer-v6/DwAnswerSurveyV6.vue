@@ -8,12 +8,10 @@
 
 <script>
 import DwAnswerSurveyMain from '../../../components/dw-survey-comp/dw-answer-comp/DwAnswerSurveyMain.vue'
-import DwAnswerSurveyBody
-  from "../../../components/dw-survey-comp/dw-answer-comp/dw-answer-survey-body/DwAnswerSurveyBody.vue";
 
 export default {
-  name: 'DwAnswerSurvey',
-  components: {DwAnswerSurveyBody, DwAnswerSurveyMain}
+  name: 'DwAnswerSurveyV6',
+  components: {DwAnswerSurveyMain}
 }
 </script>
 

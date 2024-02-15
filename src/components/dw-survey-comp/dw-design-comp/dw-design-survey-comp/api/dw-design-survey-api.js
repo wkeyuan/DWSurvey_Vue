@@ -40,3 +40,11 @@ export function dwSaveSurveyJson (data) {
     data
   })
 }
+
+export function dwDevSurvey (params) {
+  return request({
+    url: '/api/dwsurvey/app/dw-design-survey/dev-survey.do',
+    method: 'post',
+    params
+  })
+}

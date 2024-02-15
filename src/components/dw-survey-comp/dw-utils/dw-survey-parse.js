@@ -46,6 +46,25 @@ export function parseSurveyDetail (survey) {
   survey.surveyDetail.endNum_model = survey.surveyDetail.endNum
   survey.surveyDetail.ynEndTime_model = survey.surveyDetail.ynEndTime === 1
   if (!survey.surveyDetail.hasOwnProperty('dwId')) survey.surveyDetail.dwId = uuidv4()
+  // v6版本重新定义问卷属性存放类
+  if (!survey.hasOwnProperty('surveyAttrs')) {
+    survey.surveyAttrs = {
+      anBroAttr: {enabled: false, anNum: 1},
+      anIpAttr: {enabled: false, anNum: 1},
+      anRefreshAttr: {randomCode: true},
+      anPwdAttr: {enabled: false, anPwdCode: null},
+      anEndNumAttr: {enabled: false, endNum: null},
+      anEndTimeAttr: {enabled: false, endTime: null}
+    }
+  }
+  /* survey.surveyAttrs = {
+    anBroAttr: {enabled: false, anNum: 1},
+      anIpAttr: {enabled: false, anNum: 1},
+      anRefreshAttr: {randomCode: true},
+      anPwdAttr: {enabled: false, anPwdCode: null},
+      anEndNumAttr: {enabled: false, endNum: null},
+      anEndTimeAttr: {enabled: false, endTime: null}
+  } */
 }
 /**
  * 解析题目

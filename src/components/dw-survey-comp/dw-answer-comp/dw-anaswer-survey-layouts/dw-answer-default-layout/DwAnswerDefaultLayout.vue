@@ -9,7 +9,7 @@
             </div>
           </div>
         </div>
-        <div style=""><dw-footer></dw-footer></div>
+        <div style=""><dw-footer-sm></dw-footer-sm></div>
       </el-main>
     </el-container>
   </div>
@@ -22,10 +22,12 @@ import DwDesignContainerBodyCenter
 import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwFooter from '../../../../layouts/DwFooter.vue'
 import {buildAnswerSurveyObj} from "../../../dw-utils/dw-survey-answer";
+import DwFooterSm from '../../../../layouts/DwFooterSm'
 
 export default {
   name: 'DwAnswerDefaultLayout',
   components: {
+    DwFooterSm,
     DwFooter,
     DwAnswerSurveyBody,
     DwDesignContainerBodyCenter

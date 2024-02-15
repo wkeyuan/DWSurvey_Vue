@@ -5,17 +5,21 @@
         <div class="dw-title-attr">回答限制</div>
         <div style="padding-left: 10px;">
           <el-form-item>
-            <el-checkbox v-model="survey.surveyDetail.effective_model" >每个终端只能答1次</el-checkbox>
+            <div><el-checkbox v-model="survey.surveyAttrs.anBroAttr.enabled" >启用浏览器终端回答限制</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anBroAttr.enabled" style="font-size: 12px;">
+              每个浏览器可回答次数<el-input-number :min="1" :max="100000" v-model="survey.surveyAttrs.anBroAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
+            </div>
           </el-form-item>
           <el-form-item>
-            <el-checkbox v-model="survey.surveyDetail.effectiveIp_model" >每个IP只能答1次</el-checkbox>
+            <div><el-checkbox v-model="survey.surveyAttrs.anIpAttr.enabled" >启用IP回答限制</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anIpAttr.enabled" style="font-size: 12px;">
+              每个IP可回答次数<el-input-number :min="1" :max="100000" v-model="survey.surveyAttrs.anIpAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
+            </div>
           </el-form-item>
+          <el-checkbox v-model="survey.surveyAttrs.anRefreshAttr.randomCode" >重复回答启用验证码</el-checkbox>
           <el-form-item>
-            <el-checkbox v-model="survey.surveyDetail.refresh_model" >重复启用验证码</el-checkbox>
-          </el-form-item>
-          <el-form-item>
-            <div><el-checkbox v-model="survey.surveyDetail.rule_model" >通过密码答卷</el-checkbox></div>
-            <div v-show="survey.surveyDetail.rule_model"><el-input v-model="survey.surveyDetail.ruleCode" placeholder="请输入内容" style="width: 160px;"></el-input></div>
+            <div><el-checkbox v-model="survey.surveyAttrs.anPwdAttr.enabled" >启用通过密码答卷</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anPwdAttr.enabled"><el-input v-model="survey.surveyAttrs.anPwdCode" size="mini" placeholder="请输入密码" style="width: 160px;"></el-input></div>
           </el-form-item>
         </div>
       </div>
@@ -23,15 +27,15 @@
         <div class="dw-title-attr">何时结束</div>
         <div style="padding-left: 10px;">
           <el-form-item>
-            <div><el-checkbox v-model="survey.surveyDetail.ynEndNum_model">指定结束份数</el-checkbox></div>
-            <div v-show="survey.surveyDetail.ynEndNum_model">
-              <el-input-number :min="1" :max="100000" v-model="survey.surveyDetail.endNum" label="份数" controls-position="right" style="width: 160px;"></el-input-number>
+            <div><el-checkbox v-model="survey.surveyAttrs.anEndNumAttr.enabled">指定结束份数</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anEndNumAttr.enabled">
+              <el-input-number :min="1" :max="100000" v-model="survey.surveyAttrs.anEndNumAttr.endNum" size="mini" style="width: 160px;"></el-input-number>
             </div>
           </el-form-item>
           <el-form-item>
-            <div><el-checkbox v-model="survey.surveyDetail.ynEndTime_model">指定结束时间</el-checkbox></div>
-            <div v-show="survey.surveyDetail.ynEndTime_model">
-              <el-date-picker v-model="survey.surveyDetail.endTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间" style="width: 160px;" ></el-date-picker>
+            <div><el-checkbox v-model="survey.surveyAttrs.anEndTimeAttr.enabled">指定结束时间</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anEndTimeAttr.enabled">
+              <el-date-picker v-model="survey.surveyAttrs.anEndTimeAttr.endTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间" style="width: 160px;" ></el-date-picker>
             </div>
           </el-form-item>
         </div>

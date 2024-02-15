@@ -7,7 +7,7 @@
         <label><i :class=" previewTypeClass === 'dw-preview-phone' ? 'active' : ''" class="dw-icon-button fas fa-mobile-alt" @click="previewTabClick('dw-preview-phone')"></i></label>
       </div>
       <div class="dw-preview-header-right">
-        <el-button type="primary" size="small">确认发布</el-button>
+        <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
         <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
         <el-button size="small">返回列表</el-button>
       </div>
@@ -59,8 +59,9 @@
 </template>
 
 <script>
-import DwAnswerSurvey from '../../../../views/dw-survey/dw-answer/DwAnswerSurvey.vue'
-import DwAnswerSurveyMain from "../../dw-answer-comp/DwAnswerSurveyMain.vue";
+import DwAnswerSurvey from '../../../../views/dw-survey-v6/dw-answer/DwAnswerSurvey.vue'
+import DwAnswerSurveyMain from '../../dw-answer-comp/DwAnswerSurveyMain.vue'
+import {dwDevSurvey} from '../dw-design-survey-comp/api/dw-design-survey-api'
 
 export default {
   name: 'DwPreviewSurveyMain',
@@ -81,6 +82,20 @@ export default {
     designSurvey () {
       const surveyId = this.$route.params.id
       this.$router.push('/v6/diaowen/design/survey/'+surveyId)
+    },
+    devSurvey () {
+      const surveyId = this.$route.params.id
+      const params = {surveyId}
+      dwDevSurvey(params).then((response) => {
+        console.debug('response')
+        console.debug(response)
+        const httpResult = response.data
+        if (httpResult.resultCode === 200) {
+          this.$router.push('/dw/survey/c/url/v6/'+surveyId)
+        } else {
+          this.$message.error('发布失败，请重试或联系管理员！')
+        }
+      })
     }
   }
 }

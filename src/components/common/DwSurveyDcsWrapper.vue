@@ -27,7 +27,7 @@
                   <router-link class="dw-link dw-link-1" to="/"><i class="el-icon-edit"></i>问卷设计</router-link>
                 </el-col>
                 <el-col :span="3" >
-                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>问卷收集</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>问卷收集</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
@@ -39,9 +39,12 @@
               </el-row>
             </div>
             <div class="dw-dcs-main-survey-step-item" style="padding-left: 16px;">
-              <el-row v-show="isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx">
+              <el-row v-show="isAnswerUrl || isSurveySet || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6">
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
+                </el-col>
+                <el-col :span="3">
+                  <router-link :to="`${prevPath}/survey/c/url/v6/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrlV6}" class="dw-link" ><i class="el-icon-link"></i>答卷地址V6</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
@@ -107,7 +110,8 @@ export default {
     isSurveyChart: {type: Boolean, default: false},
     isAnswerData: {type: Boolean, default: false},
     isSurveyLog: {type: Boolean, default: false},
-    isAnswerLog: {type: Boolean, default: false}
+    isAnswerLog: {type: Boolean, default: false},
+    isAnswerUrlV6: {type: Boolean, default: false}
   },
   data () {
     return {
@@ -158,6 +162,7 @@ export default {
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
+        this.survey.answerUrlV6 = location.origin + '/#/v6/diaowen/an/' + this.survey.sid
       })
     }
   }

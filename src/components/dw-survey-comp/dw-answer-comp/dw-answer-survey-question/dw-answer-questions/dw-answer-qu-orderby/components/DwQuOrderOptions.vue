@@ -60,7 +60,7 @@ export default {
       const length = this.survey.questions[this.index].quOrderbys.length
       if (item.hasOwnProperty('orderIndex') && item.orderIndex > 0) {
         const itemOrderIndex = item.orderIndex
-        this.dragOptions.forEach((option, index) => {
+        this.survey.questions[this.index].quOrderbys.forEach((option, index) => {
           if (itemOrderIndex < option.orderIndex) {
             option.orderIndex = option.orderIndex - 1
           }
@@ -75,7 +75,7 @@ export default {
           this.dataNum = newNum
         }
       }
-
+      console.debug('item {}', item)
       // 重新排序
       this.survey.questions[this.index].quOrderbys.sort(function (a, b) {
         const x = a.orderIndex === 0 ? length + 1 : a.orderIndex
