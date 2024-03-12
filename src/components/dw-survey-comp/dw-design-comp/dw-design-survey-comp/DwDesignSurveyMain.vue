@@ -7,7 +7,7 @@
 
 <script>
 import DwDesignSurveyCore from './DwDesignSurveyCore'
-import {getDesignSurveyJsonBySurveyId, getSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
+import {getDesignSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
 export default {
   name: 'DwDesignSurveyMain',
   components: {DwDesignSurveyCore},

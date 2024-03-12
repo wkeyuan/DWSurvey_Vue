@@ -1,4 +1,7 @@
-import {querySurveyAll, surveyJsonBySurveyId} from '../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api'
+import {
+  querySurveyAll,
+  surveyJsonDesignBySurveyId
+} from '../dw-design-comp/dw-design-survey-comp/api/dw-design-survey-api'
 import {parseSurvey} from './dw-survey-parse'
 
 /**
@@ -9,7 +12,7 @@ import {parseSurvey} from './dw-survey-parse'
  */
 export function getSurveyJsonBySurveyId (params, successCallback, noJsonCallback) {
   // 先看看有没有JSON，有就取JSON数据。没有再取原来的Survey结构数据进行转换
-  surveyJsonBySurveyId(params).then((response) => {
+  surveyJsonDesignBySurveyId(params).then((response) => {
     console.debug('surveyJsonBySurveyId', response)
     const httpResult = response.data
     if (httpResult.resultCode === 200) {
@@ -52,3 +55,21 @@ export function getQuerySurvey (params, successCallback) {
   })
 }
 
+export const surveyPageUtils= {
+  pageSize (survey) {
+    const questions = survey.questions
+    let pageSize = 1
+    questions.forEach((item, index) => {
+      if (item.quType === 'PAGETAG') pageSize++
+    })
+    return pageSize
+  },
+  quInPageNum (survey, quIndex) {
+    const questions = survey.questions
+    let pageNum = 0
+    questions.forEach((item, index) => {
+      if (item.quType === 'PAGETAG' && index <= quIndex) pageNum++
+    })
+    return pageNum
+  }
+}

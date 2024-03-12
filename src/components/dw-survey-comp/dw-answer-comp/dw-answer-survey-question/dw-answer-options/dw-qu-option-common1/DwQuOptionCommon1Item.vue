@@ -40,6 +40,7 @@
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
 import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
+import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
 export default {
   name: 'DwQuOptionCommon1Item',
   components: {DwHtmlLabelCommon},
@@ -94,6 +95,7 @@ export default {
       // 题目检查
       getQuestionAnswerData(this.survey.questions[this.quIndex])
       validateQuestion(this.survey.questions[this.quIndex])
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
     },
     resetOtherRadio () {
       const quRadios = this.survey.questions[this.quIndex].quRadios

@@ -113,8 +113,20 @@ export function parseQuestion (question, noModel) {
   } else if (quType === 'PARAGRAPH') {
     question.quTypeName = '分段组件'
   }
-  question.dateAttrs = []
-  question.validateObj = {errorText: '', isOk: true}
+  if (!question.hasOwnProperty('validateObj')) question.validateObj = {errorText: '', isOk: true}
+  /*
+  if (!question.hasOwnProperty('dateAttrs')) question.dateAttrs = []
+  if (!question.hasOwnProperty('timeRange') || !question.timeRange.hasOwnProperty('range')) question.timeRange = {range: null, step: null}
+  if (question.checkType==='TIME' && question.dateAttrs.includes('range')) question.answer = {startTime: null, endTime: null}
+  if (!question.hasOwnProperty('dateFormat')) { question.dateFormat = 0 }
+  */
+
+  // 新版重新梳理属性结构
+  const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
+  const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
+  const numAttr = {min: null, max: null}
+  const inputAttr = {commonAttr, dateTimeAttr, numAttr}
+  if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
 }
 
 export function initQuestionModels (questions) {
@@ -265,6 +277,7 @@ function resetQuOptionType1 (question, quOptions) {
  * 2.9（编辑时只保存JSON数据，发布时：根据之前的保存的JSON，进行结构化，实现与之前版本兼容(如果需求则进行转换)）
  * 2.10 编辑，答卷都使用最新的JSON数据直接展现。 OK
  * 2.11 简化JSON，编辑保存时对数据进行简化，去掉编辑中保留的一些辅助信息。如题目option选项，统一处理不再分到不同字段上面。如果是原始转化成最新的JSON，最新的也可以转化成原始的，实现双向转换 ？
+ * 2.11.1 简化JSON，保存时把在新版本中没有使用的字段去掉。
  * 2.12 结构化数据只在统计页面使用。
  * 2.13 JSON数据中加一个新字段辅助UUID，在前端生成并用于数据KEY，跟后端数据ID不是同一个作用。（对JSON数据格式化的时候统一生成） OK
  * 2.14 完成答卷页面 OK

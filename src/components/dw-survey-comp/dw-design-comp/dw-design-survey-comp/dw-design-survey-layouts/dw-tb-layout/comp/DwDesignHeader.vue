@@ -23,9 +23,9 @@
           class="dw-design-survey-menu dw-menu-height"
           mode="horizontal"
           @select="handleSelect">
-          <el-menu-item :index="`/dw/survey`">我的问卷</el-menu-item>
-          <el-menu-item :index="`/dw/survey/d/chart/${$route.params.id}`">统计</el-menu-item>
-          <el-menu-item :index="`/dw/survey/c/url/${$route.params.id}`">收集</el-menu-item>
+          <el-menu-item :index="`/v6/dw/survey`">我的问卷</el-menu-item>
+          <el-menu-item :index="`/v6/dw/survey/d/chart/${$route.params.id}`">统计</el-menu-item>
+          <el-menu-item :index="`/v6/dw/survey/c/url/${$route.params.id}`">收集</el-menu-item>
           <el-menu-item :index="`/v6/diaowen/design/survey/${$route.params.id}`">设计</el-menu-item>
         </el-menu>
       </div>

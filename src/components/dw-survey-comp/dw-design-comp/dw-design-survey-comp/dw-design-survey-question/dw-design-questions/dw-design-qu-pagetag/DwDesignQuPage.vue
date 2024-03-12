@@ -6,6 +6,7 @@
 
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
+import {surveyPageUtils} from "../../../../../dw-utils/dw-survey-common";
 
 export default {
   name: 'DwDesignQuPage',
@@ -25,20 +26,10 @@ export default {
   },
   computed: {
     pageSize () {
-      const questions = this.survey.questions
-      let pageSize = 1
-      questions.forEach((item, index) => {
-        if (item.quType === 'PAGETAG') pageSize++
-      })
-      return pageSize
+      return surveyPageUtils.pageSize(this.survey)
     },
     pageNum () {
-      const questions = this.survey.questions
-      let pageNum = 0
-      questions.forEach((item, index) => {
-        if (item.quType === 'PAGETAG' && index <= this.index) pageNum++
-      })
-      return pageNum
+      return surveyPageUtils.quInPageNum(this.survey, this.index)
     }
   }
 }

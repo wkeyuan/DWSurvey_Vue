@@ -33,7 +33,7 @@
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
-                  <el-button type="primary" size="small" @click="buttonClickA(`/static/diaowen/design.html?surveyId=${survey.id}`)" >问卷设计</el-button>
+                  <el-button type="primary" size="small" @click="handlePush(`/dw-v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
                   <el-button size="small" @click="handlePush(`${prevPath}/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
@@ -44,7 +44,7 @@
                   <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/url/v6/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrlV6}" class="dw-link" ><i class="el-icon-link"></i>答卷地址V6</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrlV6}" class="dw-link" ><i class="el-icon-link"></i>答卷地址V6</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
@@ -61,7 +61,7 @@
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/data/v6/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
                 </el-col>
                 <el-col :span="3"></el-col>
                 <el-col :span="3"></el-col>
@@ -123,7 +123,7 @@ export default {
         siteCompCodeRoot: '',
         surveyState: ''
       },
-      prevPath: '/dw'
+      prevPath: '/v6/dw'
     }
   },
   mounted () {
@@ -162,7 +162,7 @@ export default {
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
-        this.survey.answerUrlV6 = location.origin + '/#/v6/diaowen/an/' + this.survey.sid
+        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/an/' + this.survey.sid
       })
     }
   }

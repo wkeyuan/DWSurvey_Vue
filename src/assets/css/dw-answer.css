@@ -43,3 +43,8 @@
   background: #f9e5e5;
   padding: 5px;
 }
+@media screen and (max-width: 750px) {
+  .dw-answer-button-style1{
+    width: 100%;
+  }
+}

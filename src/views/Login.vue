@@ -72,7 +72,8 @@ export default {
             if (resultData.status === 'ok') {
               DwAuthorized.setAuthority(resultData.currentAuthority)
               DwAuthorized.setUserName(this.ruleForm.email)
-              this.$router.push('/dw/survey/')
+              // this.$router.push('/dw/survey/')
+              this.$router.push('/v6')
             } else {
               if (resultData.hasOwnProperty('httpResult') && resultData.httpResult!=null && resultData.httpResult.hasOwnProperty('resultMsg')) {
                 msgError(resultData.httpResult.resultMsg)

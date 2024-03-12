@@ -7,7 +7,7 @@
 
 <script>
 import DwDesignSurveyMain
-  from '../../../components/dw-survey-comp/dw-design-comp/dw-design-survey-comp/DwDesignSurveyMain'
+  from '../../../components/dw-survey-comp/dw-design-comp/dw-design-survey-comp/DwDesignSurveyMain.vue'
 export default {
   name: 'DwSurveyDesignContent',
   components: {DwDesignSurveyMain}

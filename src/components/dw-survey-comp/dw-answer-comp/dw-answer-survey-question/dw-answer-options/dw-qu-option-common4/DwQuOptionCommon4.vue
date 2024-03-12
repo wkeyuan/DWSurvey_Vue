@@ -17,6 +17,7 @@
 import draggable from 'vuedraggable'
 import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
 import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
+import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
 
 export default {
   name: 'DwQuOptionCommon4',
@@ -60,6 +61,7 @@ export default {
       }
       getQuestionAnswerData(this.survey.questions[this.index])
       validateQuestion(this.survey.questions[this.index])
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
     },
     checkQuOptions (quOptions, changeValue) {
       quOptions.forEach((quOption) => {

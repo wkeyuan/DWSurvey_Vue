@@ -9,7 +9,7 @@
       <div class="dw-preview-header-right">
         <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
         <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
-        <el-button size="small">返回列表</el-button>
+        <el-button size="small" @click="backSurveyList">返回列表</el-button>
       </div>
     </div>
 
@@ -59,13 +59,12 @@
 </template>
 
 <script>
-import DwAnswerSurvey from '../../../../views/dw-survey-v6/dw-answer/DwAnswerSurvey.vue'
 import DwAnswerSurveyMain from '../../dw-answer-comp/DwAnswerSurveyMain.vue'
 import {dwDevSurvey} from '../dw-design-survey-comp/api/dw-design-survey-api'
 
 export default {
   name: 'DwPreviewSurveyMain',
-  components: {DwAnswerSurveyMain, DwAnswerSurvey},
+  components: {DwAnswerSurveyMain},
   data () {
     return {
       activeName: 'first',
@@ -81,7 +80,7 @@ export default {
     },
     designSurvey () {
       const surveyId = this.$route.params.id
-      this.$router.push('/v6/diaowen/design/survey/'+surveyId)
+      this.$router.push('/dw-v6/diaowen/dw-design/survey/'+surveyId)
     },
     devSurvey () {
       const surveyId = this.$route.params.id
@@ -91,11 +90,14 @@ export default {
         console.debug(response)
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
-          this.$router.push('/dw/survey/c/url/v6/'+surveyId)
+          this.$router.push('/v6/dw/survey/c/url/'+surveyId)
         } else {
           this.$message.error('发布失败，请重试或联系管理员！')
         }
       })
+    },
+    backSurveyList () {
+      this.$router.push('/v6')
     }
   }
 }
@@ -139,7 +141,7 @@ export default {
   margin: 0 auto;
 }
 .dw-preview-answer-survey-container .dw-preview-pad{
-  background: url('/static/diaowen/v6/images/ipad.jpg') no-repeat;
+  background: url('../../../../assets/image/ipad.jpg') no-repeat;
   background-size: cover;
   width: 910px;
   height: 630px;
@@ -153,7 +155,7 @@ export default {
   overflow: scroll;
 }
 .dw-preview-answer-survey-container .dw-preview-phone{
-  background: url('/static/diaowen/v6/images/iphone.png') no-repeat;
+  background: url('../../../../assets/image/iphone.png') no-repeat;
   background-size: cover;
   width: 404px;
   height: 701px;

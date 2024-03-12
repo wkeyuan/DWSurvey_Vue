@@ -18,20 +18,20 @@ import DwUserPwd from '@/views/dw-user/DwUserPwd'
 import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
 import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
-import DwSurveyDesignContent from '../views/dw-survey/dw-design/DwSurveyDesignContent'
-import DwAnswerSurvey from '../views/dw-survey-v6/dw-answer/DwAnswerSurvey.vue'
-import DwSurveyPreview from '../views/dw-survey/dw-design/DwSurveyPreview.vue'
+import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
+import DwSurveyPreview from '../views/dw-survey-v6/dw-design/DwSurveyPreview.vue'
 import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
 import DwSurveyAnswerReview
-  from "../components/dw-survey-comp/dw-data-comp/dw-answer-data-comp/DwSurveyAnswerReview.vue";
+  from '../components/dw-survey-comp/dw-data-comp/dw-answer-data-comp/DwSurveyAnswerReview.vue'
 import DwAnswerUrlV6 from '../views/dw-survey-v6/dw-collect-v6/DwAnswerUrlV6'
-import DwAnswerSurveyMain from '../components/dw-survey-comp/dw-answer-comp/DwAnswerSurveyMain'
 import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
+import DwSurveyListV6 from "../views/dw-survey-v6/DwSurveyListV6.vue";
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    // 老版本的路由
     {
       path: '/',
       meta: '首页',
@@ -39,7 +39,8 @@ export default new Router({
       children: [
         {
           path: '/',
-          redirect: '/dw/survey'
+          // redirect: '/dw/survey'
+          redirect: '/v6'
         },
         {
           path: '/dw/survey',
@@ -126,32 +127,103 @@ export default new Router({
       ]
     },
     {
-      path: '/v6/diaowen/',
+      path: '/v6',
+      meta: '首页',
+      component: Layout,
+      children: [
+        {
+          path: '',
+          redirect: 'dw/survey'
+        },
+        {
+          path: 'dw/survey',
+          name: 'DwSurveyListV6',
+          component: DwSurveyListV6
+        },
+        {
+          path: 'dw/survey/c/attr/:id',
+          name: 'DwSurveyAttr',
+          component: DwSurveyAttr
+        },
+        {
+          path: 'dw/survey/c/url/:id',
+          name: 'DwAnswerUrlV6',
+          component: DwAnswerUrlV6
+        },
+        {
+          path: 'dw/survey/c/comp/:id',
+          name: 'DwSiteComp',
+          component: DwSiteComp
+        },
+        {
+          path: 'dw/survey/c/share/:id',
+          name: 'DwSiteShare',
+          component: DwSiteShare
+        },
+        {
+          path: 'dw/survey/c/weixin/:id',
+          name: 'DwAnswerWeixin',
+          component: DwAnswerWeixin
+        },
+        {
+          path: 'dw/survey/d/chart/:id',
+          name: 'DwSurveyCharts',
+          component: DwSurveyCharts
+        },
+        {
+          path: '/dw/survey/d/data/:id',
+          name: 'DwSurveyAnswerDataListV6',
+          component: DwSurveyAnswerDataListV6
+        },
+        {
+          path: 'dw/user/pwd',
+          name: 'DwUserPwd',
+          component: DwUserPwd
+        },
+        {
+          path: '/dw/user',
+          name: 'DwUser',
+          component: DwUser
+        },
+        {
+          path: '/dw/admin/user',
+          name: 'AdminUserList',
+          component: AdminUserList
+        }
+      ]
+    },
+    {
+      path: '/dw-v6',
       name: 'NoTopLayout',
       component: NoTopLayout,
       children: [
         {
-          path: '/v6/diaowen/design/survey/:id',
+          path: 'diaowen/dw-design/survey/:id',
           name: 'DwSurveyDesignContent',
           component: DwSurveyDesignContent
         },
         {
-          path: '/dw-survey-v6/dw-design/survey1',
+          path: 'diaowen/dw-design/survey1',
           name: 'DwDesign',
           component: DwDesign
         },
         {
-          path: '/v6/diaowen/preview/survey/:id',
+          path: 'diaowen/dw-preview/survey/:id',
           name: 'DwSurveyPreview',
           component: DwSurveyPreview
         },
         {
-          path: '/v6/diaowen/an/:id',
+          path: 'diaowen/an/:id',
           name: 'DwAnswerSurveyV6',
           component: DwAnswerSurveyV6
         },
         {
-          path: '/v6/diaowen/answer/survey/review/:id/:answerId',
+          path: 'diaowen/an/:id/:answerId',
+          name: 'DwAnswerSurveyV6',
+          component: DwAnswerSurveyV6
+        },
+        {
+          path: '/diaowen/answer/survey/review/:id/:answerId',
           name: 'DwSurveyAnswerReview',
           component: DwSurveyAnswerReview
         }

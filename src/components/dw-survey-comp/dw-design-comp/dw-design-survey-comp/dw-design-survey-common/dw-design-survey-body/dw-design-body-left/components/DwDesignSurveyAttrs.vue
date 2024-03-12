@@ -19,7 +19,7 @@
           <el-checkbox v-model="survey.surveyAttrs.anRefreshAttr.randomCode" >重复回答启用验证码</el-checkbox>
           <el-form-item>
             <div><el-checkbox v-model="survey.surveyAttrs.anPwdAttr.enabled" >启用通过密码答卷</el-checkbox></div>
-            <div v-show="survey.surveyAttrs.anPwdAttr.enabled"><el-input v-model="survey.surveyAttrs.anPwdCode" size="mini" placeholder="请输入密码" style="width: 160px;"></el-input></div>
+            <div v-show="survey.surveyAttrs.anPwdAttr.enabled"><el-input v-model="survey.surveyAttrs.anPwdAttr.anPwdCode" size="mini" placeholder="请输入密码" style="width: 160px;"></el-input></div>
           </el-form-item>
         </div>
       </div>

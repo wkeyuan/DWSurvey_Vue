@@ -45,6 +45,7 @@
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
 import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
+import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
 
 export default {
   name: 'DwQuOptionCommon2Item',
@@ -128,6 +129,7 @@ export default {
       getQuestionAnswerData(this.survey.questions[this.quIndex])
       // 进行验证
       validateQuestion(this.survey.questions[this.quIndex])
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
     }
   }
 }

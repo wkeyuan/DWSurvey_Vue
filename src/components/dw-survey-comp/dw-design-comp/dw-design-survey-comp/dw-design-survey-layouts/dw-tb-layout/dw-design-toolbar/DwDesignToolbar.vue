@@ -52,6 +52,7 @@ import draggable from 'vuedraggable'
 import {initQuestionModels, parseQuestion, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
+import {clearSurveyJson, getSurveyJsonSimple} from "../../../../../dw-utils/dw-survey-design";
 
 export default {
   name: 'DwDesignToolbar',
@@ -115,14 +116,17 @@ export default {
       this.saveSurveyFun(() => {
         const surveyId = this.$route.params.id
         // 进行数据合法性检查，主要是防止空的标题与选项
-        this.$router.push('/v6/diaowen/preview/survey/'+surveyId)
+        this.$router.push('/dw-v6/diaowen/dw-preview/survey/'+surveyId)
       })
     },
     saveSurveyFun (callback) {
       const surveyId = this.survey.id
+      // 清理无效数据
+      clearSurveyJson(this.survey)
       console.debug('save this.survey', this.survey)
       const surveyJsonText = JSON.stringify(this.survey)
-      const data = {surveyId, surveyJsonText}
+      const surveyJsonSimple = JSON.stringify(getSurveyJsonSimple(surveyJsonText))
+      const data = {surveyId, surveyJsonText, surveyJsonSimple}
       console.debug('surveyJson data', data)
       dwSaveSurveyJson(data).then((response) => {
         console.debug('dwSaveSurveyJson-response', response)

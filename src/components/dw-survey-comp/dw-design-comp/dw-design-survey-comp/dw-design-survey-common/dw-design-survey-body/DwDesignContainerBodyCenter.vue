@@ -18,6 +18,7 @@
             drag-class="dwDragClass"
             ghost-class="dwGhostClass"
             chosen-class="dwChosenClass"
+            class="dwDraggable"
             @add="onAdd"
             @start="onStart"
             @end="onEnd">
@@ -130,6 +131,11 @@ export default {
   z-index: 50;
   width: 100%;
   border:1px solid #f3f3f3;
+  min-height: 600px;
 }
-
+.dwDraggable span{
+  width: 100%;
+  min-height: 300px;
+  display: inline-block;
+}
 </style>

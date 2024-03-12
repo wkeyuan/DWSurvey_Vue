@@ -38,3 +38,16 @@ export function getQuOptions (question) {
   }
 }
 
+export function clearSurveyJson (survey) {
+  const questions = survey.questions
+  if (questions !== null) {
+    questions.forEach((item, index) => {
+    })
+  }
+}
+
+export function getSurveyJsonSimple (surveyJsonText) {
+  const newSurvey = JSON.parse(surveyJsonText)
+  newSurvey.questions = []
+  return newSurvey
+}

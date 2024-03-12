@@ -20,9 +20,9 @@ export function querySurveyAll (params) {
  * @param params
  * @returns {*}
  */
-export function surveyJsonBySurveyId (params) {
+export function surveyJsonDesignBySurveyId (params) {
   return request({
-    url: '/api/dwsurvey/none/v6/dw-answer-survey/survey-json-by-survey-id.do',
+    url: '/api/dwsurvey/app/dw-design-survey/survey-json-by-survey-id.do',
     method: 'get',
     params
   })

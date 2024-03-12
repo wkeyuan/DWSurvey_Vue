@@ -1,3 +1,6 @@
+import {dwCheckValue} from './dw-common/dw-common-1'
+import {getQuestionAnswerData} from "./dw-survey-answer";
+
 /**
  * 一组题，答卷表单验证，返回是否成功
  * @param questions
@@ -38,22 +41,24 @@ export function validateQuestions (questions) {
 export function validateQuestion (question) {
   if (question!==null) {
     const quType = question.quType
-    question.validateObj = {errorText: '此题必答', isOk: true}
-    if (quType !== 'PAGETAG' && quType !== 'PARAGRAPH') {
-      if (quType === 'RADIO') {
-        validateQuRadio(question)
-      } else if (quType === 'CHECKBOX') {
-        validateCheckbox(question)
-      } else if (quType === 'ORDERQU') {
-        validateQuOrderbys(question)
-      } else if (quType === 'MULTIFILLBLANK') {
-        validateQuMultiFillblanks(question)
-      } else if (quType === 'SCORE') {
-        validateQuScores(question)
-      } else if (quType === 'FILLBLANK') {
-        validateQuFbk(question)
-      } else if (quType === 'UPLOADFILE') {
-        validateQuUploadFile(question)
+    if (question.showQu) {
+      question.validateObj = {errorText: '此题必答', isOk: true}
+      if (quType !== 'PAGETAG' && quType !== 'PARAGRAPH') {
+        if (quType === 'RADIO') {
+          validateQuRadio(question)
+        } else if (quType === 'CHECKBOX') {
+          validateCheckbox(question)
+        } else if (quType === 'ORDERQU') {
+          validateQuOrderbys(question)
+        } else if (quType === 'MULTIFILLBLANK') {
+          validateQuMultiFillblanks(question)
+        } else if (quType === 'SCORE') {
+          validateQuScores(question)
+        } else if (quType === 'FILLBLANK') {
+          validateQuFbk(question)
+        } else if (quType === 'UPLOADFILE') {
+          validateQuUploadFile(question)
+        }
       }
     }
   }
@@ -66,7 +71,10 @@ export function validateQuestion (question) {
  */
 function validateQuRadio (question) {
   let answerSize = 0
-  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anRadio')) answerSize = question.anQuestion.anRadio.length
+  getQuestionAnswerData(question)
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anRadio')) {
+    answerSize = question.anQuestion.anRadio.length
+  }
   if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<=0) {
     question.validateObj.errorText = '此题必答'
     question.validateObj.isOk = false
@@ -130,6 +138,41 @@ function validateQuFbk (question) {
   if (question.hasOwnProperty('isRequired') && question.isRequired===1 && (answerValue===null || answerValue===undefined || answerValue.length<=0)) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
+  }
+  const errotTexts = []
+  if (answerValue===null || answerValue===undefined) answerValue = ''
+  if (question.hasOwnProperty('quAttr')) {
+    const quAttr = question.quAttr
+    if (quAttr.hasOwnProperty('isRequired') && quAttr.isRequired && answerValue.length <= 0) errotTexts.push('此题必答')
+    if (quAttr.hasOwnProperty('inputAttr')) {
+      const inputAttr = quAttr.inputAttr
+      if (inputAttr.hasOwnProperty('commonAttr')) {
+        const commonAttr = inputAttr.commonAttr
+        if (commonAttr.hasOwnProperty('checkType')) {
+          const checkType = commonAttr.checkType
+          if (checkType!==null) {
+            const checkValueResult = dwCheckValue(checkType, answerValue, null)
+            if (!checkValueResult.isOK) errotTexts.push(checkValueResult.msg)
+          }
+          // 公共验证
+          if (checkType==='NO' || checkType==='EMAIL' || checkType==='URL' || checkType==='UNSTRCN' || checkType==='STRCN') {
+            const answerValueSize = answerValue.length
+            if (commonAttr.hasOwnProperty('minlength')) {
+              const minlength = commonAttr.minlength
+              if (answerValueSize<minlength) errotTexts.push('最少输入'+minlength+'字')
+            }
+            if (commonAttr.hasOwnProperty('maxlength')) {
+              const maxlength = commonAttr.maxlength
+              if (answerValueSize>maxlength) errotTexts.push('最多输入'+maxlength+'字')
+            }
+          }
+        }
+      }
+      if (errotTexts.length>0) {
+        validateObj.errorText = errotTexts.join('，')
+        validateObj.isOk = false
+      }
+    }
   }
   question.validateObj = validateObj
 }
