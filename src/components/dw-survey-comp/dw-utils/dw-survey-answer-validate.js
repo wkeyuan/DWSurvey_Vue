@@ -1,5 +1,5 @@
 import {dwCheckValue} from './dw-common/dw-common-1'
-import {getQuestionAnswerData} from "./dw-survey-answer";
+import {getQuestionAnswerData} from './dw-survey-answer'
 
 /**
  * 一组题，答卷表单验证，返回是否成功
@@ -42,7 +42,7 @@ export function validateQuestion (question) {
   if (question!==null) {
     const quType = question.quType
     if (question.showQu) {
-      question.validateObj = {errorText: '此题必答', isOk: true}
+      question.validateObj = {errorText: '此题必答', isOk: true, isAnswerOk: false}
       if (quType !== 'PAGETAG' && quType !== 'PARAGRAPH') {
         if (quType === 'RADIO') {
           validateQuRadio(question)
@@ -60,6 +60,7 @@ export function validateQuestion (question) {
           validateQuUploadFile(question)
         }
       }
+      if (question.validateObj.isOk) question.validateObj.isAnswerOk = true
     }
   }
   return question

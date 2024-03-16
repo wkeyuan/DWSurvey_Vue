@@ -1,54 +1,74 @@
 <template>
   <div>
     <div v-if="survey!==null && survey.hasOwnProperty('answerMsg')">
-      <div v-if="!survey.answerMsg.showAnswerMsg">
-        <div class="dw-container-body-center" style="padding-bottom: 30px;">
-          <div>
+      <div>
+        <div v-if="survey.hasOwnProperty('answerMsg') && !survey.answerMsg.showAnswerMsg">
+          <div class="dw-survey-answer-progress">
+            <!--            {{ survey.answerProgress }}-->
+            <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? survey.answerProgress.percentage : 0" :color="customColor" define-back-color="#dcdfe6"></el-progress>
+          </div>
+          <div class="dw-container-body-center" style="padding-bottom: 30px;">
             <div>
-              <div style="padding: 20px 20px 10px 20px;">
-                <div style="text-align: center;font-weight: bold;">
-                  <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
+              <div>
+                <div>
+                  <!--                  <el-image style="width: 100%;height: 200px;" fit="cover" src="https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"></el-image>-->
                 </div>
-                <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
-                  <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
-                </div>
-              </div>
-              <div class="dw-survey-answer-body">
-                <div style="padding-top: 15px;">
-                  <div>
-                    <transition-group>
-                      <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
-                        <dw-answer-question ref="designQuestion" v-model="survey" :index="index" :item="item" ></dw-answer-question>
-                      </div>
-                    </transition-group>
+                <div style="padding: 20px 20px 10px 20px;">
+                  <div style="text-align: center;font-weight: bold;">
+                    <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
+                  </div>
+                  <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
+                    <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
                   </div>
                 </div>
-                <div v-if="survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
-                  <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
+                <div class="dw-survey-answer-body">
+                  <div style="padding-top: 15px;">
+                    <div>
+                      <transition-group>
+                        <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+                          <dw-answer-question ref="designQuestion" v-model="survey" :index="index" :item="item" ></dw-answer-question>
+                        </div>
+                      </transition-group>
+                    </div>
+                  </div>
+                  <div v-if="survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
+                    <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
+                  </div>
                 </div>
               </div>
+              <div v-show="survey.dwDebug" class="dw-debug" >{{ answer }}</div>
             </div>
-            <div v-show="survey.dwDebug" class="dw-debug" >{{ answer }}</div>
           </div>
         </div>
-      </div>
-      <div v-else>
-        <div style="padding: 50px 20px;text-align: center;background: white;">
-          <div style="padding-bottom: 20px;">
-            <div v-if="!survey.answerMsg.noSurveyJson" style="text-align: center;font-weight: bold;" >
-              <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
+        <div v-else>
+          <div style="padding: 50px 20px;text-align: center;background: white;">
+            <div style="padding-bottom: 20px;">
+              <div v-if="!survey.answerMsg.noSurveyJson" style="text-align: center;font-weight: bold;" >
+                <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
+              </div>
             </div>
-          </div>
-          <div>
-            <template v-if="survey.answerMsg.hasOwnProperty('answerCheckResult') && survey.answerMsg.answerCheckResult.hasOwnProperty('anCheckResultCode') && survey.answerMsg.answerCheckResult.anCheckResultCode>=400">
-              <div style="color: red;font-size: 13px;"> {{ survey.answerMsg.answerCheckResult.anCheckResultMsg }}</div>
-              <!--              <div style="color: #e4e4e4;font-size: 12px;padding: 10px;">{{ survey.answerMsg.answerCheckResult.anCheckResultCode }}</div>-->
-            </template>
-            <template v-else>
-              <div style="color: dodgerblue;font-size: 13px;"> {{ survey.answerMsg.answerMsgInfo }}</div>
-            </template>
-            <div v-if="isReAnswer" style="padding-top: 15px;">
-              <el-button @click="backReAnswer">重新填写</el-button>
+            <div v-if="survey.answerMsg.hasOwnProperty('showAnswerPwd') && survey.answerMsg.showAnswerPwd" style="text-align: left;">
+              <el-form label-position="top">
+                <el-form-item label="此问卷需要答卷密码，请输入答卷密码">
+                  <el-input v-model="anPwd" autocomplete="off" placeholder="请输入答卷密码" clearable></el-input>
+                  <div style="color: red;">{{ survey.answerMsg.answerPwdError }}</div>
+                </el-form-item>
+              </el-form>
+              <div class="dw-width-100bf" style="text-align: left;">
+                <el-button v-loading.fullscreen.lock="fullscreenLoading" type="primary" class="dw-answer-button-style1" @click="configCheckAnswerPwdButton">开始答卷</el-button>
+              </div>
+            </div>
+            <div>
+              <template v-if="survey.answerMsg.hasOwnProperty('answerCheckResult') && survey.answerMsg.answerCheckResult.hasOwnProperty('anCheckResultCode') && survey.answerMsg.answerCheckResult.anCheckResultCode>=400">
+                <div style="color: red;font-size: 13px;"> {{ survey.answerMsg.answerCheckResult.anCheckResultMsg }}</div>
+                <!--              <div style="color: #e4e4e4;font-size: 12px;padding: 10px;">{{ survey.answerMsg.answerCheckResult.anCheckResultCode }}</div>-->
+              </template>
+              <template v-else>
+                <div style="color: dodgerblue;font-size: 13px;"> {{ survey.answerMsg.answerMsgInfo }}</div>
+              </template>
+              <div v-if="isReAnswer" style="padding-top: 15px;">
+                <el-button @click="backReAnswer">重新填写</el-button>
+              </div>
             </div>
           </div>
         </div>
@@ -67,7 +87,7 @@ import DwAnswerQuestion from '../dw-answer-survey-question/DwAnswerQuestion.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {getSurveyAnswerData} from '../../dw-utils/dw-survey-answer'
 import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
-import {dwSaveSurveyAnswerJson} from '../api/dw-survey-answer'
+import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-answer'
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
 import {surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
 
@@ -92,7 +112,9 @@ export default {
     return {
       fullscreenLoading: false,
       answer: {},
-      isReAnswer: false
+      isReAnswer: false,
+      anPwd: '',
+      customColor: '#3a99fa'
     }
   },
   mounted () {
@@ -106,13 +128,37 @@ export default {
       this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.$route.params.id, this.$route.params.answerId).questions
       this.survey.pageAttr.curPage = 1
     },
+    configCheckAnswerPwdButton () {
+      // 进行检查 anPwd,sid
+      this.fullscreenLoading = true
+      setTimeout(() => {
+        this.checkAnPwd()
+      }, 200)
+    },
+    checkAnPwd () {
+      const survey = this.survey
+      const params = {sid: survey.sid, anPwd: this.anPwd}
+      dwSurveyAnswerCheckPwd(params).then((response) => {
+        const httpResult = response.data
+        if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
+          this.$message.success('验证通过，请开始答卷')
+          this.survey.answerMsg.showAnswerMsg = false
+          this.survey.answerMsg.showAnswerPwd = false
+        } else {
+          this.$message.warning('密码错误！')
+        }
+        this.fullscreenLoading = false
+      })
+    },
     submitAnswer () {
+      const sid = this.$route.params.id
       const answer = getSurveyAnswerData(this.survey)
+      answer.anPwd = this.anPwd
       this.answer = answer
       console.debug('answer', answer)
       if (validateQuestionsBool(this.survey.questions)) {
         const surveyAnswerJsonText = JSON.stringify(answer)
-        const data = {surveyId: answer.surveyId, jsonVersion: 6, answerJson: surveyAnswerJsonText}
+        const data = {surveyId: answer.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
         this.fullscreenLoading = true
         dwSaveSurveyAnswerJson(data).then((response) => {
           const httpResult = response.data
@@ -183,5 +229,26 @@ export default {
   .dw-survey-answer-body{
     padding: 0 15px;
   }
+}
+.el-progress{
+  border-radius: 0 !important;
+  .el-progress-bar{
+    border-radius: 0 !important;
+    .el-progress-bar__outer{
+      border-radius: 0 !important;
+      .el-progress-bar__inner{
+        border-radius: 0 !important;
+      }
+    }
+  }
+  .el-progress__text{
+    font-size: 12px;
+  }
+}
+.dw-survey-answer-progress {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
 }
 </style>

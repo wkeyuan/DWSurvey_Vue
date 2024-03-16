@@ -1,7 +1,7 @@
 <template>
   <div class="dw-answer-container" >
     <el-container>
-      <el-main v-if="survey!=null" style="padding: 10px;">
+      <el-main v-if="survey!=null && survey.hasOwnProperty('showSurvey') && survey.showSurvey" style="padding: 10px;">
         <div>
           <div>
             <div class="dw-container-body">

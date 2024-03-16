@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid'
+import {surveyPageUtils} from "./dw-survey-common";
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -27,6 +28,7 @@ export function parseSurvey (survey) {
     survey.surveyStyle = {themeColor: 'red'}
     survey.tempDataType = 'none'
     if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
+    survey.showSurvey = true
   }
   return survey
 }
@@ -122,11 +124,22 @@ export function parseQuestion (question, noModel) {
   */
 
   // 新版重新梳理属性结构
+  // const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
+  // const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
+  // const numAttr = {min: null, max: null}
+  // const inputAttr = {commonAttr, dateTimeAttr, numAttr}
+  // if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
+  addNewQuProps(question)
+}
+
+function addNewQuProps (question) {
+  // 新版重新梳理属性结构
   const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
   const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
   const numAttr = {min: null, max: null}
   const inputAttr = {commonAttr, dateTimeAttr, numAttr}
   if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
+  return question
 }
 
 export function initQuestionModels (questions) {
@@ -134,6 +147,8 @@ export function initQuestionModels (questions) {
     // 循环然后定义以上内容
     questions.map((question, quIndex) => {
       question.isRequired = 1
+      question.showQu = true
+      addNewQuProps(question)
     })
   }
   return questions

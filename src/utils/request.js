@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {msgBoxNoLogin, msgBoxNoRole, msgError} from './dw-msg'
+import {msgBoxNoLogin, msgBoxNoRole, msgError, msgInfo, msgWarning} from './dw-msg'
 
 // 全局的 axios 默认值
 axios.defaults.baseURL = process.env.DW_API_URL
@@ -37,10 +37,14 @@ service.interceptors.response.use(
           msgBoxNoLogin()
         } else if (data.resultCode === 403) {
           msgBoxNoRole()
+        } else if (data.resultCode === 400) {
+          let message = `执行失败`
+          if (data.hasOwnProperty('resultMsg')) message = `${data.resultMsg}`
+          msgWarning(message)
         } else if (data.resultCode !== 200) {
-          let message = `异常码：${data.resultCode}`
+          let message = `状态码：${data.resultCode}`
           if (data.hasOwnProperty('resultMsg')) {
-            message = `${data.resultMsg}，异常码：${data.resultCode}`
+            message = `${data.resultMsg}，状态码：${data.resultCode}`
           }
           msgError(message)
         }

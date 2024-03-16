@@ -2,6 +2,7 @@ import {
   buildSurveyLocalStorageKey,
   getLocalStorageByKey, saveJsonObj2LocalStorage
 } from '../../dw-utils/dw-common/dw-common-0'
+import {answerSurveyProgress} from "./dw-survey-answer-progress";
 
 export const surveyLocalStorageKeyType = {INIT: 'survey_init', AN_HISTORY: 'survey_answer_history', AN_HISTORY_ACTION: 'survey_answer_history_action'}
 
@@ -23,6 +24,9 @@ export const surveyInitLocalStorage = {
 
 export const surveyAnswerLocalStorage = {
   saveSurveyAnswer2LocalStorage (sid, answerId, survey) {
+    // 进行进度计算
+    answerSurveyProgress(survey)
+    // 本地存储
     const actionNum = parseInt(this.getSurveyAnswerActionNum(sid, answerId))+1
     const historySurveyText = this.getSurveyAnswerTextByLocalStorage(sid, answerId)
     if (JSON.stringify(survey)!==historySurveyText) {

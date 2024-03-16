@@ -33,3 +33,11 @@ export function dwSurveyAnswerById (params) {
     params
   })
 }
+
+export function dwSurveyAnswerCheckPwd (params) {
+  return request({
+    url: '/api/dwsurvey/none/v6/dw-answer-survey/check-answer-pwd.do',
+    method: 'get',
+    params
+  })
+}

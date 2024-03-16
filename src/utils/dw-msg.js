@@ -15,6 +15,14 @@ export function msgInfo (message) {
   })
 }
 
+export function msgWarning (message) {
+  Message({
+    message: message,
+    type: 'warning',
+    duration: 5 * 1000
+  })
+}
+
 export function msgBoxNoLogin () {
   MessageBox.confirm('未登录状态，是否重新登录', '系统提示', {
     confirmButtonText: '重新登录',

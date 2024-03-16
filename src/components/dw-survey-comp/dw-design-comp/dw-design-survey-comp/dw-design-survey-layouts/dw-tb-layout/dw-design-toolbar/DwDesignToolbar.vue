@@ -52,11 +52,13 @@ import draggable from 'vuedraggable'
 import {initQuestionModels, parseQuestion, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
-import {clearSurveyJson, getSurveyJsonSimple} from "../../../../../dw-utils/dw-survey-design";
+import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
+import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
 
 export default {
   name: 'DwDesignToolbar',
   components: {
+    DwAnswerQuestion,
     DwDesignToolbarQuestion,
     DwDesignQuestion,
     draggable
@@ -121,12 +123,13 @@ export default {
     },
     saveSurveyFun (callback) {
       const surveyId = this.survey.id
+      const sid = this.survey.sid
       // 清理无效数据
       clearSurveyJson(this.survey)
       console.debug('save this.survey', this.survey)
       const surveyJsonText = JSON.stringify(this.survey)
       const surveyJsonSimple = JSON.stringify(getSurveyJsonSimple(surveyJsonText))
-      const data = {surveyId, surveyJsonText, surveyJsonSimple}
+      const data = {surveyId, sid, surveyJsonText, surveyJsonSimple}
       console.debug('surveyJson data', data)
       dwSaveSurveyJson(data).then((response) => {
         console.debug('dwSaveSurveyJson-response', response)

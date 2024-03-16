@@ -139,6 +139,7 @@ export function initAnswerBySurvey (survey) {
         const defaultValue = commonAttr.defaultValue
         if (defaultValue!==null && defaultValue!=='') question.answer = defaultValue
       }
+      // 初始化题目辅助参数
       question.showQu = true
       question.pageIndex = pageSize
       if (question.quType === 'PAGETAG') pageSize++
@@ -146,6 +147,7 @@ export function initAnswerBySurvey (survey) {
   }
   // 初始化Page信息
   survey.pageAttr = {pageSize: surveyPageUtils.pageSize(survey), curPage: 1}
+  survey.answerProgress = {totalAnQu: 0, completeAnQu: 0, percentage: 0}
 }
 
 export function showPageByIndex (survey, pageIndex) {

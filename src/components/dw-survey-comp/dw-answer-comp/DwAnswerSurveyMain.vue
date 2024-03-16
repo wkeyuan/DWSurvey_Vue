@@ -8,11 +8,12 @@
 import DwAnswerSurveyBody from './dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwAnswerDefaultLayout from './dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
 import {Loading} from 'element-ui'
-import {dwSurveyAnswerById} from './api/dw-survey-answer'
+import {dwSurveyAnswerById, dwSurveyAnswerCheckPwd} from './api/dw-survey-answer'
 import {initAnswerBySurvey, parseAnswerData, showPageByIndex} from '../dw-utils/dw-survey-answer-data'
 import {getSurveyAnswerJsonBySurveyId} from './dw-utils/dw-survey-answer-common'
 import {surveyAnswerLocalStorage, surveyInitLocalStorage} from './dw-utils/dw-survey-answer-utils'
-import {getSurveyAnswerData} from "../dw-utils/dw-survey-answer";
+import {getSurveyAnswerData} from '../dw-utils/dw-survey-answer'
+import {initAnswerSurveyProgress} from "./dw-utils/dw-survey-answer-progress";
 
 export default {
   name: 'DwAnswerSurveyMain',
@@ -34,7 +35,8 @@ export default {
       uuidList: [],
       survey: null, // 點认保持为null, 加载时不会闪
       loading: true,
-      answerData: null
+      answerData: null,
+      answerCheckResult: null
     }
   },
   mounted () {
@@ -52,17 +54,18 @@ export default {
         customClass: 'dw-loading',
         text: '问卷数据加载中'
       })
-      const surveyId = this.$route.params.id
+      const sid = this.$route.params.id
       const answerId = this.$route.params.answerId
-      const params = {surveyId, answerId}
+      const params = {sid, answerId, anPwd: ''}
+      if (this.$route.query.hasOwnProperty('anPwd')) params.anPwd = this.$route.query.anPwd
       // 1、答卷合法性判断
-      console.debug('surveyId', surveyId)
-      console.debug('answerId', answerId)
+      console.debug('loadSurvey params', params)
       // 2、加载问卷与答卷
       getSurveyAnswerJsonBySurveyId(params, (survey, answerCheckResult) => {
         survey.surveyStyle.themeColor = '#025bb7'
         survey.dwDebug = false
-        if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass) {
+        this.answerCheckResult = answerCheckResult
+        if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass && answerCheckResult.anCheckResultCode!==403) {
           survey.answerMsg = {showAnswerMsg: true, answerMsgInfo: answerCheckResult.anCheckResultMsg, noSurveyJson: false, answerCheckResult}
           this.survey = survey
         } else {
@@ -137,8 +140,12 @@ export default {
       } else {
         this.localStorage2Survey(survey)
       }
+      // 初始化问卷进度状态
+      initAnswerSurveyProgress(survey)
       // 加载完成把问卷初始数据存入local
       surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
+      // 如果是答新问卷，则需要检查答卷密码。
+      this.checkAnswerPwd()
     },
     localStorage2Survey (survey) {
       // 先判断本地有没有临时数据，如果有则看本地的临时数据版本是否与线上一致，一致则使用本地临时数据。
@@ -169,6 +176,19 @@ export default {
         }
       }
       return null
+    },
+    checkAnswerPwd () {
+      const survey = this.survey
+      // 如果需要检查密码
+      if (survey.hasOwnProperty('surveyAttrs') && survey.surveyAttrs.hasOwnProperty('anPwdAttr') && survey.surveyAttrs.anPwdAttr.hasOwnProperty('enabled')) {
+        if (survey.surveyAttrs.anPwdAttr.enabled && !this.answerCheckResult.anCheckIsPass) {
+          // 则弹出密码输入框，问卷不先显示
+          this.survey.answerMsg.showAnswerMsg = true
+          this.survey.answerMsg.showAnswerPwd = true
+          // 如果带有密码，则提示输入正确密码
+          this.survey.answerMsg.answerPwdError = '请输入正确密码'
+        }
+      }
     }
   }
 }

@@ -4,6 +4,7 @@
     <div class="dw-question-root" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-body" >
         <!--        <div class="dw-question-body-left dw-text-align-center dw-padding-top-2"></div>-->
+        <!--        {{ survey.questions[index].validateObj }}-->
         <div class="dw-question-body-center">
           <div class="dw-question-body-center-body dw-color-333" >
             <div class="dw-qu-content">
@@ -23,7 +24,9 @@
                 </template>
                 <template v-else>
                   <div class="dw-width-100bf">
-                    <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1)" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
+                    <template v-if="survey.hasOwnProperty('pageAttr') && survey.pageAttr.hasOwnProperty('curPage')">
+                      <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1)" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
+                    </template>
                   </div>
                 </template>
               </div>
@@ -77,7 +80,7 @@ import {clickQuItem, upAllItemClick} from '../../dw-utils/dw-survey-update-item-
 import DwPopoverQuAttrs from '../../dw-design-comp/dw-design-survey-comp/dw-design-survey-question/dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
-import {validateQuestionsBool} from "../../dw-utils/dw-survey-answer-validate";
+import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
 
 export default {
   name: 'DwAnswerQuestionCommon',
