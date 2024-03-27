@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 5px;">
-      <el-select v-model="value" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" placeholder="请选择" @change="onChange">
+      <el-select v-model="value" :disabled="survey.readonly" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" placeholder="请选择" @change="onChange">
         <el-option
           v-for="(item, index) in options"
           :key="`fa_${index}`"
@@ -41,9 +41,19 @@ export default {
   },
   mounted () {
     const question = this.survey.questions[this.index]
+    if (question.quType==='RADIO') {
+      const quOptions = this.survey.questions[this.index].quRadios
+      quOptions.forEach((quOption) => {
+        if (quOption.checked) this.value = quOption.optionTitleObj.dwHtml
+      })
+    }
     if (question.quType==='CHECKBOX') {
       this.minLimit = question.minLimit
       this.maxLimit = question.maxLimit
+      const quOptions = this.survey.questions[this.index].quCheckboxs
+      quOptions.forEach((quOption) => {
+        if (quOption.checked) this.value.push(quOption.optionTitleObj.dwHtml)
+      })
     }
   },
   methods: {
@@ -61,7 +71,7 @@ export default {
       }
       getQuestionAnswerData(this.survey.questions[this.index])
       validateQuestion(this.survey.questions[this.index])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
     },
     checkQuOptions (quOptions, changeValue) {
       quOptions.forEach((quOption) => {

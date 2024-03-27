@@ -1,17 +1,29 @@
 <template>
   <el-row>
-    <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :md="{span: 20, offset: 2}" :lg="{span: 16, offset: 4}" :xl="{span: 12, offset: 6}" >
-      <dw-answer-survey-main></dw-answer-survey-main>
+    <el-col>
+      <dw-answer-survey :answer-props="answerProps"></dw-answer-survey>
     </el-col>
   </el-row>
 </template>
 
 <script>
 import DwAnswerSurveyMain from '../../../components/dw-survey-comp/dw-answer-comp/DwAnswerSurveyMain.vue'
+import DwAnswerSurvey from '../../../components/dw-survey-comp/dw-answer-comp/DwAnswerSurvey.vue'
 
 export default {
   name: 'DwAnswerSurveyV6',
-  components: {DwAnswerSurveyMain}
+  components: {DwAnswerSurvey, DwAnswerSurveyMain},
+  data () {
+    return {
+      answerProps: {sid: null, answerId: null, anPwd: ''}
+    }
+  },
+  mounted () {
+    console.debug('first sid', this.$route.params.sid)
+    console.debug('first answerId', this.$route.params.answerId)
+    this.answerProps.sid = this.$route.params.sid
+    this.answerProps.answerId = this.$route.params.answerId
+  }
 }
 </script>
 

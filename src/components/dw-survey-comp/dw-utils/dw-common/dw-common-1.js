@@ -118,4 +118,14 @@ function dwCheckValue (checkType, value, customRegex) {
   return validateStatus
 }
 
-export {dwCheckValue}
+function secondsToHms (sec) {
+  const hours = Math.floor(sec / 3600)
+  const minutes = Math.floor((sec % 3600) / 60)
+  const seconds = sec % 60
+  // return [hours, minutes, seconds].map(num => num < 10 ? '0' + num : num).filter(num => num).join(':')
+  if (hours>0) return (hours<10 ? '0' + hours : hours)+' 时 '+(minutes<10 ? '0' + minutes : minutes)+' 分 '+(seconds<10 ? '0' + seconds : seconds)+' 秒'
+  if (minutes>0) return (minutes<10 ? '0' + minutes : minutes)+' 分 '+(seconds<10 ? '0' + seconds : seconds)+' 秒'
+  return (seconds<10 ? '0' + seconds : seconds)+' 秒'
+}
+
+export {dwCheckValue, secondsToHms}

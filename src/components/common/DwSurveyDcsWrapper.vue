@@ -162,7 +162,7 @@ export default {
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
-        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/an/' + this.survey.sid
+        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/' + this.survey.sid
       })
     }
   }

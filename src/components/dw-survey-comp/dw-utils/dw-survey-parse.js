@@ -134,12 +134,23 @@ export function parseQuestion (question, noModel) {
 
 function addNewQuProps (question) {
   // 新版重新梳理属性结构
+  const inputAttr = getInputQuProps()
+  if (question.hasOwnProperty('quAttr')) {
+    if (!question.quAttr.hasOwnProperty('isRequired')) question.quAttr.isRequired = true
+    if (!question.quAttr.hasOwnProperty('inputAttr')) question.quAttr.inputAttr = inputAttr
+  } else {
+    question.quAttr = {isRequired: true, inputAttr}
+  }
+  return question
+}
+
+function getInputQuProps (question) {
+  // 新版重新梳理属性结构
   const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
   const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
   const numAttr = {min: null, max: null}
   const inputAttr = {commonAttr, dateTimeAttr, numAttr}
-  if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
-  return question
+  return inputAttr
 }
 
 export function initQuestionModels (questions) {
@@ -232,6 +243,8 @@ function parseQuOptionType1 (question, quOptions) {
       if (!quOption.hasOwnProperty('checked')) quOption.checked = false
       if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
       if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
+      const inputAttr = getInputQuProps()
+      if (!quOption.hasOwnProperty('inputAttr')) quOption.inputAttr = inputAttr
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚

@@ -53,10 +53,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-body{
-  background-color: #F1F1F1;
-  /*#ffb25c*/
-  background-image: none;
-}
-</style>

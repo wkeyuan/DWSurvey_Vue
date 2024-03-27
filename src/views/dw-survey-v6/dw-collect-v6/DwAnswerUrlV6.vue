@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-survey-dcs-wrapper is-answer-url-v6="true" >
+    <dw-survey-dcs-wrapper :is-answer-url-v6="true" >
       <template v-slot:dw-dcs-main-slot="{survey}" >
         <div>
           <div>

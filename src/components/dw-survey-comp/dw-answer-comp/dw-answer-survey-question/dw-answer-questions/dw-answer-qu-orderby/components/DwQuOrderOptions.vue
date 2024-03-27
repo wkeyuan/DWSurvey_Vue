@@ -26,8 +26,9 @@ import DwTextEditLabel
   from '../../../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-common/DwTextEditLabel.vue'
 import DwHtmlLabelCommon from '../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import draggable from 'vuedraggable'
-import {validateQuestion} from "../../../../../dw-utils/dw-survey-answer-validate";
-import {getQuestionAnswerData} from "../../../../../dw-utils/dw-survey-answer";
+import {validateQuestion} from '../../../../../dw-utils/dw-survey-answer-validate'
+import {getQuestionAnswerData} from '../../../../../dw-utils/dw-survey-answer'
+import {showReadNotify} from "../../../../../dw-utils/dw-common/dw-msg-common";
 
 export default {
   name: 'DwQuOrderOptions',
@@ -42,11 +43,14 @@ export default {
   },
   data () {
     return {
-      // dragOptions: this.survey.questions[this.index].quOrderbys,
       dataNum: 0,
-      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       themeColor: this.survey.surveyStyle.themeColor
     }
+  },
+  mounted () {
+    this.survey.questions[this.index].quOrderbys.forEach((option, index) => {
+      if (this.dataNum < option.orderIndex) this.dataNum = option.orderIndex
+    })
   },
   methods: {
     onStart () {
@@ -56,6 +60,7 @@ export default {
       this.drag = false
     },
     clickItem (item) {
+      if (this.survey.readonly) return showReadNotify(this)
       item.checked = !item.checked
       const length = this.survey.questions[this.index].quOrderbys.length
       if (item.hasOwnProperty('orderIndex') && item.orderIndex > 0) {
@@ -75,16 +80,12 @@ export default {
           this.dataNum = newNum
         }
       }
-      console.debug('item {}', item)
-      // 重新排序
       this.survey.questions[this.index].quOrderbys.sort(function (a, b) {
         const x = a.orderIndex === 0 ? length + 1 : a.orderIndex
         const y = b.orderIndex === 0 ? length + 1 : b.orderIndex
         return ((x < y) ? -1 : (x > y) ? 1 : 0)
       })
       getQuestionAnswerData(this.survey.questions[this.index])
-      // .anQuestion = anQuestion
-      console.debug('dragOptions anQuestion', this.survey.questions[this.index].anQuestion)
       validateQuestion(this.survey.questions[this.index])
     }
   }

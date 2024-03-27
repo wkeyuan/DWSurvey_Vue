@@ -26,6 +26,8 @@ import DwSurveyAnswerReview
 import DwAnswerUrlV6 from '../views/dw-survey-v6/dw-collect-v6/DwAnswerUrlV6'
 import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
 import DwSurveyListV6 from "../views/dw-survey-v6/DwSurveyListV6.vue";
+import DwSurveyChartsV6 from "../views/dw-survey-v6/dw-data-v6/DwSurveyChartsV6.vue";
+import DwAnswerSurveyMobileV6 from "../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue";
 
 Vue.use(Router)
 
@@ -167,11 +169,11 @@ export default new Router({
         },
         {
           path: 'dw/survey/d/chart/:id',
-          name: 'DwSurveyCharts',
-          component: DwSurveyCharts
+          name: 'DwSurveyChartsV6',
+          component: DwSurveyChartsV6
         },
         {
-          path: '/dw/survey/d/data/:id',
+          path: 'dw/survey/d/data/:id',
           name: 'DwSurveyAnswerDataListV6',
           component: DwSurveyAnswerDataListV6
         },
@@ -213,17 +215,22 @@ export default new Router({
           component: DwSurveyPreview
         },
         {
-          path: 'diaowen/an/:id',
+          path: 'diaowen/:sid',
           name: 'DwAnswerSurveyV6',
           component: DwAnswerSurveyV6
         },
         {
-          path: 'diaowen/an/:id/:answerId',
+          path: 'diaowen/m/:sid',
+          name: 'DwAnswerSurveyV6',
+          component: DwAnswerSurveyMobileV6
+        },
+        {
+          path: 'diaowen/:sid/:answerId',
           name: 'DwAnswerSurveyV6',
           component: DwAnswerSurveyV6
         },
         {
-          path: '/diaowen/answer/survey/review/:id/:answerId',
+          path: 'diaowen/review/:sid/:answerId',
           name: 'DwSurveyAnswerReview',
           component: DwSurveyAnswerReview
         }

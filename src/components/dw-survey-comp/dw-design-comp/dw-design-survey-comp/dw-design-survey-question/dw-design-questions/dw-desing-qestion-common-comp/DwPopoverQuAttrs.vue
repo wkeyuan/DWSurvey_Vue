@@ -33,7 +33,7 @@
               </el-form-item>
             </template>
             <template v-else-if="survey.questions[index].quType === 'FILLBLANK'">
-              <dw-input-attrs v-model="survey.questions[index]"></dw-input-attrs>
+              <dw-input-props v-model="survey.questions[index].quAttr.inputAttr"></dw-input-props>
             </template>
             <template v-else-if="survey.questions[index].quType === 'SCORE'">
               <el-form-item label="分值区间">
@@ -65,7 +65,7 @@
                       <el-radio :label="0">否</el-radio>
                     </el-radio-group>
                   </el-form-item>
-                  <dw-input-attrs v-model="survey.questions[index].quMultiFillblanks[tempForm.selectOptionIndex]"></dw-input-attrs>
+                  <dw-input-props v-model="survey.questions[index].quMultiFillblanks[tempForm.selectOptionIndex].inputAttr"></dw-input-props>
                 </div>
               </div>
             </template>
@@ -103,11 +103,11 @@
 
 <script>
 import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
-import DwInputAttrs from './DwInputAttrs.vue'
+import DwInputProps from './DwInputProps.vue'
 
 export default {
   name: 'DwPopoverQuAttrs',
-  components: {DwInputAttrs},
+  components: {DwInputProps},
   model: {
     prop: 'survey',
     event: 'update-survey'

@@ -1,7 +1,8 @@
 <template>
   <div class="dwEditorRoot dw-width-100bf" >
     <div>
-      <div ref="curEdit" class="dwEditRoot dw-input-default" v-html="value.dwHtml" ></div>
+      <div ref="curEdit" class="dwEditRoot dw-input-default" v-html="`${isRequired!==undefined && isRequired ? requiredTag:''}${quNum!==undefined && quNum!==null ? quNum+'、':''}${value.dwHtml}`" ></div>
+      <!--      :style="`background: ${themeColor};border-color: ${themeColor}`"-->
     </div>
   </div>
 </template>
@@ -14,13 +15,16 @@ export default {
   props: {
     value: {type: Object, default: () => {}},
     itemClick: {type: Boolean, default: false},
-    btnSize: {type: String, default: '15px'}
+    btnSize: {type: String, default: '15px'},
+    quNum: {type: Number, default: null},
+    isRequired: {type: Boolean, default: false}
   },
   data () {
     return {
       hover: false,
       editorText: this.value.dwHtml,
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      requiredTag: '<span style="color: #f56c6c;font-weight: bold;">*&nbsp;</span>'
     }
   },
   methods: {

@@ -11,15 +11,17 @@
               <div class="dw-qu-title-body dw-display-flex dw-width-100bf" style="align-items: baseline;flex-wrap: wrap;">
                 <template v-if="survey.questions[index].quType !== 'PAGETAG'" >
                   <div class="dw-display-flex" style="align-items: baseline;">
-                    <div v-if="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-num" >
-                      <span v-show="survey.questions[index].isRequired === 1" style="color: #f56c6c;margin-right: 3px;">*</span>{{ quNum }}、
+                    <!--<div v-if="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-num" >
+                      <span v-show="survey.questions[index].isRequired === 1" style="color: #f56c6c;">*</span>{{ quNum }}、
+                    </div>-->
+                    <div class="dw-display-flex" style="align-items: baseline;flex-wrap: wrap;">
+                      <div :class="survey.questions[index].quType !== 'PARAGRAPH' ? '':'dw-qu-paragraph'" class="dw-qu-title">
+                        <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :qu-num="quNum" :is-required="survey.questions[index].isRequired === 1"></dw-html-label-common>
+                      </div>
+                      <div class="dw-qu-type-name" >
+                        <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
+                      </div>
                     </div>
-                    <div :class="survey.questions[index].quType !== 'PARAGRAPH' ? '':'dw-qu-paragraph'" class="dw-qu-title">
-                      <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" ></dw-html-label-common>
-                    </div>
-                  </div>
-                  <div class="dw-qu-type-name" >
-                    <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
                   </div>
                 </template>
                 <template v-else>
@@ -191,6 +193,8 @@ export default {
 
 .dw-question-root{
   padding-bottom: 15px;
+  font-size: 14px;
+  line-height: 19px;
 }
 .dw-question-body{
   display: grid;
@@ -203,10 +207,13 @@ export default {
   padding: 6px 0;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   color: #303133;
+  font-size: 16px;
+  line-height: 26px;
 }
 .dw-qu-title-body .dw-qu-num{
-  min-width: 20px;
-  max-width: 60px;
+  /*min-width: 26px;*/
+  min-width: 6px;
+  max-width: 80px;
 }
 .dw-qu-title-body .dw-qu-type-name{
   text-align: left;

@@ -7,7 +7,14 @@ import {answerSurveyProgress} from "./dw-survey-answer-progress";
 export const surveyLocalStorageKeyType = {INIT: 'survey_init', AN_HISTORY: 'survey_answer_history', AN_HISTORY_ACTION: 'survey_answer_history_action'}
 
 export const surveyInitLocalStorage = {
-  saveSurvey2LocalStorage (sid, answerId, survey) {
+  saveSurvey2LocalStorage (survey) {
+    if (survey!==null) {
+      const sid = survey.sid
+      const answerId = getEsId(survey)
+      this.saveSurvey2LocalStorageByParams(sid, answerId, survey)
+    }
+  },
+  saveSurvey2LocalStorageByParams (sid, answerId, survey) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.INIT}${getAnswerId(answerId)}`)
     saveJsonObj2LocalStorage(storageKey, survey)
     console.debug('storageKey', storageKey)
@@ -23,7 +30,16 @@ export const surveyInitLocalStorage = {
 }
 
 export const surveyAnswerLocalStorage = {
-  saveSurveyAnswer2LocalStorage (sid, answerId, survey) {
+  saveSurveyAnswer2LocalStorage (survey) {
+    // const sid = survey.sid
+    if (survey!==null) {
+      const sid = survey.sid
+      const answerId = getEsId(survey)
+      this.saveSurveyAnswer2LocalStorageByParams(sid, answerId, survey)
+    }
+  },
+  saveSurveyAnswer2LocalStorageByParams (sid, answerId, survey) {
+    // const sid = survey.sid
     // 进行进度计算
     answerSurveyProgress(survey)
     // 本地存储
@@ -63,7 +79,15 @@ export const surveyAnswerLocalStorage = {
     }
     return 0
   },
-  getSurveyAnswerActionTime (sid, answerId) {
+  getSurveyAnswerActionTime (survey) {
+    if (survey!==null) {
+      const sid = survey.sid
+      const answerId = getEsId(survey)
+      return this.getSurveyAnswerActionTimeBySid(sid, answerId)
+    }
+    return 0
+  },
+  getSurveyAnswerActionTimeBySid (sid, answerId) {
     const historyAction = this.getSurveyAnswerAction(sid, answerId)
     if (historyAction!==null && historyAction.hasOwnProperty('dateTime')) {
       return historyAction.dateTime
@@ -119,4 +143,11 @@ export const surveyAnswerResultLocalStorage = {
 function getAnswerId (answerId) {
   if (answerId===undefined || answerId===null) return ''
   return '_'+answerId
+}
+
+export function getEsId (survey) {
+  if (survey.hasOwnProperty('dwEsSurveyAnswer') && survey.dwEsSurveyAnswer.hasOwnProperty('esId')) {
+    return survey.dwEsSurveyAnswer.esId
+  }
+  return null
 }

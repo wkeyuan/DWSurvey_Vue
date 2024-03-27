@@ -12,6 +12,7 @@ export function parseAnswerData (survey, answer) {
           const surveyQuId = surveyQuestion.dwId
           if (anQuId===surveyQuId) {
             parseAnQuAnswer2SurveyQu(surveyQuestion, anQuestion)
+            console.debug('surveyQuId', surveyQuId)
           }
         })
       })
@@ -72,16 +73,70 @@ function parseQuCheckboxAnswerData2Qu (question, anQuestion) {
   }
 }
 function parseQuOrderByAnswerData2Qu (question, anQuestion) {
-
+  const quOrderbys = question.quOrderbys
+  if (anQuestion.hasOwnProperty('anOrders')) {
+    const anOrders = anQuestion.anOrders
+    if (anOrders!==null && anOrders.length>0) {
+      anOrders.forEach((anOption, anOptionIndex) => {
+        if (anOption.hasOwnProperty('optionDwId')) {
+          const anOptionDwId = anOption.optionDwId
+          quOrderbys.forEach((quOption, quOptionIndex) => {
+            if (quOption.dwId === anOptionDwId) {
+              quOption.checked = true
+              quOption.orderIndex = anOption.orderNum
+            }
+          })
+        }
+      })
+    }
+  }
 }
 function parseQuMFbkAnswerData2Qu (question, anQuestion) {
-
+  const quMultiFillblanks = question.quMultiFillblanks
+  if (anQuestion.hasOwnProperty('anMFbks')) {
+    const anMFbks = anQuestion.anMFbks
+    if (anMFbks!==null && anMFbks.length>0) {
+      anMFbks.forEach((anOption, anOptionIndex) => {
+        if (anOption.hasOwnProperty('optionDwId')) {
+          const anOptionDwId = anOption.optionDwId
+          quMultiFillblanks.forEach((quOption, quOptionIndex) => {
+            if (quOption.dwId === anOptionDwId) {
+              quOption.inputText = anOption.answer
+            }
+          })
+        }
+      })
+    }
+  }
 }
+
 function parseQuScoreAnswerData2Qu (question, anQuestion) {
-
+  const quScores = question.quScores
+  if (anQuestion.hasOwnProperty('anScores')) {
+    const anScores = anQuestion.anScores
+    if (anScores!==null && anScores.length>0) {
+      anScores.forEach((anOption, anOptionIndex) => {
+        if (anOption.hasOwnProperty('optionDwId')) {
+          const anOptionDwId = anOption.optionDwId
+          quScores.forEach((quOption, quOptionIndex) => {
+            if (quOption.dwId === anOptionDwId) {
+              quOption.checked = true
+              if (anOption.answerScore!==null && anOption.answerScore>=0) quOption.answerScore = parseInt(anOption.answerScore)
+            }
+          })
+        }
+      })
+    }
+  }
 }
-function parseQuFbkAnswerData2Qu (question, anQuestion) {
 
+function parseQuFbkAnswerData2Qu (question, anQuestion) {
+  if (anQuestion.hasOwnProperty('anFbk')) {
+    const anFbk = anQuestion.anFbk
+    if (anFbk!==null) {
+      question.answer = anFbk.answer
+    }
+  }
 }
 function parseQuUploadAnswerData2Qu (question, anQuestion) {
 

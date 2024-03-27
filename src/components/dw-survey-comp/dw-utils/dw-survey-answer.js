@@ -3,14 +3,15 @@ import {v4 as uuidV4} from 'uuid'
 export function getSurveyAnswerData (survey) {
   // 基于survey questions 构建答题数据模型
   const surveyDwId = survey.dwId
-  const anUser = {userId: 'aowwwewe3232aa', userName: 'xw'}
-  const anTime = {bgAnDate: '2023-06-29 11:11:11', endAnDate: '2023-06-29 11:11:11', totalTime: 832932}
-  const anIp = {ip: '192.168.6.1', city: '武汉', addr: '湖北省武汉市东湖'}
+  const anUser = {userId: null, userName: null}
+  const anTime = {bgAnDate: null, endAnDate: null, totalTime: 0}
+  const anIp = {ip: null, city: null, addr: null}
   const anState = {anQuNum: 0, isEff: 1, handleState: 0}
   const isDelete = 0
   const answerDwId = uuidV4() // 答卷ID，记录在数据库原始记录表中,实现没有起对作用
   const surveyId = survey.id
-  const surveyAnswer = {surveyId, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete, anQuestions: []}
+  const answerCommon = {surveyId, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete}
+  const surveyAnswer = {answerCommon, anQuestions: []}
   const questions = survey.questions
   if (questions !== undefined) {
     console.debug('questions', questions)

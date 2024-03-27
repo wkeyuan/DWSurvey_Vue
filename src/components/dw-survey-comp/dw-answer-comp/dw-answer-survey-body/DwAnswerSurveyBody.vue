@@ -3,17 +3,21 @@
     <div v-if="survey!==null && survey.hasOwnProperty('answerMsg')">
       <div>
         <div v-if="survey.hasOwnProperty('answerMsg') && !survey.answerMsg.showAnswerMsg">
-          <div class="dw-survey-answer-progress">
-            <!--            {{ survey.answerProgress }}-->
-            <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? survey.answerProgress.percentage : 0" :color="customColor" define-back-color="#dcdfe6"></el-progress>
-          </div>
           <div class="dw-container-body-center" style="padding-bottom: 30px;">
             <div>
               <div>
-                <div>
-                  <!--                  <el-image style="width: 100%;height: 200px;" fit="cover" src="https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"></el-image>-->
+                <div style="display: none;">
+                  <div style="position: relative;">
+                    <el-image :src="require('@/assets/image/resource/4151711446928.jpg')" style="width: 100%;height: 200px;display: block;" fit="cover"></el-image>
+                    <div style="position: absolute;right: 10px;top: 10px;"><el-image :src="require('@/assets/logo.png')" style="width: 160px;display: block;" fit="cover"></el-image></div>
+                  </div>
                 </div>
-                <div style="padding: 20px 20px 10px 20px;">
+                <div>
+                  <div class="dw-display-flex-right" style="background: #4545b9;">
+                    <div style="padding: 10px;"><el-image :src="require('@/assets/logo.png')" style="width: 160px;display: block;" fit="cover"></el-image></div>
+                  </div>
+                </div>
+                <div style="padding: 20px 20px 0 20px;">
                   <div style="text-align: center;font-weight: bold;">
                     <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
                   </div>
@@ -21,8 +25,8 @@
                     <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
                   </div>
                 </div>
-                <div class="dw-survey-answer-body">
-                  <div style="padding-top: 15px;">
+                <div class="dw-survey-answer-body" style="padding-top: 15px;">
+                  <div>
                     <div>
                       <transition-group>
                         <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
@@ -31,7 +35,7 @@
                       </transition-group>
                     </div>
                   </div>
-                  <div v-if="survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
+                  <div v-if="!survey.readonly && survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
                     <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
                   </div>
                 </div>
@@ -89,7 +93,7 @@ import {getSurveyAnswerData} from '../../dw-utils/dw-survey-answer'
 import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
 import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-answer'
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
-import {surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
+import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
 
 export default {
   name: 'DwAnswerSurveyBody',
@@ -113,8 +117,7 @@ export default {
       fullscreenLoading: false,
       answer: {},
       isReAnswer: false,
-      anPwd: '',
-      customColor: '#3a99fa'
+      anPwd: ''
     }
   },
   mounted () {
@@ -125,7 +128,8 @@ export default {
       this.survey.answerMsg.answerMsgInfo = null
       this.answer = {}
       // this.survey = {}
-      this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.$route.params.id, this.$route.params.answerId).questions
+      // this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.$route.params.id, this.$route.params.answerId).questions
+      this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.survey.sid, this.survey.dwEsSurveyAnswer.esId).questions
       this.survey.pageAttr.curPage = 1
     },
     configCheckAnswerPwdButton () {
@@ -151,14 +155,16 @@ export default {
       })
     },
     submitAnswer () {
-      const sid = this.$route.params.id
+      // const sid = this.$route.params.id
+      const sid = this.survey.sid
+      const answerId = getEsId(this.survey)
       const answer = getSurveyAnswerData(this.survey)
       answer.anPwd = this.anPwd
       this.answer = answer
       console.debug('answer', answer)
       if (validateQuestionsBool(this.survey.questions)) {
         const surveyAnswerJsonText = JSON.stringify(answer)
-        const data = {surveyId: answer.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
+        const data = {surveyId: answer.answerCommon.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
         this.fullscreenLoading = true
         dwSaveSurveyAnswerJson(data).then((response) => {
           const httpResult = response.data
@@ -174,7 +180,8 @@ export default {
                 this.survey.answerMsg.showAnswerMsg = true
                 this.survey.answerMsg.answerMsgInfo = '答卷提交成功，感谢您的支持!'
                 // 必须是答卷提交成功时清掉暂存的数据，考虑加上访问token
-                surveyAnswerLocalStorage.clearAnswerHistory(this.$route.params.id, this.$route.params.answerId)
+                // surveyAnswerLocalStorage.clearAnswerHistory(this.$route.params.id, this.$route.params.answerId)
+                surveyAnswerLocalStorage.clearAnswerHistory(sid, answerId)
                 // 存入答卷记录到本地，方便下次进入时直接过滤
                 // surveyAnswerLocalStorage
               } else {
@@ -229,26 +236,5 @@ export default {
   .dw-survey-answer-body{
     padding: 0 15px;
   }
-}
-.el-progress{
-  border-radius: 0 !important;
-  .el-progress-bar{
-    border-radius: 0 !important;
-    .el-progress-bar__outer{
-      border-radius: 0 !important;
-      .el-progress-bar__inner{
-        border-radius: 0 !important;
-      }
-    }
-  }
-  .el-progress__text{
-    font-size: 12px;
-  }
-}
-.dw-survey-answer-progress {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  left: 0;
 }
 </style>

@@ -153,6 +153,7 @@ function validateQuFbk (question) {
           const checkType = commonAttr.checkType
           if (checkType!==null) {
             const checkValueResult = dwCheckValue(checkType, answerValue, null)
+            if (checkType === 'DATE') checkValueResult.isOK = true
             if (!checkValueResult.isOK) errotTexts.push(checkValueResult.msg)
           }
           // 公共验证

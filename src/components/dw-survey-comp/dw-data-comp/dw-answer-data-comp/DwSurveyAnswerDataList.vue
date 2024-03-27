@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dw-dcs-main-title">
+    <div class="dw-dcs-main-title" >
       <div style="padding: 5px 10px;">
         <el-row type="flex">
           <el-col :span="18"><div style="font-size: 14px;"><strong>原始数据列表</strong></div></el-col>
@@ -43,27 +43,32 @@
           <div>{{ pageSize*(currentPage-1)+scope.$index+1 }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="答卷IP" prop="anIp.ip"></el-table-column>
-      <el-table-column label="答卷地区" prop="anIp.city">
+      <el-table-column label="答卷IP" prop="answerCommon.anIp.ip"></el-table-column>
+      <el-table-column label="答卷地区" prop="answerCommon.anIp.city">
         <template slot-scope="scope">
-          <div>{{ scope.row.anIp.city }}</div>
+          <div>{{ scope.row.answerCommon.anIp.city!=null ? scope.row.answerCommon.anIp.city: '-' }}</div>
         </template>
       </el-table-column>
       <el-table-column label="回答时间" >
         <template slot-scope="scope">
-          <div>{{ scope.row.anTime.endAnDate }}</div>
+          <div>{{ scope.row.answerCommon.anTime.endAnDate }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="回答的题数" >
+      <el-table-column label="回答用时" >
         <template slot-scope="scope">
-          <div>{{ scope.row.anState.anQuNum!=null ? scope.row.anState.anQuNum:0 }}&nbsp;题</div>
+          <div>{{ scope.row.answerCommon.anTime.totalTime!=null ? secondsToHms(Math.floor(scope.row.answerCommon.anTime.totalTime/1000)):0 }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="回答题数" >
+        <template slot-scope="scope">
+          <div>{{ scope.row.answerCommon.anState.anQuNum!=null ? scope.row.answerCommon.anState.anQuNum:0 }}&nbsp;题</div>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160" >
         <template slot-scope="scope">
           <el-button-group>
             <el-tooltip effect="dark" content="查看数据" placement="top">
-              <el-button size="mini" icon="el-icon-view" @click="handleGo(`/v6/diaowen/answer/survey/review/${scope.row.surveyId}/${scope.row.esId}`)"></el-button>
+              <el-button size="mini" icon="el-icon-view" @click="answerView(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除数据" placement="top">
               <el-button size="mini" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"></el-button>
@@ -98,15 +103,19 @@
         <el-button type="primary" @click="executeExportData">确 定</el-button>
       </div>
     </el-dialog>
+    <dw-survey-answer-info-dialog ref="dwAnswerInfoDialog" @refresh-data="queryList(null)" ></dw-survey-answer-info-dialog>
   </div>
 </template>
 
 <script>
 import {dwSurveyAnswerDelete} from '../../../../api/dw-survey'
 import {dwSurveyAnswerListV6} from "../api/dw-survey-answer-data";
+import DwSurveyAnswerInfoDialog from "./components/DwSurveyAnswerInfoDialog.vue";
+import {secondsToHms} from "../../dw-utils/dw-common/dw-common-1";
 
 export default {
   name: 'DwSurveyAnswerDataList',
+  components: {DwSurveyAnswerInfoDialog},
   data () {
     return {
       tableData: [],
@@ -126,6 +135,7 @@ export default {
     this.queryList(1)
   },
   methods: {
+    secondsToHms,
     handleGo (to) {
       this.$router.push(to)
     },
@@ -194,6 +204,9 @@ export default {
     resetSearch () {
       this.formInline = {ip: null, city: null, anTime: null}
       this.queryList(1)
+    },
+    answerView (row) {
+      this.$refs.dwAnswerInfoDialog.openDialog(row)
     }
   }
 }

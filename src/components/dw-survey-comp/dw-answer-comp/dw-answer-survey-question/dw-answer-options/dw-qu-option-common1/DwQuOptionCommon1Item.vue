@@ -41,6 +41,7 @@ import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommo
 import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
 import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
 import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
+import {showReadNotify} from "../../../../dw-utils/dw-common/dw-msg-common";
 export default {
   name: 'DwQuOptionCommon1Item',
   components: {DwHtmlLabelCommon},
@@ -83,6 +84,7 @@ export default {
   },
   methods: {
     clickItem () {
+      if (this.survey.readonly) return showReadNotify(this)
       // 如果是多选题
       const quType = this.quType
       console.debug('quType', quType)
@@ -95,7 +97,7 @@ export default {
       // 题目检查
       getQuestionAnswerData(this.survey.questions[this.quIndex])
       validateQuestion(this.survey.questions[this.quIndex])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
     },
     resetOtherRadio () {
       const quRadios = this.survey.questions[this.quIndex].quRadios

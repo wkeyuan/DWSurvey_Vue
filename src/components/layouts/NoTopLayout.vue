@@ -1,7 +1,7 @@
 <template>
   <!--    <img src="./assets/logo.png">-->
   <!--    <router-view/>-->
-  <div id="dw-layout" >
+  <div id="dw-no-top-layout" >
     <el-container style="padding: 0px;">
       <el-container style="z-index: 1;">
         <el-container>
@@ -43,9 +43,3 @@ export default {
   }
 }
 </script>
-<style>
-body{
-  background-color: #F1F1F1;
-  /*#ffb25c*/
-}
-</style>

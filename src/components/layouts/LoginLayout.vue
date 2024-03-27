@@ -55,10 +55,6 @@ export default {
 }
 </script>
 <style scoped>
-body{
-  background-color: #F1F1F1;
-  /*#ffb25c*/
-}
 .dw-footer-container{
   bottom: 0px;
   width: 100%;

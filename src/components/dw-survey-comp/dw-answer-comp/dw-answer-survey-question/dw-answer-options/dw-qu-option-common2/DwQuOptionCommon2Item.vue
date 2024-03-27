@@ -30,10 +30,10 @@
         <div style="margin-bottom: 5px;">
           <div class="dw-qu-item-option-title"><dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common></div>
           <template v-if="quType==='MULTIFILLBLANK'" >
-            <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
-            <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" @blur="onBlur" @input="onBlur"/>
+            <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" :disabled="survey.readonly" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
+            <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :disabled="survey.readonly" @blur="onBlur" @input="onBlur"/>
           </template>
-          <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" @change="clickItem" ></el-rate>
+          <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" :disabled="survey.readonly" @change="clickItem" ></el-rate>
         </div>
       </template>
     </div>
@@ -46,6 +46,7 @@ import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommo
 import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
 import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
 import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
+import {showReadNotify} from "../../../../dw-utils/dw-common/dw-msg-common";
 
 export default {
   name: 'DwQuOptionCommon2Item',
@@ -106,6 +107,7 @@ export default {
   },
   methods: {
     clickItem () {
+      if (this.survey.readonly) return showReadNotify(this)
       // 如果是多选题
       const quType = this.quType
       console.debug('quType', quType)
@@ -129,7 +131,7 @@ export default {
       getQuestionAnswerData(this.survey.questions[this.quIndex])
       // 进行验证
       validateQuestion(this.survey.questions[this.quIndex])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
+      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
     }
   }
 }
