@@ -1,10 +1,23 @@
 <template>
-  <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+  <div @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
     <div class="dw-qu-item-body">
-      <div class="dw-qu-item-el-checkbox-radio">
-        <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
-        <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
-        <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+      <div class="dw-qu-item">
+        <div class="dw-qu-item-el-checkbox-radio">
+          <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
+          <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+        </div>
+        <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
+          <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
+            <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
+            <div class="dw-question-toolbar dw-margin-right-10" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除当前选项" placement="top">
+            <div class="dw-question-toolbar dw-margin-right-10" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
+          </el-tooltip>
+        </div>
       </div>
       <template v-if="quType==='MULTIFILLBLANK'" >
         <el-input v-if="options[optionIndex].answerInputRow>1" v-model="inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
@@ -12,7 +25,7 @@
       </template>
       <el-rate v-if="quType==='SCORE'" :max="survey.questions[quIndex].paramInt02" ></el-rate>
     </div>
-    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
+<!--    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
       </el-tooltip>
@@ -22,7 +35,7 @@
       <el-tooltip class="item" effect="dark" content="删除当前选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
       </el-tooltip>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -174,7 +187,7 @@ export default {
   grid-template-columns: auto 90px;
 }
 .dw-qu-item-body{
-  margin: 0px;
+  margin: 0;
 }
 .dw-qu-item-el-checkbox-radio{
   /*display: inline-flex;*/

@@ -33,7 +33,7 @@
             <el-input v-if="options[optionIndex].answerInputRow>1" v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" :disabled="survey.readonly" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
             <el-input v-else v-model="survey.questions[quIndex].quMultiFillblanks[optionIndex].inputText" :class="isAnswer ? 'dw-input-active':''" :placeholder="options[optionIndex].placeholder" :disabled="survey.readonly" @blur="onBlur" @input="onBlur"/>
           </template>
-          <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="rateColors" :disabled="survey.readonly" @change="clickItem" ></el-rate>
+          <el-rate v-if="quType==='SCORE'" v-model="survey.questions[quIndex].quScores[optionIndex].answerScore" :max="survey.questions[quIndex].paramInt02" :colors="[survey.surveyStyle.pageThemeColor,survey.surveyStyle.pageThemeColor,survey.surveyStyle.pageThemeColor]" :disabled="survey.readonly" @change="clickItem" ></el-rate>
         </div>
       </template>
     </div>
@@ -47,6 +47,7 @@ import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
 import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
 import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
 import {showReadNotify} from "../../../../dw-utils/dw-common/dw-msg-common";
+import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
 
 export default {
   name: 'DwQuOptionCommon2Item',
@@ -128,10 +129,10 @@ export default {
     },
     onBlur () {
       // 同步答案
-      getQuestionAnswerData(this.survey.questions[this.quIndex])
-      // 进行验证
-      validateQuestion(this.survey.questions[this.quIndex])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      // getQuestionAnswerData(this.survey.questions[this.quIndex])
+      // validateQuestion(this.survey.questions[this.quIndex])
+      // surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      answerQuEventCommon(this.survey, this.quIndex)
     }
   }
 }
@@ -190,7 +191,8 @@ export default {
 }
 .dw-input-focus{
   border: 1px solid #095aaa;
-  background: #e5f5f5;
+  /*background: #e5f5f5;*/
+  background: #b0275e;
 }
 /deep/ .el-rate__icon{
   font-size: 22px;

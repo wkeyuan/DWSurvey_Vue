@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--    {{ survey.questions[index].anQuestion }}-->
     <!--    :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" -->
     <div class="dw-question-root" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-body" >
@@ -18,7 +19,7 @@
                       <div :class="survey.questions[index].quType !== 'PARAGRAPH' ? '':'dw-qu-paragraph'" class="dw-qu-title">
                         <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :qu-num="quNum" :is-required="survey.questions[index].isRequired === 1"></dw-html-label-common>
                       </div>
-                      <div class="dw-qu-type-name" >
+                      <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuTypeName') && survey.surveyStyle.showQuTypeName" class="dw-qu-type-name" >
                         <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
                       </div>
                     </div>
@@ -113,12 +114,18 @@ export default {
   },
   computed: {
     quNum () {
-      const questions = this.survey.questions
-      let quNum = 0
-      questions.forEach((item, index) => {
-        if (item.quType !== 'PAGETAG' && item.quType !== 'PARAGRAPH' && index <= this.index) quNum++
-      })
-      return quNum
+      if (this.survey.hasOwnProperty('surveyStyle')) {
+        const surveyStyle = this.survey.surveyStyle
+        if (surveyStyle!=null && surveyStyle.hasOwnProperty('showQuNum') && surveyStyle.showQuNum) {
+          const questions = this.survey.questions
+          let quNum = 0
+          questions.forEach((item, index) => {
+            if (item.quType !== 'PAGETAG' && item.quType !== 'PARAGRAPH' && index <= this.index && !item.logicIsHide) quNum++
+          })
+          return quNum
+        }
+      }
+      return null
     }
   },
   watch: {

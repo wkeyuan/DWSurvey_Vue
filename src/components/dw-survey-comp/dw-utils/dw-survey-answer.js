@@ -85,16 +85,18 @@ function getQuUploadAnswerData (question, anQuestion) {
   if (question.hasOwnProperty('upFileList')) {
     const quUpFileList = question.upFileList
     console.debug('quUpFileList', quUpFileList)
-    quUpFileList.forEach((item, index) => {
-      if (item.hasOwnProperty('response') && item.response.hasOwnProperty('data')) {
-        const responseData = item.response.data
-        responseData.forEach((responseItem) => {
-          const anUploadFile = {filePath: responseItem.location, fileName: responseItem.filename}
-          anQuestion.anUploadFiles.push(anUploadFile)
-        })
-      }
-    })
-    console.debug('anQuestion.anUploadFiles', anQuestion.anUplodFiles)
+    if (quUpFileList!==undefined && quUpFileList!==null) {
+      quUpFileList.forEach((item, index) => {
+        if (item.hasOwnProperty('response') && item.response.hasOwnProperty('data')) {
+          const responseData = item.response.data
+          responseData.forEach((responseItem) => {
+            const anUploadFile = {filePath: responseItem.location, fileName: responseItem.filename}
+            anQuestion.anUploadFiles.push(anUploadFile)
+          })
+        }
+      })
+    }
+    console.debug('anQuestion.anUploadFiles', anQuestion.anUploadFiles)
   }
 }
 

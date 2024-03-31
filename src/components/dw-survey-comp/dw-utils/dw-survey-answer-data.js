@@ -2,6 +2,7 @@ import {surveyPageUtils} from './dw-survey-common'
 
 export function parseAnswerData (survey, answer) {
   survey.dwEsSurveyAnswer = answer
+  survey.firstLoadAnswer = true
   if (answer!=null && answer.hasOwnProperty('anQuestions')) {
     const questions = survey.questions
     const anQuestions = answer.anQuestions
@@ -53,6 +54,7 @@ function parseQuRadioAnswerData2Qu (question, anQuestion) {
           if (optionDwId===option.dwId) option.checked = true
         })
       }
+      question.anQuestion = anQuestion
     }
   }
 }
@@ -69,6 +71,7 @@ function parseQuCheckboxAnswerData2Qu (question, anQuestion) {
           })
         }
       })
+      question.anQuestion = anQuestion
     }
   }
 }
@@ -88,6 +91,7 @@ function parseQuOrderByAnswerData2Qu (question, anQuestion) {
           })
         }
       })
+      question.anQuestion = anQuestion
     }
   }
 }
@@ -106,6 +110,7 @@ function parseQuMFbkAnswerData2Qu (question, anQuestion) {
           })
         }
       })
+      question.anQuestion = anQuestion
     }
   }
 }
@@ -126,6 +131,7 @@ function parseQuScoreAnswerData2Qu (question, anQuestion) {
           })
         }
       })
+      question.anQuestion = anQuestion
     }
   }
 }
@@ -135,11 +141,25 @@ function parseQuFbkAnswerData2Qu (question, anQuestion) {
     const anFbk = anQuestion.anFbk
     if (anFbk!==null) {
       question.answer = anFbk.answer
+      question.anQuestion = anQuestion
     }
   }
 }
 function parseQuUploadAnswerData2Qu (question, anQuestion) {
-
+  if (anQuestion.hasOwnProperty('anUploadFiles')) {
+    const anUploadFiles = anQuestion.anUploadFiles
+    if (anUploadFiles!==null) {
+      const upFileList = []
+      anUploadFiles.forEach((anUpFile, index) => {
+        // const anUploadFile = {filePath: responseItem.location, fileName: responseItem.filename}
+        // const quUpFileList = question.upFileList
+        // item.response.data
+        upFileList.push({response: {data: [{location: anUpFile.filePath, filename: anUpFile.fileName}]}, name: anUpFile.fileName})
+      })
+      question.upFileList = upFileList
+      question.anQuestion = anQuestion
+    }
+  }
 }
 
 // 生成需要的答卷对象
@@ -195,7 +215,8 @@ export function initAnswerBySurvey (survey) {
         if (defaultValue!==null && defaultValue!=='') question.answer = defaultValue
       }
       // 初始化题目辅助参数
-      question.showQu = true
+      question.showQu = true  // 默认显示,分页控制
+      question.logicIsHide = false // 默认不隐藏,逻辑控制
       question.pageIndex = pageSize
       if (question.quType === 'PAGETAG') pageSize++
     })

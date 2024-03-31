@@ -60,6 +60,7 @@ export default {
   border: 1px solid transparent;
   border-bottom: 1px solid #e5e5e5;
   font-size: 13px;
+  line-height: 20px;
 }
 .qu-catalogue-item:hover{
   /*border: 1px solid dodgerblue;*/

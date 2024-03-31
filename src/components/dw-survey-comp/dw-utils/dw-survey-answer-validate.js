@@ -10,9 +10,11 @@ export function validateQuestionsBool (questions) {
   let isSuccess = true
   validateQuestions(questions)
   questions.forEach((question, quIndex) => {
-    if (!question.validateObj.isOk) {
-      isSuccess = false
-      return false
+    if (!question.logicIsHide) {
+      if (!question.validateObj.isOk) {
+        isSuccess = false
+        return false
+      }
     }
   })
   return isSuccess
@@ -41,7 +43,7 @@ export function validateQuestions (questions) {
 export function validateQuestion (question) {
   if (question!==null) {
     const quType = question.quType
-    if (question.showQu) {
+    if (question.showQu && !question.logicIsHide) {
       question.validateObj = {errorText: '此题必答', isOk: true, isAnswerOk: false}
       if (quType !== 'PAGETAG' && quType !== 'PARAGRAPH') {
         if (quType === 'RADIO') {

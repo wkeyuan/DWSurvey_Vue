@@ -1,5 +1,10 @@
 import {dwSurveyJsonBySurveyId} from '../api/dw-survey-answer'
 import {parseSurvey} from '../../dw-utils/dw-survey-parse'
+import {getQuestionAnswerData} from '../../dw-utils/dw-survey-answer'
+import {validateQuestion} from '../../dw-utils/dw-survey-answer-validate'
+import {surveyAnswerLocalStorage} from './dw-survey-answer-utils'
+import {answerSurveyProgress} from './dw-survey-answer-progress'
+import {dwSurveyAnswerLogic} from "./dw-survey-answer-logic";
 
 /**
  * 根据SurveyId 取 surveyJson
@@ -26,3 +31,16 @@ export function getSurveyAnswerJsonBySurveyId (params, successCallback, noJsonCa
     }
   })
 }
+
+export function answerQuEventCommon (survey, quIndex) {
+  /*
+  getQuestionAnswerData(this.survey.questions[this.quIndex])
+  validateQuestion(this.survey.questions[this.quIndex])
+  surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)*/
+  getQuestionAnswerData(survey.questions[quIndex])
+  dwSurveyAnswerLogic(survey, quIndex)
+  validateQuestion(survey.questions[quIndex])
+  surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(survey)
+  answerSurveyProgress(survey)
+}
+

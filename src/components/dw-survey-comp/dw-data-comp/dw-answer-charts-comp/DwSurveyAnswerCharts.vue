@@ -165,19 +165,20 @@ export default {
             const item = quOptionsObj[j]
             let quStatOption
             if (questionData.quType === 'RADIO' || questionData.quType === 'CHECKBOX') {
-              const anCount = item.anCount
-              if (count === 0) {
-                count = 1
-              }
-              if (anCount === null || anCount=== undefined) {
-                quOptionsObj[j].anCount = 0
-              }
+              let anCount = 0
+              if (item.hasOwnProperty('anCount')) anCount = item.anCount
+              if (count === 0) count = 1
+              if (anCount === null || anCount=== undefined) anCount = 0
+              item.anCount = anCount
               const bfbFloat = item.anCount / count * 100
               const percent = bfbFloat.toFixed(2)
               quOptionsObj[j].percent = percent
               quStatOption = {'optionName': item.optionTitleObj.dwText, 'anCount': item.anCount, 'percent': percent}
             } else if (questionData.quType === 'SCORE') {
-              const avgScore = item.avgScore
+              let avgScore = 0
+              if (item.hasOwnProperty('avgScore')) avgScore = item.avgScore
+              if (avgScore === null || avgScore=== undefined) avgScore = 0
+              item.avgScore = avgScore
               const bfbFloat = avgScore/questionData.paramInt02*100
               const percent = bfbFloat.toFixed(2)
               // 平均分 setAvgScore
@@ -186,20 +187,22 @@ export default {
             } else if (questionData.quType === 'ORDERQU') {
               // const bfbFloat = (quOptionsObj.length-j) / ((1+quOptionsObj.length)*quOptionsObj.length/2) * 100
               // const percent = bfbFloat.toFixed(2)
-              const avgOrder = item.avgOrder
-              const bfbFloat = (quOptionsObj.length-avgOrder)/quOptionsObj.length*100
+              let avgOrder = 0
+              if (item.hasOwnProperty('avgOrder')) avgOrder = item.avgOrder
+              if (avgOrder === null || avgOrder=== undefined) avgOrder = 0
+              item.avgOrder = avgOrder
+              const bfbFloat = avgOrder!==0?(quOptionsObj.length-avgOrder): avgOrder/quOptionsObj.length*100
               const percent = bfbFloat.toFixed(2)
+              console.debug('percent', percent)
               // 平均分 setAvgScore
               const anAvgOrder = avgOrder.toFixed(2)
-              quStatOption = {'optionName': item.optionTitleObj.dwText, 'anCount': (quOptionsObj.length-avgOrder), 'orderNum': null, 'percent': percent, 'avgOrder': anAvgOrder}
+              quStatOption = {'optionName': item.optionTitleObj.dwText, 'anCount': avgOrder!==0?(quOptionsObj.length-avgOrder):0, 'orderNum': null, 'percent': percent, 'avgOrder': anAvgOrder}
             } else if (questionData.quType === 'MULTIFILLBLANK') {
-              const anCount = item.anCount
-              if (count === 0) {
-                count = 1
-              }
-              if (anCount === null || anCount === undefined) {
-                quOptionsObj[j].anCount = 0
-              }
+              let anCount = 0
+              if (item.hasOwnProperty('anCount')) anCount = item.anCount
+              if (count === 0) count = 1
+              if (anCount === null || anCount === undefined) anCount = 0
+              item.anCount = anCount
               const bfbFloat = item.anCount / count * 100
               const percent = bfbFloat.toFixed(2)
               quOptionsObj[j].percent = percent

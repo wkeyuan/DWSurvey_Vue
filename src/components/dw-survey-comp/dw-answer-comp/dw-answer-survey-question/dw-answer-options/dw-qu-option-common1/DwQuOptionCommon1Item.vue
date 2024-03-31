@@ -42,6 +42,7 @@ import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
 import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
 import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
 import {showReadNotify} from "../../../../dw-utils/dw-common/dw-msg-common";
+import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
 export default {
   name: 'DwQuOptionCommon1Item',
   components: {DwHtmlLabelCommon},
@@ -95,9 +96,10 @@ export default {
         this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked = !this.survey.questions[this.quIndex].quCheckboxs[this.optionIndex].checked
       }
       // 题目检查
-      getQuestionAnswerData(this.survey.questions[this.quIndex])
-      validateQuestion(this.survey.questions[this.quIndex])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      // getQuestionAnswerData(this.survey.questions[this.quIndex])
+      // validateQuestion(this.survey.questions[this.quIndex])
+      // surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      answerQuEventCommon(this.survey, this.quIndex)
     },
     resetOtherRadio () {
       const quRadios = this.survey.questions[this.quIndex].quRadios

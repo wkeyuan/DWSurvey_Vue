@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-dialog :visible.sync="dialogFormVisible" class="dialogRoot" append-to-body title="答卷数据" width="60%" >
+    <!--    :destroy-on-close="true"-->
+    <el-dialog :visible.sync="dialogFormVisible" class="dialogRoot" append-to-body title="答卷数据" width="60%" @close="closeDialog">
       <div slot="default" style="padding: 0 20px;">
         <div v-if="row!==null" style="height: 600px;overflow: scroll;">
           <dw-survey-answer-review :dw-es-survey-answer="row"></dw-survey-answer-review>
@@ -31,6 +32,9 @@ export default {
       this.dialogFormVisible = true
       this.row = row
       console.debug('row', row)
+    },
+    closeDialog () {
+      this.row=null
     }
   }
 }

@@ -1,5 +1,10 @@
-/*@import "dw-answer-element-style-override.css";*/
-.dw-qu-item-el-checkbox-radio{
+@import "dw-answer-element-style-override.css";
+/* 去除手机网页点击事件的阴影 */
+.dw-answer-custom-theme * {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+.dw-answer-custom-theme .dw-qu-item-el-checkbox-radio{
   /*display: inline-flex;*/
   display: flex;
   align-items: center;
@@ -11,39 +16,40 @@
   border: 1px solid #efefef;
   cursor: pointer;
 }
-.dw-qu-item-el-checkbox-radio-icon{
+.dw-answer-custom-theme .dw-qu-item-el-checkbox-radio-icon{
   /*background: red;*/
   font-size: 18px;
   margin-right: 5px;
   color: #ccc;
 }
-.dw-qu-item-el-checkbox-radio .dw-qu-option-text{
+.dw-answer-custom-theme .dw-qu-item-el-checkbox-radio .dw-qu-option-text{
   /*margin:auto;*/
   width: 100%;
   padding: 6px;
 }
 
-.dw-radio-icon{
+.dw-answer-custom-theme .dw-radio-icon{
   font-size: 20px;
 }
-.dw-checkbox-icon{
+.dw-answer-custom-theme .dw-checkbox-icon{
   font-size: 22px;
 }
-.dw-qu-item-option-title{
+.dw-answer-custom-theme .dw-qu-item-option-title{
   padding: 5px 0;
 }
-.dw-answer-question-remind{
+.dw-answer-custom-theme .dw-answer-question-remind{
   color: #afafb0;
   font-size: 12px;
 }
-.dw-answer-question-error{
+.dw-answer-custom-theme .dw-answer-question-error{
   color: #ff6c6c;
   font-size: 12px;
   background: #f9e5e5;
   padding: 5px;
 }
 @media screen and (max-width: 750px) {
-  .dw-answer-button-style1{
+  .dw-answer-custom-theme .dw-answer-button-style1{
     width: 100%;
   }
 }
+

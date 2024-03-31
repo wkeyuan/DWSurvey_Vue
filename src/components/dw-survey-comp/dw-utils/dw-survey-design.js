@@ -1,3 +1,4 @@
+import {clearSurveyAnswer} from "../dw-answer-comp/dw-utils/dw-survey-answer-clear";
 
 export function logicNum (questionLogics, loginType) {
   let loginNum = 0

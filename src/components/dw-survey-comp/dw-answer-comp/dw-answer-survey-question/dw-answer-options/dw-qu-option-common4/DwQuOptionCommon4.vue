@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 5px;">
-      <el-select v-model="value" :disabled="survey.readonly" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" placeholder="请选择" @change="onChange">
+      <el-select v-model="value" :disabled="survey.readonly" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" popper-class="dw-answer-custom-theme" placeholder="请选择" @change="onChange">
         <el-option
           v-for="(item, index) in options"
           :key="`fa_${index}`"
@@ -18,6 +18,7 @@ import draggable from 'vuedraggable'
 import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
 import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
 import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
+import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
 
 export default {
   name: 'DwQuOptionCommon4',
@@ -69,9 +70,10 @@ export default {
         const quOptions = this.survey.questions[this.index].quCheckboxs
         this.checkQuOptions(quOptions, values)
       }
-      getQuestionAnswerData(this.survey.questions[this.index])
-      validateQuestion(this.survey.questions[this.index])
-      surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      // getQuestionAnswerData(this.survey.questions[this.index])
+      // validateQuestion(this.survey.questions[this.index])
+      // surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
+      answerQuEventCommon(this.survey, this.quIndex)
     },
     checkQuOptions (quOptions, changeValue) {
       quOptions.forEach((quOption) => {

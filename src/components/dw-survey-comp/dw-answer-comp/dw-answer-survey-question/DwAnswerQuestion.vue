@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-collapse-transition>
-      <div v-show="item.showQu">
+      <div v-show="(item.showQu && !item.logicIsHide)">
         <dw-answer-question-common ref="dwDesignQuestionCommon" v-model="survey" :index="index" >
           <template v-slot:editQuContent>
             <div v-if="item.quType === 'RADIO'">
@@ -42,6 +42,7 @@ import DwAnswerQuScore from './dw-answer-questions/dw-answer-qu-score/DwAnswerQu
 import DwAnswerQuOrder from './dw-answer-questions/dw-answer-qu-orderby/DwAnswerQuOrder.vue'
 import DwAnswerQuMFbk from './dw-answer-questions/dw-answer-qu-mfbk/DwAnswerQuMFbk.vue'
 import DwAnswerQuUpload from './dw-answer-questions/dw-answer-qu-upload/DwAnswerQuUpload.vue'
+import {quLogicIsHide} from "../dw-utils/dw-survey-answer-logic";
 
 export default {
   name: 'DwAnswerQuestion',
@@ -59,6 +60,13 @@ export default {
     item: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}},
     answer: {type: Object, default: () => {}}
+  },
+  computed: {
+    isLogicHide () {
+      const isHide = quLogicIsHide(this.survey, this.item)
+      console.debug('isHide', isHide)
+      return isHide
+    }
   }
 }
 </script>

@@ -1,5 +1,7 @@
 <template>
   <div>
+<!--    <div style="background-color: red;margin: 10px;">{{ survey.questions[index].upFileList }}</div>-->
+<!--    <div style="background-color: grey;margin: 10px;">{{ survey.questions[index].anQuestion }}</div>-->
     <el-upload
       :before-remove="beforeRemove"
       :before-upload="beforeAvatarUpload"
@@ -9,7 +11,7 @@
       :on-success="handleSuccess"
       :limit="limit"
       :accept="accept"
-      :file-list="fileList"
+      :file-list="upFileList"
       :list-type="listType"
       :action="uploadAction"
       class="upload-demo"
@@ -37,8 +39,9 @@
 
 <script>
 
-import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
-import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
+import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
+import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
+import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
 
 export default {
   name: 'DwAnswerQuUpload',
@@ -55,7 +58,7 @@ export default {
   data () {
     return {
       upFileList: [],
-      fileList: [],
+      // fileList: [],
       limit: 0,
       accept: '',
       listType: 'text', // picture/picture-card
@@ -74,6 +77,7 @@ export default {
       if (fileAccept===100) this.accept = question.customFileAccept
     }
     if (question.hasOwnProperty('fileSize') && question.fileSize!==null) this.fileSize = question.fileSize
+    this.upFileList = this.survey.questions[this.index].upFileList
   },
   methods: {
     handleRemove (file, fileList) {
@@ -118,10 +122,11 @@ export default {
       }*/
     },
     updateUpFileAnswer () {
-      console.debug(this.upFileList)
+      // console.debug(this.upFileList)
       this.survey.questions[this.index].upFileList = this.upFileList
-      getQuestionAnswerData(this.survey.questions[this.index])
-      validateQuestion(this.survey.questions[this.index])
+      // getQuestionAnswerData(this.survey.questions[this.index])
+      // validateQuestion(this.survey.questions[this.index])
+      answerQuEventCommon(this.survey, this.index)
     }
   }
 }

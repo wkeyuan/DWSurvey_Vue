@@ -5,12 +5,12 @@
 
         <el-tabs v-model="activeName" :before-leave="beforeLeave" >
           <el-tab-pane label="显示逻辑" name="logicShowTab">
-            <span slot="label">显示逻辑&nbsp;<el-badge :value="logicNum2" :hidden="logicNum2<=0" class="mark" /></span>
-            <dw-qu-logic-show-go v-model="survey" :index="index" logic-type="2"></dw-qu-logic-show-go>
+            <span slot="label">显示逻辑&nbsp;<el-badge :value="logicNumShow" :hidden="logicNumShow<=0" class="mark" /></span>
+            <dw-qu-logic-show-go v-model="survey" :index="index" logic-type="SHOW"></dw-qu-logic-show-go>
           </el-tab-pane>
           <el-tab-pane label="跳转逻辑" name="logicGoTab">
-            <span slot="label">跳转逻辑&nbsp;<el-badge :value="logicNum1" :hidden="logicNum1<=0" class="mark" /></span>
-            <dw-qu-logic-show-go v-model="survey" :index="index" logic-type="1"></dw-qu-logic-show-go>
+            <span slot="label">跳转逻辑&nbsp;<el-badge :value="logicNumGo" :hidden="logicNumGo<=0" class="mark" /></span>
+            <dw-qu-logic-show-go v-model="survey" :index="index" logic-type="GO"></dw-qu-logic-show-go>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -47,11 +47,11 @@ export default {
     }
   },
   computed: {
-    logicNum1 () {
-      return logicNum(this.survey.questions[this.index].questionLogics, '1')
+    logicNumGo () {
+      return logicNum(this.survey.questions[this.index].questionLogics, 'GO')
     },
-    logicNum2 () {
-      return logicNum(this.survey.questions[this.index].questionLogics, '2')
+    logicNumShow () {
+      return logicNum(this.survey.questions[this.index].questionLogics, 'SHOW')
     },
     popoverValue () {
       if (!this.checkQuLogic(!this.survey.curEditObj[this.itemIndex].itemClick)) return true
@@ -64,8 +64,8 @@ export default {
       let isLogicGo = false
       let isLogicShow = false
       questionLogics.forEach((item, index) => {
-        if (item.logicType === '1') isLogicGo = true
-        if (item.logicType === '2') isLogicShow = true
+        if (item.logicType === 'GO') isLogicGo = true
+        if (item.logicType === 'SHOW') isLogicShow = true
       })
       if (isLogicShow) {
         this.activeName = 'logicShowTab'

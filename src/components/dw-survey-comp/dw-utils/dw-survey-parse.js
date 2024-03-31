@@ -1,5 +1,6 @@
 import {v4 as uuidv4} from 'uuid'
 import {surveyPageUtils} from "./dw-survey-common";
+import {getDefaultSurveyStyle} from "./dw-common/dw-common-utils";
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -25,10 +26,11 @@ export function parseSurvey (survey) {
     parseQuestions(survey.questions, true)
     survey.surveyTest = ''
     survey.curEditObj = [{itemClick: false}]
-    survey.surveyStyle = {themeColor: 'red'}
+    // survey.surveyStyle = {themeColor: 'red'}
     survey.tempDataType = 'none'
     if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
     survey.showSurvey = true
+    if (!survey.hasOwnProperty('surveyStyle')) survey.surveyStyle = getDefaultSurveyStyle()
   }
   return survey
 }

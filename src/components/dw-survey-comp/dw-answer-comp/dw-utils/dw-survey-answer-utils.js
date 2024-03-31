@@ -17,14 +17,14 @@ export const surveyInitLocalStorage = {
   saveSurvey2LocalStorageByParams (sid, answerId, survey) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.INIT}${getAnswerId(answerId)}`)
     saveJsonObj2LocalStorage(storageKey, survey)
-    console.debug('storageKey', storageKey)
+    // console.debug('storageKey', storageKey)
   },
   getSurveyByLocalStorage (sid, answerId) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.INIT}${getAnswerId(answerId)}`)
-    console.debug('storageKey', storageKey)
+    // console.debug('storageKey', storageKey)
     const surveyJsonText = getLocalStorageByKey(storageKey)
     const surveyJsonObj = JSON.parse(surveyJsonText)
-    console.debug('surveyJsonObj', surveyJsonObj)
+    // console.debug('surveyJsonObj', surveyJsonObj)
     return surveyJsonObj
   }
 }
@@ -40,8 +40,6 @@ export const surveyAnswerLocalStorage = {
   },
   saveSurveyAnswer2LocalStorageByParams (sid, answerId, survey) {
     // const sid = survey.sid
-    // 进行进度计算
-    answerSurveyProgress(survey)
     // 本地存储
     const actionNum = parseInt(this.getSurveyAnswerActionNum(sid, answerId))+1
     const historySurveyText = this.getSurveyAnswerTextByLocalStorage(sid, answerId)
@@ -49,7 +47,7 @@ export const surveyAnswerLocalStorage = {
       const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.AN_HISTORY}${getAnswerId(answerId)}_${actionNum}`)
       saveJsonObj2LocalStorage(storageKey, survey)
       this.saveSurveyAnswerActionNum(sid, answerId, actionNum)
-      console.debug('storageKey', storageKey)
+      // console.debug('storageKey', storageKey)
       // 防止历史数据过多进行定量清理
       if (actionNum>=100) this.deleteAnswerHistoryLtNum(sid, answerId, actionNum-100)
     }
@@ -57,14 +55,14 @@ export const surveyAnswerLocalStorage = {
   getSurveyAnswerTextByLocalStorage (sid, answerId, actionNum=null) {
     if (actionNum===undefined || actionNum===null) actionNum = this.getSurveyAnswerActionNum(sid, answerId)
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.AN_HISTORY}${getAnswerId(answerId)}_${actionNum}`)
-    console.debug('storageKey', storageKey)
+    // console.debug('storageKey', storageKey)
     const surveyJsonText = getLocalStorageByKey(storageKey)
-    console.debug('surveyJsonText', surveyJsonText)
+    // console.debug('surveyJsonText', surveyJsonText)
     return surveyJsonText
   },
   getSurveyAnswerObjByLocalStorage (sid, answerId, actionNum=null) {
     const surveyJsonObj = JSON.parse(this.getSurveyAnswerTextByLocalStorage(sid, answerId, actionNum))
-    console.debug('surveyJsonObj', surveyJsonObj)
+    // console.debug('surveyJsonObj', surveyJsonObj)
     return surveyJsonObj
   },
   saveSurveyAnswerActionNum (sid, answerId, num) {
@@ -128,14 +126,14 @@ export const surveyAnswerResultLocalStorage = {
   saveSurvey2LocalStorage (sid, answerId, survey) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.INIT}${getAnswerId(answerId)}`)
     saveJsonObj2LocalStorage(storageKey, survey)
-    console.debug('storageKey', storageKey)
+    // console.debug('storageKey', storageKey)
   },
   getSurveyByLocalStorage (sid, answerId) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.INIT}${getAnswerId(answerId)}`)
-    console.debug('storageKey', storageKey)
+    // console.debug('storageKey', storageKey)
     const surveyJsonText = getLocalStorageByKey(storageKey)
     const surveyJsonObj = JSON.parse(surveyJsonText)
-    console.debug('surveyJsonObj', surveyJsonObj)
+    // console.debug('surveyJsonObj', surveyJsonObj)
     return surveyJsonObj
   }
 }

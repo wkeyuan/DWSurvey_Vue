@@ -1,7 +1,6 @@
 <template>
   <div>
-    <el-button type="primary">按钮2</el-button>
-    <dw-answer-default-layout v-model="survey" :ext-parameters="extProps" ></dw-answer-default-layout>
+    <dw-answer-default-layout v-model="survey" :ext-props="extProps" ></dw-answer-default-layout>
   </div>
 </template>
 
@@ -15,6 +14,7 @@ import {getSurveyAnswerJsonBySurveyId} from './dw-utils/dw-survey-answer-common'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from './dw-utils/dw-survey-answer-utils'
 import {getSurveyAnswerData} from '../dw-utils/dw-survey-answer'
 import {initAnswerSurveyProgress} from './dw-utils/dw-survey-answer-progress'
+import {dwSurveyAnswerLogicLoad} from "./dw-utils/dw-survey-answer-logic";
 
 export default {
   name: 'DwAnswerSurveyMain',
@@ -53,8 +53,8 @@ export default {
         fullscreen: true,
         spinner: 'fa-solid fa-spinner fa-spin-pulse',
         background: '#00000091',
-        customClass: 'dw-loading',
-        text: '问卷数据加载中'
+        customClass: 'dw-loading dw-answer-custom-theme',
+        text: '数据加载中'
       })
       // const sid = this.$route.params.id
       // const answerId = this.$route.params.answerId
@@ -68,7 +68,7 @@ export default {
       console.debug('loadSurvey params', params)
       // 2、加载问卷与答卷
       getSurveyAnswerJsonBySurveyId(params, (survey, answerCheckResult) => {
-        survey.surveyStyle.themeColor = '#025bb7'
+        // survey.surveyStyle.themeColor = '#025bb7'
         survey.dwDebug = false
         if (this.extProps!=null && this.extProps.hasOwnProperty('readonly')) survey.readonly = this.extProps.readonly
         this.answerCheckResult = answerCheckResult
@@ -142,29 +142,28 @@ export default {
                   type: 'warning'
                 }).then(() => {
                   this.localStorage2Survey(survey)
+                  this.lastSetSurvey()
                 }).catch(() => {
                   this.survey = survey
+                  this.lastSetSurvey()
                 })
               } else {
                 this.survey = survey
+                this.lastSetSurvey()
               }
             } else {
               this.survey = survey
+              this.lastSetSurvey()
             }
           } else {
             this.survey = survey
+            this.lastSetSurvey()
           }
         }
       } else {
         this.localStorage2Survey(survey)
+        this.lastSetSurvey()
       }
-      // 初始化问卷进度状态
-      initAnswerSurveyProgress(survey)
-      // 加载完成把问卷初始数据存入local
-      // surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
-      surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey)
-      // 如果是答新问卷，则需要检查答卷密码。
-      this.checkAnswerPwd()
     },
     localStorage2Survey (survey) {
       // 先判断本地有没有临时数据，如果有则看本地的临时数据版本是否与线上一致，一致则使用本地临时数据。
@@ -211,6 +210,19 @@ export default {
           this.survey.answerMsg.answerPwdError = '请输入正确密码'
         }
       }
+    },
+    lastSetSurvey () {
+      const survey = this.survey
+      // 初始化问卷进度状态
+      initAnswerSurveyProgress(survey)
+      // 逻辑处理初始化
+      dwSurveyAnswerLogicLoad(survey)
+      // 加载完成把问卷初始数据存入local
+      // surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
+      surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey)
+      // 如果是答新问卷，则需要检查答卷密码。
+      this.checkAnswerPwd()
+      if (this.survey!=null && this.survey.hasOwnProperty('firstLoadAnswer')) this.survey.firstLoadAnswer = false
     }
   }
 }
@@ -221,7 +233,11 @@ export default {
 </style>
 <style>
 .dw-loading .el-loading-spinner *{
+  /*font-size: 20px!important;
+  color: #023e79;*/
+}
+.dw-answer-custom-theme .el-loading-spinner *{
   font-size: 20px!important;
-  color: #023e79;
+  color: #127ee5 !important;
 }
 </style>

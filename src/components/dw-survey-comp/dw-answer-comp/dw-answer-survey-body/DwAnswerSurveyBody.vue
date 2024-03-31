@@ -6,22 +6,35 @@
           <div class="dw-container-body-center" style="padding-bottom: 30px;">
             <div>
               <div>
-                <div style="display: none;">
+                <div v-show="survey.surveyStyle.pageTopImg.enabled && survey.surveyStyle.pageTopImg.hasOwnProperty('httpSrc') && survey.surveyStyle.pageTopImg.httpSrc!==null">
                   <div style="position: relative;">
-                    <el-image :src="require('@/assets/image/resource/4151711446928.jpg')" style="width: 100%;height: 200px;display: block;" fit="cover"></el-image>
-                    <div style="position: absolute;right: 10px;top: 10px;"><el-image :src="require('@/assets/logo.png')" style="width: 160px;display: block;" fit="cover"></el-image></div>
+                    <el-image :src="survey.surveyStyle.pageTopImg.httpSrc" style="width: 100%;height: 200px;display: block;" fit="cover"></el-image>
+                    <template v-if="survey.surveyStyle.logoImg.enabled && survey.surveyStyle.logoImg.hasOwnProperty('httpSrc') && survey.surveyStyle.logoImg.httpSrc!==null">
+                      <div v-if="survey.surveyStyle.logoImg.position==='pageTopImgLeft'" style="position: absolute;left: 10px;top: 10px;">
+                        <el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image>
+                      </div>
+                      <div v-if="survey.surveyStyle.logoImg.position==='pageTopImgRight'" style="position: absolute;right: 10px;top: 10px;">
+                        <el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image>
+                      </div>
+                    </template>
                   </div>
                 </div>
-                <div>
-                  <div class="dw-display-flex-right" style="background: #4545b9;">
-                    <div style="padding: 10px;"><el-image :src="require('@/assets/logo.png')" style="width: 160px;display: block;" fit="cover"></el-image></div>
+                <div v-if="survey.surveyStyle.logoImg.enabled && survey.surveyStyle.logoImg.hasOwnProperty('httpSrc') && survey.surveyStyle.logoImg.httpSrc!==null" >
+                  <div v-if="survey.surveyStyle.logoImg.position==='topLogoLeft'" class="dw-display-flex-left dw-answer-logo-bg-color" >
+                    <div style="padding: 10px;"><el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image></div>
+                  </div>
+                  <div v-if="survey.surveyStyle.logoImg.position==='topLogoCenter'" class="dw-display-flex-center dw-answer-logo-bg-color" >
+                    <div style="padding: 10px;"><el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image></div>
+                  </div>
+                  <div v-if="survey.surveyStyle.logoImg.position==='topLogoRight'" class="dw-display-flex-right dw-answer-logo-bg-color" >
+                    <div style="padding: 10px;"><el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image></div>
                   </div>
                 </div>
-                <div style="padding: 20px 20px 0 20px;">
-                  <div style="text-align: center;font-weight: bold;">
+                <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showPageHeader') && survey.surveyStyle.showPageHeader" style="padding: 20px 20px 0 20px;">
+                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;">
                     <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
                   </div>
-                  <div style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
+                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyNote') && survey.surveyStyle.showSurveyNote" style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
                     <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
                   </div>
                 </div>
@@ -94,6 +107,7 @@ import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
 import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-answer'
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
+import {dwUpSurveyStyle} from "../dw-utils/dw-survey-answer-style";
 
 export default {
   name: 'DwAnswerSurveyBody',
@@ -121,6 +135,7 @@ export default {
     }
   },
   mounted () {
+    dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
   methods: {
     backReAnswer () {
@@ -216,10 +231,7 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-@import '../../../../assets/css/dw-answer.css';
-
 .dw-container-body-center{
   background: white;
 }

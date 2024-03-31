@@ -1,0 +1,9 @@
+/* 定义答卷页面CSS变量 */
+:root {
+  --dw-answer-page-bg-color: #dfdfe0;
+  --dw-answer-primary-color: #900abd; /* 主题色，应用按钮表单控件 */
+  --dw-answer-primary-color-1: #c73ef6; /* 主题色，应用按钮表单控件 */
+  --dw-answer-logo-bg-color: #efefef;
+  /*#025bb7*/
+  --dw-answer-page-bg-image: none;
+}

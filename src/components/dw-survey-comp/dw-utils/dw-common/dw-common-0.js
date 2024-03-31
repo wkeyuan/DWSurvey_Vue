@@ -7,7 +7,7 @@
  */
 export function buildSurveyLocalStorageKey (surveyId, type) {
   const storageKey = `${surveyId}_${type}`
-  console.debug('storageKey', storageKey)
+  // console.debug('storageKey', storageKey)
   return storageKey
 }
 

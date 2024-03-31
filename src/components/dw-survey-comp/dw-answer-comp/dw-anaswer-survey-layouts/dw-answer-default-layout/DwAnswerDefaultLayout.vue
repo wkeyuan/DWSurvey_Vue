@@ -7,9 +7,10 @@
             <div>
               <div>
                 <div class="dw-container-body">
-                  <div :style="dwElProgressStyle" class="dw-survey-answer-progress">
-                    <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? parseFloat(survey.answerProgress.percentage) : 0" :color="customColor" define-back-color="#dcdfe6"></el-progress>
+                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showProgressbar') && survey.surveyStyle.showProgressbar" :style="dwElProgressStyle" class="dw-survey-answer-progress">
+                    <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? parseFloat(survey.answerProgress.percentage) : 0" :color="survey.surveyStyle.progressColor" define-back-color="#dcdfe6"></el-progress>
                   </div>
+                  <!--                  <div :style="`background-color: ${survey.surveyStyle.progressColor};width:100%;height:100px;`">{{ survey.surveyStyle.progressColor }}</div>-->
                   <dw-answer-survey-body ref="designContainerBody" v-model="survey" ></dw-answer-survey-body>
                 </div>
               </div>
@@ -29,6 +30,7 @@ import DwDesignContainerBodyCenter
 import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwFooter from '../../../../layouts/DwFooter.vue'
 import DwFooterSm from '../../../../layouts/DwFooterSm'
+import {dwUpSurveyStyle} from "../../dw-utils/dw-survey-answer-style";
 
 export default {
   name: 'DwAnswerDefaultLayout',
@@ -44,7 +46,7 @@ export default {
   },
   props: {
     survey: {type: Object, default: () => {}},
-    extParameters: {type: Object, default: () => {}}
+    extProps: {type: Object, default: () => {}}
   },
   data () {
     return {
@@ -73,22 +75,22 @@ export default {
     }
   },
   mounted () {
-    if (this.extParameters!==null && this.extParameters!==undefined) {
-      const extParameters = this.extParameters
-      console.debug('extParameters', extParameters)
+    if (this.extProps!==null && this.extProps!==undefined) {
+      const extProps = this.extProps
+      console.debug('extProps', extProps)
       // 查看是否有预览
-      if (extParameters.hasOwnProperty('anBodySpan')) {
-        const anBodySpan = extParameters.anBodySpan
+      if (extProps.hasOwnProperty('anBodySpan')) {
+        const anBodySpan = extProps.anBodySpan
         if (anBodySpan.hasOwnProperty('xs')) this.anBodySpan.xs = anBodySpan.xs
         if (anBodySpan.hasOwnProperty('sm')) this.anBodySpan.sm = anBodySpan.sm
         if (anBodySpan.hasOwnProperty('md')) this.anBodySpan.md = anBodySpan.md
         if (anBodySpan.hasOwnProperty('lg')) this.anBodySpan.lg = anBodySpan.lg
         if (anBodySpan.hasOwnProperty('xl')) this.anBodySpan.xl = anBodySpan.xl
       }
-      if (extParameters.hasOwnProperty('anBodyStyle')) {
-        this.anBodyStyle = extParameters.anBodyStyle
+      if (extProps.hasOwnProperty('anBodyStyle')) {
+        this.anBodyStyle = extProps.anBodyStyle
       }
-      if (extParameters.hasOwnProperty('isPreview') && extParameters.isPreview) {
+      if (extProps.hasOwnProperty('isPreview') && extProps.isPreview) {
         this.dwElProgressStyle = ''
       }
     }
@@ -106,7 +108,7 @@ export default {
 
 <style scoped>
 .dw-answer-container{
-  background-color: #dfdfe0;
+  /*background-color: #dfdfe0;*/
   min-height: 100vh;
 }
 .el-progress{
@@ -132,5 +134,6 @@ export default {
 }
 </style>
 <style>
-
+/* 考虑再提一级，这样直接传survey或id都通用 */
+@import '../../../../../assets/css/dw-answer.css';
 </style>

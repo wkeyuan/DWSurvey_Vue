@@ -124,6 +124,7 @@ export default {
   padding: 6px;
   word-break: break-word;
   outline: none;
+  line-height: 20px;
 }
 .dw-input-default:empty::before {
   content: attr(placeholder);

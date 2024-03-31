@@ -10,6 +10,11 @@
   justify-content: flex-start;
   align-items: center;
 }
+.dw-display-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .dw-display-flex-right{
   display: flex;
   justify-content: flex-end;

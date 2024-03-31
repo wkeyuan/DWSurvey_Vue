@@ -14,20 +14,24 @@
               <template v-else>
                 <span>如果本题选项</span>
                 <el-select v-model="item.cgQuItemId" placeholder="请选择本题选项" style="width: 130px;" size="mini" multiple>
-                  <el-option v-for="(option,optionIndex) in options" :key="`quOption_${optionIndex}`" :value="option.optionTitleObj.dwText" :label="option.optionTitleObj.dwText"></el-option>
+                  <el-option v-for="(option,optionIndex) in options" :key="`quOption_${optionIndex}`" :value="option.dwId" :label="option.optionTitleObj.dwText"></el-option>
                 </el-select>
                 <span v-if="survey.questions[index].quType === 'ORDERQU'">排名
                   <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
-                    <el-option value="1" label="大于"></el-option>
-                    <el-option value="2" label="小于"></el-option>
+                    <el-option value="LTE" label="小于等于"></el-option>
+                    <el-option value="GTE" label="大于等于"></el-option>
+                    <el-option value="LT" label="小于"></el-option>
+                    <el-option value="GT" label="大于"></el-option>
                   </el-select>
                   <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
                   名，
                 </span>
                 <span v-else-if="survey.questions[index].quType === 'SCORE'">得分
                   <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
-                    <el-option value="1" label="大于"></el-option>
-                    <el-option value="2" label="小于"></el-option>
+                    <el-option value="LTE" label="小于等于"></el-option>
+                    <el-option value="GTE" label="大于等于"></el-option>
+                    <el-option value="LT" label="小于"></el-option>
+                    <el-option value="GT" label="大于"></el-option>
                   </el-select>
                   <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
                   分，
@@ -35,10 +39,10 @@
                 <span v-else-if="survey.questions[index].quType === 'MULTIFILLBLANK'">被回答，</span>
                 <span v-else>被选项，</span>
               </template>
-              <span v-if="item.logicType === '1'">则跳转</span>
-              <span v-else-if="item.logicType === '2'">则显示</span>
-              <el-select v-model="item.skQuId" :multiple="logicType==='2'" placeholder="请选择题目" style="width: 130px;" size="mini">
-                <el-option v-for="(question,questionIndex) in questions" :key="`question_${questionIndex}`" :value="`Q${question.quNum}、${question.quTitleObj.dwText}`" :label="`Q${question.quNum}、${question.quTitleObj.dwText}`"></el-option>
+              <span v-if="item.logicType === 'GO'">则跳转</span>
+              <span v-else-if="item.logicType === 'SHOW'">则显示</span>
+              <el-select v-model="item.skQuId" :multiple="logicType==='SHOW'" placeholder="请选择题目" style="width: 130px;" size="mini">
+                <el-option v-for="(question,questionIndex) in questions" :key="`question_${questionIndex}`" :value="question.dwId" :label="`Q${question.quNum}、${question.quTitleObj.dwText}`"></el-option>
               </el-select>
               <el-button icon="el-icon-delete" size="mini" style="margin-left: 10px;" @click="deleteQuLogic(itemIndex)"></el-button>
             </div>
@@ -61,6 +65,7 @@
 
 import {logicNum, curQuAfterQus, getQuOptions} from '../../../../../../../dw-utils/dw-survey-design'
 import QuInput from '../../../../../../../../../views/dw-survey/dw-design1/components/dw-qus/QuInput.vue'
+import {v4 as uuidV4} from "uuid";
 
 /**
  * 处理显示逻辑配置
@@ -104,7 +109,8 @@ export default {
       // skQuId 要跳转的题  (end1提前结束-计入结果  end2提前结束-不计结果)
       // logicType 逻辑类型  (1=跳转,2显示)
       // geLe 评分题 ge大于，le小于
-      const questionLogic = {ckQuId: '', cgQuItemId: null, skQuId: null, logicType: this.logicType, geLe: '', scoreNum: 0, error: false}
+      const questionLogic = {dwId: null, ckQuId: '', cgQuItemId: null, skQuId: null, logicType: this.logicType, geLe: '', scoreNum: 0, error: false}
+      questionLogic.dwId = uuidV4()
       this.survey.questions[this.index].questionLogics.push(questionLogic)
       // 逻辑要分类，计算不同类型的数量。
     },

@@ -22,7 +22,7 @@ function answerSurveyProgressCommon (survey, quIsAnOkFun) {
   questions.forEach((question, quIndex) => {
     if (question.hasOwnProperty('quAttr')) {
       const quAttr = question.quAttr
-      if (quAttr.hasOwnProperty('isRequired') && quAttr.isRequired) {
+      if (quAttr.hasOwnProperty('isRequired') && quAttr.isRequired && !question.logicIsHide) {
         answerProgress.totalAnQu = answerProgress.totalAnQu+1
         // 初始化时用question.validateObj.isAnswerOk不行，还是得调用原始的方法判断是否真的回答
         if (quIsAnOkFun(question)) {

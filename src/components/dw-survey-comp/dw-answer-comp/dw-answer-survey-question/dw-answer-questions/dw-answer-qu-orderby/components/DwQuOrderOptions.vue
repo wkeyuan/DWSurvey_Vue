@@ -29,6 +29,7 @@ import draggable from 'vuedraggable'
 import {validateQuestion} from '../../../../../dw-utils/dw-survey-answer-validate'
 import {getQuestionAnswerData} from '../../../../../dw-utils/dw-survey-answer'
 import {showReadNotify} from "../../../../../dw-utils/dw-common/dw-msg-common";
+import {answerQuEventCommon} from "../../../../dw-utils/dw-survey-answer-common";
 
 export default {
   name: 'DwQuOrderOptions',
@@ -60,6 +61,7 @@ export default {
       this.drag = false
     },
     clickItem (item) {
+      if (!this.survey.questions[this.index].hasOwnProperty('anQuestion')) this.dataNum = 0
       if (this.survey.readonly) return showReadNotify(this)
       item.checked = !item.checked
       const length = this.survey.questions[this.index].quOrderbys.length
@@ -85,8 +87,9 @@ export default {
         const y = b.orderIndex === 0 ? length + 1 : b.orderIndex
         return ((x < y) ? -1 : (x > y) ? 1 : 0)
       })
-      getQuestionAnswerData(this.survey.questions[this.index])
-      validateQuestion(this.survey.questions[this.index])
+      // getQuestionAnswerData(this.survey.questions[this.index])
+      // validateQuestion(this.survey.questions[this.index])
+      answerQuEventCommon(this.survey, this.index)
     }
   }
 }
@@ -127,12 +130,6 @@ export default {
   color: white;
   background: white;
 }
-.dw-qu-order-num.dw-num-order{
-  color: white;
-  background: #097ef3;
-  border: 1px solid #097ef3;
-}
-
 .flip-list-move {
   transition: transform 0.5s;
 }
