@@ -111,11 +111,11 @@
     </template>
     <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='NUM'">
       <!--    NUM-->
-      <el-input-number v-model="survey.questions[index].answer" :precision="survey.questions[index].quAttr.inputAttr.numAttr.precision" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :disabled="survey.readonly" label="描述文字"></el-input-number>
+      <el-input-number v-model="survey.questions[index].answer" :precision="survey.questions[index].quAttr.inputAttr.numAttr.precision" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :disabled="survey.readonly" ></el-input-number>
     </template>
     <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='DIGITS'">
       <!--    DIGITS  -->
-      <el-input-number v-model="survey.questions[index].answer" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :step="1" :disabled="survey.readonly" step-strictly label="描述文字"></el-input-number>
+      <el-input-number v-model="survey.questions[index].answer" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :step="1" :disabled="survey.readonly" step-strictly ></el-input-number>
     </template>
     <template v-else>
       <el-input v-model="survey.questions[index].answer" :minlength="survey.questions[index].quAttr.inputAttr.commonAttr.minlength" :maxlength="survey.questions[index].quAttr.inputAttr.commonAttr.maxlength" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].quAttr.inputAttr.commonAttr.placeholder" :disabled="survey.readonly" show-word-limit @blur="onBlur" @input="onBlur"/>
@@ -125,10 +125,7 @@
 
 <script>
 
-import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
-import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
-import {surveyAnswerLocalStorage} from '../../../dw-utils/dw-survey-answer-utils'
-import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
+import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
 
 export default {
   name: 'DwAnswerQuFbk',

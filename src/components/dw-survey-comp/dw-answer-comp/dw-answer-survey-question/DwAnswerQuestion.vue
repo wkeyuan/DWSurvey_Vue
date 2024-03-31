@@ -42,7 +42,7 @@ import DwAnswerQuScore from './dw-answer-questions/dw-answer-qu-score/DwAnswerQu
 import DwAnswerQuOrder from './dw-answer-questions/dw-answer-qu-orderby/DwAnswerQuOrder.vue'
 import DwAnswerQuMFbk from './dw-answer-questions/dw-answer-qu-mfbk/DwAnswerQuMFbk.vue'
 import DwAnswerQuUpload from './dw-answer-questions/dw-answer-qu-upload/DwAnswerQuUpload.vue'
-import {quLogicIsHide} from "../dw-utils/dw-survey-answer-logic";
+import {quLogicIsHide} from '../dw-utils/dw-survey-answer-logic'
 
 export default {
   name: 'DwAnswerQuestion',
@@ -60,6 +60,9 @@ export default {
     item: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}},
     answer: {type: Object, default: () => {}}
+  },
+  data () {
+    return {}
   },
   computed: {
     isLogicHide () {
