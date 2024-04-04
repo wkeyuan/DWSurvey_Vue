@@ -27,13 +27,61 @@
                 </el-select>
                 <span v-show="survey.questions[index].hv === 1">每行显示列数 <el-input-number v-model="survey.questions[index].cellCount" style="margin-right: 10px;" ></el-input-number></span>
               </el-form-item>
-              <el-form-item v-if="survey.questions[index].quType === 'CHECKBOX'" label="选择个数">
-                最少 <el-input-number v-model="survey.questions[index].minLimit" style="margin-right: 10px;"></el-input-number>
-                最多 <el-input-number v-model="survey.questions[index].maxLimit"></el-input-number>
-              </el-form-item>
+              <template v-if="survey.questions[index].quType === 'RADIO'">
+                <div style="border: 2px solid rgb(212 225 237);border-radius: 4px;">
+                  <div style="background: rgb(212 225 237);padding: 8px 0;">
+                    <el-form-item label="选项属性" style="margin-bottom: 0;">
+                      配置选项
+                      <el-select v-model="tempForm.selectOptionIndex" placeholder="请选择选项">
+                        <el-option v-for="(item, optionIndex) in survey.questions[index].quRadios" :key="`quCheckbox_${optionIndex}`" :label="item.optionTitleObj.dwText" :value="optionIndex"></el-option>
+                      </el-select>
+                      的属性规则如下
+                    </el-form-item>
+                  </div>
+                  <div style="padding-top: 8px;padding-right: 8px;">
+                    <el-form-item label="选项说明">
+                      <el-radio-group v-model="survey.questions[index].quRadios[tempForm.selectOptionIndex].showOptionNote">
+                        <el-radio :label="1">显示</el-radio>
+                        <el-radio :label="0">不显示</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                    <template v-if="survey.questions[index].quRadios[tempForm.selectOptionIndex].showOptionNote===1">
+                      <dw-input-props v-model="survey.questions[index].quRadios[tempForm.selectOptionIndex].inputAttr" :survey="survey" :index="index"></dw-input-props>
+                    </template>
+                  </div>
+                </div>
+              </template>
+              <template v-else-if="survey.questions[index].quType === 'CHECKBOX'">
+                <el-form-item label="选择个数">
+                  最少 <el-input-number v-model="survey.questions[index].minLimit" style="margin-right: 10px;"></el-input-number>
+                  最多 <el-input-number v-model="survey.questions[index].maxLimit"></el-input-number>
+                </el-form-item>
+                <div style="border: 2px solid rgb(212 225 237);border-radius: 4px;">
+                  <div style="background: rgb(212 225 237);padding: 8px 0;">
+                    <el-form-item label="选项属性" style="margin-bottom: 0;">
+                      配置选项
+                      <el-select v-model="tempForm.selectOptionIndex" placeholder="请选择选项">
+                        <el-option v-for="(item, optionIndex) in survey.questions[index].quCheckboxs" :key="`quCheckbox_${optionIndex}`" :label="item.optionTitleObj.dwText" :value="optionIndex"></el-option>
+                      </el-select>
+                      的属性规则如下
+                    </el-form-item>
+                  </div>
+                  <div style="padding-top: 8px;padding-right: 8px;">
+                    <el-form-item label="选项说明">
+                      <el-radio-group v-model="survey.questions[index].quCheckboxs[tempForm.selectOptionIndex].showOptionNote">
+                        <el-radio :label="1">显示</el-radio>
+                        <el-radio :label="0">不显示</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                    <template v-if="survey.questions[index].quCheckboxs[tempForm.selectOptionIndex].showOptionNote===1">
+                      <dw-input-props v-model="survey.questions[index].quCheckboxs[tempForm.selectOptionIndex].inputAttr" :survey="survey" :index="index"></dw-input-props>
+                    </template>
+                  </div>
+                </div>
+              </template>
             </template>
             <template v-else-if="survey.questions[index].quType === 'FILLBLANK'">
-              <dw-input-props v-model="survey.questions[index].quAttr.inputAttr"></dw-input-props>
+              <dw-input-props v-model="survey.questions[index].quAttr.inputAttr" :survey="survey" :index="index"></dw-input-props>
             </template>
             <template v-else-if="survey.questions[index].quType === 'SCORE'">
               <el-form-item label="分值区间">
@@ -45,8 +93,8 @@
               <el-form-item label="最少回答">
                 <el-input-number v-model="survey.questions[index].paramInt01" style="margin-right: 10px;" ></el-input-number> 项
               </el-form-item>
-              <div style="border: 1px solid #eee;border-radius: 4px;">
-                <div style="background: #f1f1f1;padding: 8px 0;">
+              <div style="border: 2px solid rgb(212 225 237);border-radius: 4px;">
+                <div style="background: rgb(212 225 237);padding: 8px 0;">
                   <el-form-item label="选项属性" style="margin-bottom: 0;">
                     配置选项 <el-select v-model="tempForm.selectOptionIndex" placeholder="请选择选项">
                       <el-option
@@ -59,13 +107,7 @@
                   </el-form-item>
                 </div>
                 <div style="padding-top: 8px;padding-right: 8px;">
-                  <el-form-item label="是否必填">
-                    <el-radio-group v-model="survey.questions[index].quMultiFillblanks[tempForm.selectOptionIndex].isRequired">
-                      <el-radio :label="1">是</el-radio>
-                      <el-radio :label="0">否</el-radio>
-                    </el-radio-group>
-                  </el-form-item>
-                  <dw-input-props v-model="survey.questions[index].quMultiFillblanks[tempForm.selectOptionIndex].inputAttr"></dw-input-props>
+                  <dw-input-props v-model="survey.questions[index].quMultiFillblanks[tempForm.selectOptionIndex].inputAttr" :survey="survey" :index="index"></dw-input-props>
                 </div>
               </div>
             </template>

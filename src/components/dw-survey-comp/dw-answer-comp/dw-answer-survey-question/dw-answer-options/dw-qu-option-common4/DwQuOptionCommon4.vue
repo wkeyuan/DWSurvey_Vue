@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 5px;">
-      <el-select v-model="value" :disabled="survey.readonly" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" popper-class="dw-answer-custom-theme" placeholder="请选择" @change="onChange">
+      <el-select v-model="value" :disabled="survey.readonly" :multiple="quType==='CHECKBOX'" :multiple-limit="maxLimit" popper-class="dw-answer-custom-theme" placeholder="请选择" style="width: 100%" @change="onChange" >
         <el-option
           v-for="(item, index) in options"
           :key="`fa_${index}`"
@@ -9,16 +9,19 @@
           :value="item.optionTitleObj.dwHtml">
         </el-option>
       </el-select>
+      <div v-for="(item,optionIndex) in options" :key="`quOption4-${index}-${optionIndex}`" >
+        <div v-if="(options[optionIndex].checked && (quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" style="padding: 10px 0;" >
+          <el-input v-if="options[optionIndex].inputAttr.commonAttr.inputRow>1" v-model="options[optionIndex].otherText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
+          <el-input v-else v-model="options[optionIndex].otherText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" ></el-input>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
-import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
-import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
-import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
+import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
 
 export default {
   name: 'DwQuOptionCommon4',
@@ -37,7 +40,8 @@ export default {
     return {
       value: null,
       minLimit: 0,
-      maxLimit: 0
+      maxLimit: 0,
+      inputText: ''
     }
   },
   mounted () {
@@ -73,7 +77,7 @@ export default {
       // getQuestionAnswerData(this.survey.questions[this.index])
       // validateQuestion(this.survey.questions[this.index])
       // surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)
-      answerQuEventCommon(this.survey, this.quIndex)
+      answerQuEventCommon(this.survey, this.index)
     },
     checkQuOptions (quOptions, changeValue) {
       quOptions.forEach((quOption) => {

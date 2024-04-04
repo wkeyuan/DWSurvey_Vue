@@ -61,5 +61,7 @@ export default {
 </script>
 
 <style scoped>
-
+.dw-grid{
+  align-items: flex-start;
+}
 </style>

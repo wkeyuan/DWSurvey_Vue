@@ -1,135 +1,17 @@
 <template>
-  <div style="padding: 0;margin-bottom: 5px;" class="dw-qu-item">
-    <!--    <div>{{ survey.questions[index].quAttr }}</div>-->
-    <el-input v-if="survey.questions[index].quAttr.inputAttr.commonAttr.inputRow>1" v-model="survey.questions[index].answer" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].quAttr.inputAttr.commonAttr.placeholder" :autosize="{ minRows: survey.questions[index].quAttr.inputAttr.commonAttr.inputRow }" type="textarea" @blur="onBlur" @input="onBlur"></el-input>
-    <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='TIME'">
-      <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===7" >
-        <!-- dateFormat 为7 =HH:ss，使用下拉时间选择框，且可以设置步长              -->
-        <div>
-          <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('range')" >
-            <!-- 使用范围选择器           -->
-            <div>
-              <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step!=null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null">
-                <!-- STEP、range 都不为空              -->
-                <div><el-time-select v-model="survey.questions[index].answer.startTime" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="起始时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-                <div><el-time-select v-model="survey.questions[index].answer.endTime" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], minTime: survey.questions[index].answer.startTime, format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="结束时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-              <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step===null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null">
-                <!-- step为空，range不为空，但注意STEP點认值 = 00:30              -->
-                <div><el-time-select v-model="survey.questions[index].answer.startTime" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="起始时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-                <div><el-time-select v-model="survey.questions[index].answer.endTime" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], minTime: survey.questions[index].answer.startTime, format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="结束时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-              <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step!==null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range===null">
-                <!-- step不为空，range为空             -->
-                <div><el-time-select v-model="survey.questions[index].answer.startTime" :editable="false" :picker-options="{step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="起始时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-                <div><el-time-select v-model="survey.questions[index].answer.endTime" :editable="false" :picker-options="{step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, minTime: survey.questions[index].answer.startTime, format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="结束时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-            </div>
-          </template>
-          <template v-else >
-            <!-- 不使用范围选择器           -->
-            <div>
-              <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step!=null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null">
-                <!-- STEP、range 都不为空              -->
-                <div><el-time-select v-model="survey.questions[index].answer" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="请选择时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-              <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step===null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null">
-                <!-- step为空，range不为空，但注意STEP點认值 = 00:30              -->
-                <div><el-time-select v-model="survey.questions[index].answer" :editable="false" :picker-options="{start:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0], end:survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1], format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="请选择时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-              <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step!==null && survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range===null">
-                <!-- step不为空，range为空             -->
-                <div><el-time-select v-model="survey.questions[index].answer" :editable="false" :picker-options="{step: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.step, format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="请选择时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-              <template v-else>
-                <div><el-time-select v-model="survey.questions[index].answer" :editable="false" :picker-options="{format: survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'}" :disabled="survey.readonly" placeholder="请选择时间" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-time-select></div>
-              </template>
-            </div>
-          </template>
-        </div>
-      </template>
-      <template v-else>
-        <!--  dateFormat 为5 = 'HH:mm:ss'，6 = 'HH:mm'     -->
-        <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('range')" >
-          <el-time-picker
-            v-model="survey.questions[index].answer"
-            :format="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'"
-            :editable="false"
-            :disabled="survey.readonly"
-            :class="isAnswer ? 'dw-input-active':''"
-            is-range
-            range-separator="至"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围"
-            class="dw-answer-custom-theme"
-            @blur="onBlur"
-            @input="onBlur"/>
-        </template>
-        <template v-else>
-          <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null" >
-            <el-time-picker v-model="survey.questions[index].answer" :editable="false" :picker-options="{selectableRange: survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range!==null ? `${survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[0]} - ${survey.questions[index].quAttr.inputAttr.dateTimeAttr.timeRange.range[1]}`: null}" :format="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].quAttr.inputAttr.commonAttr.placeholder" :disabled="survey.readonly" popper-class="dw-answer-custom-theme" @blur="onBlur" @input="onBlur"/>
-          </template>
-          <template v-else>
-            <el-time-picker v-model="survey.questions[index].answer" :editable="false" :format="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===5 ? 'HH:mm:ss': 'HH:mm'" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].quAttr.inputAttr.commonAttr.placeholder" :disabled="survey.readonly" popper-class="dw-answer-custom-theme" @blur="onBlur" @input="onBlur"/>
-          </template>
-        </template>
-      </template>
-    </template>
-    <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='DATE'">
-      <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('range')">
-        <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===3">
-          <el-date-picker v-model="survey.questions[index].answer" :disabled="survey.readonly" :editable="false" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-        <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===2">
-          <el-date-picker v-model="survey.questions[index].answer" :disabled="survey.readonly" :editable="false" type="monthrange" start-placeholder="开始月份" end-placeholder="结束月份" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-        <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===1">
-          <el-date-picker v-model="survey.questions[index].answer" :disabled="survey.readonly" :editable="false" type="date" placeholder="选择日期" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-      </template>
-      <template v-else>
-        <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===3">
-          <el-date-picker v-model="survey.questions[index].answer" :editable="false" :type="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('more') ? 'dates':'date'" :disabled="survey.readonly" placeholder="选择日期" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-        <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===2">
-          <el-date-picker v-model="survey.questions[index].answer" :editable="false" :type="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('more') ? 'months':'month'" :disabled="survey.readonly" placeholder="选择月" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-        <template v-else-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.dateFormat===1">
-          <el-date-picker v-model="survey.questions[index].answer" :editable="false" :type="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('more') ? 'years':'year'" :disabled="survey.readonly" placeholder="选择年" popper-popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-        </template>
-      </template>
-    </template>
-    <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='DATETIME'">
-      <!--    DATE DATETIME-->
-      <template v-if="survey.questions[index].quAttr.inputAttr.dateTimeAttr.attrs.includes('range')">
-        <el-date-picker v-model="survey.questions[index].answer" :editable="false" :disabled="survey.readonly" type="datetimerange" start-placeholder="开始日期" end-placeholder="结束日期" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-      </template>
-      <template v-else>
-        <el-date-picker v-model="survey.questions[index].answer" :editable="false" :disabled="survey.readonly" type="datetime" placeholder="选择日期" popper-class="dw-answer-custom-theme" @blur="onBlur" ></el-date-picker>
-      </template>
-    </template>
-    <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='NUM'">
-      <!--    NUM-->
-      <el-input-number v-model="survey.questions[index].answer" :precision="survey.questions[index].quAttr.inputAttr.numAttr.precision" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :disabled="survey.readonly" ></el-input-number>
-    </template>
-    <template v-else-if="survey.questions[index].quAttr.inputAttr.commonAttr.checkType==='DIGITS'">
-      <!--    DIGITS  -->
-      <el-input-number v-model="survey.questions[index].answer" :min="survey.questions[index].quAttr.inputAttr.numAttr.min" :max="survey.questions[index].quAttr.inputAttr.numAttr.max" :step="1" :disabled="survey.readonly" step-strictly ></el-input-number>
-    </template>
-    <template v-else>
-      <el-input v-model="survey.questions[index].answer" :minlength="survey.questions[index].quAttr.inputAttr.commonAttr.minlength" :maxlength="survey.questions[index].quAttr.inputAttr.commonAttr.maxlength" :class="isAnswer ? 'dw-input-active':''" :placeholder="survey.questions[index].quAttr.inputAttr.commonAttr.placeholder" :disabled="survey.readonly" show-word-limit @blur="onBlur" @input="onBlur"/>
-    </template>
+  <div>
+    <dw-answer-input1 v-model="survey" :index="index" :input-attr="survey.questions[index].quAttr.inputAttr"></dw-answer-input1>
   </div>
 </template>
 
 <script>
 
 import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
+import DwAnswerInput1 from "../../dw-answer-options/dw-qu-input-common1/DwAnswerInput1.vue";
 
 export default {
   name: 'DwAnswerQuFbk',
-  components: {},
+  components: {DwAnswerInput1},
   model: {
     prop: 'survey',
     event: 'update-survey'

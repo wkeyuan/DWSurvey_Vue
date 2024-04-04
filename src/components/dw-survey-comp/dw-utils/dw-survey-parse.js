@@ -247,6 +247,10 @@ function parseQuOptionType1 (question, quOptions) {
       if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
       const inputAttr = getInputQuProps()
       if (!quOption.hasOwnProperty('inputAttr')) quOption.inputAttr = inputAttr
+      if (!quOption.hasOwnProperty('showOptionNote')) quOption.showOptionNote = 0 // 选项题
+      if (!quOption.hasOwnProperty('isRequired')) quOption.isRequired = 1 // 多项填空题
+      if (!quOption.hasOwnProperty('otherText')) quOption.otherText = null // 多项填空题
+      quOption.validateObj = {errorText: '', isOk: true}
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚

@@ -14,6 +14,10 @@
         <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
         <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
+      <template v-if="((quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" >
+        <el-input v-if="options[optionIndex].inputAttr.commonAttr.inputRow>1" v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
+        <el-input v-else v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" />
+      </template>
     </div>
   </div>
 </template>
@@ -43,7 +47,8 @@ export default {
     return {
       itemHover: false,
       itemClick: false,
-      itemIndex: 0
+      itemIndex: 0,
+      inputText: null
     }
   },
   watch: {

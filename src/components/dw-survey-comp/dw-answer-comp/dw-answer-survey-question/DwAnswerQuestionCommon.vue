@@ -49,7 +49,7 @@
                     animate__fadeInUp
                     -->
                     <transition enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipOutX">
-                      <div v-show="!survey.questions[index].validateObj.isOk" class="dw-answer-question-error">
+                      <div v-show="!survey.questions[index].validateObj.isOk && survey.questions[index].validateObj.errorText!==''" class="dw-answer-question-error">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         {{ survey.questions[index].validateObj.errorText }}
                       </div>

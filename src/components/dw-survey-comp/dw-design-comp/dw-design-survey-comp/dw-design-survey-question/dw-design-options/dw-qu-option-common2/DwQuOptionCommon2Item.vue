@@ -19,9 +19,9 @@
           </el-tooltip>
         </div>
       </div>
-      <template v-if="quType==='MULTIFILLBLANK'" >
-        <el-input v-if="options[optionIndex].answerInputRow>1" v-model="inputText" :placeholder="options[optionIndex].placeholder" :autosize="{ minRows: options[optionIndex].answerInputRow }" type="textarea" ></el-input>
-        <el-input v-else v-model="inputText" :placeholder="options[optionIndex].placeholder" />
+      <template v-if="quType==='MULTIFILLBLANK' || ((quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" >
+        <el-input v-if="options[optionIndex].answerInputRow>1" v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
+        <el-input v-else v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" />
       </template>
       <el-rate v-if="quType==='SCORE'" :max="survey.questions[quIndex].paramInt02" ></el-rate>
     </div>

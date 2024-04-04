@@ -37,10 +37,21 @@ export function answerQuEventCommon (survey, quIndex) {
   getQuestionAnswerData(this.survey.questions[this.quIndex])
   validateQuestion(this.survey.questions[this.quIndex])
   surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)*/
+  // answerQuEventCommonExt(survey, quIndex, false) // 可以控制选项第一次不直接显示验证提示
+  answerQuEventCommonExt(survey, quIndex, false)
+}
+
+export function answerQuEventCommonExt (survey, quIndex, showOptionError) {
+  /*
+  getQuestionAnswerData(this.survey.questions[this.quIndex])
+  validateQuestion(this.survey.questions[this.quIndex])
+  surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(this.survey)*/
+  if ((survey.questions[quIndex].hasOwnProperty('showOptionError') && !survey.questions[quIndex].showOptionError && showOptionError) || !survey.questions[quIndex].hasOwnProperty('showOptionError')) {
+    // survey.questions[quIndex].showOptionError = showOptionError // 此处暂时禁用，因为在方法内部进行了处理
+  }
   getQuestionAnswerData(survey.questions[quIndex])
   dwSurveyAnswerLogic(survey, quIndex)
   validateQuestion(survey.questions[quIndex])
   surveyAnswerLocalStorage.saveSurveyAnswer2LocalStorage(survey)
   answerSurveyProgress(survey)
 }
-

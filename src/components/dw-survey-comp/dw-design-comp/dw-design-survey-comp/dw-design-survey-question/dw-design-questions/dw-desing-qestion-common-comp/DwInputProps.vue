@@ -1,5 +1,11 @@
 <template>
   <el-form ref="form" label-width="80px" size="mini">
+    <el-form-item v-show="survey.questions[index].quType!=='FILLBLANK'" label="是否必填">
+      <el-radio-group v-model="inputProp.commonAttr.isRequired">
+        <el-radio :label="1">是</el-radio>
+        <el-radio :label="0">否</el-radio>
+      </el-radio-group>
+    </el-form-item>
     <!--    <div>{{ inputProp }}</div>-->
     <el-form-item label="校验规则">
       <el-select v-model="inputProp.commonAttr.checkType" placeholder="请选择数据校验规则" @change="changeCheckType">
@@ -31,7 +37,8 @@
     <el-form-item label="默认内容">
       <el-input v-model="inputProp.commonAttr.defaultValue"/>
     </el-form-item>
-    <el-form-item v-show="inputProp.commonAttr.checkType === 'NO' || inputProp.commonAttr.checkType === 'UNSTRCN' || inputProp.commonAttr.checkType === 'STRCN'" label="显示行数" >
+    <!--    v-show="inputProp.commonAttr.checkType==='' || inputProp.commonAttr.checkType === 'NO' || inputProp.commonAttr.checkType === 'UNSTRCN' || inputProp.commonAttr.checkType === 'STRCN'"-->
+    <el-form-item label="显示行数" >
       <el-input-number v-model="inputProp.commonAttr.inputRow" :min="1" />&nbsp;行
     </el-form-item>
 
@@ -53,7 +60,7 @@
         最大值 <el-input-number v-model="inputProp.numAttr.max" ></el-input-number>
       </span>
     </el-form-item>
-    <el-form-item v-show="inputProp.commonAttr.checkType === 'NUM'" label="保留精度">
+    <el-form-item v-show="inputProp.commonAttr.checkType === 'NUM'" label="保留精度" style="display: none;">
       <el-input-number v-model="inputProp.numAttr.precision"/>&nbsp;位
     </el-form-item>
 
@@ -73,7 +80,8 @@ export default {
   },
   props: {
     index: {type: Number, default: 0},
-    inputProp: {type: Object, default: () => {}}
+    inputProp: {type: Object, default: () => {}},
+    survey: {type: Object, default: () => {}}
   },
   data () {
     return {

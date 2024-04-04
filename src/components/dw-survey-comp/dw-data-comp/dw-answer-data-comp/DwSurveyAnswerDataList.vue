@@ -91,16 +91,48 @@
     <el-dialog :visible.sync="dialogFormVisible" append-to-body title="导出答卷数据" width="40%" >
       <div style="line-height: 30px;">是否同时下载上传题的文件</div>
       <div style="color: grey;line-height: 30px;font-size: 12px;"><span>如果有上传题，选择压缩下载可能比较占用系统资源及时间，请在空闲时间压缩下载</span></div>
-      <el-switch
-        v-model="expUpQu"
-        active-text="同时压缩上传的文件并下载"
-        inactive-text="仅下载数据Excel"
-        active-value="1"
-        inactive-value="0">
-      </el-switch>
+      <div style="padding: 10px;" >
+        <el-switch
+          v-model="expUpQu"
+          active-text="同时压缩上传的文件并下载"
+          inactive-text="仅下载数据Excel"
+          active-value="1"
+          inactive-value="0">
+        </el-switch>
+      </div>
+      <div style="padding: 10px;">
+        数据类型
+        <el-select v-model="handleState" placeholder="请选择" style="width: 300px;">
+          <el-option :value="0" label="未审核" ></el-option>
+          <el-option :value="1" label="审核的数据" ></el-option>
+          <el-option :value="300" label="甄别的数据" ></el-option>
+          <el-option :value="100" label="全部有效数据（包含未审核与审核）" ></el-option>
+        </el-select>
+      </div>
+      <div style="padding: 10px;">
+        单个线程最多导出
+        <el-select v-model="threadMax" placeholder="请选择" style="width: 300px;">
+          <el-option :value="2000" label="2000条" ></el-option>
+          <el-option :value="4000" label="4000条" ></el-option>
+          <el-option :value="6000" label="6000条" ></el-option>
+          <el-option :value="8000" label="8000条" ></el-option>
+          <el-option :value="10000" label="10000条" ></el-option>
+        </el-select>
+      </div>
+      <div style="padding: 10px;">
+        导出的数据
+        <el-select v-model="expDataContent" placeholder="请选择" style="width: 300px;">
+          <el-option :value="1" label="原始答卷数据" ></el-option>
+          <el-option :value="2" label="答卷选项分值" ></el-option>
+        </el-select>
+      </div>
+      <div style="padding: 10px;">
+        <el-progress :percentage="percentage" :color="customColor" :text-inside="true" :stroke-width="26" ></el-progress>
+      </div>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="executeExportData">确 定</el-button>
+        <el-button @click="cancelExportData">取 消</el-button>
+        <el-button :disabled="isProgress" type="primary" @click="executeExportData">开始导出</el-button>
+        <el-button :disabled="percentage<100" type="primary" @click="downloadExportData">下载数据</el-button>
       </div>
     </el-dialog>
     <dw-survey-answer-info-dialog ref="dwAnswerInfoDialog" @refresh-data="queryList(null)" ></dw-survey-answer-info-dialog>
@@ -109,7 +141,11 @@
 
 <script>
 import {dwSurveyAnswerDelete} from '../../../../api/dw-survey'
-import {dwSurveyAnswerListV6} from "../api/dw-survey-answer-data";
+import {
+  dwSurveyAnswerExportLogInfo,
+  dwSurveyAnswerExportSync,
+  dwSurveyAnswerListV6
+} from "../api/dw-survey-answer-data";
 import DwSurveyAnswerInfoDialog from "./components/DwSurveyAnswerInfoDialog.vue";
 import {secondsToHms} from "../../dw-utils/dw-common/dw-common-1";
 
@@ -127,8 +163,27 @@ export default {
       formInline: {
         ip: null,
         city: null,
-        anTime: null
-      }
+        anTime: null,
+        handleState: 100
+      },
+      handleState: 100,
+      threadMax: 6000,
+      expDataContent: 1,
+      formInlineDivStyle: 'display: flex;',
+      isProgress: false,
+      percentage: 0,
+      customColor: '#1989fa',
+      customColors: [
+        {color: '#cde2f6', percentage: 0},
+        {color: '#c1dbf5', percentage: 10},
+        {color: '#a7cdf3', percentage: 20},
+        {color: '#8bbff3', percentage: 40},
+        {color: '#6eb2f6', percentage: 60},
+        {color: '#4ca2fa', percentage: 80},
+        {color: '#1989fa', percentage: 100}
+      ],
+      exportLogId: null,
+      exportLogInfoInterval: null
     }
   },
   mounted () {
@@ -160,14 +215,6 @@ export default {
     },
     handleCurrentChange (val) {
       this.queryList(val)
-    },
-    handleExport () {
-      this.dialogFormVisible = true
-    },
-    executeExportData () {
-      const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}&expUpQu=${this.expUpQu}`
-      this.dialogFormVisible = false
-      window.location.href = downUrl
     },
     queryList (pageNo) {
       this.currentPage = pageNo
@@ -207,6 +254,81 @@ export default {
     },
     answerView (row) {
       this.$refs.dwAnswerInfoDialog.openDialog(row)
+    },
+    handleExport () {
+      this.dialogFormVisible = true
+      this.percentage = 0
+      this.exportLogId = null
+      this.isProgress = false
+    },
+    executeExportData () {
+      // const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}&expUpQu=${this.expUpQu}&handleState=${this.handleState}`
+      // this.dialogFormVisible = false
+      // window.location.href = downUrl
+      this.isProgress = true
+      const params = {surveyId: this.$route.params.id, expUpQu: this.expUpQu, handleState: this.handleState, threadMax: this.threadMax, expDataContent: this.expDataContent}
+      dwSurveyAnswerExportSync(params).then((response) => {
+        console.log('dwSurveyAnswerExportSync', response)
+        const httpResult = response.data
+        if (httpResult.resultCode === 200) {
+          var resultData = httpResult.data
+          this.exportLogId = resultData.id
+          console.log('this.exportLogId', this.exportLogId)
+          this.percentage = 0
+          this.exportProgress()
+        } else {
+          this.$message.error(`导出出错${httpResult.resultMsg}`)
+        }
+      })
+    },
+    exportProgress () {
+      if (this.exportLogId !== null) {
+        this.exportLogInfoInterval = setInterval(this.upExportProgress, 500)
+      }
+    },
+    upExportProgress () {
+      const params = {id: this.exportLogId}
+      dwSurveyAnswerExportLogInfo(params).then((response) => {
+        // 更新进度信息
+        console.log('dwSurveyAnswerExportLogInfo', response)
+        const httpResult = response.data
+        let isClear = true
+        if (httpResult.resultCode === 200) {
+          var resultData = httpResult.data
+          if (resultData !== null) {
+            console.log('progress', resultData.progress)
+            // const progress = parseInt(parseFloat(resultData.progress) * 100+'')
+            const progress = (parseFloat(resultData.progress) * 100).toFixed(2)
+            console.log('this progress', progress)
+            this.percentage = parseInt(progress)
+            if (progress <= 1) this.percentage = 1
+            console.log('this percentage', this.percentage)
+            isClear = false
+            if (progress >= 100) {
+              this.percentage = 100
+              isClear = true
+            }
+          }
+        }
+        if (isClear) {
+          clearInterval(this.exportLogInfoInterval)
+        }
+      })
+    },
+    downloadExportData () {
+      const surveyAnswerExportDownload = `/api/dwsurvey/app/answer/export-log/download-answer-xls.do`
+      const downUrl = `${process.env.DW_API_URL}${surveyAnswerExportDownload}?surveyId=${this.$route.params.id}&exportLogId=${this.exportLogId}`
+      console.log('downUrl', downUrl)
+      window.location.href = downUrl
+    },
+    cancelExportData () {
+      if (this.exportLogId !== null && this.exportLogInfoInterval !== null) {
+        clearInterval(this.exportLogInfoInterval)
+        this.percentage = 0
+        this.exportLogId = null
+        this.isProgress = false
+        this.dialogFormVisible = false
+      }
     }
   }
 }

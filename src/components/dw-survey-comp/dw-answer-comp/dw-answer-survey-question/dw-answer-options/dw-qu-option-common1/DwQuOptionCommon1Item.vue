@@ -32,20 +32,34 @@
       <template v-else>
         <dw-html-label-common ref="dwEditLabel" :value="options[optionIndex].optionTitleObj" ></dw-html-label-common>
       </template>
+      <template>
+        <transition enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipOutX">
+          <div v-show="options[optionIndex].hasOwnProperty('validateObj') && !options[optionIndex].validateObj.isOk" class="dw-answer-question-error dw-answer-question-option-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ options[optionIndex].validateObj.errorText }}
+          </div>
+        </transition>
+      </template>
     </div>
+    <template v-if="(options[optionIndex].checked && (quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" >
+      <!--      <el-input v-if="options[optionIndex].inputAttr.commonAttr.inputRow>1" v-model="options[optionIndex].otherText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
+      <el-input v-else v-model="options[optionIndex].otherText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" />-->
+      <dw-answer-input1 v-model="survey" :index="quIndex" :option-index="optionIndex" :input-attr="options[optionIndex].inputAttr"></dw-answer-input1>
+    </template>
   </div>
 </template>
 
 <script>
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
-import {getQuestionAnswerData} from "../../../../dw-utils/dw-survey-answer";
-import {validateQuestion} from "../../../../dw-utils/dw-survey-answer-validate";
-import {surveyAnswerLocalStorage} from "../../../dw-utils/dw-survey-answer-utils";
-import {showReadNotify} from "../../../../dw-utils/dw-common/dw-msg-common";
-import {answerQuEventCommon} from "../../../dw-utils/dw-survey-answer-common";
+import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
+import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
+import {surveyAnswerLocalStorage} from '../../../dw-utils/dw-survey-answer-utils'
+import {showReadNotify} from '../../../../dw-utils/dw-common/dw-msg-common'
+import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
+import DwAnswerInput1 from '../dw-qu-input-common1/DwAnswerInput1.vue'
 export default {
   name: 'DwQuOptionCommon1Item',
-  components: {DwHtmlLabelCommon},
+  components: {DwAnswerInput1, DwHtmlLabelCommon},
   /*
   model: {
     prop: 'value',
@@ -185,5 +199,8 @@ export default {
   padding: 2px 3px 0px 3px;
   /*background: red;*/
   line-height: normal;
+}
+.dw-answer-question-option-error{
+  margin: 5px 0;
 }
 </style>

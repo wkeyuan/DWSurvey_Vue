@@ -50,7 +50,7 @@ function getQuRadioAnswerData (question, anQuestion) {
   const quRadios = question.quRadios
   quRadios.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
-      anQuestion.anRadio = {optionDwId: option.dwId, otherText: null}
+      anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
     }
   })
 }
@@ -60,7 +60,7 @@ function getQuCheckboxAnswerData (question, anQuestion) {
   anQuestion.anCheckboxs = []
   quCheckboxs.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
-      anQuestion.anCheckboxs.push({optionDwId: option.dwId, otherText: null})
+      anQuestion.anCheckboxs.push({optionDwId: option.dwId, otherText: option.otherText})
     }
   })
 }
