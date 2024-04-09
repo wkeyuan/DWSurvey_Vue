@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      <el-row style="background-color: #34495e;opacity:0.85;" >
+      <el-row class="dw-header-row" style="" >
         <el-col :span="20" :offset="2">
           <div class="dw-header-main" >
             <el-row type="flex" justify="space-between" align="middle">
               <el-col :span="4" >
                 <a href="/#/">
                   <el-image :src="require('@/assets/logo.png')" ></el-image>
-                  <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">OSS</span>
+                  <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">PRO</span>
                 </a>
               </el-col>
               <el-col :span="16">
@@ -71,6 +71,10 @@ export default {
 </script>
 
 <style scoped>
+.dw-header-row{
+  background-color: var(--dw-primary-bg-color);
+  /*opacity:0.85;*/
+}
 .dw-header-main{
   padding: 0px;
 }

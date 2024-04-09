@@ -4,7 +4,7 @@
       <div class="m-logbg"></div>
     </div>
     <div>
-      <el-row style="background-color: #34495e;opacity:0.85;" >
+      <el-row class="dw-header-row" >
         <el-col :span="20" :offset="2">
           <div class="dw-header-main" >
             <el-row type="flex" justify="space-between" align="middle">
@@ -15,7 +15,7 @@
                 </a>
               </el-col>
               <el-col :span="16">
-                <div style="padding-left: 60px;color: white;">DWSurvey OSS 社区版 - Vue</div>
+                <div style="padding-left: 60px;color: white;">DWSurvey Pro 升级版 - 纯VUE实现</div>
               </el-col>
               <el-col :span="4" style="text-align: right;" >
                 <div>
@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style scoped>
+.dw-header-row{
+  background-color: var(--dw-primary-bg-color);
+  /*opacity:0.85;*/
+}
 .dw-header-main{
   padding: 0px;
 }

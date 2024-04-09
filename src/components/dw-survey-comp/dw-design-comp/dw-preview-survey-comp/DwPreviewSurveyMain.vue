@@ -231,7 +231,8 @@ export default {
   font-size: 14px;
 }
 .dw-icon-button.active,.dw-icon-button:hover{
-  color: #409EFF;
+  /*color: #409EFF;*/
+  color: var(--dw-primary-text-color-active);
   font-size: 18px;
 }
 .dw-preview-main{

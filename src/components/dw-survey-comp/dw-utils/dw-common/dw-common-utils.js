@@ -126,10 +126,10 @@ export function getDefaultSurveyStyle () {
     pageThemeColor1: '#7d08a9',
     logoBgColor: '#900abd',
     progressColor: '#a40ed7',*/
-    pageThemeColor: '#0778e3',
-    pageThemeColor1: '#065aab',
+    pageThemeColor: '#0965c2',
+    pageThemeColor1: '#044a8d',
     logoBgColor: '#3593ee',
-    progressColor: '#034585',
+    progressColor: '#0667c6',
     showQuNum: true,
     showProgressbar: true,
     showPageHeader: true,

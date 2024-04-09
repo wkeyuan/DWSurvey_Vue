@@ -2,10 +2,8 @@
   <el-menu
     :default-active="defActive"
     mode="horizontal"
-    background-color="#34495e"
     text-color="#fff"
-    active-text-color="#409eff"
-    class="dw-menu-height dw-menu"
+    class="dw-menu dw-menu-height"
     router
     @select="handleSelect">
     <el-menu-item index="/v6/dw/survey" >我的问卷</el-menu-item>
@@ -61,5 +59,17 @@ export default {
 }
 .dw-menu{
   border-bottom: none;
+}
+.dw-menu{
+  background-color: var(--dw-primary-bg-color);
+}
+.dw-menu .el-menu-item.is-active{
+  background-color: var(--dw-primary-bg-color-active);
+  color: white;
+  border-bottom: 2px solid var(--dw-primary-bg-color-active);
+}
+.dw-menu .el-menu-item:hover{
+  background-color: var(--dw-primary-bg-color-hover);
+  border-bottom: 2px solid var(--dw-primary-bg-color-hover);
 }
 </style>

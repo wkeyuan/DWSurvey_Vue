@@ -191,7 +191,7 @@ export default {
         console.debug('dwSaveSurveyJson-response', response)
         const httpResult = response.data
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
-          this.$message.success('保存成功！')
+          this.$message({message: '保存成功！', type: 'success', duration: 100000})
           if (callback!=null) callback()
         } else {
           this.$message.error('保存失败！')

@@ -186,7 +186,8 @@ export default {
 @import '../../../../../../assets/css/design-survey.css';
 
 .el-header{
-  background-color: #25292E;
+  /*background-color: #25292E;*/
+  background-color: var(--dw-primary-bg-color);
 }
 
 .dw-container-body-lr{

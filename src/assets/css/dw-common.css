@@ -1,3 +1,10 @@
+:root {
+  --dw-primary-theme-color: #064b91;
+  --dw-primary-bg-color: #064b91;
+  --dw-primary-bg-color-active: #033e75;
+  --dw-primary-bg-color-hover: #0662c0;
+  --dw-primary-text-color-active: #0b72dc;
+}
 /**
  在DW中定义的全局样式
  */
