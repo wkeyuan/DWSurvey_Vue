@@ -103,8 +103,21 @@ export default {
     },
     editFocus () {
       this.$refs.curEdit.focus()
-      document.execCommand('selectAll', false, null)
-      document.getSelection().collapseToEnd()
+      // document.execCommand('selectAll', false, null)
+      // document.getSelection().collapseToEnd()
+      this.selectAllText()
+    },
+    selectAllText () {
+      if (document.selection) {
+        const range = document.body.createTextRange()
+        range.moveToElementText(this.$refs.curEdit)
+        range.select()
+      } else if (window.getSelection) {
+        const range = document.createRange()
+        range.selectNodeContents(this.$refs.curEdit)
+        window.getSelection().removeAllRanges()
+        window.getSelection().addRange(range)
+      }
     }
   }
 }
@@ -131,14 +144,17 @@ export default {
   color: lightgrey;
 }
 .dw-input-focus{
-  border: 1px solid #095aaa;
+  border: 1px solid #095aaa!important;
   background: #f6f8f8;
+  background: #dde6fa;
   /*background: white;*/
   outline-width: 1px;
 }
 .dw-input-hover{
   background: #f6f8f8;
+  background: #dde6fa;
   /*background: white;*/
+  border: 1px dashed #095aaa;
 }
 .dw-edit-toolbar{
   width: 40px;

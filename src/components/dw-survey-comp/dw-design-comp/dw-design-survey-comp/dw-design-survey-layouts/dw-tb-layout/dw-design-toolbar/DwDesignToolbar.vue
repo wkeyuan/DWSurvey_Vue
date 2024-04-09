@@ -34,9 +34,28 @@
           </el-col>
           <el-col :span="6">
             <div style="text-align: right;padding-right: 10px;">
-              <el-button type="primary" @click="previewSurvey" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
-              <el-button plain @click="saveSurvey"><i class="fa-solid fa-floppy-disk"></i>&nbsp;保存</el-button>
-              <el-button plain @click="previewSurvey"><i class="fa-solid fa-eye"></i>&nbsp;预览</el-button>
+              <!--
+              <div class="dw-display-flex-right">
+                <div class="dw-display-flex-right">
+                  <span style="margin-right: 10px;font-size: 12px;">
+                    <el-switch v-model="isAutoSave" :active-text="`自动保存`" @change="autoSaveSurvey" ></el-switch>
+                    <span style="color: #afafb0;">({{ autoSaveTime }})</span>
+                  </span>
+                </div>
+                <div class="dw-display-flex-left">
+                  <div>
+                    <div><el-button type="primary" size="mini" @click="devSurvey" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button></div>
+                    <div style="margin-top: 10px;"><el-button size="mini" plain @click="saveSurvey"><i class="fa-solid fa-floppy-disk"></i>&nbsp;保存</el-button></div>
+                  </div>
+                </div>
+              </div>-->
+              <span style="margin-right: 10px;font-size: 12px;">
+                <el-switch v-model="isAutoSave" :active-text="`自动保存`" @change="autoSaveSurvey" ></el-switch>
+                <span style="color: #afafb0;">({{ autoSaveTime }})</span>
+              </span>
+              <el-button type="primary" size="small" @click="devSurvey" ><i class="fa fa-paper-plane"></i>&nbsp;发布</el-button>
+              <el-button plain size="small" style="margin-top: 10px;" @click="saveSurvey"><i class="fa-solid fa-floppy-disk"></i>&nbsp;保存</el-button>
+              <!--              <el-button plain @click="previewSurvey"><i class="fa-solid fa-eye"></i>&nbsp;预览</el-button>-->
             </div>
           </el-col>
         </el-row>
@@ -49,7 +68,7 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {initQuestionModels, parseQuestion, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
+import {initQuestionModels, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
@@ -76,11 +95,19 @@ export default {
       questions1: [],
       tabs: [],
       drag: false,
-      loading: true
+      loading: true,
+      isAutoSave: true,
+      autoSaveTime: 30,
+      intervalSaveSurvey: null
     }
   },
   mounted () {
     this.loadDesignSurveyData()
+    this.autoSaveSurvey()
+  },
+  beforeDestroy () {
+    // 清除定时器
+    this.stopIntervalSaveSurvey()
   },
   methods: {
     onStart () {
@@ -110,9 +137,38 @@ export default {
           this.loading = false
         }
       })
+      // 启动定时保丰
+    },
+    autoSaveSurvey () {
+      if (this.isAutoSave) {
+        this.startIntervalSaveSurvey()
+      } else {
+        this.stopIntervalSaveSurvey()
+      }
+    },
+    startIntervalSaveSurvey () {
+      const _that = this
+      this.autoSaveTime = 20
+      this.intervalSaveSurvey = setInterval(function () {
+        _that.saveSurveyFun(null)
+        _that.autoSaveTime = 20
+        console.log('每隔20秒执行一次自动保存')
+      }, 20000)
+      this.intervalSaveSurveyTime = setInterval(function () {
+        _that.autoSaveTime = _that.autoSaveTime-1
+        if (_that.autoSaveTime<=0) _that.autoSaveTime = 0
+      }, 1000)
+    },
+    stopIntervalSaveSurvey () {
+      if (this.intervalSaveSurvey!==null) clearInterval(this.intervalSaveSurvey)
+      if (this.intervalSaveSurveyTime!==null) clearInterval(this.intervalSaveSurveyTime)
     },
     saveSurvey () {
       this.saveSurveyFun(null)
+    },
+    devSurvey () {
+      this.stopIntervalSaveSurvey()
+      this.previewSurvey()
     },
     previewSurvey () {
       this.saveSurveyFun(() => {
@@ -138,7 +194,7 @@ export default {
           this.$message.success('保存成功！')
           if (callback!=null) callback()
         } else {
-          this.$message.success('保存失败！')
+          this.$message.error('保存失败！')
         }
       })
     }

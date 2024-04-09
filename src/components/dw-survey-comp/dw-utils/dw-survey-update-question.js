@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from "uuid";
+
 export function dwSurveyQuAddOption (survey, index, quOption) {
   /*
   // 从组件中抽取的原代码片段备注
@@ -83,6 +85,7 @@ export function dwResetQuestionRefreshValue (question) {
   // 进行重置
   question.quTitleObj.isRefreshValue = true
   question.quNoteObj.isRefreshValue = true
+  if (!question.hasOwnProperty('dwId')) question.dwId = uuidv4()
   const quType = question.quType
   if (quType === 'RADIO') {
     question.quRadios.forEach((item, index) => {

@@ -7,7 +7,7 @@
       <div style="padding: 0 40px;">
         <dw-text-edit-label-common v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-text-edit-label-common>
       </div>
-      <div>
+      <div style="margin-top: 10px;">
         <div>
           <draggable
             v-model="survey.questions"
@@ -47,6 +47,7 @@ import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
 import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
+import {v4 as uuidv4} from "uuid";
 
 export default {
   name: 'DwDesignContainerBodyCenter',
@@ -79,8 +80,10 @@ export default {
       this.documentClick()
       // 自动执行focus事件
       const newIndex = attrs.newIndex
+      console.debug('newIndex', newIndex)
       this.refreshData(newIndex)
-      this.survey.questions[newIndex].quTitleObj.isNew = true
+      // this.survey.questions[newIndex].quTitleObj.isNew = true // 新加入的不需要通过这个获得焦点，如果下面题目标记isNew 然后再初始化进行执行
+      this.survey.questions[newIndex].isNew = true
       resetQuestion(this.survey.questions[newIndex])
       // 还没选项的ID
     },
@@ -118,7 +121,13 @@ export default {
     refreshData (quIndex) {
       const questions = this.survey.questions
       questions.forEach((item, index) => {
-        if (index>=quIndex) this.survey.questions.splice(index, 1, dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+        if (index>=quIndex) {
+          this.survey.questions.splice(index, 1, dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+          /*
+          const question = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item)))
+          if (index===quIndex) question.quTitleObj.isNew = true
+          this.survey.questions.splice(index, 1, question)*/
+        }
       })
     }
   }

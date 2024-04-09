@@ -120,11 +120,16 @@ export function getDefaultSurveyStyle () {
     pageTopImg: {enabled: false, src: null, httpSrc: null},
     pageBgImg: {enabled: false, src: null, httpSrc: null},
     logoImg: {enabled: false, src: null, httpSrc: null, position: 'topLogoRight'},
-    pageBgColor: '#dfdfe0',
+    pageBgColor: '#eeeeee',
+    /*
     pageThemeColor: '#b53bde',
     pageThemeColor1: '#7d08a9',
     logoBgColor: '#900abd',
-    progressColor: '#a40ed7',
+    progressColor: '#a40ed7',*/
+    pageThemeColor: '#0778e3',
+    pageThemeColor1: '#065aab',
+    logoBgColor: '#3593ee',
+    progressColor: '#034585',
     showQuNum: true,
     showProgressbar: true,
     showPageHeader: true,

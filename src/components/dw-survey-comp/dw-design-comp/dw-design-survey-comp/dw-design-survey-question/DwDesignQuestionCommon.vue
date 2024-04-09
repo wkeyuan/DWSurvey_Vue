@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--    :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" -->
-    <div class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
+    <div :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-top dw-height-20px" style="display: none;" >
         <div class="">
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
@@ -171,6 +171,14 @@ export default {
       // for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(null)
     }
   },
+  mounted () {
+    // console.debug('itemIndex', this.optionIndex)
+    if (this.survey.questions[this.index].hasOwnProperty('isNew') && this.survey.questions[this.index].isNew) {
+      this.$refs.dwQuTitle.clickItem()
+      this.$refs.dwQuTitle.editFocus()
+      this.survey.questions[this.index].isNew = false
+    }
+  },
   methods: {
     mouseleave () {
       this.hover = false
@@ -199,7 +207,11 @@ export default {
       // 要刷新通知下层排序项
     },
     deleteQu () {
-      this.$confirm('确认删除？').then(_ => {
+      this.$confirm('此操作将永久删除该题目, 是否继续？', {
+        type: 'warning',
+        confirmButtonText: '是，确定删除',
+        cancelButtonText: '否，放弃删除'
+      }).then(_ => {
         this.survey.questions.splice(this.index, 1)
         // 需要强制触发所有题目刷新
         this.survey = dwResetSurveyQuestionRefreshValue(this.survey)
@@ -242,6 +254,9 @@ export default {
   grid-template-columns: 40px auto 40px;
   padding: 2px 0 0 0;
   margin: 0;
+}
+.dw-qu-title-body{
+  margin-bottom: 5px;
 }
 .dw-qu-title-body .dw-qu-num{
   min-width: 20px;

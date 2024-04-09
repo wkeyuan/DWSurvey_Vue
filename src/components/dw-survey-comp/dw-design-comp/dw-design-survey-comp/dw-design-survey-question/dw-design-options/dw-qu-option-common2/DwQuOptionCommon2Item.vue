@@ -25,7 +25,7 @@
       </template>
       <el-rate v-if="quType==='SCORE'" :max="survey.questions[quIndex].paramInt02" ></el-rate>
     </div>
-<!--    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
+    <!--    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
       <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
         <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
       </el-tooltip>

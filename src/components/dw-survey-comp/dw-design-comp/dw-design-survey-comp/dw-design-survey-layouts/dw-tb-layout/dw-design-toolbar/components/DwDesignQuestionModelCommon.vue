@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dw-answer-custom-theme">
     <slot></slot>
     <template v-if="item.dwsurveyfont !== null">
       <slot name="quModelTagDwsurveyfont" ></slot>

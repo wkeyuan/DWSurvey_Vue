@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     onAdd (attrs) {
-      console.debug('onAdd attrs', attrs)
+      console.debug('left onAdd attrs', attrs)
       // 自动执行focus事件
       const newIndex = attrs.newIndex
       this.refreshData(newIndex)

@@ -79,6 +79,8 @@ export function parseQuestions (questions, noModel) {
   if (questions !== null && questions.length > 0) {
     // 循环然后定义以上内容
     questions.forEach((question, quIndex) => {
+      question.showQu = true
+      question.logicIsHide = false
       parseQuestion(question, noModel)
     })
   }
@@ -92,11 +94,12 @@ export function parseQuestions (questions, noModel) {
  */
 export function parseQuestion (question, noModel) {
   const quName = question.quName !== null ? question.quName : question.quTitle
-  if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题'}
+  if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题', isNew: false}
   const quNote = question.quNote
-  if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注'}
+  if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注', isNew: false}
   if (question.questionLogics===null) question.questionLogics = []
   if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv4()
+  addNewQuProps(question)// 新版重新梳理属性结构
   const quType = question.quType
   if (quType === 'RADIO') {
     parseQuRadio(question)
@@ -131,22 +134,19 @@ export function parseQuestion (question, noModel) {
   // const numAttr = {min: null, max: null}
   // const inputAttr = {commonAttr, dateTimeAttr, numAttr}
   // if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
-  addNewQuProps(question)
 }
 
 function addNewQuProps (question) {
   // 新版重新梳理属性结构
-  const inputAttr = getInputQuProps()
   if (question.hasOwnProperty('quAttr')) {
     if (!question.quAttr.hasOwnProperty('isRequired')) question.quAttr.isRequired = true
-    if (!question.quAttr.hasOwnProperty('inputAttr')) question.quAttr.inputAttr = inputAttr
   } else {
-    question.quAttr = {isRequired: true, inputAttr}
+    question.quAttr = {isRequired: true}
   }
   return question
 }
 
-function getInputQuProps (question) {
+function getInputQuProps () {
   // 新版重新梳理属性结构
   const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
   const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
@@ -161,6 +161,7 @@ export function initQuestionModels (questions) {
     questions.map((question, quIndex) => {
       question.isRequired = 1
       question.showQu = true
+      question.logicIsHide = false
       addNewQuProps(question)
     })
   }
@@ -221,6 +222,34 @@ function parseQuFbk (question) {
   question.quTypeName = '填空题'
   if (!question.hasOwnProperty('placeholder')) question.placeholder = '请输入'
   if (!question.hasOwnProperty('step')) question.step = '00:05'
+  const inputAttr = getInputQuProps()
+  /*
+  if (question.hasOwnProperty('quAttr')) {
+    if (!question.quAttr.hasOwnProperty('isRequired')) question.quAttr.isRequired = true
+    if (!question.quAttr.hasOwnProperty('inputAttr')) question.quAttr.inputAttr = inputAttr
+  } else {
+    question.quAttr = {isRequired: true, inputAttr}
+  }*/
+  addNewQuProps(question)
+  if (!question.quAttr.hasOwnProperty('inputAttr') || question.quAttr.inputAttr===undefined) question.quAttr.inputAttr = inputAttr
+  if (!question.quAttr.inputAttr.hasOwnProperty('dateTimeAttr')) question.quAttr.inputAttr.dateTimeAttr = inputAttr.dateTimeAttr
+  const checkType = question.checkType
+  if (checkType==='DATE') {
+    question.quAttr.inputAttr.commonAttr.checkType='DATE'
+    console.debug('question.quAttr.inputProp', question.quAttr.inputProp)
+    question.quAttr.inputAttr.dateTimeAttr.dateFormat = 3
+  } else if (checkType==='TIME') {
+    question.quAttr.inputAttr.commonAttr.checkType='TIME'
+    question.quAttr.inputAttr.dateTimeAttr.dateFormat = 7
+  } else if (checkType==='EMAIL') {
+    question.quAttr.inputAttr.commonAttr.checkType='EMAIL'
+  } else if (checkType==='PHONENUM') {
+    question.quAttr.inputAttr.commonAttr.checkType='PHONE'
+  } else if (checkType==='IDENTCODE') {
+    question.quAttr.inputAttr.commonAttr.checkType='IDENT_CODE'
+  } else if (checkType==='DIGITS') {
+    question.quAttr.inputAttr.commonAttr.checkType='DIGITS'
+  }
 }
 
 function parseQuUploadFile (question) {
