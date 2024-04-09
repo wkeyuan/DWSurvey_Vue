@@ -11,7 +11,7 @@
                     <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? parseFloat(survey.answerProgress.percentage) : 0" :color="survey.surveyStyle.progressColor" define-back-color="#dcdfe6"></el-progress>
                   </div>
                   <!--                  <div :style="`background-color: ${survey.surveyStyle.progressColor};width:100%;height:100px;`">{{ survey.surveyStyle.progressColor }}</div>-->
-                  <dw-answer-survey-body ref="designContainerBody" v-model="survey" ></dw-answer-survey-body>
+                  <dw-answer-survey-body ref="designContainerBody" v-model="survey" :ext-props="extProps"></dw-answer-survey-body>
                 </div>
               </div>
             </div>

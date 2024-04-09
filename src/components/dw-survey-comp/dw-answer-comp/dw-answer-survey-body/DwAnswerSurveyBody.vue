@@ -124,7 +124,8 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    extProps: {type: Object, default: () => {}}
   },
   data () {
     return {
@@ -171,62 +172,69 @@ export default {
     },
     submitAnswer () {
       // const sid = this.$route.params.id
+      if (validateQuestionsBool(this.survey.questions)) {
+        if (this.extProps!==null && this.extProps!==undefined && this.extProps.hasOwnProperty('isPreview') && this.extProps.isPreview) {
+          this.$message.warning('当前预览状态，不可以提交答卷！')
+        } else {
+          this.submitAnswerPost()
+        }
+      } else {
+        this.$message.warning('请根据提示完成表单！')
+      }
+    },
+    submitAnswerPost () {
       const sid = this.survey.sid
       const answerId = getEsId(this.survey)
       const answer = getSurveyAnswerData(this.survey)
       answer.anPwd = this.anPwd
       this.answer = answer
       console.debug('answer', answer)
-      if (validateQuestionsBool(this.survey.questions)) {
-        const surveyAnswerJsonText = JSON.stringify(answer)
-        const data = {surveyId: answer.answerCommon.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
-        this.fullscreenLoading = true
-        dwSaveSurveyAnswerJson(data).then((response) => {
-          const httpResult = response.data
-          if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
-            const resultData = httpResult.data
-            if (resultData.hasOwnProperty('anCheckIsPass') && resultData.hasOwnProperty('anCheckResultCode') && resultData.hasOwnProperty('indexResponseId')) {
-              const anCheckIsPass = resultData.anCheckIsPass
-              const anCheckResultCode = resultData.anCheckResultCode
-              const indexResponseId = resultData.indexResponseId
-              if (anCheckIsPass && anCheckResultCode===201 && indexResponseId!==null) {
-                // this.$message.success('保存成功！')
-                // 弹出提示
+      const surveyAnswerJsonText = JSON.stringify(answer)
+      const data = {surveyId: answer.answerCommon.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
+      this.fullscreenLoading = true
+      dwSaveSurveyAnswerJson(data).then((response) => {
+        const httpResult = response.data
+        if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
+          const resultData = httpResult.data
+          if (resultData.hasOwnProperty('anCheckIsPass') && resultData.hasOwnProperty('anCheckResultCode') && resultData.hasOwnProperty('indexResponseId')) {
+            const anCheckIsPass = resultData.anCheckIsPass
+            const anCheckResultCode = resultData.anCheckResultCode
+            const indexResponseId = resultData.indexResponseId
+            if (anCheckIsPass && anCheckResultCode===201 && indexResponseId!==null) {
+              // this.$message.success('保存成功！')
+              // 弹出提示
+              this.survey.answerMsg.showAnswerMsg = true
+              this.survey.answerMsg.answerMsgInfo = '答卷提交成功，感谢您的支持!'
+              // 必须是答卷提交成功时清掉暂存的数据，考虑加上访问token
+              // surveyAnswerLocalStorage.clearAnswerHistory(this.$route.params.id, this.$route.params.answerId)
+              surveyAnswerLocalStorage.clearAnswerHistory(sid, answerId)
+              // 存入答卷记录到本地，方便下次进入时直接过滤
+              // surveyAnswerLocalStorage
+            } else {
+              // 处理各种未完成保存的返回值
+              if (resultData.hasOwnProperty('anCheckResultMsg')) {
+                const anCheckResultMsg = resultData.anCheckResultMsg
+                // this.$message.warning(`${anCheckResultMsg}，状态码：${anCheckResultCode}`)
                 this.survey.answerMsg.showAnswerMsg = true
-                this.survey.answerMsg.answerMsgInfo = '答卷提交成功，感谢您的支持!'
-                // 必须是答卷提交成功时清掉暂存的数据，考虑加上访问token
-                // surveyAnswerLocalStorage.clearAnswerHistory(this.$route.params.id, this.$route.params.answerId)
-                surveyAnswerLocalStorage.clearAnswerHistory(sid, answerId)
-                // 存入答卷记录到本地，方便下次进入时直接过滤
-                // surveyAnswerLocalStorage
+                this.survey.answerMsg.answerMsgInfo = anCheckResultMsg
+                this.survey.answerMsg.answerCheckResult = resultData
+                // 然后对需要特殊处理的进行特殊处理
               } else {
-                // 处理各种未完成保存的返回值
-                if (resultData.hasOwnProperty('anCheckResultMsg')) {
-                  const anCheckResultMsg = resultData.anCheckResultMsg
-                  // this.$message.warning(`${anCheckResultMsg}，状态码：${anCheckResultCode}`)
-                  this.survey.answerMsg.showAnswerMsg = true
-                  this.survey.answerMsg.answerMsgInfo = anCheckResultMsg
-                  this.survey.answerMsg.answerCheckResult = resultData
-                  // 然后对需要特殊处理的进行特殊处理
-                } else {
-                  // 不太可能进入此块
-                  this.$message.warning('数据未保存，请确认！')
-                  this.isReAnswer = true
-                }
+                // 不太可能进入此块
+                this.$message.warning('数据未保存，请确认！')
+                this.isReAnswer = true
               }
             }
-          } else {
-            this.$message.error('保存失败！')
-            this.survey.answerMsg.showAnswerMsg = true
-            this.survey.answerMsg.answerMsgInfo = '答卷保存失败，请重试!'
-            this.isReAnswer = true
           }
-          this.fullscreenLoading = false
-        })
-        console.debug('submit-answer')
-      } else {
-        this.$message.warning('请根据提示完成表单！')
-      }
+        } else {
+          this.$message.error('保存失败！')
+          this.survey.answerMsg.showAnswerMsg = true
+          this.survey.answerMsg.answerMsgInfo = '答卷保存失败，请重试!'
+          this.isReAnswer = true
+        }
+        this.fullscreenLoading = false
+      })
+      console.debug('submit-answer')
     }
   }
 }

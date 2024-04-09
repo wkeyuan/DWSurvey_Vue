@@ -1,34 +1,32 @@
 <template>
   <div id="loginPage" >
-    <el-row :gutter="0">
-      <el-col :span="10" :offset="7">
-        <div class="loginFormContent" >
-          <div style="text-align: center;">
-            <h3>欢迎登录</h3>
-            <div>
-              <el-tag type="success">调问</el-tag>
-              <el-tag type="warning">专业</el-tag>
-              <el-tag>开源</el-tag>
-              <el-tag type="success">实用的</el-tag>
-              <el-tag type="warning">调查问卷系统</el-tag>
-            </div>
-          </div>
+    <div class="dw-display-flex-center">
+      <div style="background-color: white;">
+      </div>
+      <div class="loginFormContent" >
+        <div style="text-align: center;">
+          <h3>欢迎登录</h3>
           <div>
-            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-position="top" label-width="100px" class="demo-ruleForm" @submit.native.prevent >
-              <el-form-item label="用户名" prop="email">
-                <el-input v-model="ruleForm.email" autocomplete="on" ></el-input>
-              </el-form-item>
-              <el-form-item label="密码" prop="pass">
-                <el-input v-model="ruleForm.pass" type="password" autocomplete="off" show-password ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" native-type="submit" style="width: 100%;" @click="submitForm('ruleForm')" >登录</el-button>
-              </el-form-item>
-            </el-form>
+            <el-tag type="success">调问网</el-tag>
+            <el-tag type="warning">全新的问卷平台</el-tag>
+            <el-tag>使用纯VUE全部重写</el-tag>
           </div>
         </div>
-      </el-col>
-    </el-row>
+        <div>
+          <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-position="top" label-width="100px" class="demo-ruleForm" @submit.native.prevent >
+            <el-form-item label="用户名" prop="email">
+              <el-input v-model="ruleForm.email" autocomplete="on" ></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="pass">
+              <el-input v-model="ruleForm.pass" type="password" autocomplete="off" show-password ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" native-type="submit" style="width: 100%;" @click="submitForm('ruleForm')" >登录</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>

@@ -8,7 +8,7 @@
               <el-col :span="4" >
                 <a href="/#/">
                   <el-image :src="require('@/assets/logo.png')" ></el-image>
-                  <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">PRO</span>
+                  <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">Pro</span>
                 </a>
               </el-col>
               <el-col :span="16">

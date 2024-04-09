@@ -20,8 +20,8 @@
                     @start="onStart"
                     @end="onEnd">
                     <transition-group class="toolbars-draggable-group">
-                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" >
-                        <dw-design-toolbar-question :item="item"></dw-design-toolbar-question>
+                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
+                        <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
                       </div>
                     </transition-group>
                   </draggable>
@@ -68,11 +68,12 @@
 
 import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {initQuestionModels, parseQuestions} from '../../../../../dw-utils/dw-survey-parse'
+import {initQuestionModels, parseQuestions, resetQuestion} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
 import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
+import {dwResetQuestionRefreshValue} from "../../../../../dw-utils/dw-survey-update-question";
 
 export default {
   name: 'DwDesignToolbar',
@@ -110,6 +111,11 @@ export default {
     this.stopIntervalSaveSurvey()
   },
   methods: {
+    clickToolbarItem (item) {
+      item.isNew = true
+      this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+      resetQuestion(this.survey.questions[this.survey.questions.length-1])
+    },
     onStart () {
       this.drag=true
       this.$emit('start-drag')

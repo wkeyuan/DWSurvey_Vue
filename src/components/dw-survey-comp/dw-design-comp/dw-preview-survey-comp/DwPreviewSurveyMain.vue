@@ -93,6 +93,7 @@ import DwSurveyStyleDesignAside from './componets/DwSurveyStyleDesignAside.vue'
 import {clearSurveyJson, getSurveyJsonSimple} from "../../dw-utils/dw-survey-design";
 import {clearSurveyAnswer} from "../../dw-answer-comp/dw-utils/dw-survey-answer-clear";
 import {dwSurveyAnswerLogicLoad} from "../../dw-answer-comp/dw-utils/dw-survey-answer-logic";
+import {surveyAnswerLocalStorage} from "../../dw-answer-comp/dw-utils/dw-survey-answer-utils";
 
 export default {
   name: 'DwPreviewSurveyMain',
@@ -158,6 +159,7 @@ export default {
         console.debug(response)
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
+          surveyAnswerLocalStorage.clearAnswerHistory(this.survey.sid, null)
           this.$router.push('/v6/dw/survey/c/url/'+surveyId)
         } else {
           this.$message.error('发布失败，请重试或联系管理员！')
