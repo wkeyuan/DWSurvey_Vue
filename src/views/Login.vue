@@ -31,9 +31,10 @@
 </template>
 <script>
 
-import DwAuthorized from '../utils/dw-authorized'
+import DwAuthorized, {dwFooterLocalStorage} from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
 import {dwLogin} from '@/api/dw-login'
+import Api from "../api";
 
 export default {
   name: 'Login',
@@ -57,16 +58,34 @@ export default {
   },
   mounted () {
     this.pageH = window.height
+    this.loadDwFooter()
   },
   methods: {
+    loadDwFooter () {
+      const footerInfo = dwFooterLocalStorage.getDwFooterInfo()
+      if (!footerInfo.hasOwnProperty('siteStatus')) {
+        this.axios.get(Api.surveyFooterInfo, {}).then((response) => {
+          const resultData = response.data.data
+          // 存储到本地
+          dwFooterLocalStorage.setDwFooterInfo(resultData)
+          this.showDefaultDemoPwd(resultData)
+        })
+      } else {
+        this.showDefaultDemoPwd(footerInfo)
+      }
+    },
+    showDefaultDemoPwd (footerInfo) {
+      if (footerInfo.hasOwnProperty('siteStatus') && footerInfo.siteStatus==='demo') {
+        this.ruleForm.email = 'service@diaowen.net'
+        this.ruleForm.pass = '123456'
+      }
+    },
     submitForm (formName) {
       // 进行登录验证
       this.$refs[formName].validate((valid) => {
         if (valid) {
           dwLogin(this.ruleForm.email, this.ruleForm.pass).then((response) => {
             const resultData = response.data
-            console.log('login-begin')
-            console.log(resultData)
             if (resultData.status === 'ok') {
               DwAuthorized.setAuthority(resultData.currentAuthority)
               DwAuthorized.setUserName(this.ruleForm.email)

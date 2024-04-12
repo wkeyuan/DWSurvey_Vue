@@ -12,7 +12,7 @@
                 <dw-header-logo></dw-header-logo>
               </el-col>
               <el-col :span="16">
-                <div style="padding-left: 60px;color: white;">DWSurvey Pro - 纯VUE实现</div>
+                <div style="padding-left: 60px;color: white;">DWSurvey Pro - 纯VUE实现，体验更佳</div>
               </el-col>
               <el-col :span="4" style="text-align: right;" >
                 <div>

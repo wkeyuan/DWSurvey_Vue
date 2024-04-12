@@ -18,6 +18,7 @@
 <script>
 
 import API from '@/api/index.js'
+import {dwFooterLocalStorage} from "../../utils/dw-authorized";
 
 export default {
   name: 'DwFooter',
@@ -45,6 +46,8 @@ export default {
         const resultData = response.data.data
         console.debug(resultData)
         this.footerInfo = resultData
+        // 存储到本地
+        dwFooterLocalStorage.setDwFooterInfo(this.footerInfo)
       })
     }
   }
