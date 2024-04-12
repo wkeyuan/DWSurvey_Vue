@@ -1,6 +1,5 @@
 <template>
   <div>
-<!--    <dw-design-survey-comp></dw-design-survey-comp>-->
     <dw-design-survey-main></dw-design-survey-main>
   </div>
 </template>

@@ -168,3 +168,15 @@ export function dwSurveyAnswerInfo (answerId) {
   })
 }
 
+/**
+ * 更新问卷信息
+ * @param data
+ * @returns {*}
+ */
+export function dwSurveyAnswerDeleteByEs (data) {
+  return request({
+    url: '/api/dwsurvey/app/v6/dw-answer-data-survey/delete-answer.do',
+    method: 'delete',
+    data
+  })
+}

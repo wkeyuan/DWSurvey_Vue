@@ -140,7 +140,7 @@
 </template>
 
 <script>
-import {dwSurveyAnswerDelete} from '../../../../api/dw-survey'
+import {dwSurveyAnswerDelete, dwSurveyAnswerDeleteByEs} from '../../../../api/dw-survey'
 import {
   dwSurveyAnswerExportLogInfo,
   dwSurveyAnswerExportSync,
@@ -200,13 +200,16 @@ export default {
     handleDelete (index, row) {
       console.log(index, row)
       this.$msgbox.confirm('确认删除此条答卷吗？', '删除警告', {type: 'warning', confirmButtonText: '确认删除'}).then(() => {
-        const data = {id: [row.id]}
-        dwSurveyAnswerDelete(data).then((response) => {
+        const data = {id: [row.esId]}
+        dwSurveyAnswerDeleteByEs(data).then((response) => {
           console.log(response)
           const httpResult = response.data
           if (httpResult.resultCode === 200) {
             this.$message.success('删除成功，即将刷新数据。')
-            this.queryList(1)
+            const _that = this
+            setTimeout(function () {
+              _that.queryList(1)
+            }, 2000)
           } else {
             this.$message.error('删除答卷失败')
           }
