@@ -28,225 +28,272 @@ import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV
 import DwSurveyListV6 from "../views/dw-survey-v6/DwSurveyListV6.vue";
 import DwSurveyChartsV6 from "../views/dw-survey-v6/dw-data-v6/DwSurveyChartsV6.vue";
 import DwAnswerSurveyMobileV6 from "../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue";
+import DwSurveyAttrSet from "../views/dw-survey-v6/dw-design/DwSurveyAttrSet.vue";
+import DwSiteCompV6 from "../views/dw-survey-v6/dw-collect-v6/DwSiteCompV6.vue";
+import DwSiteShareV6 from "../views/dw-survey-v6/dw-collect-v6/DwSiteShareV6.vue";
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [
-    // 老版本的路由
-    {
-      path: '/',
-      meta: '首页',
-      component: Layout,
-      children: [
-        {
-          path: '/',
-          // redirect: '/dw/survey'
-          redirect: '/v6'
+const routes = [
+  // 老版本的路由
+  {
+    path: '/',
+    meta: '首页',
+    component: Layout,
+    children: [
+      {
+        path: '/',
+        // redirect: '/dw/survey'
+        redirect: '/v6'
+      },
+      {
+        path: '/dw/survey',
+        name: 'DwSurveyList',
+        component: DwSurveyList
+      },
+      {
+        path: '/dw/survey/c/attr/:id',
+        name: 'DwSurveyAttr',
+        component: DwSurveyAttr
+      },
+      {
+        path: '/dw/survey/c/url/:id',
+        name: 'DwAnswerUrl',
+        component: DwAnswerUrl
+      },
+      {
+        path: '/dw/survey/c/comp/:id',
+        name: 'DwSiteComp',
+        component: DwSiteComp
+      },
+      {
+        path: '/dw/survey/c/share/:id',
+        name: 'DwSiteShare',
+        component: DwSiteShare
+      },
+      {
+        path: '/dw/survey/c/weixin/:id',
+        name: 'DwAnswerWeixin',
+        component: DwAnswerWeixin
+      },
+      {
+        path: '/dw/survey/d/chart/:id',
+        name: 'DwSurveyCharts',
+        component: DwSurveyCharts
+      },
+      {
+        path: '/dw/survey/d/data/:id',
+        name: 'DwSurveyAnswer',
+        component: DwSurveyAnswer
+      },
+      {
+        path: '/dw/user/pwd',
+        name: 'DwUserPwd',
+        component: DwUserPwd
+      },
+      {
+        path: '/dw/user',
+        name: 'DwUser',
+        component: DwUser
+      },
+      {
+        path: '/dw/admin/user',
+        name: 'AdminUserList',
+        component: AdminUserList
+      },
+      {
+        path: '/dw/survey/d/data/v6/:id',
+        name: 'DwSurveyAnswerDataListV6',
+        component: DwSurveyAnswerDataListV6
+      },
+      {
+        path: '/dw/survey/c/url/v6/:id',
+        name: 'DwAnswerUrlV6',
+        component: DwAnswerUrlV6
+      }
+    ]
+  },
+  {
+    path: '/diaowen/:sid',
+    name: 'DwAnswer',
+    component: DwAnswer
+  },
+  {
+    path: '/no-top',
+    name: 'NoTopLayout',
+    component: NoTopLayout,
+    children: [
+      {
+        path: '/no-top/dw-survey/d/data/:id/:answerId',
+        name: 'DwSurveyAnswerInfo',
+        component: DwSurveyAnswerInfo
+      }
+    ]
+  },
+  {
+    path: '/v6',
+    meta: '首页',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        redirect: 'dw/survey'
+      },
+      {
+        path: 'dw/survey',
+        name: 'DwSurveyListV6',
+        meta: {
+          title: '我的问卷'
         },
-        {
-          path: '/dw/survey',
-          name: 'DwSurveyList',
-          component: DwSurveyList
+        component: DwSurveyListV6
+      },
+      {
+        path: 'dw/survey/c/attr/:id',
+        name: 'DwSurveyAttrSet',
+        meta: {
+          title: '问卷属性'
         },
-        {
-          path: '/dw/survey/c/attr/:id',
-          name: 'DwSurveyAttr',
-          component: DwSurveyAttr
+        component: DwSurveyAttrSet
+      },
+      {
+        path: 'dw/survey/c/url/:id',
+        name: 'DwAnswerUrlV6',
+        meta: {
+          title: '答卷地址'
         },
-        {
-          path: '/dw/survey/c/url/:id',
-          name: 'DwAnswerUrl',
-          component: DwAnswerUrl
+        component: DwAnswerUrlV6
+      },
+      {
+        path: 'dw/survey/c/comp/:id',
+        name: 'DwSiteCompV6',
+        meta: {
+          title: '网站组件'
         },
-        {
-          path: '/dw/survey/c/comp/:id',
-          name: 'DwSiteComp',
-          component: DwSiteComp
+        component: DwSiteCompV6
+      },
+      {
+        path: 'dw/survey/c/share/:id',
+        name: 'DwSiteShareV6',
+        component: DwSiteShareV6
+      },
+      {
+        path: 'dw/survey/c/weixin/:id',
+        name: 'DwAnswerWeixin',
+        component: DwAnswerWeixin
+      },
+      {
+        path: 'dw/survey/d/chart/:id',
+        name: 'DwSurveyChartsV6',
+        meta: {
+          title: '统计分析'
         },
-        {
-          path: '/dw/survey/c/share/:id',
-          name: 'DwSiteShare',
-          component: DwSiteShare
+        component: DwSurveyChartsV6
+      },
+      {
+        path: 'dw/survey/d/data/:id',
+        name: 'DwSurveyAnswerDataListV6',
+        meta: {
+          title: '原始数据'
         },
-        {
-          path: '/dw/survey/c/weixin/:id',
-          name: 'DwAnswerWeixin',
-          component: DwAnswerWeixin
+        component: DwSurveyAnswerDataListV6
+      },
+      {
+        path: 'dw/user/pwd',
+        name: 'DwUserPwd',
+        component: DwUserPwd
+      },
+      {
+        path: '/dw/user',
+        name: 'DwUser',
+        component: DwUser
+      },
+      {
+        path: '/dw/admin/user',
+        name: 'AdminUserList',
+        component: AdminUserList
+      }
+    ]
+  },
+  {
+    path: '/dw-v6',
+    name: 'NoTopLayout',
+    component: NoTopLayout,
+    children: [
+      {
+        path: 'diaowen/dw-design/survey/:id',
+        name: 'DwSurveyDesignContent',
+        meta: {
+          title: '问卷设计'
         },
-        {
-          path: '/dw/survey/d/chart/:id',
-          name: 'DwSurveyCharts',
-          component: DwSurveyCharts
+        component: DwSurveyDesignContent
+      },
+      {
+        path: 'diaowen/dw-design/survey1',
+        name: 'DwDesign',
+        meta: {
+          title: '问卷设计'
         },
-        {
-          path: '/dw/survey/d/data/:id',
-          name: 'DwSurveyAnswer',
-          component: DwSurveyAnswer
+        component: DwDesign
+      },
+      {
+        path: 'diaowen/dw-preview/survey/:id',
+        name: 'DwSurveyPreview',
+        meta: {
+          title: '问卷预览'
         },
-        {
-          path: '/dw/user/pwd',
-          name: 'DwUserPwd',
-          component: DwUserPwd
+        component: DwSurveyPreview
+      },
+      {
+        path: 'diaowen/:sid',
+        name: 'DwAnswerSurveyV6',
+        meta: {
+          title: '欢迎答卷'
         },
-        {
-          path: '/dw/user',
-          name: 'DwUser',
-          component: DwUser
+        component: DwAnswerSurveyV6
+      },
+      {
+        path: 'diaowen/m/:sid',
+        name: 'DwAnswerSurveyV6',
+        component: DwAnswerSurveyMobileV6
+      },
+      {
+        path: 'diaowen/:sid/:answerId',
+        name: 'DwAnswerSurveyV6',
+        component: DwAnswerSurveyV6
+      },
+      {
+        path: 'diaowen/review/:sid/:answerId',
+        name: 'DwSurveyAnswerReview',
+        meta: {
+          title: '原始答卷'
         },
-        {
-          path: '/dw/admin/user',
-          name: 'AdminUserList',
-          component: AdminUserList
-        },
-        {
-          path: '/dw/survey/d/data/v6/:id',
-          name: 'DwSurveyAnswerDataListV6',
-          component: DwSurveyAnswerDataListV6
-        },
-        {
-          path: '/dw/survey/c/url/v6/:id',
-          name: 'DwAnswerUrlV6',
-          component: DwAnswerUrlV6
-        }
-      ]
-    },
-    {
-      path: '/diaowen/:sid',
-      name: 'DwAnswer',
-      component: DwAnswer
-    },
-    {
-      path: '/no-top',
-      name: 'NoTopLayout',
-      component: NoTopLayout,
-      children: [
-        {
-          path: '/no-top/dw-survey/d/data/:id/:answerId',
-          name: 'DwSurveyAnswerInfo',
-          component: DwSurveyAnswerInfo
-        }
-      ]
-    },
-    {
-      path: '/v6',
-      meta: '首页',
-      component: Layout,
-      children: [
-        {
-          path: '',
-          redirect: 'dw/survey'
-        },
-        {
-          path: 'dw/survey',
-          name: 'DwSurveyListV6',
-          component: DwSurveyListV6
-        },
-        {
-          path: 'dw/survey/c/attr/:id',
-          name: 'DwSurveyAttr',
-          component: DwSurveyAttr
-        },
-        {
-          path: 'dw/survey/c/url/:id',
-          name: 'DwAnswerUrlV6',
-          component: DwAnswerUrlV6
-        },
-        {
-          path: 'dw/survey/c/comp/:id',
-          name: 'DwSiteComp',
-          component: DwSiteComp
-        },
-        {
-          path: 'dw/survey/c/share/:id',
-          name: 'DwSiteShare',
-          component: DwSiteShare
-        },
-        {
-          path: 'dw/survey/c/weixin/:id',
-          name: 'DwAnswerWeixin',
-          component: DwAnswerWeixin
-        },
-        {
-          path: 'dw/survey/d/chart/:id',
-          name: 'DwSurveyChartsV6',
-          component: DwSurveyChartsV6
-        },
-        {
-          path: 'dw/survey/d/data/:id',
-          name: 'DwSurveyAnswerDataListV6',
-          component: DwSurveyAnswerDataListV6
-        },
-        {
-          path: 'dw/user/pwd',
-          name: 'DwUserPwd',
-          component: DwUserPwd
-        },
-        {
-          path: '/dw/user',
-          name: 'DwUser',
-          component: DwUser
-        },
-        {
-          path: '/dw/admin/user',
-          name: 'AdminUserList',
-          component: AdminUserList
-        }
-      ]
-    },
-    {
-      path: '/dw-v6',
-      name: 'NoTopLayout',
-      component: NoTopLayout,
-      children: [
-        {
-          path: 'diaowen/dw-design/survey/:id',
-          name: 'DwSurveyDesignContent',
-          component: DwSurveyDesignContent
-        },
-        {
-          path: 'diaowen/dw-design/survey1',
-          name: 'DwDesign',
-          component: DwDesign
-        },
-        {
-          path: 'diaowen/dw-preview/survey/:id',
-          name: 'DwSurveyPreview',
-          component: DwSurveyPreview
-        },
-        {
-          path: 'diaowen/:sid',
-          name: 'DwAnswerSurveyV6',
-          component: DwAnswerSurveyV6
-        },
-        {
-          path: 'diaowen/m/:sid',
-          name: 'DwAnswerSurveyV6',
-          component: DwAnswerSurveyMobileV6
-        },
-        {
-          path: 'diaowen/:sid/:answerId',
-          name: 'DwAnswerSurveyV6',
-          component: DwAnswerSurveyV6
-        },
-        {
-          path: 'diaowen/review/:sid/:answerId',
-          name: 'DwSurveyAnswerReview',
-          component: DwSurveyAnswerReview
-        }
-      ]
-    },
-    {
-      path: '/login',
-      name: 'LoginLayout',
-      component: LoginLayout,
-      children: [
-        {
-          path: '/',
-          name: 'Login',
-          component: Login
-        }
-      ]
-    }
-  ]
+        component: DwSurveyAnswerReview
+      }
+    ]
+  },
+  {
+    path: '/login',
+    name: 'LoginLayout',
+    component: LoginLayout,
+    children: [
+      {
+        path: '/',
+        name: 'Login',
+        component: Login
+      }
+    ]
+  }
+]
+
+const router = new Router({
+  routes: routes
 })
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title!==undefined ? to.meta.title+' - 调问网' : '调问网'
+  next()
+})
+
+export {routes}
+
+export default router

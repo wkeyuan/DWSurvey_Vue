@@ -1,6 +1,7 @@
 <template>
-  <div class="dw-qu-item" @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar" >
+  <!--  @click.stop="clickItem"-->
+  <div class="dw-qu-item" @click="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+    <div v-show="itemBtnShow" class="dw-qu-item-toolbar" >
       <div class="dw-display-grid">
         <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
         <div class="dw-question-toolbar" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
@@ -12,7 +13,7 @@
         <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
         <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
         <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
-        <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+        <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
       <template v-if="((quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" >
         <el-input v-if="options[optionIndex].inputAttr.commonAttr.inputRow>1" v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
@@ -45,10 +46,19 @@ export default {
   },
   data () {
     return {
+      itemStatus: {
+        itemHover: false,
+        itemClick: false
+      },
       itemHover: false,
       itemClick: false,
       itemIndex: 0,
       inputText: null
+    }
+  },
+  computed: {
+    itemBtnShow () {
+      return this.itemStatus.itemHover || this.itemStatus.itemClick
     }
   },
   watch: {
@@ -71,22 +81,25 @@ export default {
   },
   methods: {
     clickItem () {
-      this.upItemClick()
-      this.upAllItemClick()
+      // this.upItemClick()
+      // this.upAllItemClick()
     },
-    upItemClick () {
-      if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
-      this.survey.curEditObj[this.itemIndex].itemClick = true
+    upItemClick (itemClick) {
+      // if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
+      // this.survey.curEditObj[this.itemIndex].itemClick = true
+      this.itemStatus.itemClick = itemClick
     },
     upAllItemClick () {
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
+      // const curObjs = this.survey.curEditObj
+      // for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
     },
     mouseleaveItem () {
-      this.itemHover = false
+      // this.itemHover = false
+      this.itemStatus.itemHover = false
     },
     mouseoverItem () {
-      this.itemHover = true
+      // this.itemHover = true
+      this.itemStatus.itemHover = true
     },
     addOptionBefore () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
@@ -172,7 +185,7 @@ export default {
   /*display: inline-flex;*/
   display: flex;
   align-items: center;
-  padding: 5px 0px;
+  padding: 5px 0;
   font-size: 14px;
 }
 .dw-qu-item-el-checkbox-radio-icon{

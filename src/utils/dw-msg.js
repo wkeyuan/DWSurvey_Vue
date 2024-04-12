@@ -24,6 +24,7 @@ export function msgWarning (message) {
 }
 
 export function msgBoxNoLogin () {
+  window.location.href = '/#/login'
   MessageBox.confirm('未登录状态，是否重新登录', '系统提示', {
     confirmButtonText: '重新登录',
     cancelButtonText: '取消',

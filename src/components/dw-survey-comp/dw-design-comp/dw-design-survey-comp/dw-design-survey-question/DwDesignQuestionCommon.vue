@@ -1,11 +1,12 @@
 <template>
   <div>
     <!--    :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" -->
-    <div :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
+    <div :class="hover || itemClick ? 'focus-question':''" class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-top dw-height-20px" style="display: none;" >
         <div class="">
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
-          <div v-show="hover || survey.curEditObj[itemIndex].itemClick" class="dw-display-flex-right">
+<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <div v-show="hover || itemClick" class="dw-display-flex-right">
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="复制本题" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10" ><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa fa-copy" aria-hidden="true"></i></div>
             </el-tooltip>
@@ -20,7 +21,8 @@
       </div>
       <div class="dw-question-body" >
         <div class="dw-question-body-left dw-text-align-center dw-padding-top-2">
-          <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
+<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <div v-show="hover || itemClick">
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="移动本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrows" aria-hidden="true"></i></div>
             </el-tooltip>
@@ -66,7 +68,8 @@
 
                 <div class="dw-question-body-bottom dw-padding-top-10 dw-height-20px">
                   <div v-if="survey.questions[index].quType !== 'PARAGRAPH' && survey.questions[index].quType !== 'PAGETAG'">
-                    <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
+<!--                    || survey.curEditObj[itemIndex].itemClick-->
+                    <div v-show="hover">
                       <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
                         <template v-if="survey.questions[index].hv===4">
                           <el-tooltip :open-delay="openDelay" class="item dw-margin-right-10" effect="dark" content="修改选项" placement="left">
@@ -81,7 +84,8 @@
                           </el-tooltip>
                         </template>
                         <template>
-                          <el-tooltip :disabled="survey.curEditObj[itemIndex].itemClick" :open-delay="openDelay" class="item dw-margin-right-10" effect="dark" content="批量添加选项" placement="right">
+<!--                          :disabled="survey.curEditObj[itemIndex].itemClick"-->
+                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-10" effect="dark" content="批量添加选项" placement="right">
                             <dw-popover-more-options v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
                             </dw-popover-more-options>
@@ -97,8 +101,9 @@
           </div>
         </div>
         <div class="dw-question-body-right dw-text-align-center dw-padding-top-2">
-          <div v-show="hover || survey.curEditObj[itemIndex].itemClick">
-            <div class="dw-question-toolbar dw-margin-bottom-10" @click.stop="copyQu"><i class="dw-cursor-pointer dw-event-color fa fa-clipboard" aria-hidden="true"></i></div>
+<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <div v-show="hover || itemClick">
+            <div class="dw-question-toolbar dw-margin-bottom-10" @click.stop="copyQu" ><i class="dw-cursor-pointer dw-event-color fa fa-clipboard" aria-hidden="true"></i></div>
             <div v-show="index>0" class="dw-question-toolbar dw-margin-bottom-10" @click.stop="upQu"><i class="dw-cursor-pointer dw-event-color fa fa-arrow-up" aria-hidden="true"></i></div>
             <div v-show="(index+1)<survey.questions.length" class="dw-question-toolbar dw-margin-bottom-10" @click.stop="downQu"><i class="dw-cursor-pointer dw-event-color fa fa-arrow-down" aria-hidden="true"></i></div>
             <!--<div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color el-icon-top" aria-hidden="true"></i></div>-->
@@ -145,6 +150,7 @@ export default {
   },
   data () {
     return {
+      itemClick: false,
       hover: false,
       itemHover: false,
       quTitle: 'text',
@@ -174,8 +180,10 @@ export default {
   mounted () {
     // console.debug('itemIndex', this.optionIndex)
     if (this.survey.questions[this.index].hasOwnProperty('isNew') && this.survey.questions[this.index].isNew) {
-      this.$refs.dwQuTitle.clickItem()
-      this.$refs.dwQuTitle.editFocus()
+      if (this.$refs.hasOwnProperty('dwQuTitle')) {
+        this.$refs.dwQuTitle.clickItem()
+        this.$refs.dwQuTitle.editFocus()
+      }
       this.survey.questions[this.index].isNew = false
     }
   },
@@ -193,17 +201,18 @@ export default {
       this.itemHover = true
     },
     clickItem () {
+      /*
       clickQuItem(this.survey, this.itemIndex, this.index, (survey, itemIndex) => {
         this.survey = survey
         this.itemIndex = itemIndex
-      })
+      })*/
     },
     dwAddQuItemEvent () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}
       quOption.dwId = uuidV4()
       const newSurvey = dwSurveyQuAddOption(this.survey, this.index, quOption)
       this.$emit('update-survey', newSurvey)
-      upAllItemClick(this.survey, null, (survey) => { this.survey = survey })
+      // upAllItemClick(this.survey, null, (survey) => { this.survey = survey })
       // 要刷新通知下层排序项
     },
     deleteQu () {
@@ -220,6 +229,7 @@ export default {
     },
     copyQu () {
       // 复制题
+      /*
       const question = this.survey.questions[this.index]
       const newQu = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(question)))
       resetQuestion(newQu)
@@ -227,6 +237,21 @@ export default {
       // 需要强制触发所有题目刷新
       this.survey = dwResetSurveyQuestionRefreshValue(this.survey)
       this.survey.isRefreshAllQu = true // 实际中没有使用
+      */
+      const loading = this.$loading({
+        lock: true,
+        text: '复制中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      const question = this.survey.questions[this.index]
+      const newQu = dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(question)))
+      resetQuestion(newQu)
+      const newSurvey = dwResetSurveyQuestionRefreshValue(this.survey)
+      newSurvey.questions.splice(this.index+1, 0, newQu)
+      this.survey = newSurvey
+      this.survey.isRefreshAllQu = true
+      loading.close()
     },
     upQu () {
       // this.survey.questions.splice(this.index-1, 1, ...this.survey.questions.splice(this.index, 1, this.survey.questions[this.index-1]))

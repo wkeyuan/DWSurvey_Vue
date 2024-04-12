@@ -56,11 +56,11 @@ export default {
 
 <style scoped>
 .qu-catalogue-item{
-  padding: 10px 5px;
+  padding: 6px 0;
   border: 1px solid transparent;
   border-bottom: 1px solid #e5e5e5;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 12px;
+  /*line-height: 20px;*/
 }
 .qu-catalogue-item:hover{
   /*border: 1px solid dodgerblue;*/

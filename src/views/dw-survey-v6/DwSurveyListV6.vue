@@ -79,9 +79,9 @@
                   <el-tooltip effect="dark" content="预览问卷" placement="top">
                     <el-button size="mini" icon="el-icon-view" @click="handlePush(`/dw-v6/diaowen/dw-preview/survey/${scope.row.id}`)"></el-button>
                   </el-tooltip>
-                  <el-tooltip effect="dark" content="复制问卷" placement="top">
+                  <!--                  <el-tooltip effect="dark" content="复制问卷" placement="top">
                     <el-button size="mini" icon="el-icon-copy-document" @click="handleCopy(scope.$index, scope.row)"></el-button>
-                  </el-tooltip>
+                  </el-tooltip>-->
                   <el-tooltip effect="dark" content="删除问卷" placement="top">
                     <el-button size="mini" icon="el-icon-delete" @click="handleDelete(scope.$index, scope.row)"></el-button>
                   </el-tooltip>

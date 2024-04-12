@@ -38,7 +38,7 @@
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="问卷">
+      <el-tab-pane label="属性">
         <div style="padding-bottom: 5px;">
           <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
         </div>

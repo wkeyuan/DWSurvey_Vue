@@ -48,8 +48,8 @@ export default {
       this.refreshOptions(null)
     },
     upAllItemClick () {
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
+      // const curObjs = this.survey.curEditObj
+      // for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
     },
     refreshOptions (focusIndex) {
       this.$emit('update-options', this.dragOptions)

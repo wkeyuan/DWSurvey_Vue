@@ -1,5 +1,6 @@
 <template>
-  <el-popover :value="popoverValue" placement="right-start" width="700" trigger="manual" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
+  <!--  trigger="manual"  :value="popoverValue" -->
+  <el-popover placement="right-start" width="700" trigger="click" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
     <div>
       <div>
 
@@ -15,7 +16,8 @@
         </el-tabs>
       </div>
     </div>
-    <div slot="reference" @click.stop="clickShowPopoverEvent">
+<!--    @click.stop="clickShowPopoverEvent"-->
+    <div slot="reference" @click="clickShowPopoverEvent">
       <slot/>
     </div>
   </el-popover>
@@ -54,8 +56,9 @@ export default {
       return logicNum(this.survey.questions[this.index].questionLogics, 'SHOW')
     },
     popoverValue () {
-      if (!this.checkQuLogic(!this.survey.curEditObj[this.itemIndex].itemClick)) return true
-      return this.survey.curEditObj[this.itemIndex].itemClick
+      // if (!this.checkQuLogic(!this.survey.curEditObj[this.itemIndex].itemClick)) return true
+      // return this.survey.curEditObj[this.itemIndex].itemClick
+      return false
     }
   },
   methods: {
@@ -75,6 +78,7 @@ export default {
     },
     clickShowPopoverEvent () {
       // 父组件生成父组件的itemIndex, 子组件生成子组件的itemIndex, 最后排除父组件的itemIndex与子组件ItemIndex
+      /*
       this.$emit('click-item')
       const parentItemIndex = this.survey.questions[this.index].itemIndex
       clickItem(this.survey, this.itemIndex, (survey, itemIndex) => {
@@ -82,9 +86,10 @@ export default {
         this.itemIndex = itemIndex
       })
       this.upAllItemClick([this.itemIndex, parentItemIndex])
+      */
     },
     upAllItemClick (itemClicks) {
-      upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
+      // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
     },
     beforeLeave (activeName, oldActiveName) {
       return this.checkQuLogic(true)

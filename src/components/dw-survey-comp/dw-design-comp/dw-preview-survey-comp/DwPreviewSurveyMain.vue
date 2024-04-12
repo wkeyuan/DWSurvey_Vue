@@ -14,6 +14,7 @@
         <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
         <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>
         <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
+        <el-button size="small" @click="handlePush(`/v6/dw/survey/c/attr/${survey.id}`)">答卷配置</el-button>
         <el-button size="small" @click="backSurveyList">返回列表</el-button>
       </div>
     </div>
@@ -25,7 +26,7 @@
         </div>
       </el-aside>
 
-      <el-container style="flex: auto;">
+      <el-container v-loading="loading" style="flex: auto;" >
         <div style="width: 100%;">
           <div v-show="previewTypeClass === 'dw-preview-pc'" class="dw-preview-main" >
             <div class="dw-preview-answer-survey-container">
@@ -86,7 +87,7 @@ import DwAnswerSurvey from '../../dw-answer-comp/DwAnswerSurvey.vue'
 import DwAnswerDefaultLayout
   from '../../dw-answer-comp/dw-anaswer-survey-layouts/dw-answer-default-layout/DwAnswerDefaultLayout.vue'
 import {getDesignSurveyJsonBySurveyId} from '../../dw-utils/dw-survey-common'
-import {initAnswerBySurvey} from '../../dw-utils/dw-survey-answer-data'
+import {initAnswerBySurvey, showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
 import {initAnswerSurveyProgress} from '../../dw-answer-comp/dw-utils/dw-survey-answer-progress'
 import {dwSurveyColorUtils, getDefaultSurveyStyle} from '../../dw-utils/dw-common/dw-common-utils'
 import DwSurveyStyleDesignAside from './componets/DwSurveyStyleDesignAside.vue'
@@ -101,6 +102,7 @@ export default {
     DwSurveyStyleDesignAside, DwAnswerDefaultLayout, DwAnswerSurvey, DwAnswerSurveyMain},
   data () {
     return {
+      loading: true,
       survey: null,
       drawer: false,
       direction: 'ltl',
@@ -121,6 +123,9 @@ export default {
     this.loadSurvey()
   },
   methods: {
+    handlePush (to) {
+      this.$router.push(to)
+    },
     loadSurvey () {
       const surveyId = this.$route.params.id
       const params = {surveyId}
@@ -138,7 +143,10 @@ export default {
         dwSurveyAnswerLogicLoad(survey)
         // 初始化问卷进度状态
         initAnswerSurveyProgress(survey)
+        // 初始化分页
+        showPageByIndex(survey, 1)
         this.survey = survey
+        this.loading = false
       })
     },
     handleClick (tab, event) {
@@ -201,7 +209,7 @@ export default {
 <style scoped>
 .dw-preview-container{
   /*background: #ecedee;*/
-  background-color: #dfe8f6;
+  /*background-color: white;*/
   height: 100vh;
 }
 .dw-preview-header{
@@ -292,6 +300,7 @@ export default {
   margin: 60px auto 0;
   /*#c6c6c7*/
   border: 1px solid #d7d5d5;
+  border-radius: 6px;
   padding: 0;
 }
 .dw-preview-answer-survey-container .dw-preview-phone{
@@ -303,6 +312,7 @@ export default {
   overflow: scroll;
   margin: 60px auto 0;
   border: 1px solid #d7d5d5;
+  border-radius: 6px;
   padding: 0;
 }
 .dw-preview-left-aside{

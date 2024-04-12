@@ -31,6 +31,7 @@ import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.v
 import DwFooter from '../../../../layouts/DwFooter.vue'
 import DwFooterSm from '../../../../layouts/DwFooterSm'
 import {dwUpSurveyStyle} from "../../dw-utils/dw-survey-answer-style";
+import {surveyAnswerLocalStorage} from "../../dw-utils/dw-survey-answer-utils";
 
 export default {
   name: 'DwAnswerDefaultLayout',
@@ -94,6 +95,8 @@ export default {
         this.dwElProgressStyle = ''
       }
     }
+    // 清理 localstorage
+    surveyAnswerLocalStorage.clearAnswerByDate()
   },
   beforeCreate () {
     // document.querySelector('body').setAttribute('style', 'background-color:red')

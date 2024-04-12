@@ -47,18 +47,18 @@ export default {
     clickShowPopoverEvent () {
       // 父组件生成父组件的itemIndex, 子组件生成子组件的itemIndex, 最后排除父组件的itemIndex与子组件ItemIndex
       this.$emit('click-item')
-      const parentItemIndex = this.survey.questions[this.index].itemIndex
       clickItem(this.survey, this.itemIndex, (survey, itemIndex) => {
         this.survey = survey
         this.itemIndex = itemIndex
       })
-      this.upAllItemClick([this.itemIndex, parentItemIndex])
+      // const parentItemIndex = this.survey.questions[this.index].itemIndex
+      // this.upAllItemClick([this.itemIndex, parentItemIndex])
     },
     cancelAddOptionEvent () {
       this.upAllItemClick(null)
     },
     upAllItemClick (itemClicks) {
-      upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
+      // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
     },
     addMoreOptionEvent () {
       if (this.moreOptionText.length > 0) {
@@ -70,7 +70,7 @@ export default {
             const quOption = {id: null, optionTitleObj: {dwHtml: options[i], dwText: options[i], dwPlaceholder: '请输入内容'}, itemClick: false}
             this.dwAddQuItem(quOption)
           }
-          this.survey.curEditObj[this.itemIndex].itemClick = false
+          // this.survey.curEditObj[this.itemIndex].itemClick = false
           this.moreOptionText = ''
         }
       }

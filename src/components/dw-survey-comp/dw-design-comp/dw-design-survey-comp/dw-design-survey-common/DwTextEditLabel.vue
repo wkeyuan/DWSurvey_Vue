@@ -2,11 +2,11 @@
   <div class="dwEditorRoot dw-width-100bf" @input="inputEdit" @mouseover="mouseover" @mouseleave="mouseleave" >
     <div class="dw-flex-start" >
       <div class="dw-flex-item-auto">
-        <div id="curEdit" ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="editorText" ></div>
+        <div id="curEdit" ref="curEdit" :class="[itemStatus.itemClick ? 'dw-input-focus':'dwEditRoot',itemStatus.itemHover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" @blur="editBlur" v-html="editorText" ></div>
         <!--<div ref="curEdit" :class="[itemClick ? 'dw-input-focus':'dwEditRoot',hover ? 'dw-input-hover':'dwEditRoot']" :placeholder="value.dwPlaceholder" contenteditable="plaintext-only" class="dw-input-default dw-qu-option-text dw-border-blue editor-content-view" @click="editClick" v-html="value.dwHtml" ></div>-->
       </div>
       <div class="dw-edit-toolbar" >
-        <div v-show="itemClick" class="dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
+        <div v-show="itemBtnShow" class="dw-qu-option-text dw-btn-blue-1 dw-cursor-pointer" style="margin-left: -1px!important;" @click="addToolbar" ><i class="fa fa-align-left"></i></div>
       </div>
       <!--      itemClick: {{ itemClick }}  hover: {{ hover }}-->
       <!--      dwHtml: {{ value.dwHtml }}-->
@@ -31,13 +31,20 @@ export default {
   props: {
     value: {type: Object, default: () => {}},
     itemClick: {type: Boolean, default: false},
+    itemStatus: {type: Object, default: () => {}},
     btnSize: {type: String, default: '15px'}
   },
   data () {
     return {
       hover: false,
       editorText: this.value.dwHtml,
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      clickCount: 0
+    }
+  },
+  computed: {
+    itemBtnShow () {
+      return this.itemStatus.itemHover || this.itemStatus.itemClick
     }
   },
   watch: {
@@ -72,7 +79,14 @@ export default {
     },
     editClick () {
       // this.$refs.curEdit.focus()
-      if (!this.itemClick) this.$emit('upItemClick', true)
+      // if (!this.itemClick) this.$emit('upItemClick', true)
+      this.$emit('upItemClick', true)
+      this.selectAllText()
+    },
+    editBlur () {
+      // if (this.itemClick) this.$emit('upItemClick', false)
+      this.$emit('upItemClick', false)
+      this.clickCount = 0
     },
     inputEdit (e) {
       // this.$emit('update-input', e.target.innerHTML)
@@ -108,16 +122,19 @@ export default {
       this.selectAllText()
     },
     selectAllText () {
-      if (document.selection) {
-        const range = document.body.createTextRange()
-        range.moveToElementText(this.$refs.curEdit)
-        range.select()
-      } else if (window.getSelection) {
-        const range = document.createRange()
-        range.selectNodeContents(this.$refs.curEdit)
-        window.getSelection().removeAllRanges()
-        window.getSelection().addRange(range)
+      if (this.clickCount===0) {
+        if (document.selection) {
+          const range = document.body.createTextRange()
+          range.moveToElementText(this.$refs.curEdit)
+          range.select()
+        } else if (window.getSelection) {
+          const range = document.createRange()
+          range.selectNodeContents(this.$refs.curEdit)
+          window.getSelection().removeAllRanges()
+          window.getSelection().addRange(range)
+        }
       }
+      this.clickCount = this.clickCount+1
     }
   }
 }

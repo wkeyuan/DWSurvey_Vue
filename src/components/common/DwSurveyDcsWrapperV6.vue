@@ -41,10 +41,10 @@
             <div class="dw-dcs-main-survey-step-item" style="padding-left: 16px;">
               <el-row v-show="isSurveySet">
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/comp/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>问卷设计</router-link>
+                  <router-link :to="`/dw-v6/diaowen/dw-design/survey/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>问卷设计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/weixin/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
+                  <router-link :to="`/dw-v6/diaowen/dw-preview/survey/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
@@ -52,20 +52,17 @@
               </el-row>
               <el-row v-show="isAnswerUrl || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6">
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrlV6}" class="dw-link" ><i class="el-icon-link"></i>答卷地址</router-link>
                 </el-col>
-                <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrlV6}" class="dw-link" ><i class="el-icon-link"></i>答卷地址V6</router-link>
-                </el-col>
-                <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
-                </el-col>
+                <!--            <el-col :span="3">
+                  <router-link :to="`${prevPath}/survey/c/share/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-collection-tag"></i>答卷分享</router-link>
+                </el-col>-->
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/comp/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-discount"></i>网站组件</router-link>
                 </el-col>
-                <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/weixin/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-chat-dot-round"></i>微信收集</router-link>
-                </el-col>
+                <!--                <el-col :span="3">
+                  <router-link :to="`${prevPath}/survey/c/weixin/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-connection"></i>结束跳转</router-link>
+                </el-col>-->
               </el-row>
               <el-row v-show="isSurveyChart || isAnswerData">
                 <el-col :span="3">
@@ -110,7 +107,7 @@
 import {dwSurveyInfo} from '@/api/dw-survey'
 import {dwSurveyUpState} from '../../api/dw-survey'
 export default {
-  name: 'DwSurveyDcsWrapper',
+  name: 'DwSurveyDcsWrapperV6',
   props: {
     id: {type: String, default: ''},
     isAnswerUrl: {type: Boolean, default: false},
@@ -134,7 +131,7 @@ export default {
         siteCompCodeRoot: '',
         surveyState: ''
       },
-      prevPath: '/dw'
+      prevPath: '/v6/dw'
     }
   },
   mounted () {
@@ -165,15 +162,15 @@ export default {
         this.survey = resultData
         this.survey.answerUrl = location.origin + '/#/diaowen/' + this.survey.sid
         this.survey.answerUrl1 = location.origin + '/static/diaowen/answer-p.html?sid=' + this.survey.sid
-        this.survey.answerUrlQR = process.env.DW_API_URL+'/api/dwsurvey/anon/response/answerTD.do?surveyId=' + this.survey.id
-        this.survey.siteCompCodeRoot = '<div id="dwsurveyWebAnswerCompCode"><div id="dwsurveyWebSiteFixed" style="position: fixed; right: 0px; left: auto; top: 520px; z-index: 99999;"><a target=\'_blank\' id="dwsurveyWebSiteFixedA" href="' + this.survey.answerUrl + '" style="background-color: rgb(24, 144, 255); width: 15px; display: block; padding: 10px 6px 10px 10px; color: white; cursor: pointer; float: right; vertical-align: middle; text-decoration: none; font-size: 12px; box-sizing: content-box; line-height: 20px;">问卷调查</a></div></div>'
+        this.survey.answerUrlQR = process.env.DW_API_URL+'/api/dwsurvey/anon/response/answerTD.do?version=v6&sid=' + this.survey.sid
+        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/' + this.survey.sid
+        this.survey.siteCompCodeRoot = '<div id="dwsurveyWebAnswerCompCode"><div id="dwsurveyWebSiteFixed" style="position: fixed; right: 0px; left: auto; top: 520px; z-index: 99999;"><a target=\'_blank\' id="dwsurveyWebSiteFixedA" href="' + this.survey.answerUrlV6 + '" style="background-color: rgb(24, 144, 255); width: 15px; display: block; padding: 10px 6px 10px 10px; color: white; cursor: pointer; float: right; vertical-align: middle; text-decoration: none; font-size: 12px; box-sizing: content-box; line-height: 20px;">问卷调查</a></div></div>'
         this.survey.surveyDetail.effective = resultData.surveyDetail.effective === 1
         this.survey.surveyDetail.effectiveIp = resultData.surveyDetail.effectiveIp === 1
         this.survey.surveyDetail.refresh = resultData.surveyDetail.refresh === 1
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
-        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/' + this.survey.sid
       })
     }
   }

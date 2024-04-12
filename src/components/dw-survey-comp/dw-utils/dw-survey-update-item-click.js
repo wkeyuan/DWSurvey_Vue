@@ -24,12 +24,14 @@ export function clickQuItem (survey, itemIndex, quIndex, callback) {
   this.survey.curEditObj[this.itemIndex].itemClick = true
   this.survey.questions[this.index].itemIndex = this.itemIndex
   */
+  /*
   if (itemIndex === 0) {
     itemIndex = survey.curEditObj.push({itemClick: true})-1
   }
   survey.curEditObj[itemIndex].itemClick = true
   if (quIndex !== null) survey.questions[quIndex].itemIndex = itemIndex
   callback(survey, itemIndex)
+  */
 }
 
 /**
@@ -45,8 +47,9 @@ export function upAllItemClick (survey, itemClicks, callback) {
   for (let i = 0; i < curObjs.length; i++) this.survey.curEditObj[i].itemClick = false
   if (itemClicks !== null) for (let j = 0; j < itemClicks.length; j++) this.survey.curEditObj[itemClicks[j]].itemClick = true
   */
+  /*
   const curObjs = survey.curEditObj
   for (let i = 0; i < curObjs.length; i++) survey.curEditObj[i].itemClick = false
   if (itemClicks !== null) for (let j = 0; j < itemClicks.length; j++) survey.curEditObj[itemClicks[j]].itemClick = true
-  callback(survey)
+  callback(survey)*/
 }

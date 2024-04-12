@@ -27,7 +27,7 @@
           <el-menu-item :index="`/v6/dw/survey`">我的问卷</el-menu-item>
           <el-menu-item :index="`/v6/dw/survey/d/chart/${$route.params.id}`">统计</el-menu-item>
           <el-menu-item :index="`/v6/dw/survey/c/url/${$route.params.id}`">收集</el-menu-item>
-          <el-menu-item :index="`/v6/diaowen/design/survey/${$route.params.id}`">设计</el-menu-item>
+          <el-menu-item :index="`/dw-v6/diaowen/dw-design/survey/${$route.params.id}`">设计</el-menu-item>
         </el-menu>
       </div>
     </el-col>
@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       switchValue: '上下',
-      defActive: `/v6/diaowen/design/survey/${this.$route.params.id}`
+      defActive: `/dw-v6/diaowen/dw-design/survey/${this.$route.params.id}`
     }
   },
   methods: {
@@ -98,10 +98,10 @@ export default {
   color: white;
   border-bottom: 2px solid var(--dw-primary-bg-color-active);
 }
-.dw-design-survey-menu .el-menu-item:hover{
+.dw-design-survey-menu .el-menu-item:hover, .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover{
   /*background: #131313;*/
-  background: var(--dw-primary-bg-color-hover);
+  background: var(--dw-primary-bg-color-hover)!important;
   color: white;
-  border-bottom: 2px solid var(--dw-primary-bg-color-hover);
+  border-bottom: 2px solid var(--dw-primary-bg-color-hover)!important;
 }
 </style>

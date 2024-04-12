@@ -6,10 +6,7 @@
           <div class="dw-header-main" >
             <el-row type="flex" justify="space-between" align="middle">
               <el-col :span="4" >
-                <a href="/#/">
-                  <el-image :src="require('@/assets/logo.png')" ></el-image>
-                  <span style="color: #ffa71d;font-size: 14px;position: absolute;margin-left: 10px;">Pro</span>
-                </a>
+                <dw-header-logo></dw-header-logo>
               </el-col>
               <el-col :span="16">
                 <div style="padding-left: 60px;"><dw-nav-menu></dw-nav-menu></div>
@@ -40,10 +37,14 @@
 import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
 import DwAuthorized from '@/utils/dw-authorized'
 import {logout} from '@/api/dw-login'
+import DwHeaderLogin from "./DwHeaderLogin.vue";
+import DwHeaderLogo from "./DwHeaderLogo.vue";
 
 export default {
   name: 'DwHeader',
   components: {
+    DwHeaderLogo,
+    DwHeaderLogin,
     'dw-nav-menu': DwNavMenu
   },
   data () {

@@ -426,11 +426,11 @@ export default {
       }
     },
     documentClick () {
-      // this.survey.curEditObj = false
+      /*
       const curObjs = this.survey.curEditObj
       for (let i = 0; i < curObjs.length; i++) {
         this.survey.curEditObj[i].itemClick = false
-      }
+      }*/
     }
   }
 }

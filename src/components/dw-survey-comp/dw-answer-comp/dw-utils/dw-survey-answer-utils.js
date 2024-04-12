@@ -1,6 +1,6 @@
 import {
   buildSurveyLocalStorageKey,
-  getLocalStorageByKey, saveJsonObj2LocalStorage
+  getLocalStorageByKey, getLocalStorageByKeyword, saveJsonObj2LocalStorage
 } from '../../dw-utils/dw-common/dw-common-0'
 import {answerSurveyProgress} from "./dw-survey-answer-progress";
 
@@ -41,7 +41,8 @@ export const surveyAnswerLocalStorage = {
   saveSurveyAnswer2LocalStorageByParams (sid, answerId, survey) {
     // const sid = survey.sid
     // 本地存储
-    const actionNum = parseInt(this.getSurveyAnswerActionNum(sid, answerId))+1
+    // const actionNum = parseInt(this.getSurveyAnswerActionNum(sid, answerId))+1
+    const actionNum = parseInt(this.getSurveyAnswerActionNum(sid, answerId)) // 固定只保存一条
     const historySurveyText = this.getSurveyAnswerTextByLocalStorage(sid, answerId)
     if (JSON.stringify(survey)!==historySurveyText) {
       const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.AN_HISTORY}${getAnswerId(answerId)}_${actionNum}`)
@@ -49,7 +50,7 @@ export const surveyAnswerLocalStorage = {
       this.saveSurveyAnswerActionNum(sid, answerId, actionNum)
       // console.debug('storageKey', storageKey)
       // 防止历史数据过多进行定量清理
-      if (actionNum>=100) this.deleteAnswerHistoryLtNum(sid, answerId, actionNum-100)
+      // if (actionNum>=1) this.deleteAnswerHistoryLtNum(sid, answerId, actionNum-100)
     }
   },
   getSurveyAnswerTextByLocalStorage (sid, answerId, actionNum=null) {
@@ -68,7 +69,8 @@ export const surveyAnswerLocalStorage = {
   saveSurveyAnswerActionNum (sid, answerId, num) {
     const storageKey = buildSurveyLocalStorageKey(sid, `${surveyLocalStorageKeyType.AN_HISTORY_ACTION}${getAnswerId(answerId)}`)
     const dateTime = (new Date()).getTime()
-    return saveJsonObj2LocalStorage(storageKey, {num, dateTime})
+    // return saveJsonObj2LocalStorage(storageKey, {num, dateTime})
+    return saveJsonObj2LocalStorage(storageKey, {num: 0, dateTime}) // 固定只保存一条
   },
   getSurveyAnswerActionNum (sid, answerId) {
     const historyAction = this.getSurveyAnswerAction(sid, answerId)
@@ -119,6 +121,40 @@ export const surveyAnswerLocalStorage = {
       if (key!=null) if (key.indexOf(storageKey2)>=0 || key.indexOf(storageKey3)>=0) keys.push(key)
     }
     for (let i=0; i<keys.length; i++) localStorage.removeItem(keys[i])
+  },
+  getSurveyAnswerActionByKey (storageKey) {
+    if (localStorage.hasOwnProperty(storageKey)) {
+      const historyActionText = getLocalStorageByKey(storageKey)
+      if (historyActionText!==null) {
+        return JSON.parse(historyActionText)
+      }
+    }
+    return null
+  },
+  clearAnswerByDate () {
+    // 取所有存储日期
+    const keys = getLocalStorageByKeyword(surveyLocalStorageKeyType.AN_HISTORY_ACTION)
+    keys.forEach((key, index) => {
+      let localLastActionDateTime = 0
+      const historyAction = this.getSurveyAnswerActionByKey(key)
+      if (historyAction!==null && historyAction.hasOwnProperty('dateTime')) {
+        localLastActionDateTime = historyAction.dateTime
+      }
+      const oneDayInMs = 24 * 60 * 60 * 1000
+      const curDateTime =new Date().getTime()
+      const lastActionTime = (localLastActionDateTime+oneDayInMs)
+      console.debug('lastActionTime', lastActionTime, curDateTime, lastActionTime<curDateTime)
+      if (lastActionTime<curDateTime) {
+        // 超过一天清理掉
+        // 清理掉对应答卷 n43vqth_survey_answer_history_action
+        const sid = key.replace('survey_answer_history_action', '')
+        console.debug('deleteKey sid', sid)
+        const deleteKeys = getLocalStorageByKeyword(sid)
+        deleteKeys.forEach((delKey, index1) => {
+          localStorage.removeItem(delKey)
+        })
+      }
+    })
   }
 }
 

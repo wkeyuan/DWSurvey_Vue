@@ -1,13 +1,14 @@
 <template>
-  <div @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+  <!--  @click.stop="clickItem"-->
+  <div @click="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
     <div class="dw-qu-item-body">
       <div class="dw-qu-item">
         <div class="dw-qu-item-el-checkbox-radio">
           <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
           <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
-          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
         </div>
-        <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
+        <div v-show="itemBtnShow" class="dw-qu-item-toolbar dw-display-flex-right" >
           <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
             <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
           </el-tooltip>
@@ -61,10 +62,17 @@ export default {
   },
   data () {
     return {
-      itemHover: false,
-      itemClick: false,
+      itemStatus: {
+        itemHover: false,
+        itemClick: false
+      },
       itemIndex: 0,
       inputText: ''
+    }
+  },
+  computed: {
+    itemBtnShow () {
+      return this.itemStatus.itemHover || this.itemStatus.itemClick
     }
   },
   watch: {
@@ -87,22 +95,28 @@ export default {
   },
   methods: {
     clickItem () {
-      this.upItemClick()
-      this.upAllItemClick()
+      // this.upItemClick(true)
+      // this.upAllItemClick()
     },
-    upItemClick () {
-      if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
-      this.survey.curEditObj[this.itemIndex].itemClick = true
+    upItemClick (itemClick) {
+      // console.debug('this.itemIndex', this.itemIndex)
+      // this.itemClick = itemClick
+      this.itemStatus.itemClick = itemClick
+      // this.options[this.optionIndex].itemClick = itemClick
+      // if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
+      // this.survey.curEditObj[this.itemIndex].itemClick = true
     },
     upAllItemClick () {
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
+      // const curObjs = this.survey.curEditObj
+      // for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
     },
     mouseleaveItem () {
-      this.itemHover = false
+      // this.itemHover = false
+      this.itemStatus.itemHover = false
     },
     mouseoverItem () {
-      this.itemHover = true
+      // this.itemHover = true
+      this.itemStatus.itemHover = true
     },
     addOptionBefore () {
       // this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})

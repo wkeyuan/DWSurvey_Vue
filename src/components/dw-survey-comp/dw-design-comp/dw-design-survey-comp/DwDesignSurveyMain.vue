@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <!--  <el-skeleton :rows="10" :loading="loading" animated style="background-color: white;">
+  </el-skeleton>-->
+  <div v-loading="loading">
     <!--    <dw-design-survey-comp></dw-design-survey-comp>-->
     <dw-design-survey-core v-model="survey" ></dw-design-survey-core>
   </div>
@@ -7,12 +9,13 @@
 
 <script>
 import DwDesignSurveyCore from './DwDesignSurveyCore'
-import {getDesignSurveyJsonBySurveyId} from "../../dw-utils/dw-survey-common";
+import {getDesignSurveyJsonBySurveyId} from '../../dw-utils/dw-survey-common'
 export default {
   name: 'DwDesignSurveyMain',
   components: {DwDesignSurveyCore},
   data () {
     return {
+      loading: true,
       survey: null,
       surveyJsonText: null
       /* survey: {
@@ -41,6 +44,8 @@ export default {
       getDesignSurveyJsonBySurveyId(params, (survey) => {
         console.debug('design survey', survey)
         this.survey = survey
+        const _that = this
+        _that.loading = false
       })
     }
   }

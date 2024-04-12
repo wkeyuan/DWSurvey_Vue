@@ -68,8 +68,14 @@ export default {
   color: white;
   border-bottom: 2px solid var(--dw-primary-bg-color-active);
 }
-.dw-menu .el-menu-item:hover{
-  background-color: var(--dw-primary-bg-color-hover);
-  border-bottom: 2px solid var(--dw-primary-bg-color-hover);
+.dw-menu .el-menu-item:hover, .dw-menu .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover{
+  background-color: var(--dw-primary-bg-color-hover)!important;
+  border-bottom: 2px solid var(--dw-primary-bg-color-hover)!important;
+}
+.el-menu.el-menu--horizontal{
+  border-bottom: none!important;
+}
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
+  color: white!important;
 }
 </style>

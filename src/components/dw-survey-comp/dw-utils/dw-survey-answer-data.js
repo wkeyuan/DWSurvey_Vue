@@ -246,6 +246,7 @@ function inputAttrInit (inputAttr) {
 export function showPageByIndex (survey, pageIndex) {
   const questions = survey.questions
   questions.forEach((item, index) => {
+    console.debug('item.pageIndex === pageIndex', item.pageIndex === pageIndex)
     item.showQu = item.pageIndex === pageIndex
   })
   survey.pageAttr.curPage = pageIndex

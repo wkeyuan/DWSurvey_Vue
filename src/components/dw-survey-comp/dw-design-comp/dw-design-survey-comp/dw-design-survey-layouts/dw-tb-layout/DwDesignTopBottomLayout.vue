@@ -1,33 +1,35 @@
 <template>
-  <!--  编辑器上下结构 -->
-  <div class="dw-design-container" @click="documentClick">
+  <!--  编辑器上下结构 @click="documentClick" -->
+  <div class="dw-design-container" >
     <el-container>
       <el-header class="header" style="">
         <dw-design-header v-model="survey" ></dw-design-header>
       </el-header>
       <el-main style="padding: 0;">
-        <div v-if="survey!=null">
-          <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
-            <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
-          </div>
+        <div style="min-height: 600px;">
+          <div v-if="survey!=null" >
+            <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
+              <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
+            </div>
 
-          <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
-            <div class="dw-container-body">
-              <el-row :gutter="10">
-                <el-col :span="4">
-                  <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
-                    <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
-                  </div>
-                </el-col>
-                <el-col :span="16">
-                  <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
-                </el-col>
-                <el-col :span="4">
-                  <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
-                    <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
-                  </div>
-                </el-col>
-              </el-row>
+            <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
+              <div class="dw-container-body">
+                <el-row :gutter="10">
+                  <el-col :span="4">
+                    <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
+                      <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
+                    </div>
+                  </el-col>
+                  <el-col :span="16">
+                    <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
+                  </el-col>
+                  <el-col :span="4">
+                    <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
+                      <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
+                    </div>
+                  </el-col>
+                </el-row>
+              </div>
             </div>
           </div>
         </div>
@@ -171,10 +173,11 @@ export default {
       }
     },
     documentClick () {
+      /*
       const curObjs = this.survey.curEditObj
       for (let i = 0; i < curObjs.length; i++) {
         this.survey.curEditObj[i].itemClick = false
-      }
+      }*/
       // this.$refs.designContainerBody.documentClick()
     }
   }

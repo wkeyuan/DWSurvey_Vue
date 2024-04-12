@@ -1,9 +1,11 @@
 <template>
-  <el-row>
-    <el-col>
-      <dw-answer-survey :answer-props="answerProps"></dw-answer-survey>
-    </el-col>
-  </el-row>
+  <div>
+    <el-row>
+      <el-col>
+        <dw-answer-survey :answer-props="answerProps"></dw-answer-survey>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>

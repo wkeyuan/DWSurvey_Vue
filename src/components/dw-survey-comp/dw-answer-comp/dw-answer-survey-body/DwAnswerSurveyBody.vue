@@ -31,14 +31,14 @@
                   </div>
                 </div>
                 <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showPageHeader') && survey.surveyStyle.showPageHeader" style="padding: 20px 20px 0 20px;">
-                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;">
+                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;padding: 10px 0;">
                     <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
                   </div>
                   <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyNote') && survey.surveyStyle.showSurveyNote" style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
                     <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
                   </div>
                 </div>
-                <div class="dw-survey-answer-body" style="padding-top: 15px;">
+                <div class="dw-survey-answer-body" style="padding-top: 20px;">
                   <div>
                     <div>
                       <transition-group>
@@ -50,6 +50,7 @@
                   </div>
                   <div v-if="!survey.readonly && survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
                     <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
+                    <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
                   </div>
                 </div>
               </div>
@@ -108,6 +109,7 @@ import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-a
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
 import {dwUpSurveyStyle} from "../dw-utils/dw-survey-answer-style";
+import {showPageByIndex} from "../../dw-utils/dw-survey-answer-data";
 
 export default {
   name: 'DwAnswerSurveyBody',
@@ -139,6 +141,11 @@ export default {
     dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
   methods: {
+    nextPage (pageIndex) {
+      if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBool(this.survey.questions)) {
+        showPageByIndex(this.survey, pageIndex)
+      }
+    },
     backReAnswer () {
       this.survey.answerMsg.showAnswerMsg = false
       this.survey.answerMsg.answerMsgInfo = null

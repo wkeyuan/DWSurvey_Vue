@@ -10,7 +10,7 @@ export function validateQuestionsBool (questions) {
   let isSuccess = true
   submitValidateQuestions(questions, true)
   questions.forEach((question, quIndex) => {
-    if (!question.logicIsHide) {
+    if (question.showQu && !question.logicIsHide) {
       if (!question.validateObj.isOk) {
         isSuccess = false
         return false

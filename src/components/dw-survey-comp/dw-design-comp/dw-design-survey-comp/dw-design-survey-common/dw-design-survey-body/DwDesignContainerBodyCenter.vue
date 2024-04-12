@@ -23,7 +23,7 @@
             @start="onStart"
             @end="onEnd">
             <transition-group>
-              <div v-for="(item, index) in survey.questions" :key="item.hasOwnProperty('dwId') ? item.dwId: `Qu_${index}`" >
+              <div v-for="(item, index) in survey.questions" :key="item.hasOwnProperty('dwId') ? `quDwId_${item.dwId}`: `Qu_${index}`" >
                 <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
             </transition-group>
@@ -77,7 +77,7 @@ export default {
   methods: {
     onAdd (attrs) {
       console.debug('onAdd attrs', attrs)
-      this.documentClick()
+      // this.documentClick()
       // 自动执行focus事件
       const newIndex = attrs.newIndex
       console.debug('newIndex', newIndex)
@@ -106,10 +106,12 @@ export default {
       this.documentClick()
     },
     documentClick () {
+      /*
       const curObjs = this.survey.curEditObj
       for (let i = 0; i < curObjs.length; i++) {
         this.survey.curEditObj[i].itemClick = false
       }
+      */
     },
     refreshQuData (data) {
       // 关于状态的刷新，除通过方法调用硬刷新，还可以通过选项数据上绑定的itemClick实现

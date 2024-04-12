@@ -16,8 +16,11 @@
                       <span v-show="survey.questions[index].isRequired === 1" style="color: #f56c6c;">*</span>{{ quNum }}、
                     </div>-->
                     <div class="dw-display-flex" style="align-items: baseline;flex-wrap: wrap;">
-                      <div :class="survey.questions[index].quType !== 'PARAGRAPH' ? '':'dw-qu-paragraph'" class="dw-qu-title">
+                      <div v-if="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-title">
                         <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :qu-num="quNum" :is-required="survey.questions[index].isRequired === 1"></dw-html-label-common>
+                      </div>
+                      <div v-else class="dw-qu-title dw-qu-paragraph">
+                        <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :is-required="false"></dw-html-label-common>
                       </div>
                       <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuTypeName') && survey.surveyStyle.showQuTypeName" class="dw-qu-type-name" >
                         <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
@@ -29,6 +32,7 @@
                   <div class="dw-width-100bf">
                     <template v-if="survey.hasOwnProperty('pageAttr') && survey.pageAttr.hasOwnProperty('curPage')">
                       <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1)" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
+                      <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
                     </template>
                   </div>
                 </template>
@@ -138,7 +142,7 @@ export default {
   },
   methods: {
     nextPage (pageIndex) {
-      if (validateQuestionsBool(this.survey.questions)) {
+      if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBool(this.survey.questions)) {
         showPageByIndex(this.survey, pageIndex)
       }
     },

@@ -104,4 +104,7 @@ export default {
   border: 1px solid gainsboro;
   border-radius: 3px;
 }
+.loginFormContent{
+  min-width: 400px;
+}
 </style>

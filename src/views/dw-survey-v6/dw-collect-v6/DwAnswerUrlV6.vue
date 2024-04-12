@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-survey-dcs-wrapper :is-answer-url-v6="true" >
+    <dw-survey-dcs-wrapper-v6 :is-answer-url-v6="true" >
       <template v-slot:dw-dcs-main-slot="{survey}" >
         <div>
           <div>
@@ -41,17 +41,19 @@
           </div>
         </div>
       </template>
-    </dw-survey-dcs-wrapper>
+    </dw-survey-dcs-wrapper-v6>
   </div>
 </template>
 
 <script>
 import Clipboard from 'clipboard'
 import DwSurveyDcsWrapper from '../../../components/common/DwSurveyDcsWrapper'
+import DwSurveyDcsWrapperV6 from "../../../components/common/DwSurveyDcsWrapperV6.vue";
 
 export default {
   name: 'DwAnswerUrlV6',
   components: {
+    DwSurveyDcsWrapperV6,
     DwSurveyDcsWrapper,
     Clipboard
   },

@@ -64,13 +64,13 @@ export default {
       this.refreshOptions(null)
     },
     upAllItemClick () {
-      const curObjs = this.survey.curEditObj
-      for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
+      // const curObjs = this.survey.curEditObj
+      // for (let i = 0; i < curObjs.length; i++) if (i !== this.itemIndex) this.survey.curEditObj[i].itemClick = false
     },
     refreshOptions (focusIndex) {
       this.$emit('update-options', this.dragOptions)
       // 先重置所有状态
-      this.upAllItemClick()
+      // this.upAllItemClick()
       this.$nextTick(() => {
         const quCommonItems = this.$refs.quCommonItem
         for (let i=0; i<quCommonItems.length; i++) quCommonItems[i].dragClick(focusIndex)

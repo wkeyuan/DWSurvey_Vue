@@ -1,6 +1,8 @@
 <template>
-  <div @click.stop="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <dw-text-edit-label ref="curEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+  <!--  @click.stop="clickItem"-->
+  <div @click="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+    <!--    <dw-text-edit-label ref="curEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
+    <dw-text-edit-label ref="curEditLabel" v-model="value" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
   </div>
 </template>
 
@@ -19,6 +21,10 @@ export default {
   },
   data () {
     return {
+      itemStatus: {
+        itemHover: false,
+        itemClick: false
+      },
       itemHover: false,
       itemClick: false,
       itemIndex: 0
@@ -26,6 +32,7 @@ export default {
   },
   methods: {
     clickItem () {
+      /*
       if (this.itemIndex === 0) {
         this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       }
@@ -35,21 +42,26 @@ export default {
         if (i !== this.itemIndex) {
           this.survey.curEditObj[i].itemClick = false
         }
-      }
+      }*/
       // this.$emit('update-survey',this.survey)
+      // this.upItemClick(true)
     },
     upItemClick (visible) {
+      /*
       if (this.itemIndex === 0) {
         this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       }
-      this.survey.curEditObj[this.itemIndex].itemClick = true
+      this.survey.curEditObj[this.itemIndex].itemClick = true*/
       // this.$emit('update-survey',this.survey)
+      this.itemStatus.itemClick = visible
     },
     mouseleaveItem () {
-      this.itemHover = false
+      // this.itemHover = false
+      this.itemStatus.itemHover = false
     },
     mouseoverItem () {
-      this.itemHover = true
+      // this.itemHover = true
+      this.itemStatus.itemHover = true
     },
     addOptionBefore () {
       // this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
@@ -66,6 +78,7 @@ export default {
       // this.$refs.curEditLabel.upEditorText(htmlValue)
     },
     editFocus () {
+      this.itemStatus.itemClick = true
       this.$refs.curEditLabel.editFocus()
     }
   }

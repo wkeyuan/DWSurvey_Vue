@@ -1,5 +1,6 @@
 <template>
-  <el-popover :value="survey.curEditObj[itemIndex].itemClick" placement="right-start" width="600" trigger="manual" popper-class="dw-qu-set-popper" >
+<!--  :value="survey.curEditObj[itemIndex].itemClick"-->
+  <el-popover placement="right-start" width="600" trigger="click" popper-class="dw-qu-set-popper" >
     <div>
       <div style="font-size: 14px;padding-bottom: 5px;">
         <div class="dw-qu-item">
@@ -137,7 +138,8 @@
         -->
       </div>
     </div>
-    <div slot="reference" @click.stop="clickShowPopoverEvent">
+    <!--    @click.stop="clickShowPopoverEvent"-->
+    <div slot="reference" @click="clickShowPopoverEvent">
       <slot/>
     </div>
   </el-popover>
@@ -172,19 +174,21 @@ export default {
     clickShowPopoverEvent () {
       // 父组件生成父组件的itemIndex, 子组件生成子组件的itemIndex, 最后排除父组件的itemIndex与子组件ItemIndex
       this.$emit('click-item')
+      /*
       const parentItemIndex = this.survey.questions[this.index].itemIndex
       clickItem(this.survey, this.itemIndex, (survey, itemIndex) => {
         this.survey = survey
         this.itemIndex = itemIndex
       })
       this.upAllItemClick([this.itemIndex, parentItemIndex])
+      */
     },
     cancelAddOptionEvent () {
       // this.survey.curEditObj[this.itemIndex].itemClick = false
-      this.upAllItemClick(null)
+      // this.upAllItemClick(null)
     },
     upAllItemClick (itemClicks) {
-      upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
+      // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
     }
   }
 }

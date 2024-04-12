@@ -20,7 +20,7 @@
           :label="question.quType === 'SCORE' ? '占总分比例' : question.quType === 'ORDERQU' ? '排名占总名次比' : question.quType === 'MULTIFILLBLANK' ? '填写比例' : '频次比例'"
           width="330" >
           <template slot-scope="scope">
-            <el-progress :text-inside="true" :stroke-width="26" :percentage="parseFloat(scope.row.percent)"></el-progress>
+            <el-progress :text-inside="true" :stroke-width="26" :percentage="parseFloat(scope.row.percent)" text-color="white"></el-progress>
           </template>
         </el-table-column>
         <el-table-column

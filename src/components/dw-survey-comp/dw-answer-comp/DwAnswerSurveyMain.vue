@@ -81,6 +81,8 @@ export default {
           // 加载原答卷数据
           this.loadAnswerData(survey)
         }
+        const surveyName = survey.surveyNameObj.dwText
+        document.title = surveyName+' - 调问网'
         // 以服务的方式调用的 Loading 需要异步关闭
         this.$nextTick(() => { loadingInstance.close() })
       }, (answerCheckResult) => {
@@ -217,6 +219,8 @@ export default {
       initAnswerSurveyProgress(survey)
       // 逻辑处理初始化
       dwSurveyAnswerLogicLoad(survey)
+      // 此处需要重置分页
+      showPageByIndex(survey, 1)
       // 加载完成把问卷初始数据存入local
       // surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
       surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey)
