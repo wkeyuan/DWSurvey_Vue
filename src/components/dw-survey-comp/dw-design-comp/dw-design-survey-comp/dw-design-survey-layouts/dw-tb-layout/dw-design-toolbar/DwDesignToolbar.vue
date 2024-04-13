@@ -7,24 +7,31 @@
             <div class="toolbars-contents-body">
               <div v-for="(item, index) in tabs[0].tabQus" :key="`toolbar${index}`" class="tools_item">
                 <div class="toolbars">
-                  <draggable
-                    v-model="item.questions"
-                    :group="{ name: 'questionGroup', pull: 'clone', put: false }"
-                    :sort="false"
-                    :force-fallback="true"
-                    animation="300"
-                    class="toolbars-draggable"
-                    drag-class="dragClass"
-                    ghost-class="ghostClass"
-                    chosen-class="chosenClass"
-                    @start="onStart"
-                    @end="onEnd">
-                    <transition-group class="toolbars-draggable-group">
-                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
-                        <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
-                      </div>
-                    </transition-group>
-                  </draggable>
+                  <template v-if="item.eventType === undefined || item.eventType === null">
+                    <draggable
+                      v-model="item.questions"
+                      :group="{ name: 'questionGroup', pull: 'clone', put: false }"
+                      :sort="false"
+                      :force-fallback="true"
+                      animation="300"
+                      class="toolbars-draggable"
+                      drag-class="dragClass"
+                      ghost-class="ghostClass"
+                      chosen-class="chosenClass"
+                      @start="onStart"
+                      @end="onEnd">
+                      <transition-group class="toolbars-draggable-group">
+                        <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
+                          <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
+                        </div>
+                      </transition-group>
+                    </draggable>
+                  </template>
+                  <template v-else>
+                    <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
+                      <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
+                    </div>
+                  </template>
                 </div>
                 <div>
                   <div class="toolbars-text">{{ item.tabQuName }}</div>
@@ -112,9 +119,13 @@ export default {
   },
   methods: {
     clickToolbarItem (item) {
-      item.isNew = true
-      this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
-      resetQuestion(this.survey.questions[this.survey.questions.length-1])
+      if (item.eventName!==undefined && item.eventName!==null) {
+        // 处理对应的按钮事件
+      } else {
+        item.isNew = true
+        this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
+        resetQuestion(this.survey.questions[this.survey.questions.length-1])
+      }
     },
     onStart () {
       this.drag=true

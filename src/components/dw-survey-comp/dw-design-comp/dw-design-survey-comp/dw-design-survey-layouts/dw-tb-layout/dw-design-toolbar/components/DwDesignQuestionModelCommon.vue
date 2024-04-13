@@ -28,13 +28,13 @@
           </div>
         </div>
       </div>
-      <div v-if="item.quType === 'CHECKBOX'">
+      <div v-else-if="item.quType === 'CHECKBOX'">
         <slot name="quModelTagDuoxuan" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'FILLBLANK'">
+      <div v-else-if="item.quType === 'FILLBLANK'">
         <div v-if="item.answerInputRow > 1">
           <slot name="quModelTagDuoxiangwenben" ></slot>
           <div class="cloneQuRoot">
@@ -48,40 +48,52 @@
           </div>
         </div>
       </div>
-      <div v-if="item.quType === 'SCORE'">
+      <div v-else-if="item.quType === 'SCORE'">
         <slot name="quModelTagPingfen" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'ORDERQU'">
+      <div v-else-if="item.quType === 'ORDERQU'">
         <slot name="quModelTagPaixu" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'MULTIFILLBLANK'">
+      <div v-else-if="item.quType === 'MULTIFILLBLANK'">
         <slot name="quModelTagDuoxiangtiankong" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'UPLOADFILE'">
+      <div v-else-if="item.quType === 'UPLOADFILE'">
         <slot name="quModelTagShangchuan" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'PAGETAG'">
+      <div v-else-if="item.quType === 'PAGETAG'">
         <slot name="quModelTagFenye" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
         </div>
       </div>
-      <div v-if="item.quType === 'PARAGRAPH'">
+      <div v-else-if="item.quType === 'PARAGRAPH'">
         <slot name="quModelTagFenduan" ></slot>
         <div class="cloneQuRoot">
           <div><dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question></div>
+        </div>
+      </div>
+      <div v-else>
+        <slot>
+          <div class="toolbar-item-content">
+            <div class="dwToolbar_icon dwsurveyfont icon-dwsurvey-duoxiangtiankong"></div>
+          </div>
+        </slot>
+        <div class="cloneQuRoot">
+          <div>
+            <dw-answer-question :index="index" :item="item" v-model="survey" ></dw-answer-question>
+          </div>
         </div>
       </div>
     </template>
