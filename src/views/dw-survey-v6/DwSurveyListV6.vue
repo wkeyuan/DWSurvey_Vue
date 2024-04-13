@@ -212,7 +212,7 @@ export default {
       }
     },
     createSurvey () {
-      const data = {surveyName: this.form.name}
+      const data = {surveyName: this.form.name, surveyType: 'survey'}
       dwSurveyCreate(data).then((response) => {
         const httpResult = response.data
         const resultData = httpResult.data
