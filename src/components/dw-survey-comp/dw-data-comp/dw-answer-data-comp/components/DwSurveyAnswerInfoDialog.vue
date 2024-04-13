@@ -16,7 +16,7 @@
 
 <script>
 
-import DwSurveyAnswerReview from "../DwSurveyAnswerReview.vue";
+import DwSurveyAnswerReview from '../DwSurveyAnswerReview.vue'
 
 export default {
   name: 'DwSurveyAnswerInfoDialog',
