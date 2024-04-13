@@ -28,8 +28,10 @@
                     </draggable>
                   </template>
                   <template v-else>
-                    <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
-                      <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
+                    <div class="toolbars-draggable-group">
+                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
+                        <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
+                      </div>
                     </div>
                   </template>
                 </div>

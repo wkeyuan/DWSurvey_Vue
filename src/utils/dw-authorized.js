@@ -50,6 +50,10 @@ export const dwFooterLocalStorage = {
       }
     }
     return authority
+  },
+  isDemo () {
+    const dwFooterIndo = this.getDwFooterInfo()
+    return dwFooterIndo.hasOwnProperty('siteStatus') && dwFooterIndo.siteStatus === 'demo';
   }
 }
 
