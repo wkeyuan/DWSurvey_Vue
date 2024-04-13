@@ -142,7 +142,8 @@ export default {
       dialogFormVisible: false,
       form: {
         name: '',
-        id: null
+        id: null,
+        surveyType: 'survey'
       },
       formLabelWidth: '120px'
     }
@@ -212,7 +213,7 @@ export default {
       }
     },
     createSurvey () {
-      const data = {surveyName: this.form.name, surveyType: 'survey'}
+      const data = {surveyName: this.form.name, surveyType: this.form.surveyType}
       dwSurveyCreate(data).then((response) => {
         const httpResult = response.data
         const resultData = httpResult.data
