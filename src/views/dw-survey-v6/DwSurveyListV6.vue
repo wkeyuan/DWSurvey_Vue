@@ -143,7 +143,7 @@ export default {
       form: {
         name: '',
         id: null,
-        surveyType: 'survey'
+        surveyType: null
       },
       formLabelWidth: '120px'
     }
