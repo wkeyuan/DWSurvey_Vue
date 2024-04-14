@@ -35,6 +35,7 @@ import DwAuthorized, {dwFooterLocalStorage} from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
 import {dwLogin} from '@/api/dw-login'
 import Api from "../api";
+import {dwFooterUtils} from "../components/dw-survey-comp/dw-utils/dw-common/dw-footer-util";
 
 export default {
   name: 'Login',
@@ -62,23 +63,11 @@ export default {
   },
   methods: {
     loadDwFooter () {
-      const footerInfo = dwFooterLocalStorage.getDwFooterInfo()
-      if (!footerInfo.hasOwnProperty('siteStatus')) {
-        this.axios.get(Api.surveyFooterInfo, {}).then((response) => {
-          const resultData = response.data.data
-          // 存储到本地
-          dwFooterLocalStorage.setDwFooterInfo(resultData)
-          this.showDefaultDemoPwd(resultData)
-        })
-      } else {
-        this.showDefaultDemoPwd(footerInfo)
-      }
+      dwFooterUtils.isDemo((footerInfo) => { this.showDefaultDemoPwd(footerInfo) })
     },
     showDefaultDemoPwd (footerInfo) {
-      if (footerInfo.hasOwnProperty('siteStatus') && footerInfo.siteStatus==='demo') {
-        this.ruleForm.email = 'service@diaowen.net'
-        this.ruleForm.pass = '123456'
-      }
+      this.ruleForm.email = 'service@diaowen.net'
+      this.ruleForm.pass = '123456'
     },
     submitForm (formName) {
       // 进行登录验证

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20" :offset="2">
+      <el-col :span="24" >
         <div class="dw-table-form" style="padding-left: 60px;">
           <el-form :inline="true" :model="formInline" class="dw-form-inline" size="medium" >
             <el-form-item label="问卷标题">
@@ -68,16 +68,16 @@
               <template slot-scope="scope">
                 <el-button-group>
                   <el-tooltip effect="dark" content="编辑问卷" placement="top">
-                    <el-button size="mini" content="编辑问卷" icon="el-icon-edit" @click="handlePush(`/dw-v6/diaowen/dw-design/survey/${scope.row.id}`)" ></el-button>
+                    <el-button size="mini" content="编辑问卷" icon="el-icon-edit" @click="handlePush(`/v6/diaowen/dw-design/survey/${scope.row.id}`)" ></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="答卷地址" placement="top">
-                    <el-button size="mini" icon="el-icon-share" @click="handlePush(`/v6/dw/survey/c/url/${scope.row.id}`)"></el-button>
+                    <el-button size="mini" icon="el-icon-share" @click="handlePush(`${prevPath}/survey/c/url/${scope.row.id}`)"></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="答卷数据" placement="top">
-                    <el-button size="mini" icon="el-icon-s-data" @click="handlePush(`/v6/dw/survey/d/chart/${scope.row.id}`)"></el-button>
+                    <el-button size="mini" icon="el-icon-s-data" @click="handlePush(`${prevPath}/survey/d/chart/${scope.row.id}`)"></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="预览问卷" placement="top">
-                    <el-button size="mini" icon="el-icon-view" @click="handlePush(`/dw-v6/diaowen/dw-preview/survey/${scope.row.id}`)"></el-button>
+                    <el-button size="mini" icon="el-icon-view" @click="handlePush(`/v6/diaowen/dw-preview/survey/${scope.row.id}`)"></el-button>
                   </el-tooltip>
                   <!--                  <el-tooltip effect="dark" content="复制问卷" placement="top">
                     <el-button size="mini" icon="el-icon-copy-document" @click="handleCopy(scope.$index, scope.row)"></el-button>
@@ -145,11 +145,16 @@ export default {
         id: null,
         surveyType: null
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '120px',
+      prevPath: '/v6/dw'
     }
   },
   mounted () {
     this.queryList(1)
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.prevPath = '/v6/lr/dw'
+    }
   },
   methods: {
     buttonClickA (href) {
@@ -221,7 +226,7 @@ export default {
           this.dialogFormVisible = false
           this.$confirm('问卷创建成功，点击“继续编辑问卷”进入问卷编辑。', '系统提示', {confirmButtonText: '继续编辑问卷'}).then(({value}) => {
             // window.location.href=`/static/diaowen/design.html?surveyId=${resultData.id}`
-            this.$router.push(`/dw-v6/diaowen/dw-design/survey/${resultData.id}`)
+            this.$router.push(`/v6/diaowen/dw-design/survey/${resultData.id}`)
           }).catch(() => {
             this.queryList(1)
           })
@@ -238,7 +243,7 @@ export default {
           this.dialogFormVisible = false
           this.$confirm('问卷复制成功，点击“继续编辑问卷”进入问卷编辑。', '系统提示', {confirmButtonText: '继续编辑问卷'}).then(({value}) => {
             // window.location.href=`/static/diaowen/design.html?surveyId=${resultData.id}`
-            this.$router.push(`/dw-v6/diaowen/dw-design/survey/${resultData.id}`)
+            this.$router.push(`/v6/diaowen/dw-design/survey/${resultData.id}`)
           }).catch(() => {
             this.queryList(1)
           })

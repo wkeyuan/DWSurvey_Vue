@@ -33,7 +33,7 @@
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
-                  <el-button type="primary" size="small" @click="handlePush(`/dw-v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
+                  <el-button type="primary" size="small" @click="handlePush(`/v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
                   <el-button size="small" @click="handlePush(`${prevPath}/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
@@ -173,7 +173,7 @@ export default {
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
-        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/' + this.survey.sid
+        this.survey.answerUrlV6 = location.origin + '/#/v6/diaowen/an/' + this.survey.sid
       })
     }
   }

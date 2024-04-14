@@ -8,11 +8,14 @@
               <el-col :span="4" >
                 <dw-header-logo></dw-header-logo>
               </el-col>
-              <el-col :span="16">
+              <el-col :span="14">
                 <div style="padding-left: 60px;"><dw-nav-menu></dw-nav-menu></div>
               </el-col>
-              <el-col :span="4" style="text-align: right;" >
-                <div>
+              <el-col :span="6" style="text-align: right;" >
+                <div class="dw-display-flex-right">
+                  <div style="color: #c2a20c;padding-right: 20px;font-size: 14px;cursor: pointer;" @click="openSwitchLayoutDialog">
+                    <i class="fa-solid fa-toggle-on"></i> 切换布局
+                  </div>
                   <el-dropdown @command="handleCommand">
                     <span class="el-dropdown-link" >
                       {{ userName }} <i class="el-icon-arrow-down el-icon--right"></i>
@@ -29,6 +32,7 @@
           </div>
         </el-col>
       </el-row>
+      <switch-layout-dialog ref="switchLayoutDialog"></switch-layout-dialog>
     </div>
   </div>
 </template>
@@ -37,12 +41,15 @@
 import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
 import DwAuthorized from '@/utils/dw-authorized'
 import {logout} from '@/api/dw-login'
-import DwHeaderLogin from "./DwHeaderLogin.vue";
-import DwHeaderLogo from "./DwHeaderLogo.vue";
+import DwHeaderLogin from './DwHeaderLogin.vue'
+import DwHeaderLogo from './DwHeaderLogo.vue'
+import {dwFooterUtils} from '../dw-survey-comp/dw-utils/dw-common/dw-footer-util'
+import SwitchLayoutDialog from './components/SwitchLayoutDialog.vue'
 
 export default {
   name: 'DwHeader',
   components: {
+    SwitchLayoutDialog,
     DwHeaderLogo,
     DwHeaderLogin,
     'dw-nav-menu': DwNavMenu
@@ -54,6 +61,11 @@ export default {
   },
   mounted () {
     this.userName = DwAuthorized.getUserName()
+    /*
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.layout = 'lr'
+    }*/
   },
   methods: {
     handleCommand: function (command) {
@@ -66,6 +78,9 @@ export default {
       } else if (command === 'updatePwd') {
         this.$router.push('/dw/user/pwd')
       }
+    },
+    openSwitchLayoutDialog () {
+      this.$refs.switchLayoutDialog.openDialog()
     }
   }
 }

@@ -31,29 +31,3 @@ export default {
     return authority
   }
 }
-
-export const dwFooterLocalStorage = {
-  setDwFooterInfo (authority) {
-    const dwAuthority = typeof authority === 'string' ? [authority] : authority
-    localStorage.setItem('dw_footer_info', JSON.stringify(dwAuthority))
-  },
-  getDwFooterInfo () {
-    let authority = {}
-    if (localStorage.hasOwnProperty('dw_footer_info')) {
-      const authorityString = localStorage.getItem('dw_footer_info')
-      try {
-        if (authorityString) {
-          authority = JSON.parse(authorityString)
-        }
-      } catch (e) {
-        console.debug(e)
-      }
-    }
-    return authority
-  },
-  isDemo () {
-    const dwFooterIndo = this.getDwFooterInfo()
-    return dwFooterIndo.hasOwnProperty('siteStatus') && dwFooterIndo.siteStatus === 'demo';
-  }
-}
-

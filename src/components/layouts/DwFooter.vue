@@ -17,8 +17,7 @@
 </template>
 <script>
 
-import API from '@/api/index.js'
-import {dwFooterLocalStorage} from "../../utils/dw-authorized";
+import {dwFooterUtils} from '../dw-survey-comp/dw-utils/dw-common/dw-footer-util'
 
 export default {
   name: 'DwFooter',
@@ -33,7 +32,8 @@ export default {
         versionInfo: 'DWSurvey OSS V5.0 Vue',
         versionNumber: 'OSS V5.0',
         versionBuilt: '20211128',
-        years: '2012-2021'
+        years: '2012-2021',
+        layoutType: 'tb'
       }
     }
   },
@@ -42,12 +42,8 @@ export default {
   },
   methods: {
     queryDWSurveyFooter () {
-      this.axios.get(API.surveyFooterInfo, {}).then((response) => {
-        const resultData = response.data.data
-        console.debug(resultData)
-        this.footerInfo = resultData
-        // 存储到本地
-        dwFooterLocalStorage.setDwFooterInfo(this.footerInfo)
+      dwFooterUtils.getDwFooterInfoAuto((footerInfo) => {
+        this.footerInfo = footerInfo
       })
     }
   }

@@ -14,8 +14,8 @@
         <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
         <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>
         <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
-        <el-button size="small" @click="handlePush(`/v6/dw/survey/c/attr/${survey.id}`)">答卷配置</el-button>
-        <el-button size="small" @click="backSurveyList">返回列表</el-button>
+        <el-button size="small" @click="handlePush(`${prevPath}/dw/survey/c/attr/${survey.id}`)">答卷配置</el-button>
+        <el-button size="small" @click="handlePush(prevPath)">返回列表</el-button>
       </div>
     </div>
 
@@ -95,6 +95,7 @@ import {clearSurveyJson, getSurveyJsonSimple} from "../../dw-utils/dw-survey-des
 import {clearSurveyAnswer} from "../../dw-answer-comp/dw-utils/dw-survey-answer-clear";
 import {dwSurveyAnswerLogicLoad} from "../../dw-answer-comp/dw-utils/dw-survey-answer-logic";
 import {surveyAnswerLocalStorage} from "../../dw-answer-comp/dw-utils/dw-survey-answer-utils";
+import {dwFooterUtils} from "../../dw-utils/dw-common/dw-footer-util";
 
 export default {
   name: 'DwPreviewSurveyMain',
@@ -115,12 +116,15 @@ export default {
         lg: {span: 24, offset: 0},
         xl: {span: 24, offset: 0}
       },
-      answerProps: {sid: null, answerId: null, anPwd: null}
+      answerProps: {sid: null, answerId: null, anPwd: null},
+      prevPath: '/v6'
     }
   },
   mounted () {
     this.answerProps.sid = this.$route.params.id
     this.loadSurvey()
+    // 左右布局
+    dwFooterUtils.isLayoutLr((footerInfo) => { this.prevPath = '/v6/lr' })
   },
   methods: {
     handlePush (to) {
@@ -157,7 +161,7 @@ export default {
     },
     designSurvey () {
       const surveyId = this.$route.params.id
-      this.$router.push('/dw-v6/diaowen/dw-design/survey/'+surveyId)
+      this.$router.push('/v6/diaowen/dw-design/survey/'+surveyId)
     },
     devSurvey () {
       const surveyId = this.$route.params.id
@@ -168,7 +172,7 @@ export default {
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
           surveyAnswerLocalStorage.clearAnswerHistory(this.survey.sid, null)
-          this.$router.push('/v6/dw/survey/c/url/'+surveyId)
+          this.$router.push(`${this.prevPath}/dw/survey/c/url/${surveyId}`)
         } else {
           this.$message.error('发布失败，请重试或联系管理员！')
         }
@@ -198,9 +202,6 @@ export default {
           this.$message.success('保存失败！')
         }
       })
-    },
-    backSurveyList () {
-      this.$router.push('/v6')
     }
   }
 }

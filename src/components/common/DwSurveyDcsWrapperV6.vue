@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20" :offset="2">
+      <el-col :span="24" >
         <div class="dw-dcs-main">
           <div class="dw-dcs-main-survey-title">
             <el-row type="flex" justify="space-between" align="middle">
@@ -33,7 +33,7 @@
                   <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
-                  <el-button type="primary" size="small" @click="handlePush(`/dw-v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
+                  <el-button type="primary" size="small" @click="handlePush(`/v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
                   <el-button size="small" @click="handlePush(`${prevPath}/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
@@ -41,10 +41,10 @@
             <div class="dw-dcs-main-survey-step-item" style="padding-left: 16px;">
               <el-row v-show="isSurveySet">
                 <el-col :span="3">
-                  <router-link :to="`/dw-v6/diaowen/dw-design/survey/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>问卷设计</router-link>
+                  <router-link :to="`/v6/diaowen/dw-design/survey/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>问卷设计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`/dw-v6/diaowen/dw-preview/survey/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
+                  <router-link :to="`/v6/diaowen/dw-preview/survey/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
@@ -137,6 +137,10 @@ export default {
   mounted () {
     console.debug(process.env)
     this.getSurveyInfo()
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.prevPath = '/v6/lr/dw'
+    }
   },
   methods: {
     buttonClickA (href) {
@@ -163,7 +167,7 @@ export default {
         this.survey.answerUrl = location.origin + '/#/diaowen/' + this.survey.sid
         this.survey.answerUrl1 = location.origin + '/static/diaowen/answer-p.html?sid=' + this.survey.sid
         this.survey.answerUrlQR = process.env.DW_API_URL+'/api/dwsurvey/anon/response/answerTD.do?version=v6&sid=' + this.survey.sid
-        this.survey.answerUrlV6 = location.origin + '/#/dw-v6/diaowen/' + this.survey.sid
+        this.survey.answerUrlV6 = location.origin + '/#/v6/diaowen/an/' + this.survey.sid
         this.survey.siteCompCodeRoot = '<div id="dwsurveyWebAnswerCompCode"><div id="dwsurveyWebSiteFixed" style="position: fixed; right: 0px; left: auto; top: 520px; z-index: 99999;"><a target=\'_blank\' id="dwsurveyWebSiteFixedA" href="' + this.survey.answerUrlV6 + '" style="background-color: rgb(24, 144, 255); width: 15px; display: block; padding: 10px 6px 10px 10px; color: white; cursor: pointer; float: right; vertical-align: middle; text-decoration: none; font-size: 12px; box-sizing: content-box; line-height: 20px;">问卷调查</a></div></div>'
         this.survey.surveyDetail.effective = resultData.surveyDetail.effective === 1
         this.survey.surveyDetail.effectiveIp = resultData.surveyDetail.effectiveIp === 1
