@@ -2,7 +2,7 @@
   <!--  :value="survey.curEditObj[itemIndex].itemClick" trigger="manual"-->
   <el-popover placement="bottom-start" width="400" trigger="click" popper-class="dw-popover-more-options" @show="showPopoverLoad" >
     <div>
-      <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>{{ popoverVisible }}
+      <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>
       <el-input v-model="moreOptionText" :placeholder="textPlaceholder" type="textarea" rows="10" ></el-input>
       <div style="text-align: right;">
         <!--        <el-button type="text" size="small" style="margin-top:5px;" @click="cancelAddOptionEvent">取消</el-button>-->

@@ -57,7 +57,7 @@ const routesAdminChildren = [
   },
   {
     path: '/v6/lr/dw/admin/user',
-    icon: 'el-icon-user',
+    icon: 'el-icon-s-check',
     name: '用户管理',
     meta: {
       title: '用户管理'
