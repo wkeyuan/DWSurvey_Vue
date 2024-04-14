@@ -11,6 +11,7 @@
         <el-radio v-model="layout" label="tb" border> <i class="fa-solid fa-laptop"></i> 上下布局</el-radio>
         <el-radio v-model="layout" label="lr" border> <i class="fa-solid fa-border-top-left"></i> 左右布局</el-radio>
       </div>
+      <div style="font-size: 12px;padding: 20px 0;color: darkgrey;">提示：本修改只对当前会话有效，要永久生效需要修改后端配置</div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
@@ -51,8 +52,10 @@ export default {
         this.$router.push(newPath)
       } else if (this.layout==='lr') {
         // 上下结构
-        const newPath = routePath.replace('/v6/', '/v6/lr/')
-        this.$router.push(newPath)
+        if (!(routePath.indexOf('/v6/lr/')>=0)) {
+          const newPath = routePath.replace('/v6/', '/v6/lr/')
+          this.$router.push(newPath)
+        }
       }
       this.dialogVisible = false
     }

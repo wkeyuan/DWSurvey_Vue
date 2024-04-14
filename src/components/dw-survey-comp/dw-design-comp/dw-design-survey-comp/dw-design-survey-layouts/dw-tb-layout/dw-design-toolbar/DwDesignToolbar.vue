@@ -5,7 +5,7 @@
         <el-row type="flex" justify="space-between" align="middle" >
           <el-col :span="18" >
             <div class="toolbars-contents-body">
-              <div v-for="(item, index) in tabs[0].tabQus" :key="`toolbar${index}`" class="tools_item">
+              <div v-for="(item, index) in tabs[0].tabQus" v-if="item.questions.length>0" :key="`toolbar${index}`" class="tools_item">
                 <div class="toolbars">
                   <template v-if="item.eventType === undefined || item.eventType === null">
                     <draggable
