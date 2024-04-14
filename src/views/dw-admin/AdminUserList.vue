@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20" :offset="2">
+      <el-col :span="24" :offset="0">
         <div class="dw-table-form" style="padding-left: 60px;">
           <el-form :inline="true" :model="formInline" class="dw-form-inline" size="medium" >
             <el-form-item label="登录账号">

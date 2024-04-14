@@ -43,7 +43,6 @@ import DwAuthorized from '@/utils/dw-authorized'
 import {logout} from '@/api/dw-login'
 import DwHeaderLogin from './DwHeaderLogin.vue'
 import DwHeaderLogo from './DwHeaderLogo.vue'
-import {dwFooterUtils} from '../dw-survey-comp/dw-utils/dw-common/dw-footer-util'
 import SwitchLayoutDialog from './components/SwitchLayoutDialog.vue'
 
 export default {
@@ -56,7 +55,8 @@ export default {
   },
   data () {
     return {
-      userName: 'dwsurvey'
+      userName: 'dwsurvey',
+      prevPath: '/v6'
     }
   },
   mounted () {
@@ -66,6 +66,10 @@ export default {
     if (routePath.indexOf('/v6/lr') >= 0) {
       this.layout = 'lr'
     }*/
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.prevPath = '/v6/lr'
+    }
   },
   methods: {
     handleCommand: function (command) {
@@ -74,9 +78,9 @@ export default {
           this.$router.push('/login')
         })
       } else if (command === 'myAccount') {
-        this.$router.push('/dw/user')
+        this.$router.push(`${this.prevPath}/dw/user`)
       } else if (command === 'updatePwd') {
-        this.$router.push('/dw/user/pwd')
+        this.$router.push(`${this.prevPath}/dw/user/pwd`)
       }
     },
     openSwitchLayoutDialog () {

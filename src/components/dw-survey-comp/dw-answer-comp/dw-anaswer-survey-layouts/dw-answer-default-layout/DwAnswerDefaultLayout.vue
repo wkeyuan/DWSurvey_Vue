@@ -7,7 +7,7 @@
             <div>
               <div>
                 <div class="dw-container-body">
-                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showProgressbar') && survey.surveyStyle.showProgressbar" :style="dwElProgressStyle" class="dw-survey-answer-progress">
+                  <div v-if="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showProgressbar') && survey.surveyStyle.showProgressbar" :style="dwElProgressStyle" class="dw-survey-answer-progress">
                     <el-progress :show-text="false" :stroke-width="3" :percentage="survey.hasOwnProperty('answerProgress') ? parseFloat(survey.answerProgress.percentage) : 0" :color="survey.surveyStyle.progressColor" define-back-color="#dcdfe6"></el-progress>
                   </div>
                   <!--                  <div :style="`background-color: ${survey.surveyStyle.progressColor};width:100%;height:100px;`">{{ survey.surveyStyle.progressColor }}</div>-->

@@ -1,6 +1,4 @@
 <template>
-  <!--    <img src="./assets/logo.png">-->
-  <!--    <router-view/>-->
   <div id="dw-layout" >
     <el-container style="padding: 0px;">
       <el-header height="80" style="padding: 0px;" >
@@ -8,8 +6,12 @@
       </el-header>
       <el-container style="z-index: 1;">
         <el-container>
-          <el-main style="padding: 20px 0px;" >
-            <router-view></router-view>
+          <el-main style="padding: 20px 0;" >
+            <el-row>
+              <el-col :span="20" :offset="2">
+                <router-view></router-view>
+              </el-col>
+            </el-row>
           </el-main>
           <el-footer><dw-footer></dw-footer></el-footer>
         </el-container>

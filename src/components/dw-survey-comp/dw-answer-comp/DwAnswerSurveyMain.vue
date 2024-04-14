@@ -88,7 +88,7 @@ export default {
       }, (answerCheckResult) => {
         if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass) {
           const answerMsg = {showAnswerMsg: true, answerMsgInfo: answerCheckResult.anCheckResultMsg, noSurveyJson: true, answerCheckResult}
-          this.survey = {answerMsg}
+          this.survey = {answerMsg, showSurvey: true}
           if (answerCheckResult.anCheckResultCode>=500) {
             this.$message.error(answerCheckResult.anCheckResultMsg)
           }

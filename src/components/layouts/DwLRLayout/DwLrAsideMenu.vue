@@ -2,7 +2,7 @@
   <el-aside width="initial" class="dw-lr-aside" >
     <div>
       <el-menu
-        :default-active="activeMenu"
+        :default-active="defActive"
         :collapse="isCollapse"
         :unique-opened="true"
         text-color="#fff"
@@ -51,8 +51,13 @@ export default {
     return {
       isCollapse: false,
       isCollapseActive: false,
-      activeMenu: '/dw/admin/survey/list',
+      defActive: '/v6/lr/dw/survey',
       routesAdminChildren
+    }
+  },
+  watch: {
+    $route: function (to, from) {
+      this.setActiveMenu()
     }
   },
   mounted () {
@@ -72,12 +77,13 @@ export default {
 
     },
     setActiveMenu () {
-      // const fullPath = this.$route.fullPath
-      const routePath = this.$route.path
-      if (routePath.indexOf('/v6/lr/dw/survey')>=0) {
-        this.activeMenu = '/v6/lr/dw/survey'
-      } else {
-        this.activeMenu = routePath
+      const fullPath = this.$route.fullPath
+      if (fullPath.indexOf('/dw/survey') >= 0) {
+        this.defActive = '/v6/lr/dw/survey'
+      } else if (fullPath.indexOf('/dw/admin/user') >= 0) {
+        this.defActive = '/v6/lr/dw/admin/user'
+      } else if (fullPath.indexOf('/dw/user') >= 0) {
+        this.defActive = '/v6/lr/dw/user'
       }
     }
   }

@@ -36,6 +36,35 @@ import EmptyRouterView from "../components/layouts/EmptyRouterView.vue";
 
 Vue.use(Router)
 
+const routesAdminChildren = [
+  {
+    path: '/v6/lr/dw/survey',
+    icon: 'el-icon-s-claim',
+    name: '我的问卷',
+    meta: {
+      title: '问卷设计'
+    },
+    component: DwSurveyListV6
+  },
+  {
+    path: '/v6/lr/dw/user',
+    icon: 'el-icon-user',
+    name: '个人中心',
+    meta: {
+      title: '个人中心'
+    },
+    component: AdminUserList
+  },
+  {
+    path: '/v6/lr/dw/admin/user',
+    icon: 'el-icon-user',
+    name: '用户管理',
+    meta: {
+      title: '用户管理'
+    },
+    component: AdminUserList
+  }
+]
 const v6Routes = [
   {
     path: '',
@@ -112,27 +141,6 @@ const v6Routes = [
   {
     path: 'dw/admin/user',
     name: 'AdminUserList',
-    component: AdminUserList
-  }
-]
-
-const routesAdminChildren = [
-  {
-    path: '/v6/lr/dw/survey',
-    icon: 'el-icon-s-claim',
-    name: '我的问卷',
-    meta: {
-      title: '问卷设计'
-    },
-    component: DwSurveyListV6
-  },
-  {
-    path: '/v6/lr/dw/admin/survey',
-    icon: 'el-icon-user',
-    name: '用户管理',
-    meta: {
-      title: '问卷设计'
-    },
     component: AdminUserList
   }
 ]

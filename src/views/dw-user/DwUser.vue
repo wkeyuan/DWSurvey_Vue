@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20" :offset="2">
+      <el-col :span="24" :offset="0">
         <div class="dw-user-body">
           <el-row>
             <el-col :span="4" style="height: 600px;">

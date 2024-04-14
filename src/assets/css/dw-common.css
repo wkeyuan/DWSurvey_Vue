@@ -125,3 +125,7 @@
   justify-items: start;
   justify-content: start;
 }
+
+.logo a{
+  text-decoration: none;
+}
