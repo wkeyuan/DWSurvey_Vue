@@ -1,41 +1,48 @@
 <template>
   <!--  编辑器上下结构 @click="documentClick" -->
-  <div v-if="survey!=null" class="dw-design-container" >
-    <el-container>
-      <el-header class="header" style="">
-        <dw-design-header v-model="survey" ></dw-design-header>
-      </el-header>
-      <el-main style="padding: 0;">
-        <div style="min-height: 600px;">
-          <div>
-            <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
-              <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
-            </div>
+  <div>
+    <div v-if="survey!=null" class="dw-design-container" >
+      <el-container>
+        <el-header class="header" style="">
+          <dw-design-header v-model="survey" ></dw-design-header>
+        </el-header>
+        <el-main style="padding: 0;">
+          <div style="min-height: 600px;">
+            <div>
+              <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
+                <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
+              </div>
 
-            <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
-              <div class="dw-container-body">
-                <el-row :gutter="10">
-                  <el-col :span="4">
-                    <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
-                      <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
-                    </div>
-                  </el-col>
-                  <el-col :span="16">
-                    <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
-                  </el-col>
-                  <el-col :span="4">
-                    <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
-                      <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
-                    </div>
-                  </el-col>
-                </el-row>
+              <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
+                <div class="dw-container-body">
+                  <el-row :gutter="10">
+                    <el-col :span="4">
+                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
+                        <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
+                      </div>
+                    </el-col>
+                    <el-col :span="16">
+                      <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
+                    </el-col>
+                    <el-col :span="4">
+                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
+                        <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div style=""><dw-footer></dw-footer></div>
-      </el-main>
-    </el-container>
+          <div style=""><dw-footer></dw-footer></div>
+        </el-main>
+      </el-container>
+    </div>
+    <div v-else>
+      <div style="font-size: 16px;text-align: center;padding: 100px;height: 100vh;background-color: white;color: #202120;">
+        加载中...
+      </div>
+    </div>
   </div>
 </template>
 
