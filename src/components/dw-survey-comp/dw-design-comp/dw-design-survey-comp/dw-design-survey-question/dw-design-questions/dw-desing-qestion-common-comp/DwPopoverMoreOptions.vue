@@ -2,11 +2,12 @@
   <!--  :value="survey.curEditObj[itemIndex].itemClick" trigger="manual"-->
   <el-popover placement="bottom-start" width="400" trigger="click" popper-class="dw-popover-more-options" @show="showPopoverLoad" >
     <div>
-      <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>
+      <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>{{ popoverVisible }}
       <el-input v-model="moreOptionText" :placeholder="textPlaceholder" type="textarea" rows="10" ></el-input>
       <div style="text-align: right;">
-        <el-button type="text" size="small" style="margin-top:5px;" @click="cancelAddOptionEvent">取消</el-button>
-        <el-button type="primary" size="small" style="margin-top:5px;" @click="addMoreOptionEvent">确认</el-button>
+        <!--        <el-button type="text" size="small" style="margin-top:5px;" @click="cancelAddOptionEvent">取消</el-button>-->
+        <span style="font-size: 13px;margin-right: 5px;color: darkgrey;">提示：点击框外任意区域关闭当前弹出框</span>
+        <el-button type="primary" size="small" style="margin-top:5px;" @click="addMoreOptionEvent">添加</el-button>
       </div>
     </div>
     <div slot="reference" @click.stop="clickShowPopoverEvent">
@@ -36,7 +37,8 @@ export default {
   data () {
     return {
       itemIndex: 0,
-      moreOptionText: ''
+      moreOptionText: '',
+      popoverVisible: false
     }
   },
   methods: {
