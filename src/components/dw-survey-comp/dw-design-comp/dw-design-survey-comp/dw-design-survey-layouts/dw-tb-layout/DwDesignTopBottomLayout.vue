@@ -1,13 +1,13 @@
 <template>
   <!--  编辑器上下结构 @click="documentClick" -->
-  <div class="dw-design-container" >
+  <div v-if="survey!=null" class="dw-design-container" >
     <el-container>
       <el-header class="header" style="">
         <dw-design-header v-model="survey" ></dw-design-header>
       </el-header>
       <el-main style="padding: 0;">
         <div style="min-height: 600px;">
-          <div v-if="survey!=null" >
+          <div>
             <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
               <dw-design-toolbar v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar>
             </div>
