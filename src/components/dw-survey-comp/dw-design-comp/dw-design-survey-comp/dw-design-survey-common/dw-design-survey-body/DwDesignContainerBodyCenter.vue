@@ -23,15 +23,23 @@
             @start="onStart"
             @end="onEnd">
             <transition-group>
+              <div v-show="survey.questions.length<=0" key="xxx" style="text-align: center;font-size: 13px;color: grey;line-height: 30px;">
+                拖动上方工具栏题目控件到此区域
+              </div>
               <div v-for="(item, index) in survey.questions" :key="item.hasOwnProperty('dwId') ? `quDwId_${item.dwId}`: `Qu_${index}`" >
                 <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
             </transition-group>
           </draggable>
+          <div style="text-align: center;padding-top: 20px;padding-bottom: 40px;">
+            <el-button type="primary" size="small" plain @click="addNewQu"><i class="fa-solid fa-plus"></i> 增加新题</el-button>
+            <!--            <el-button size="small"><i class="fa-solid fa-layer-group"></i> 批量增加</el-button>-->
+          </div>
         </div>
       </div>
     </div>
     <!--    <div style=""><dw-footer></dw-footer></div>-->
+    <dw-add-new-qu-dialog ref="dwAddNewQuDialog" v-model="survey"></dw-add-new-qu-dialog>
   </div>
 </template>
 
@@ -48,10 +56,13 @@ import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQues
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
 import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 import {v4 as uuidv4} from "uuid";
+import DwAddNewQuDialog
+  from "../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue";
 
 export default {
   name: 'DwDesignContainerBodyCenter',
   components: {
+    DwAddNewQuDialog,
     DwDesignQuestionCommon,
     DwFooter,
     DwDesignToolbar,
@@ -131,6 +142,9 @@ export default {
           this.survey.questions.splice(index, 1, question)*/
         }
       })
+    },
+    addNewQu () {
+      this.$refs.dwAddNewQuDialog.openDialog()
     }
   }
 }
@@ -148,5 +162,6 @@ export default {
   width: 100%;
   min-height: 300px;
   display: inline-block;
+  background-color: #f7f7f7;
 }
 </style>

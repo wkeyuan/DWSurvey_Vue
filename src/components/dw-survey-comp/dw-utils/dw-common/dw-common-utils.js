@@ -117,7 +117,7 @@ export const dwSurveyColorUtils = {
 
 export function getDefaultSurveyStyle () {
   const defaultSurveyStyle = {
-    pageTopImg: {enabled: true, src: null, httpSrc: null},
+    pageTopImg: {enabled: false, src: null, httpSrc: null},
     pageBgImg: {enabled: false, src: null, httpSrc: null},
     logoImg: {enabled: false, src: null, httpSrc: null, position: 'topLogoRight'},
     pageBgColor: '#eeeeee',
