@@ -9,6 +9,10 @@
       </div>
       <div style="margin-top: 10px;">
         <div>
+          <!--          v-show="survey.questions.length<=0"-->
+          <div key="dws_xxx" style="text-align: center;font-size: 13px;color: grey;line-height: 30px;">
+            拖动上方工具栏题目控件到下方区域，可以增加新题目
+          </div>
           <draggable
             v-model="survey.questions"
             :force-fallback="true"
@@ -23,9 +27,6 @@
             @start="onStart"
             @end="onEnd">
             <transition-group>
-              <div v-show="survey.questions.length<=0" key="xxx" style="text-align: center;font-size: 13px;color: grey;line-height: 30px;">
-                拖动上方工具栏题目控件到此区域
-              </div>
               <div v-for="(item, index) in survey.questions" :key="item.hasOwnProperty('dwId') ? `quDwId_${item.dwId}`: `Qu_${index}`" >
                 <dw-design-question ref="designQuestion" :index="index" :item="item" v-model="survey" ></dw-design-question>
               </div>
