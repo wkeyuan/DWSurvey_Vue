@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dw-survey-dcs-wrapper-v6 is-site-comp="true">
+    <dw-survey-dcs-wrapper-v6 :is-site-comp="true">
       <template v-slot:dw-dcs-main-slot="{survey}" >
         <div>
           <div class="dw-dcs-main-title">
