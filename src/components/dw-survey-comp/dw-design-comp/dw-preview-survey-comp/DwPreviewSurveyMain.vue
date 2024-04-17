@@ -11,11 +11,13 @@
         <label><i :class=" previewTypeClass === 'dw-preview-phone' ? 'active' : ''" class="dw-icon-button fas fa-mobile-alt" @click="previewTabClick('dw-preview-phone')"></i></label>
       </div>
       <div class="dw-preview-header-right">
-        <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
-        <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>
-        <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
-        <el-button size="small" @click="handlePush(`${prevPath}/dw/survey/c/attr/${survey.id}`)">答卷配置</el-button>
-        <el-button size="small" @click="handlePush(prevPath)">返回列表</el-button>
+        <div class="dw-display-flex-right">
+          <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
+          <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>
+          <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
+          <el-button size="small" @click="handlePush(`${prevPath}/dw/survey/c/url/${survey.id}`)">答卷地址</el-button>
+          <el-button size="small" @click="handlePush(prevPath)">返回列表</el-button>
+        </div>
       </div>
     </div>
 

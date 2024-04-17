@@ -1,6 +1,6 @@
 <template>
-  <el-tabs v-loading="loading" v-if="tabs.length>0" type="border-card" >
-    <el-tab-pane label="常用题型" style="padding: 0px;">
+  <el-tabs v-loading="loading" v-if="tabs.length>0" :before-leave="clickDesignStyle" value="tabQu1" type="border-card" >
+    <el-tab-pane label="常用题型" name="tabQu1" style="padding: 0px;">
       <div class="toolbars-contents">
         <el-row type="flex" justify="space-between" align="middle" >
           <el-col :span="18" >
@@ -70,6 +70,7 @@
         </el-row>
       </div>
     </el-tab-pane>
+    <el-tab-pane label="外观预览" name="designStyle" ></el-tab-pane>
   </el-tabs>
 </template>
 
@@ -82,7 +83,7 @@ import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestio
 import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
 import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
-import {dwResetQuestionRefreshValue} from "../../../../../dw-utils/dw-survey-update-question";
+import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 
 export default {
   name: 'DwDesignToolbar',
@@ -188,6 +189,13 @@ export default {
     devSurvey () {
       this.stopIntervalSaveSurvey()
       this.previewSurvey()
+    },
+    clickDesignStyle (activeName, oldTabName) {
+      if (activeName==='designStyle') {
+        this.previewSurvey()
+        return false
+      }
+      return true
     },
     previewSurvey () {
       this.saveSurveyFun(() => {

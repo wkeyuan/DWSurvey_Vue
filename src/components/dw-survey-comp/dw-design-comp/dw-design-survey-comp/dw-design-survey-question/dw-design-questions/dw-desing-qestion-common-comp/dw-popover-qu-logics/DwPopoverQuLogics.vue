@@ -3,7 +3,6 @@
   <el-popover placement="right-start" width="700" trigger="click" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
     <div>
       <div>
-
         <el-tabs v-model="activeName" :before-leave="beforeLeave" >
           <el-tab-pane label="显示逻辑" name="logicShowTab">
             <span slot="label">显示逻辑&nbsp;<el-badge :value="logicNumShow" :hidden="logicNumShow<=0" class="mark" /></span>
@@ -16,7 +15,7 @@
         </el-tabs>
       </div>
     </div>
-<!--    @click.stop="clickShowPopoverEvent"-->
+    <!--    @click.stop="clickShowPopoverEvent"-->
     <div slot="reference" @click="clickShowPopoverEvent">
       <slot/>
     </div>
@@ -92,7 +91,8 @@ export default {
       // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
     },
     beforeLeave (activeName, oldActiveName) {
-      return this.checkQuLogic(true)
+      this.checkQuLogic(true)
+      // return this.checkQuLogic(true)
     },
     checkQuLogic (isShowMsg) {
       let checkQuLogic = true

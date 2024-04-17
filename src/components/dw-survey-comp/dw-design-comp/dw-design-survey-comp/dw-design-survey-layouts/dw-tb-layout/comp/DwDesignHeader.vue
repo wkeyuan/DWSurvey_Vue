@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="space-between" align="middle" >
-    <el-col :span="16">
+    <el-col :span="9">
       <div class="header-content-left">
         <div class="logo">
           <router-link :to="`${prevPath}/dw/survey`" >
@@ -11,14 +11,18 @@
         </div>
       </div>
     </el-col>
-    <!--    <el-col>
+    <el-col :span="6" style="text-align: center;">
+      <!--
       <el-button-group>
         <el-button type="primary" icon="el-icon-edit" >题目编辑</el-button>
         <el-button type="primary" icon="el-icon-share">问卷配置</el-button>
         <el-button type="primary" icon="el-icon-share">外观设置</el-button>
-      </el-button-group>
-    </el-col>-->
-    <el-col :span="8">
+      </el-button-group>-->
+      <div style="color: white;">
+        {{ survey.surveyNameObj.dwText }}
+      </div>
+    </el-col>
+    <el-col :span="9">
       <div style="text-align: right;">
         <el-menu
           :default-active="defActive"
@@ -27,9 +31,9 @@
           mode="horizontal"
           @select="handleSelect">
           <el-menu-item :index="`${prevPath}/dw/survey`">我的问卷</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.id}`">统计</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.id}`">收集</el-menu-item>
-          <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.id}`">设计</el-menu-item>
+          <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.id}`">数据统计</el-menu-item>
+          <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.id}`">答卷收集</el-menu-item>
+          <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.id}`" >问卷设计</el-menu-item>
         </el-menu>
       </div>
     </el-col>
@@ -65,7 +69,7 @@ export default {
     loadPage () {
       dwFooterUtils.getDwFooterInfoAuto((footerInfo) => {
         // demo显示
-        dwFooterUtils.isDemo((footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目，纯VUE全部重写，易于二开上手' }, (footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目' })
+        dwFooterUtils.isDemo((footerInfo) => { this.logoTitleNote = '纯VUE全部重写，易于二开上手' }, (footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目' })
         // 左右布局
         dwFooterUtils.isLayoutLr((footerInfo) => { this.prevPath = '/v6/lr' })
       })
