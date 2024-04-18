@@ -63,7 +63,9 @@ export default {
   },
   methods: {
     loadDwFooter () {
-      dwFooterUtils.isDemo((footerInfo) => { this.showDefaultDemoPwd(footerInfo) })
+      dwFooterUtils.getNewDwFooterInfo(function () {
+        dwFooterUtils.isDemo((footerInfo) => { this.showDefaultDemoPwd(footerInfo) })
+      })
     },
     showDefaultDemoPwd (footerInfo) {
       this.ruleForm.email = 'service@diaowen.net'
