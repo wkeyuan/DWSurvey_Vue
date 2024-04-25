@@ -23,7 +23,7 @@ export default {
   methods: {
     autoPush () {
       const sid = this.$route.params.sid
-      const answerId = this.$route.params.answerId
+      // const answerId = this.$route.params.answerId
       this.$router.push('/v6/diaowen/an/'+sid)
     }
   }

@@ -7,7 +7,7 @@
 <script>
 
 import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
-import DwAnswerInput1 from "../../dw-answer-options/dw-qu-input-common1/DwAnswerInput1.vue";
+import DwAnswerInput1 from '../../dw-answer-options/dw-qu-input-common1/DwAnswerInput1.vue'
 
 export default {
   name: 'DwAnswerQuFbk',

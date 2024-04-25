@@ -140,14 +140,14 @@
 </template>
 
 <script>
-import {dwSurveyAnswerDelete, dwSurveyAnswerDeleteByEs} from '../../../../api/dw-survey'
+import {dwSurveyAnswerDeleteByEs} from '../../../../api/dw-survey'
 import {
   dwSurveyAnswerExportLogInfo,
   dwSurveyAnswerExportSync,
   dwSurveyAnswerListV6
-} from "../api/dw-survey-answer-data";
-import DwSurveyAnswerInfoDialog from "./components/DwSurveyAnswerInfoDialog.vue";
-import {secondsToHms} from "../../dw-utils/dw-common/dw-common-1";
+} from '../api/dw-survey-answer-data'
+import DwSurveyAnswerInfoDialog from './components/DwSurveyAnswerInfoDialog.vue'
+import {secondsToHms} from '../../dw-utils/dw-common/dw-common-1'
 
 export default {
   name: 'DwSurveyAnswerDataList',

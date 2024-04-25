@@ -1,5 +1,5 @@
-import Api from "../../../../api";
-import request from "../../../../utils/request";
+import Api from '../../../../api'
+import request from '../../../../utils/request'
 
 export const dwFooterUtils = {
   setDwFooterInfo (authority) {

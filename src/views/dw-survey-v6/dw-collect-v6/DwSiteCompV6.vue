@@ -75,15 +75,13 @@
 
 <script>
 
-import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
 import Clipboard from 'clipboard'
-import DwSurveyDcsWrapperV6 from "../../../components/common/DwSurveyDcsWrapperV6.vue";
+import DwSurveyDcsWrapperV6 from '../../../components/common/DwSurveyDcsWrapperV6.vue'
 
 export default {
   name: 'DwSiteComp',
   components: {
     DwSurveyDcsWrapperV6,
-    DwSurveyDcsWrapper,
     Clipboard
   },
   data () {

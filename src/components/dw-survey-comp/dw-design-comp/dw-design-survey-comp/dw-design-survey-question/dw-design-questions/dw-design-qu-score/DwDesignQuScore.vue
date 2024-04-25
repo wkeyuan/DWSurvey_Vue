@@ -5,7 +5,7 @@
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
 import DwQuMFbkOptions from './components/DwQuScoreOptions.vue'
-import DwQuScoreOptions from "./components/DwQuScoreOptions.vue";
+import DwQuScoreOptions from './components/DwQuScoreOptions.vue'
 export default {
   name: 'DwDesignQuScore',
   components: {DwQuScoreOptions, DwQuMFbkOptions, DwDesignQuestionCommon},

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {msgBoxNoLogin, msgBoxNoRole, msgError, msgInfo, msgWarning} from './dw-msg'
+import {msgBoxNoLogin, msgBoxNoRole, msgError, msgWarning} from './dw-msg'
 
 // 全局的 axios 默认值
 axios.defaults.baseURL = process.env.DW_API_URL

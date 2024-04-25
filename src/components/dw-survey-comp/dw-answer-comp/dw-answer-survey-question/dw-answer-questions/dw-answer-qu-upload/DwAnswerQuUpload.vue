@@ -1,7 +1,7 @@
 <template>
   <div>
-<!--    <div style="background-color: red;margin: 10px;">{{ survey.questions[index].upFileList }}</div>-->
-<!--    <div style="background-color: grey;margin: 10px;">{{ survey.questions[index].anQuestion }}</div>-->
+    <!--    <div style="background-color: red;margin: 10px;">{{ survey.questions[index].upFileList }}</div>-->
+    <!--    <div style="background-color: grey;margin: 10px;">{{ survey.questions[index].anQuestion }}</div>-->
     <el-upload
       :before-remove="beforeRemove"
       :before-upload="beforeAvatarUpload"
@@ -39,8 +39,6 @@
 
 <script>
 
-import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
-import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
 import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
 
 export default {

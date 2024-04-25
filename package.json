@@ -23,7 +23,7 @@
     "echarts": "^5.2.2",
     "element-ui": "^2.15.6",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.6.4",
+    "jquery": "^3.7.1",
     "normalize.css": "^8.0.1",
     "uuid": "^9.0.0",
     "vue": "^2.5.2",

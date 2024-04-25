@@ -5,7 +5,7 @@
       <div class="dw-question-top dw-height-20px" style="display: none;" >
         <div class="">
           <div class="dw-margin-left-right-10" style="font-size: 14px;"></div>
-<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <!--          || survey.curEditObj[itemIndex].itemClick-->
           <div v-show="hover || itemClick" class="dw-display-flex-right">
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="复制本题" placement="top">
               <div class="dw-question-toolbar dw-margin-right-10" ><i class="dwMoveSortQu dw-cursor-pointer dw-event-icon dw-event-color fa fa-copy" aria-hidden="true"></i></div>
@@ -21,7 +21,7 @@
       </div>
       <div class="dw-question-body" >
         <div class="dw-question-body-left dw-text-align-center dw-padding-top-2">
-<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <!--          || survey.curEditObj[itemIndex].itemClick-->
           <div v-show="hover || itemClick">
             <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="移动本题" placement="left">
               <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dwMoveSortQu dw-cursor-pointer dw-event-color fa fa-arrows" aria-hidden="true"></i></div>
@@ -68,7 +68,7 @@
 
                 <div class="dw-question-body-bottom dw-padding-top-10 dw-height-20px">
                   <div v-if="survey.questions[index].quType !== 'PARAGRAPH' && survey.questions[index].quType !== 'PAGETAG'">
-<!--                    || survey.curEditObj[itemIndex].itemClick-->
+                    <!--                    || survey.curEditObj[itemIndex].itemClick-->
                     <div v-show="hover">
                       <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
                         <template v-if="survey.questions[index].hv===4">
@@ -84,7 +84,7 @@
                           </el-tooltip>
                         </template>
                         <template>
-<!--                          :disabled="survey.curEditObj[itemIndex].itemClick"-->
+                          <!--                          :disabled="survey.curEditObj[itemIndex].itemClick"-->
                           <el-tooltip :open-delay="openDelay" class="item dw-margin-right-10" effect="dark" content="批量添加选项" placement="right">
                             <dw-popover-more-options v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
@@ -101,7 +101,7 @@
           </div>
         </div>
         <div class="dw-question-body-right dw-text-align-center dw-padding-top-2">
-<!--          || survey.curEditObj[itemIndex].itemClick-->
+          <!--          || survey.curEditObj[itemIndex].itemClick-->
           <div v-show="hover || itemClick">
             <div class="dw-question-toolbar dw-margin-bottom-10" @click.stop="copyQu" ><i class="dw-cursor-pointer dw-event-color fa fa-clipboard" aria-hidden="true"></i></div>
             <div v-show="index>0" class="dw-question-toolbar dw-margin-bottom-10" @click.stop="upQu"><i class="dw-cursor-pointer dw-event-color fa fa-arrow-up" aria-hidden="true"></i></div>
@@ -125,11 +125,10 @@ import {
   dwResetQuestionRefreshValue, dwResetSurveyQuestionRefreshValue,
   dwSurveyQuAddOption
 } from '../../../dw-utils/dw-survey-update-question'
-import {clickQuItem, upAllItemClick} from '../../../dw-utils/dw-survey-update-item-click'
 import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
 import DwPopoverQuLogics from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue'
 import {v4 as uuidV4} from 'uuid'
-import {resetQuestion} from "../../../dw-utils/dw-survey-parse";
+import {resetQuestion} from '../../../dw-utils/dw-survey-parse'
 
 export default {
   name: 'DwDesignQuestionCommon',

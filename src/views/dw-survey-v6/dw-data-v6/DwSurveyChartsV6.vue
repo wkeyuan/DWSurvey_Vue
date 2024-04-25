@@ -9,17 +9,15 @@
 </template>
 <script>
 
-import DwSurveyDcsWrapper from '@/components/common/DwSurveyDcsWrapper'
 import DwSurveyAnswerCharts
   from '../../../components/dw-survey-comp/dw-data-comp/dw-answer-charts-comp/DwSurveyAnswerCharts.vue'
-import DwSurveyDcsWrapperV6 from "../../../components/common/DwSurveyDcsWrapperV6.vue";
+import DwSurveyDcsWrapperV6 from '../../../components/common/DwSurveyDcsWrapperV6.vue'
 
 export default {
   name: 'DwSurveyChartsV6',
   components: {
     DwSurveyDcsWrapperV6,
-    DwSurveyAnswerCharts,
-    DwSurveyDcsWrapper
+    DwSurveyAnswerCharts
   },
   data () {
     return {

@@ -47,14 +47,12 @@
 
 <script>
 import Clipboard from 'clipboard'
-import DwSurveyDcsWrapper from '../../../components/common/DwSurveyDcsWrapper'
-import DwSurveyDcsWrapperV6 from "../../../components/common/DwSurveyDcsWrapperV6.vue";
+import DwSurveyDcsWrapperV6 from '../../../components/common/DwSurveyDcsWrapperV6.vue'
 
 export default {
   name: 'DwAnswerUrlV6',
   components: {
     DwSurveyDcsWrapperV6,
-    DwSurveyDcsWrapper,
     Clipboard
   },
   props: {

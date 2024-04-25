@@ -30,8 +30,7 @@ import DwDesignContainerBodyCenter
 import DwAnswerSurveyBody from '../../dw-answer-survey-body/DwAnswerSurveyBody.vue'
 import DwFooter from '../../../../layouts/DwFooter.vue'
 import DwFooterSm from '../../../../layouts/DwFooterSm'
-import {dwUpSurveyStyle} from "../../dw-utils/dw-survey-answer-style";
-import {surveyAnswerLocalStorage} from "../../dw-utils/dw-survey-answer-utils";
+import {surveyAnswerLocalStorage} from '../../dw-utils/dw-survey-answer-utils'
 
 export default {
   name: 'DwAnswerDefaultLayout',

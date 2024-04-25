@@ -1,5 +1,3 @@
-import {dwSurveyColorUtils, getDefaultSurveyStyle} from "../../dw-utils/dw-common/dw-common-utils";
-
 function dwUpImgSrcVar (survey) {
   if (survey.hasOwnProperty('surveyStyle')) {
     const surveyStyle = survey.surveyStyle

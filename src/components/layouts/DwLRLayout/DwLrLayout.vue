@@ -23,9 +23,9 @@
 
 <script>
 
-import DwLrHeader from "./DwLrHeader.vue";
-import DwLrAsideMenu from "./DwLrAsideMenu.vue";
-import DwFooter from "../DwFooter.vue";
+import DwLrHeader from './DwLrHeader.vue'
+import DwLrAsideMenu from './DwLrAsideMenu.vue'
+import DwFooter from '../DwFooter.vue'
 
 export default {
   name: 'DwLrLayout',

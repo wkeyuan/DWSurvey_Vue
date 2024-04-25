@@ -51,9 +51,9 @@
 
 <script>
 import DwHtmlLabelCommon from '../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
-import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
-import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
-import {surveyAnswerLocalStorage} from '../../../dw-utils/dw-survey-answer-utils'
+// import {getQuestionAnswerData} from '../../../../dw-utils/dw-survey-answer'
+// import {validateQuestion} from '../../../../dw-utils/dw-survey-answer-validate'
+// import {surveyAnswerLocalStorage} from '../../../dw-utils/dw-survey-answer-utils'
 import {showReadNotify} from '../../../../dw-utils/dw-common/dw-msg-common'
 import {answerQuEventCommon} from '../../../dw-utils/dw-survey-answer-common'
 import DwAnswerInput1 from '../dw-qu-input-common1/DwAnswerInput1.vue'

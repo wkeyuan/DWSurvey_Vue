@@ -65,7 +65,7 @@
 
 import {logicNum, curQuAfterQus, getQuOptions} from '../../../../../../../dw-utils/dw-survey-design'
 import QuInput from '../../../../../../../../../views/dw-survey/dw-design1/components/dw-qus/QuInput.vue'
-import {v4 as uuidV4} from "uuid";
+import {v4 as uuidV4} from 'uuid'
 
 /**
  * 处理显示逻辑配置
