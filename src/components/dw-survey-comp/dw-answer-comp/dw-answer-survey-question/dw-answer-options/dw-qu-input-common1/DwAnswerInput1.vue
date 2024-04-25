@@ -111,12 +111,12 @@
     <template v-else-if="inputAttr.commonAttr.checkType==='NUM'">
       <!--    NUM-->
       <el-input v-model="inputAnswer" :disabled="survey.readonly" :controls="false" :placeholder="inputAttr.commonAttr.placeholder" controls-position="none" @blur="onBlur" @input="onBlur" ></el-input>
-<!--      <div v-show="inputAttr.numAttr.min>0 || inputAttr.numAttr.max>0" class="dw-answer-input-note">最小值： {{ inputAttr.numAttr.min }}，最大值： {{ inputAttr.numAttr.max }}</div>-->
+      <!--      <div v-show="inputAttr.numAttr.min>0 || inputAttr.numAttr.max>0" class="dw-answer-input-note">最小值： {{ inputAttr.numAttr.min }}，最大值： {{ inputAttr.numAttr.max }}</div>-->
     </template>
     <template v-else-if="inputAttr.commonAttr.checkType==='DIGITS'">
       <!--    DIGITS  -->
       <el-input v-model="inputAnswer" :disabled="survey.readonly" :controls="false" :placeholder="inputAttr.commonAttr.placeholder" controls-position="none" @blur="onBlur" @input="onBlur" ></el-input>
-<!--      <div v-show="inputAttr.numAttr.min>0 || inputAttr.numAttr.max>0" class="dw-answer-input-note">最小值： {{ inputAttr.numAttr.min }}，最大值： {{ inputAttr.numAttr.max }}</div>-->
+      <!--      <div v-show="inputAttr.numAttr.min>0 || inputAttr.numAttr.max>0" class="dw-answer-input-note">最小值： {{ inputAttr.numAttr.min }}，最大值： {{ inputAttr.numAttr.max }}</div>-->
     </template>
     <template v-else>
       <template v-if="inputAttr.commonAttr.inputRow>1">
@@ -131,7 +131,7 @@
 
 <script>
 
-import {answerQuEventCommon, answerQuEventCommonExt} from '../../../dw-utils/dw-survey-answer-common'
+import {answerQuEventCommonExt} from '../../../dw-utils/dw-survey-answer-common'
 
 export default {
   name: 'DwAnswerInput1',
@@ -153,7 +153,7 @@ export default {
   },
   computed: {
     isAnswer () {
-      /*if (this.survey.questions[this.index].hasOwnProperty('answer')) {
+      /* if (this.survey.questions[this.index].hasOwnProperty('answer')) {
         const answer = this.survey.questions[this.index].answer
         return answer !== null && answer !== undefined && answer !== ''
       }*/

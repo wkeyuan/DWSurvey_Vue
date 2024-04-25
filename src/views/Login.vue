@@ -31,11 +31,10 @@
 </template>
 <script>
 
-import DwAuthorized, {dwFooterLocalStorage} from '../utils/dw-authorized'
+import DwAuthorized from '../utils/dw-authorized'
 import {msgError} from '../utils/dw-msg'
 import {dwLogin} from '@/api/dw-login'
-import Api from "../api";
-import {dwFooterUtils} from "../components/dw-survey-comp/dw-utils/dw-common/dw-footer-util";
+import {dwFooterUtils} from '../components/dw-survey-comp/dw-utils/dw-common/dw-footer-util'
 
 export default {
   name: 'Login',

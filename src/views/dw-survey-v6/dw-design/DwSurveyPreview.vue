@@ -1,18 +1,15 @@
 <template>
   <div>
-<!--    <dw-design-survey-comp></dw-design-survey-comp>-->
     <dw-preview-survey-main></dw-preview-survey-main>
   </div>
 </template>
 
 <script>
-import DwDesignSurveyMain
-  from '../../../components/dw-survey-comp/dw-design-comp/dw-design-survey-comp/DwDesignSurveyMain.vue'
 import DwPreviewSurveyMain
-  from "../../../components/dw-survey-comp/dw-design-comp/dw-preview-survey-comp/DwPreviewSurveyMain.vue";
+  from '../../../components/dw-survey-comp/dw-design-comp/dw-preview-survey-comp/DwPreviewSurveyMain.vue'
 export default {
   name: 'DwSurveyDesignContent',
-  components: {DwPreviewSurveyMain, DwDesignSurveyMain}
+  components: {DwPreviewSurveyMain}
 }
 </script>
 

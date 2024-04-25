@@ -193,7 +193,7 @@
 
 <script>
 import {dwSurveyColorUtils} from '../../../dw-utils/dw-common/dw-common-utils'
-import {dwUpSurveyStyle} from "../../../dw-answer-comp/dw-utils/dw-survey-answer-style";
+import {dwUpSurveyStyle} from '../../../dw-answer-comp/dw-utils/dw-survey-answer-style'
 
 export default {
   name: 'DwSurveyStyleDesignAside',

@@ -2,7 +2,6 @@ import {
   buildSurveyLocalStorageKey,
   getLocalStorageByKey, getLocalStorageByKeyword, saveJsonObj2LocalStorage
 } from '../../dw-utils/dw-common/dw-common-0'
-import {answerSurveyProgress} from "./dw-survey-answer-progress";
 
 export const surveyLocalStorageKeyType = {INIT: 'survey_init', AN_HISTORY: 'survey_answer_history', AN_HISTORY_ACTION: 'survey_answer_history_action'}
 

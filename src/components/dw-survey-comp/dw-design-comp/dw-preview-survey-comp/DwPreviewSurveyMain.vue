@@ -50,7 +50,7 @@
               <div class="dw-preview-pad">
                 <div class="dw-preview-body">
                   <div>
-<!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
+                    <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
                       <dw-answer-default-layout v-model="survey" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true}"></dw-answer-default-layout>
                     </div>
@@ -65,7 +65,7 @@
               <div class="dw-preview-phone">
                 <div class="dw-preview-body">
                   <div>
-<!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '861px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
+                    <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '861px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
                       <dw-answer-default-layout v-model="survey" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '861px',height: 'auto'}, isPreview: true}"></dw-answer-default-layout>
                     </div>
@@ -91,13 +91,13 @@ import DwAnswerDefaultLayout
 import {getDesignSurveyJsonBySurveyId} from '../../dw-utils/dw-survey-common'
 import {initAnswerBySurvey, showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
 import {initAnswerSurveyProgress} from '../../dw-answer-comp/dw-utils/dw-survey-answer-progress'
-import {dwSurveyColorUtils, getDefaultSurveyStyle} from '../../dw-utils/dw-common/dw-common-utils'
+import {getDefaultSurveyStyle} from '../../dw-utils/dw-common/dw-common-utils'
 import DwSurveyStyleDesignAside from './componets/DwSurveyStyleDesignAside.vue'
-import {clearSurveyJson, getSurveyJsonSimple} from "../../dw-utils/dw-survey-design";
-import {clearSurveyAnswer} from "../../dw-answer-comp/dw-utils/dw-survey-answer-clear";
-import {dwSurveyAnswerLogicLoad} from "../../dw-answer-comp/dw-utils/dw-survey-answer-logic";
-import {surveyAnswerLocalStorage} from "../../dw-answer-comp/dw-utils/dw-survey-answer-utils";
-import {dwFooterUtils} from "../../dw-utils/dw-common/dw-footer-util";
+import {clearSurveyJson, getSurveyJsonSimple} from '../../dw-utils/dw-survey-design'
+import {clearSurveyAnswer} from '../../dw-answer-comp/dw-utils/dw-survey-answer-clear'
+import {dwSurveyAnswerLogicLoad} from '../../dw-answer-comp/dw-utils/dw-survey-answer-logic'
+import {surveyAnswerLocalStorage} from '../../dw-answer-comp/dw-utils/dw-survey-answer-utils'
+import {dwFooterUtils} from '../../dw-utils/dw-common/dw-footer-util'
 
 export default {
   name: 'DwPreviewSurveyMain',

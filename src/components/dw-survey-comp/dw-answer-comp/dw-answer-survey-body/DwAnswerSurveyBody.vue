@@ -108,8 +108,8 @@ import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
 import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-answer'
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
-import {dwUpSurveyStyle} from "../dw-utils/dw-survey-answer-style";
-import {showPageByIndex} from "../../dw-utils/dw-survey-answer-data";
+import {dwUpSurveyStyle} from '../dw-utils/dw-survey-answer-style'
+import {showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
 
 export default {
   name: 'DwAnswerSurveyBody',

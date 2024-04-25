@@ -56,9 +56,8 @@ import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
 import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
-import {v4 as uuidv4} from "uuid";
 import DwAddNewQuDialog
-  from "../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue";
+  from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue'
 
 export default {
   name: 'DwDesignContainerBodyCenter',

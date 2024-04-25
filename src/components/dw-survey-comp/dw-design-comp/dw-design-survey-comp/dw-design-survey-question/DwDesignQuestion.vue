@@ -45,8 +45,8 @@ import DwDesignQuUpload from './dw-design-questions/dw-design-qu-upload/DwDesign
 import DwDesignQuScore from './dw-design-questions/dw-design-qu-score/DwDesignQuScore.vue'
 import DwDesignQuestionCommon from './DwDesignQuestionCommon.vue'
 import DwQuRadioOptions from './dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue'
-import DwDesignQuPage from "./dw-design-questions/dw-design-qu-pagetag/DwDesignQuPage.vue";
-import DwDesignQuParagraph from "./dw-design-questions/dw-design-paragraph/DwDesignQuParagraph.vue";
+import DwDesignQuPage from './dw-design-questions/dw-design-qu-pagetag/DwDesignQuPage.vue'
+import DwDesignQuParagraph from './dw-design-questions/dw-design-paragraph/DwDesignQuParagraph.vue'
 
 export default {
   name: 'DwDesignQuestion',

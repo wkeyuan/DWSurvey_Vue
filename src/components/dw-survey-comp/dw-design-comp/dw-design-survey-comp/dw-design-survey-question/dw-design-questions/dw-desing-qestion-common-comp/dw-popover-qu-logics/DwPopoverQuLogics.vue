@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import {clickItem, upAllItemClick} from '../../../../../../dw-utils/dw-survey-update-item-click'
 import DwQuLogicShowGo from './componets/DwQuLogicShowGo.vue'
 import {logicNum} from '../../../../../../dw-utils/dw-survey-design'
 

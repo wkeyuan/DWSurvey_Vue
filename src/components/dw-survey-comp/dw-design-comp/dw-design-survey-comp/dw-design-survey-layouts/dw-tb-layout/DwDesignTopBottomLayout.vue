@@ -140,9 +140,10 @@ export default {
           this.questions = httpResult.data
         }
       })
+      /*
       const surveyId = this.$route.params.id
       const params = {surveyId}
-      /* querySurveyAll(params).then((response) => {
+      querySurveyAll(params).then((response) => {
         console.debug('querySurveyAll',response)
         const httpResult = response.data
         if (httpResult.resultCode === 200) {

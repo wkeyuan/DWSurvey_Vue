@@ -6,7 +6,7 @@
 
 <script>
 import DwDesignQuestionCommon from '../../DwDesignQuestionCommon'
-import {surveyPageUtils} from "../../../../../dw-utils/dw-survey-common";
+import {surveyPageUtils} from '../../../../../dw-utils/dw-survey-common'
 
 export default {
   name: 'DwDesignQuPage',

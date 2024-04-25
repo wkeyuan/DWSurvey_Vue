@@ -4,7 +4,7 @@ import {getQuestionAnswerData} from '../../dw-utils/dw-survey-answer'
 import {validateQuestion} from '../../dw-utils/dw-survey-answer-validate'
 import {surveyAnswerLocalStorage} from './dw-survey-answer-utils'
 import {answerSurveyProgress} from './dw-survey-answer-progress'
-import {dwSurveyAnswerLogic} from "./dw-survey-answer-logic";
+import {dwSurveyAnswerLogic} from './dw-survey-answer-logic'
 
 /**
  * 根据SurveyId 取 surveyJson

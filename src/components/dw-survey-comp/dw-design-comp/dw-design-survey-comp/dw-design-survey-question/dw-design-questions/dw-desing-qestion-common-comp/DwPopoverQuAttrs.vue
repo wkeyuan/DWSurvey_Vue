@@ -1,5 +1,5 @@
 <template>
-<!--  :value="survey.curEditObj[itemIndex].itemClick"-->
+  <!--  :value="survey.curEditObj[itemIndex].itemClick"-->
   <el-popover placement="right-start" width="600" trigger="click" popper-class="dw-qu-set-popper" >
     <div>
       <div style="font-size: 14px;padding-bottom: 5px;">
@@ -146,7 +146,6 @@
 </template>
 
 <script>
-import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
 import DwInputProps from './DwInputProps.vue'
 
 export default {

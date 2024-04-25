@@ -18,7 +18,6 @@
 
 <script>
 import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../dw-utils/dw-survey-update-question'
-import {clickItem, upAllItemClick} from '../../../../../dw-utils/dw-survey-update-item-click'
 import {v4 as uuidV4} from 'uuid'
 
 export default {

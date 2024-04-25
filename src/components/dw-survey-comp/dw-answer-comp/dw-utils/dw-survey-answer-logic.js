@@ -1,4 +1,4 @@
-import {clearQuestionAnswerData} from "./dw-survey-answer-clear";
+import {clearQuestionAnswerData} from './dw-survey-answer-clear'
 
 /**
  * 逻辑初始化
@@ -42,10 +42,12 @@ function questionLogicData (survey, question) {
   const quType = question.quType
   const questionLogics = question.questionLogics
   questionLogics.forEach((logicItem, index) => {
+    /*
     const logicType = logicItem.logicType
     const logicDwId = logicItem.dwId
     const cgQuItemId = logicItem.cgQuItemId
     const skQuId = logicItem.skQuId
+    */
     if (question.hasOwnProperty('anQuestion') && question.anQuestion!==undefined) {
       if (quType === 'RADIO') {
         quRadioAnLogics(survey, question, logicItem)
@@ -114,7 +116,7 @@ function questionLogicData (survey, question) {
       let logicIsOk = false // 是否触发
       anOrders.forEach((anOrder, anQuestionIndex) => {
         if (anOrder.hasOwnProperty('optionDwId') && cgQuItemId.includes(anOrder.optionDwId)) {
-          const optionDwId = anOrder.optionDwId
+          // const optionDwId = anOrder.optionDwId
           const orderNum = anOrder.orderNum
           const logicGeLe = logicItem.geLe
           const logicScoreNum = logicItem.scoreNum
@@ -153,7 +155,7 @@ function questionLogicData (survey, question) {
       let logicIsOk = false // 是否触发
       anOptions.forEach((anOption, anQuestionIndex) => {
         if (anOption.hasOwnProperty('optionDwId') && cgQuItemId.includes(anOption.optionDwId)) {
-          const optionDwId = anOption.optionDwId
+          // const optionDwId = anOption.optionDwId
           const answerNum = anOption.answerScore
           const logicGeLe = logicItem.geLe
           const logicScoreNum = logicItem.scoreNum
@@ -192,7 +194,7 @@ function questionLogicData (survey, question) {
       let logicIsOk = false // 是否触发
       anMFbks.forEach((anMFbk, anQuestionIndex) => {
         if (anMFbk.hasOwnProperty('optionDwId') && cgQuItemId.includes(anMFbk.optionDwId)) {
-          const optionDwId = anMFbk.optionDwId
+          // const optionDwId = anMFbk.optionDwId
           const answerValue = anMFbk.answer
           if (answerValue!==undefined && answerValue!==null && answerValue!=='') logicIsOk = true
         }
@@ -210,7 +212,7 @@ function questionLogicData (survey, question) {
 
   function quFbkAnLogics (survey, question, logicItem) {
     const anQuestion = question.anQuestion
-    const cgQuItemId = logicItem.cgQuItemId
+    // const cgQuItemId = logicItem.cgQuItemId
     if (anQuestion.hasOwnProperty('anFbk') && anQuestion.anFbk.hasOwnProperty('answer') && anQuestion.anFbk.answer!==undefined && anQuestion.anFbk.answer!==null && anQuestion.anFbk.answer!=='') {
       // 有回答
       addLogicGoOrShow2Control(survey, question, logicItem)
@@ -222,7 +224,7 @@ function questionLogicData (survey, question) {
 
   function quUploadAnLogics (survey, question, logicItem) {
     const anQuestion = question.anQuestion
-    const cgQuItemId = logicItem.cgQuItemId
+    // const cgQuItemId = logicItem.cgQuItemId
     console.debug('anUploadFiles', anQuestion.anUploadFiles)
     if (anQuestion.hasOwnProperty('anUploadFiles') && anQuestion.anUploadFiles!=null && anQuestion.anUploadFiles.length>0) {
       // 有回答

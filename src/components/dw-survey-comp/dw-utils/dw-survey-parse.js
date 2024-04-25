@@ -1,6 +1,5 @@
 import {v4 as uuidv4} from 'uuid'
-import {surveyPageUtils} from "./dw-survey-common";
-import {getDefaultSurveyStyle} from "./dw-common/dw-common-utils";
+import {getDefaultSurveyStyle} from './dw-common/dw-common-utils'
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey

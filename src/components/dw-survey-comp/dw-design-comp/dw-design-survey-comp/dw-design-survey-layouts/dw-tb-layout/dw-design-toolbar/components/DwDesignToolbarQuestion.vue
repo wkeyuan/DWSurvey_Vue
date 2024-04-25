@@ -70,7 +70,7 @@
 
 import DwDesignQuestion from '../../../../dw-design-survey-question/DwDesignQuestion.vue'
 import DwAnswerQuestion from '../../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
-import DwDesignQuestionModelCommon from "./DwDesignQuestionModelCommon.vue";
+import DwDesignQuestionModelCommon from './DwDesignQuestionModelCommon.vue'
 
 export default {
   name: 'DwDesignToolbarQuestion',

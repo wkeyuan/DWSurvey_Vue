@@ -1,4 +1,4 @@
-import {validateQuestion} from "../../dw-utils/dw-survey-answer-validate";
+import {validateQuestion} from '../../dw-utils/dw-survey-answer-validate'
 
 export function initAnswerSurveyProgress (survey) {
   // 如果没有进度信息的情况下执行初始化

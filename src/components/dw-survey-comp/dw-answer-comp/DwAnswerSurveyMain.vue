@@ -14,7 +14,7 @@ import {getSurveyAnswerJsonBySurveyId} from './dw-utils/dw-survey-answer-common'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from './dw-utils/dw-survey-answer-utils'
 import {getSurveyAnswerData} from '../dw-utils/dw-survey-answer'
 import {initAnswerSurveyProgress} from './dw-utils/dw-survey-answer-progress'
-import {dwSurveyAnswerLogicLoad} from "./dw-utils/dw-survey-answer-logic";
+import {dwSurveyAnswerLogicLoad} from './dw-utils/dw-survey-answer-logic'
 
 export default {
   name: 'DwAnswerSurveyMain',

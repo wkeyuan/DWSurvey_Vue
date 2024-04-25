@@ -187,11 +187,11 @@ export function initAnswerBySurvey (survey) {
         const defaultValue = commonAttr.defaultValue
         if (defaultValue!==null && defaultValue!=='') question.answer = defaultValue
       } else if (quType === 'MULTIFILLBLANK') {
-
+        console.debug('answer MULTIFILLBLANK')
       } else if (quType === 'RADIO') {
-
+        console.debug('answer RADIO')
       } else if (quType === 'CHECKBOX') {
-
+        console.debug('answer CHECKBOX')
       }
       // 初始化题目辅助参数
       question.showQu = true // 默认显示, 分页控制
