@@ -17,7 +17,6 @@ import DwUser from '@/views/dw-user/DwUser'
 import DwUserPwd from '@/views/dw-user/DwUserPwd'
 import AdminUserList from '@/views/dw-admin/AdminUserList'
 import Login from '@/views/Login'
-import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
 import DwSurveyPreview from '../views/dw-survey-v6/dw-design/DwSurveyPreview.vue'
 import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
@@ -273,14 +272,6 @@ const routes = [
               title: '问卷设计'
             },
             component: DwSurveyDesignContent
-          },
-          {
-            path: 'dw-design/survey1',
-            name: 'DwDesign',
-            meta: {
-              title: '问卷设计'
-            },
-            component: DwDesign
           },
           {
             path: 'dw-preview/survey/:id',
