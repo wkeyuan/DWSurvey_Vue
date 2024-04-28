@@ -62,8 +62,11 @@ export default {
   },
   methods: {
     loadDwFooter () {
+      const _that = this
       dwFooterUtils.getNewDwFooterInfo(function () {
-        dwFooterUtils.isDemo((footerInfo) => { this.showDefaultDemoPwd(footerInfo) })
+        dwFooterUtils.isDemo((footerInfo) => {
+          _that.showDefaultDemoPwd(footerInfo)
+        })
       })
     },
     showDefaultDemoPwd (footerInfo) {
