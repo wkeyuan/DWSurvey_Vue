@@ -1,6 +1,6 @@
 <template>
   <!--  trigger="manual"  :value="popoverValue" -->
-  <el-popover placement="right-start" width="700" trigger="click" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
+  <el-popover :value="survey.questions[index].quFocusObj.quLogicShow" trigger="manual" placement="right-start" width="700" popper-class="dw-qu-set-popper" @show="showPopoverLoad" >
     <div>
       <div>
         <el-tabs v-model="activeName" :before-leave="beforeLeave" >
@@ -16,7 +16,7 @@
       </div>
     </div>
     <!--    @click.stop="clickShowPopoverEvent"-->
-    <div slot="reference" @click="clickShowPopoverEvent">
+    <div slot="reference" @click.stop="clickShowPopoverEvent">
       <slot/>
     </div>
   </el-popover>
@@ -76,8 +76,8 @@ export default {
     },
     clickShowPopoverEvent () {
       // 父组件生成父组件的itemIndex, 子组件生成子组件的itemIndex, 最后排除父组件的itemIndex与子组件ItemIndex
-      /*
       this.$emit('click-item')
+      /*
       const parentItemIndex = this.survey.questions[this.index].itemIndex
       clickItem(this.survey, this.itemIndex, (survey, itemIndex) => {
         this.survey = survey
@@ -85,6 +85,7 @@ export default {
       })
       this.upAllItemClick([this.itemIndex, parentItemIndex])
       */
+      this.survey.questions[this.index].quFocusObj.quLogicShow = true
     },
     upAllItemClick (itemClicks) {
       // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })

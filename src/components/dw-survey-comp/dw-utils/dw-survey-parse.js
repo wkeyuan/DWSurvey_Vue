@@ -133,6 +133,14 @@ export function parseQuestion (question, noModel) {
   // const numAttr = {min: null, max: null}
   // const inputAttr = {commonAttr, dateTimeAttr, numAttr}
   // if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
+  question.itemClick = false
+  question.quFocusObj = {
+    quFocus: false,
+    quSetShow: false,
+    quLogicShow: false,
+    quMoreOptionShow: false,
+    quMoreOptionShowEdit: false
+  }
 }
 
 function addNewQuProps (question) {

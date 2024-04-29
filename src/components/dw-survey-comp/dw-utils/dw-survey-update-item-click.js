@@ -53,3 +53,16 @@ export function upAllItemClick (survey, itemClicks, callback) {
   if (itemClicks !== null) for (let j = 0; j < itemClicks.length; j++) survey.curEditObj[itemClicks[j]].itemClick = true
   callback(survey)*/
 }
+
+export function resetOtherClickItem (survey, quIndex) {
+  const questions = survey.questions
+  for (let i = 0; i < questions.length; i++) {
+    if (survey.questions[i].quFocusObj.quFocus && quIndex!==i) {
+      survey.questions[i].quFocusObj.quFocus = false
+      survey.questions[i].quFocusObj.quSetShow = false
+      survey.questions[i].quFocusObj.quLogicShow = false
+      survey.questions[i].quFocusObj.quMoreOptionShow = false
+      survey.questions[i].quFocusObj.quMoreOptionShowEdit = false
+    }
+  }
+}

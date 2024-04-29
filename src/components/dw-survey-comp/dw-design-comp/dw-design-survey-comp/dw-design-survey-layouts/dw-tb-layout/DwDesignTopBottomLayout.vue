@@ -1,6 +1,6 @@
 <template>
   <!--  编辑器上下结构 @click="documentClick" -->
-  <div>
+  <div @click="documentClick" >
     <div v-if="survey!=null" class="dw-design-container" >
       <el-container>
         <el-header class="header" style="">
@@ -61,6 +61,7 @@ import DwDesignContainerBodyCenter
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
 import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/DwDesignContainerBodyRight.vue'
 import DwFooter from '../../../../../layouts/DwFooter.vue'
+import {resetOtherClickItem} from "../../../../dw-utils/dw-survey-update-item-click";
 
 export default {
   name: 'DwDesignTopBottomLayout',
@@ -187,6 +188,7 @@ export default {
         this.survey.curEditObj[i].itemClick = false
       }*/
       // this.$refs.designContainerBody.documentClick()
+      resetOtherClickItem(this.survey, -1)
     }
   }
 }
