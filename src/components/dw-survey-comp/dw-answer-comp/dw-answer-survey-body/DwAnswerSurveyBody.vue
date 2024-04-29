@@ -49,6 +49,15 @@
                     </div>
                   </div>
                   <div v-if="!survey.readonly && survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
+                    <div>
+                      <div v-if="survey.hasOwnProperty('answerCheckResult') && survey.answerCheckResult!==null && survey.answerCheckResult.anCheckResultCode===409">
+                        <!--                        {{ survey.answerCheckResult }}-->
+                        <div class="dw-display-flex" style="margin-bottom: 10px;">
+                          <div style="width: 160px;"><el-input v-model="anRandomCode" placeholder="请输入右侧验证码" ></el-input></div>
+                          <div style="margin-left: 5px;"><el-image src="/api/dwsurvey/anon/jcap/jcaptcha.do" ></el-image></div>
+                        </div>
+                      </div>
+                    </div>
                     <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
                     <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
                   </div>
@@ -134,7 +143,8 @@ export default {
       fullscreenLoading: false,
       answer: {},
       isReAnswer: false,
-      anPwd: ''
+      anPwd: '',
+      anRandomCode: ''
     }
   },
   mounted () {
@@ -197,7 +207,7 @@ export default {
       this.answer = answer
       console.debug('answer', answer)
       const surveyAnswerJsonText = JSON.stringify(answer)
-      const data = {surveyId: answer.answerCommon.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText}
+      const data = {surveyId: answer.answerCommon.surveyId, sid, jsonVersion: 6, answerJson: surveyAnswerJsonText, anRandomCode: this.anRandomCode}
       this.fullscreenLoading = true
       dwSaveSurveyAnswerJson(data).then((response) => {
         const httpResult = response.data
@@ -212,6 +222,8 @@ export default {
               // 弹出提示
               this.survey.answerMsg.showAnswerMsg = true
               this.survey.answerMsg.answerMsgInfo = '答卷提交成功，感谢您的支持!'
+              this.survey.answerMsg.answerCheckResult = resultData
+              this.isReAnswer = false
               // 必须是答卷提交成功时清掉暂存的数据，考虑加上访问token
               // surveyAnswerLocalStorage.clearAnswerHistory(this.$route.params.id, this.$route.params.answerId)
               surveyAnswerLocalStorage.clearAnswerHistory(sid, answerId)
@@ -226,6 +238,9 @@ export default {
                 this.survey.answerMsg.answerMsgInfo = anCheckResultMsg
                 this.survey.answerMsg.answerCheckResult = resultData
                 // 然后对需要特殊处理的进行特殊处理
+                if (resultData.hasOwnProperty('anCheckResultCode') && resultData.anCheckResultCode===410) {
+                  this.isReAnswer = true
+                }
               } else {
                 // 不太可能进入此块
                 this.$message.warning('数据未保存，请确认！')
