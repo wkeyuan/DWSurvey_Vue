@@ -61,7 +61,7 @@ import DwDesignContainerBodyCenter
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
 import DwDesignContainerBodyRight from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/DwDesignContainerBodyRight.vue'
 import DwFooter from '../../../../../layouts/DwFooter.vue'
-import {resetOtherClickItem} from "../../../../dw-utils/dw-survey-update-item-click";
+import {resetOtherClickItem} from '../../../../dw-utils/dw-survey-update-item-click'
 
 export default {
   name: 'DwDesignTopBottomLayout',

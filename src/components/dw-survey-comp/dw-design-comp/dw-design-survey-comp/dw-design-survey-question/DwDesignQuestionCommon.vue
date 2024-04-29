@@ -129,7 +129,7 @@ import DwPopoverQuAttrs from './dw-design-questions/dw-desing-qestion-common-com
 import DwPopoverQuLogics from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-logics/DwPopoverQuLogics.vue'
 import {v4 as uuidV4} from 'uuid'
 import {resetQuestion} from '../../../dw-utils/dw-survey-parse'
-import {resetOtherClickItem} from "../../../dw-utils/dw-survey-update-item-click";
+import {resetOtherClickItem} from '../../../dw-utils/dw-survey-update-item-click'
 
 export default {
   name: 'DwDesignQuestionCommon',

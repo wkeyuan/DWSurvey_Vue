@@ -8,7 +8,7 @@
 
 <script>
 import DwTextEditLabel from './DwTextEditLabel'
-import {resetOtherClickItem} from "../../../dw-utils/dw-survey-update-item-click";
+
 export default {
   name: 'DwTextEditLabelCommon',
   components: {DwTextEditLabel},

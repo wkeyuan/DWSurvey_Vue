@@ -19,7 +19,6 @@
 <script>
 import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../dw-utils/dw-survey-update-question'
 import {v4 as uuidV4} from 'uuid'
-import {resetOtherClickItem} from "../../../../../dw-utils/dw-survey-update-item-click";
 
 export default {
   name: 'DwPopoverMoreOptions',
