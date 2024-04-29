@@ -1,11 +1,11 @@
 <template>
-  <el-tabs v-loading="loading" v-if="tabs.length>0" :before-leave="clickDesignStyle" value="tabQu1" type="border-card" >
-    <el-tab-pane label="常用题型" name="tabQu1" style="padding: 0px;">
+  <el-tabs v-loading="loading" v-if="tabs.length>0" :before-leave="clickDesignStyle" value="tabQu_0" type="border-card" >
+    <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="`tabKey_${tabIndex}`" :label="tab.tabName" :name="`tabQu_${tabIndex}`" style="padding: 0;">
       <div class="toolbars-contents">
         <el-row type="flex" justify="space-between" align="middle" >
           <el-col :span="18" >
             <div class="toolbars-contents-body">
-              <div v-for="(item, index) in tabs[0].tabQus" v-if="item.questions.length>0" :key="`toolbar${index}`" class="tools_item">
+              <div v-for="(item, index) in tab.tabQus" v-if="item.questions.length>0" :key="`toolbar${index}`" class="tools_item">
                 <div class="toolbars">
                   <template v-if="item.eventType === undefined || item.eventType === null">
                     <draggable
