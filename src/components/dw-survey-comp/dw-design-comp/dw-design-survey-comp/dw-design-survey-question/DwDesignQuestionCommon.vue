@@ -72,14 +72,14 @@
                     <div v-show="hover || survey.questions[index].quFocusObj.quFocus">
                       <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
                         <template v-if="survey.questions[index].hv===4">
-                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="批量修改选项" placement="right">
+                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="批量修改选项" placement="left">
                             <dw-popover-more-options v-model="survey" :index="index" add-or-edit="edit" popover-title="修改题目选项" text-placeholder="请输入修改的内容" @click-item="clickItem" >
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa fa-pencil" aria-hidden="true"></i></div>
                             </dw-popover-more-options>
                           </el-tooltip>
                         </template>
                         <template v-else>
-                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="单项添加选项" placement="right">
+                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="单项添加选项" placement="left">
                             <div class="dw-question-toolbar" @click.stop="dwAddQuItemEvent"><i class="dw-cursor-pointer dw-event-color fa fa-plus" aria-hidden="true"></i></div>
                           </el-tooltip>
                         </template>
