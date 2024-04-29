@@ -1,6 +1,6 @@
 <template>
   <!--  :value="survey.curEditObj[itemIndex].itemClick"-->
-  <el-popover placement="right-start" width="600" trigger="click" popper-class="dw-qu-set-popper" >
+  <el-popover :value="survey.questions[index].quFocusObj.quSetShow" trigger="manual" placement="right-start" width="600" popper-class="dw-qu-set-popper" >
     <div>
       <div style="font-size: 14px;padding-bottom: 5px;">
         <div class="dw-qu-item">
@@ -139,7 +139,7 @@
       </div>
     </div>
     <!--    @click.stop="clickShowPopoverEvent"-->
-    <div slot="reference" @click="clickShowPopoverEvent">
+    <div slot="reference" @click.stop="clickShowPopoverEvent">
       <slot/>
     </div>
   </el-popover>
@@ -181,6 +181,7 @@ export default {
       })
       this.upAllItemClick([this.itemIndex, parentItemIndex])
       */
+      this.survey.questions[this.index].quFocusObj.quSetShow = true
     },
     cancelAddOptionEvent () {
       // this.survey.curEditObj[this.itemIndex].itemClick = false

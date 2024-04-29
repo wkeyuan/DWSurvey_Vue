@@ -8,6 +8,7 @@
 
 <script>
 import DwTextEditLabel from './DwTextEditLabel'
+
 export default {
   name: 'DwTextEditLabelCommon',
   components: {DwTextEditLabel},
@@ -17,7 +18,8 @@ export default {
   },
   props: {
     value: {type: Object, default: () => {}},
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    index: {type: Number, default: null}
   },
   data () {
     return {

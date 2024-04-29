@@ -1,6 +1,6 @@
 <template>
-  <!--  :value="survey.curEditObj[itemIndex].itemClick" trigger="manual"-->
-  <el-popover placement="bottom-start" width="400" trigger="click" popper-class="dw-popover-more-options" @show="showPopoverLoad" >
+  <!--  :value="survey.curEditObj[itemIndex].itemClick" trigger="manual" trigger="click"-->
+  <el-popover :value="addOrEdit==='add'?survey.questions[index].quFocusObj.quMoreOptionShow:survey.questions[index].quFocusObj.quMoreOptionShowEdit" trigger="manual" placement="bottom-start" width="400" popper-class="dw-popover-more-options" @show="showPopoverLoad" >
     <div>
       <div style="font-size: 14px;padding-bottom: 5px;">{{ popoverTitle }}</div>
       <el-input v-model="moreOptionText" :placeholder="textPlaceholder" type="textarea" rows="10" ></el-input>
@@ -57,6 +57,11 @@ export default {
       })
       const parentItemIndex = this.survey.questions[this.index].itemIndex
       this.upAllItemClick([this.itemIndex, parentItemIndex])*/
+      if (this.addOrEdit==='add') {
+        this.survey.questions[this.index].quFocusObj.quMoreOptionShow = true
+      } else {
+        this.survey.questions[this.index].quFocusObj.quMoreOptionShowEdit = true
+      }
     },
     cancelAddOptionEvent () {
       // this.upAllItemClick(null)

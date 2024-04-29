@@ -190,4 +190,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+/deep/ video,/deep/ img{
+  width: 100%;
+}
 </style>

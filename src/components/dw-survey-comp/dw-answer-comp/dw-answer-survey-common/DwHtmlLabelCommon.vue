@@ -77,4 +77,11 @@ export default {
   margin: 0;
   padding: 0;
 }
+/deep/ video{
+  width: 100%;
+  text-indent: 0;
+}
+/deep/ img{
+  width: 100%;
+}
 </style>
