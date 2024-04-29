@@ -34,7 +34,7 @@
                   <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;padding: 10px 0;">
                     <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>
                   </div>
-                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyNote') && survey.surveyStyle.showSurveyNote" style="font-size: 13px;color: #7b7b7b;text-indent: 2em;line-height: 20px;padding-top: 15px;">
+                  <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyNote') && survey.surveyStyle.showSurveyNote" style="font-size: 13px;color: #7b7b7b;line-height: 20px;padding-top: 15px;">
                     <dw-html-label-common v-if="survey.surveyDetail !== undefined" v-model="survey.surveyDetail.surveyNodeObj" :survey="survey" ></dw-html-label-common>
                   </div>
                 </div>
