@@ -72,10 +72,11 @@ export default {
         survey.dwDebug = false
         if (this.extProps!=null && this.extProps.hasOwnProperty('readonly')) survey.readonly = this.extProps.readonly
         this.answerCheckResult = answerCheckResult
-        if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass && answerCheckResult.anCheckResultCode!==403) {
+        if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass && answerCheckResult.anCheckResultCode!==403 && answerCheckResult.anCheckResultCode!==409) {
           survey.answerMsg = {showAnswerMsg: true, answerMsgInfo: answerCheckResult.anCheckResultMsg, noSurveyJson: false, answerCheckResult}
           this.survey = survey
         } else {
+          survey.answerCheckResult = answerCheckResult
           // 初始化答卷数据结构
           initAnswerBySurvey(survey)
           // 加载原答卷数据
