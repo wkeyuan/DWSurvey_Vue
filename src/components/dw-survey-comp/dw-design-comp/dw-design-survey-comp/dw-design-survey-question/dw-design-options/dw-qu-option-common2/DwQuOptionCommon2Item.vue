@@ -4,8 +4,15 @@
     <div class="dw-qu-item-body">
       <div class="dw-qu-item">
         <div class="dw-qu-item-el-checkbox-radio">
-          <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
-          <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+          <el-badge :hidden="!survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
+            <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
+            <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+          </el-badge>
+          <!--
+          <div v-if="survey.questions[quIndex].designShowScoreNum" style="font-size: 12px;margin-right: 5px;">
+            <strong style="color: red;">{{ options[optionIndex].scoreNum }}</strong>
+          </div>
+          -->
           <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
         </div>
         <div v-show="itemBtnShow" class="dw-qu-item-toolbar dw-display-flex-right" >
@@ -231,5 +238,19 @@ export default {
 .dw-input-focus{
   border: 1px solid #095aaa;
   background: #e5f5f5;
+}
+.dw-el-badge-option-score /deep/ .el-badge__content{
+  border-radius: 3px;
+  font-size: 8px;
+  height: 14px;
+  line-height: 14px;
+  padding: 0 2px;
+  border: none;
+}
+.dw-el-badge-option-score /deep/ .el-badge__content.is-fixed{
+  /*top: -3px;
+  right: 30px;*/
+  top: 0;
+  right: 20px;
 }
 </style>

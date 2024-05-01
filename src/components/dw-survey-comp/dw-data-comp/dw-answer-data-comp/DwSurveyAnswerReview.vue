@@ -3,7 +3,7 @@
     <el-row>
       <el-col>
         <div style="background-color: #dfdfe0;">
-          <div v-show="dwEsSurveyAnswer!==null" style="padding: 10px;">
+          <div v-if="dwEsSurveyAnswer!==null && dwEsSurveyAnswer!==undefined" style="padding: 10px;">
             <el-descriptions :column="2" title="答卷基本信息" border>
               <template slot="extra">
                 <!--                <el-button type="primary" size="small">页面打开</el-button>-->
@@ -30,10 +30,15 @@
                 </template>
                 {{ dwEsSurveyAnswer.answerCommon.anIp.addr }}
               </el-descriptions-item>
+              <el-descriptions-item>
+                <template slot="label"><i class="el-icon-star-off"></i>&nbsp;&nbsp;总分
+                </template>
+                {{ dwEsSurveyAnswer.answerCommon.sumScore }}
+              </el-descriptions-item>
             </el-descriptions>
           </div>
           <div style="margin-top: 0;">
-            <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true, readonly: true}"></dw-answer-survey>
+            <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true, readonly: true, isShowScore: true}"></dw-answer-survey>
           </div>
         </div>
       </el-col>
@@ -49,18 +54,12 @@ export default {
   name: 'DwSurveyAnswerReview',
   components: {DwAnswerSurvey, DwAnswerSurveyMain},
   props: {
-    dwEsSurveyAnswer: {type: Object, default: () => {}}
+    dwEsSurveyAnswer: {type: Object, default: () => {}},
+    padPhoneAnBodySpan: {type: Object, default: () => {}}
   },
   data () {
     return {
       thDwEsSurveyAnswer: null,
-      padPhoneAnBodySpan: {
-        xs: {span: 24, offset: 0},
-        sm: {span: 24, offset: 0},
-        md: {span: 24, offset: 0},
-        lg: {span: 24, offset: 0},
-        xl: {span: 24, offset: 0}
-      },
       answerProps: {sid: null, answerId: null, anPwd: ''} // surveyId 或 sid
     }
   },

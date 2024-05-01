@@ -30,6 +30,9 @@
                     <div style="padding: 10px;"><el-image :src="survey.surveyStyle.logoImg.httpSrc" style="height: 40px;display: block;" fit="cover"></el-image></div>
                   </div>
                 </div>
+                <div v-if="survey.hasOwnProperty('isShowScore') && survey.isShowScore && survey.hasOwnProperty('dwEsSurveyAnswer')" style="padding: 10px;font-size: 16px;color: var(--dw-answer-primary-color);border-bottom: 1px dashed var(--dw-answer-primary-color);">
+                  总得分：<strong style="color: red;font-size: 20px;">{{ survey.dwEsSurveyAnswer.answerCommon.sumScore }}分</strong>
+                </div>
                 <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showPageHeader') && survey.surveyStyle.showPageHeader" style="padding: 20px 20px 0 20px;">
                   <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;padding: 10px 0;">
                     <dw-html-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-html-label-common>

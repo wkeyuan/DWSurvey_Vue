@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-collapse-transition>
-      <div v-show="(item.showQu && !item.logicIsHide)">
+      <div v-show="(item.showQu && !item.logicIsHide) || survey.readonly">
         <dw-answer-question-common ref="dwDesignQuestionCommon" v-model="survey" :index="index" >
           <template v-slot:editQuContent>
             <div v-if="item.quType === 'RADIO'">

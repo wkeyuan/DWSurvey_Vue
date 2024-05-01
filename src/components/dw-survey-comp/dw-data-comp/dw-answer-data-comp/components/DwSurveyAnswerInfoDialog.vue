@@ -4,7 +4,7 @@
     <el-dialog :visible.sync="dialogFormVisible" class="dialogRoot" append-to-body title="答卷数据" width="60%" @close="closeDialog">
       <div slot="default" style="padding: 0 20px;">
         <div v-if="row!==null" style="height: 600px;overflow: scroll;">
-          <dw-survey-answer-review :dw-es-survey-answer="row"></dw-survey-answer-review>
+          <dw-survey-answer-review :dw-es-survey-answer="row" :pad-phone-an-body-span="padPhoneAnBodySpan"></dw-survey-answer-review>
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -23,6 +23,13 @@ export default {
   components: {DwSurveyAnswerReview},
   data () {
     return {
+      padPhoneAnBodySpan: {
+        xs: {span: 24, offset: 0},
+        sm: {span: 24, offset: 0},
+        md: {span: 24, offset: 0},
+        lg: {span: 24, offset: 0},
+        xl: {span: 24, offset: 0}
+      },
       dialogFormVisible: false,
       row: null
     }

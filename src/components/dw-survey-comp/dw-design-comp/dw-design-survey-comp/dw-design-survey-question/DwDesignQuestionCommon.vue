@@ -66,13 +66,17 @@
                   <slot name="editQuContent" ></slot>
                 </div>
 
+                <div v-if="survey.questions[index].quAttr.scoreAttr.designShowScoreNum" class="dw-padding-top-5" style="font-size: 12px;color: grey;">
+                  最高分：<strong style="">{{ survey.questions[index].quAttr.scoreAttr.maxScore }}</strong> 分
+                </div>
+
                 <div class="dw-question-body-bottom dw-padding-top-10 dw-height-20px">
                   <div v-if="survey.questions[index].quType !== 'PARAGRAPH' && survey.questions[index].quType !== 'PAGETAG'">
                     <!--                    || survey.curEditObj[itemIndex].itemClick-->
                     <div v-show="hover || survey.questions[index].quFocusObj.quFocus">
                       <div v-if="survey.questions[index].quType!=='FILLBLANK' && survey.questions[index].quType!=='UPLOADFILE'" class="dw-display-flex-left">
                         <template v-if="survey.questions[index].hv===4">
-                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="批量修改选项" placement="left">
+                          <el-tooltip :open-delay="openDelay" :disabled="survey.questions[index].quFocusObj.quMoreOptionShowEdit" class="item dw-margin-right-20" effect="dark" content="批量修改选项" placement="left">
                             <dw-popover-more-options v-model="survey" :index="index" add-or-edit="edit" popover-title="修改题目选项" text-placeholder="请输入修改的内容" @click-item="clickItem" >
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa fa-pencil" aria-hidden="true"></i></div>
                             </dw-popover-more-options>
@@ -85,10 +89,17 @@
                         </template>
                         <template>
                           <!--                          :disabled="survey.curEditObj[itemIndex].itemClick"-->
-                          <el-tooltip :open-delay="openDelay" class="item dw-margin-right-20" effect="dark" content="批量添加选项" placement="bottom">
+                          <el-tooltip :open-delay="openDelay" :disabled="survey.questions[index].quFocusObj.quMoreOptionShow" class="item dw-margin-right-20" effect="dark" content="批量添加选项" placement="bottom">
                             <dw-popover-more-options v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
                             </dw-popover-more-options>
+                          </el-tooltip>
+                        </template>
+                        <template>
+                          <el-tooltip :open-delay="openDelay" :disabled="survey.questions[index].quFocusObj.quScorePopoverShow" class="item dw-margin-right-20" effect="dark" content="批量配置分值" placement="right">
+                            <dw-popover-set-qu-score v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
+                              <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa-regular fa-star" aria-hidden="true"></i></div>
+                            </dw-popover-set-qu-score>
                           </el-tooltip>
                         </template>
                       </div>
@@ -130,10 +141,14 @@ import DwPopoverQuLogics from './dw-design-questions/dw-desing-qestion-common-co
 import {v4 as uuidV4} from 'uuid'
 import {resetQuestion} from '../../../dw-utils/dw-survey-parse'
 import {resetOtherClickItem} from '../../../dw-utils/dw-survey-update-item-click'
+import DwPopoverSetQuScore
+  from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-score/DwPopoverSetQuScore.vue'
 
 export default {
   name: 'DwDesignQuestionCommon',
-  components: {DwPopoverQuLogics, DwPopoverQuAttrs, DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
+  components: {
+    DwPopoverSetQuScore,
+    DwPopoverQuLogics, DwPopoverQuAttrs, DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
   model: {
     prop: 'survey',
     event: 'update-survey'
@@ -188,7 +203,8 @@ export default {
           quSetShow: false,
           quLogicShow: false,
           quMoreOptionShow: false,
-          quMoreOptionShowEdit: false
+          quMoreOptionShowEdit: false,
+          quScorePopoverShow: false
         }
         resetOtherClickItem(this.survey, this.index)
       }
@@ -220,7 +236,8 @@ export default {
         quSetShow: false,
         quLogicShow: false,
         quMoreOptionShow: false,
-        quMoreOptionShowEdit: false
+        quMoreOptionShowEdit: false,
+        quScorePopoverShow: false
       }
     },
     dwAddQuItemEvent () {

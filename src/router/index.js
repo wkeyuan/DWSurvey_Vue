@@ -33,6 +33,7 @@ import DwSiteCompV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteCompV6.vue'
 import DwSiteShareV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteShareV6.vue'
 import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
 import EmptyRouterView from '../components/layouts/EmptyRouterView.vue'
+import DwSurveyAnswerReviewV6 from "../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue";
 
 Vue.use(Router)
 
@@ -314,7 +315,7 @@ const routes = [
             meta: {
               title: '原始答卷'
             },
-            component: DwSurveyAnswerReview
+            component: DwSurveyAnswerReviewV6
           }
         ]
       }

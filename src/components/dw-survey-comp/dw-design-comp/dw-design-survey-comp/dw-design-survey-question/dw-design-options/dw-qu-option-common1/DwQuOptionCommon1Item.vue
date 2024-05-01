@@ -10,8 +10,16 @@
     </div>
     <div class="dw-qu-item-body">
       <div class="dw-qu-item-el-checkbox-radio">
+        <!--
         <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
-        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+        <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>-->
+        <el-badge :hidden="!survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
+          <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
+          <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
+        </el-badge>
+        <!--        <div v-if="survey.questions[quIndex].designShowScoreNum" style="margin-right: 5px;font-size: 12px;">
+          <strong style="color: red;">{{ options[optionIndex].scoreNum }}</strong>
+        </div>-->
         <!--        <dw-text-edit-label ref="dwEditLabel" v-model="value" :item-click="survey.curEditObj[itemIndex].itemClick" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>-->
         <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
       </div>
@@ -38,6 +46,7 @@ export default {
     event: 'update-options'
   },
   props: {
+    quIndex: {type: Number, default: 0},
     optionIndex: {type: Number, default: 0},
     options: {type: Array, default: () => []},
     survey: {type: Object, default: () => {}},
@@ -230,5 +239,20 @@ export default {
   padding: 2px 3px 0px 3px;
   /*background: red;*/
   line-height: normal;
+}
+
+.dw-el-badge-option-score /deep/ .el-badge__content{
+  border-radius: 3px;
+  font-size: 8px;
+  height: 14px;
+  line-height: 14px;
+  padding: 0 2px;
+  border: none;
+}
+.dw-el-badge-option-score /deep/ .el-badge__content.is-fixed{
+  /*top: -3px;
+  right: 30px;*/
+  top: 0;
+  right: 20px;
 }
 </style>

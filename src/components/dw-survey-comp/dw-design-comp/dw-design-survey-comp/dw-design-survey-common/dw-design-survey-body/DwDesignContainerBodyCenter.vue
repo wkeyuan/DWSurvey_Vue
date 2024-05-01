@@ -1,6 +1,9 @@
 <template>
   <div class="dw-container-body-center">
     <div style="min-height: 600px;">
+      <div v-if="survey.hasOwnProperty('surveyAttrs') && survey.surveyAttrs.hasOwnProperty('scoreAttr')" style="font-size: 12px;color: #014ab6;padding: 20px 20px 0 20px;">
+        本卷最大总分：<strong style="">{{ survey.surveyAttrs.scoreAttr.maxScore }}</strong> 分
+      </div>
       <div style="text-align: center;padding: 20px;">
         <dw-text-edit-label-common v-model="survey.surveyNameObj" :survey="survey" ></dw-text-edit-label-common>
       </div>

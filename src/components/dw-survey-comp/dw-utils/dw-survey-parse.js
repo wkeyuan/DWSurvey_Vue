@@ -60,6 +60,12 @@ export function parseSurveyDetail (survey) {
       anEndTimeAttr: {enabled: false, endTime: null}
     }
   }
+  if (!survey.surveyAttrs.hasOwnProperty('scoreAttr')) {
+    survey.surveyAttrs.scoreAttr = {
+      calcSumScore: false,
+      maxScore: 0
+    }
+  }
   /* survey.surveyAttrs = {
     anBroAttr: {enabled: false, anNum: 1},
       anIpAttr: {enabled: false, anNum: 1},
@@ -139,7 +145,8 @@ export function parseQuestion (question, noModel) {
     quSetShow: false,
     quLogicShow: false,
     quMoreOptionShow: false,
-    quMoreOptionShowEdit: false
+    quMoreOptionShowEdit: false,
+    quScorePopoverShow: false
   }
 }
 
@@ -149,6 +156,10 @@ function addNewQuProps (question) {
     if (!question.quAttr.hasOwnProperty('isRequired')) question.quAttr.isRequired = true
   } else {
     question.quAttr = {isRequired: true}
+  }
+  // 加上分值配置
+  if (!question.quAttr.hasOwnProperty('scoreAttr')) {
+    question.quAttr.scoreAttr = {maxScore: 0, designShowScoreNum: false}
   }
   return question
 }
@@ -192,6 +203,9 @@ function parseQuCheckbox (question) {
   question.quTypeName = '多选题'
   if (question.cellCount === 0) question.cellCount = 2
   parseQuOptionType1(question, question.quCheckboxs)
+  if (!question.quAttr.hasOwnProperty('scoreAttr')) {
+    question.quAttr.scoreAttr = {maxScore: 0, designShowScoreNum: false, allRight: {enabled: false, scoreNum: 0}}
+  }
 }
 
 /**
@@ -287,6 +301,7 @@ function parseQuOptionType1 (question, quOptions) {
       if (!quOption.hasOwnProperty('isRequired')) quOption.isRequired = 1 // 多项填空题
       if (!quOption.hasOwnProperty('otherText')) quOption.otherText = null // 多项填空题
       quOption.validateObj = {errorText: '', isOk: true}
+      if (!quOption.hasOwnProperty('scoreNum')) quOption.scoreNum = null
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
