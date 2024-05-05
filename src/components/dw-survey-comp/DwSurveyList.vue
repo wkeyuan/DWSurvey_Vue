@@ -67,8 +67,11 @@
             <el-table-column label="操作" width="280">
               <template slot-scope="scope">
                 <el-button-group>
-                  <el-tooltip effect="dark" content="编辑问卷" placement="top">
-                    <el-button size="mini" content="编辑问卷" icon="el-icon-edit" @click="handlePush(`/v6/diaowen/dw-design/survey/${scope.row.id}`)" ></el-button>
+                  <el-tooltip effect="dark" content="问卷属性" placement="top">
+                    <el-button size="mini" icon="el-icon-setting" @click="handlePush(`${prevPath}/survey/c/attr/${scope.row.id}`)"></el-button>
+                  </el-tooltip>
+                  <el-tooltip effect="dark" content="设计问卷" placement="top">
+                    <el-button size="mini" content="设计问卷" icon="el-icon-edit" @click="handlePush(`/v6/diaowen/dw-design/survey/${scope.row.id}`)" ></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="答卷地址" placement="top">
                     <el-button size="mini" icon="el-icon-share" @click="handlePush(`${prevPath}/survey/c/url/${scope.row.id}`)"></el-button>

@@ -1,7 +1,7 @@
 <template>
   <div class="dw-container-body-center">
     <div style="min-height: 600px;">
-      <div v-if="survey.hasOwnProperty('surveyAttrs') && survey.surveyAttrs.hasOwnProperty('scoreAttr')" style="font-size: 12px;color: #014ab6;padding: 20px 20px 0 20px;">
+      <div v-if="survey.hasOwnProperty('surveyAttrs') && survey.surveyAttrs.hasOwnProperty('scoreAttr') && survey.surveyAttrs.scoreAttr.enabled" style="font-size: 12px;color: #014ab6;padding: 20px 20px 0 20px;">
         本卷最大总分：<strong style="">{{ survey.surveyAttrs.scoreAttr.maxScore }}</strong> 分
       </div>
       <div style="text-align: center;padding: 20px;">

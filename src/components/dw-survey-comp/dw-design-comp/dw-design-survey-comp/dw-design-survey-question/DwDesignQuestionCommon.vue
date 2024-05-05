@@ -66,7 +66,7 @@
                   <slot name="editQuContent" ></slot>
                 </div>
 
-                <div v-if="survey.questions[index].quAttr.scoreAttr.designShowScoreNum" class="dw-padding-top-5" style="font-size: 12px;color: grey;">
+                <div v-if="survey.questions[index].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled" class="dw-padding-top-5" style="font-size: 12px;color: grey;">
                   最高分：<strong style="">{{ survey.questions[index].quAttr.scoreAttr.maxScore }}</strong> 分
                 </div>
 

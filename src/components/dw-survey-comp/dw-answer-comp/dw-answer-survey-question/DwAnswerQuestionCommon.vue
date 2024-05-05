@@ -25,7 +25,7 @@
                       <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuTypeName') && survey.surveyStyle.showQuTypeName" class="dw-qu-type-name" >
                         <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
                       </div>
-                      <div style="margin-left: 2px;">
+                      <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuScoreNum') && survey.surveyStyle.showQuScoreNum" style="margin-left: 2px;">
                         <div class="dw-font-12 dw-color-grey-10">满分{{ survey.questions[index].quAttr.scoreAttr.maxScore }}分</div>
                       </div>
                     </div>

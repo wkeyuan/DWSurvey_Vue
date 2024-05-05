@@ -30,6 +30,7 @@ export function parseSurvey (survey) {
     if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
     survey.showSurvey = true
     if (!survey.hasOwnProperty('surveyStyle')) survey.surveyStyle = getDefaultSurveyStyle()
+    if (survey.surveyStyle.hasOwnProperty('showQuScoreNum')) survey.surveyStyle.showQuScoreNum = true
   }
   return survey
 }
@@ -62,8 +63,18 @@ export function parseSurveyDetail (survey) {
   }
   if (!survey.surveyAttrs.hasOwnProperty('scoreAttr')) {
     survey.surveyAttrs.scoreAttr = {
-      calcSumScore: false,
-      maxScore: 0
+      enabled: false, // 是否打开计分功能
+      maxScore: 0, // 最大分值
+      showSumScore: {
+        enabled: true,
+        showContent: 'sumAndDetail'
+      }
+    }
+  }
+  if (!survey.surveyAttrs.scoreAttr.hasOwnProperty('showSumScore')) {
+    survey.surveyAttrs.scoreAttr.showSumScore = {
+      enabled: true,
+      showContent: 'sumAndDetail'
     }
   }
   /* survey.surveyAttrs = {

@@ -13,7 +13,7 @@
         <!--
         <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
         <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>-->
-        <el-badge :hidden="!survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
+        <el-badge :hidden="!(survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled)" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
           <i v-show="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
           <i v-show="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
         </el-badge>

@@ -182,6 +182,17 @@
                     </el-row>
                   </div>
                 </el-form-item>
+                <el-form-item>
+                  <div style="font-size: 12px;">
+                    <el-row type="flex" justify="center" align="middle" >
+                      <el-col :span="12" >
+                        <div><el-checkbox v-model="survey.surveyStyle.showQuScoreNum" >显示题目分数</el-checkbox></div>
+                      </el-col>
+                      <el-col :span="12" >
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-form-item>
               </div>
             </div>
           </el-form>

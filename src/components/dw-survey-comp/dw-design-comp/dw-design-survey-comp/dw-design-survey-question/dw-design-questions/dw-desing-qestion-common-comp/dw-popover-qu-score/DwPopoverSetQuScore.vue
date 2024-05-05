@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import {dwOption2Texts, dwResetQuOptions, dwSurveyQuAddOption} from '../../../../../../dw-utils/dw-survey-update-question'
-import {v4 as uuidV4} from 'uuid'
 
 export default {
   name: 'DwPopoverSetQuScore',
@@ -146,6 +144,7 @@ export default {
         }
       })
       this.survey.surveyAttrs.scoreAttr.maxScore = surveyMaxScore
+      this.survey.surveyAttrs.scoreAttr.enabled = true
     }
   }
 }

@@ -31,7 +31,7 @@
                   </div>
                 </div>
                 <div v-if="survey.hasOwnProperty('isShowScore') && survey.isShowScore && survey.hasOwnProperty('dwEsSurveyAnswer')" style="padding: 10px;font-size: 16px;color: var(--dw-answer-primary-color);border-bottom: 1px dashed var(--dw-answer-primary-color);">
-                  总得分：<strong style="color: red;font-size: 20px;">{{ survey.dwEsSurveyAnswer.answerCommon.sumScore }}分</strong>
+                  答卷得分：<strong style="color: red;font-size: 20px;">{{ survey.dwEsSurveyAnswer.answerCommon.sumScore }}分</strong>
                 </div>
                 <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showPageHeader') && survey.surveyStyle.showPageHeader" style="padding: 20px 20px 0 20px;">
                   <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showSurveyTitle') && survey.surveyStyle.showSurveyTitle" style="text-align: center;font-weight: bold;padding: 10px 0;">
@@ -90,11 +90,15 @@
             </div>
             <div>
               <template v-if="survey.answerMsg.hasOwnProperty('answerCheckResult') && survey.answerMsg.answerCheckResult.hasOwnProperty('anCheckResultCode') && survey.answerMsg.answerCheckResult.anCheckResultCode>=400">
-                <div style="color: red;font-size: 13px;"> {{ survey.answerMsg.answerCheckResult.anCheckResultMsg }}</div>
+                <div style="color: red;"> {{ survey.answerMsg.answerCheckResult.anCheckResultMsg }}</div>
                 <!--              <div style="color: #e4e4e4;font-size: 12px;padding: 10px;">{{ survey.answerMsg.answerCheckResult.anCheckResultCode }}</div>-->
               </template>
               <template v-else>
-                <div style="color: dodgerblue;font-size: 13px;"> {{ survey.answerMsg.answerMsgInfo }}</div>
+                <div style="color: dodgerblue;"> {{ survey.answerMsg.answerMsgInfo }}</div>
+                <div v-if="survey.surveyAttrs.scoreAttr.enabled && survey.surveyAttrs.scoreAttr.showSumScore.enabled" style="padding: 5px;">
+                  <div style="color: #097ef3;padding: 5px;">总得分：<strong style="color: red;">{{ survey.answerMsg.answerCheckResult.sumScore }}分</strong> </div>
+                  <div v-if="survey.surveyAttrs.scoreAttr.showSumScore.showContent==='sumAfterDetail'" style="padding: 5px;"><el-button @click="showAnswerDetail">查看详情</el-button></div>
+                </div>
               </template>
               <div v-if="isReAnswer" style="padding-top: 15px;">
                 <el-button @click="backReAnswer">重新填写</el-button>
@@ -147,7 +151,8 @@ export default {
       answer: {},
       isReAnswer: false,
       anPwd: '',
-      anRandomCode: ''
+      anRandomCode: '',
+      indexResponseId: null
     }
   },
   mounted () {
@@ -224,7 +229,7 @@ export default {
               // this.$message.success('保存成功！')
               // 弹出提示
               this.survey.answerMsg.showAnswerMsg = true
-              this.survey.answerMsg.answerMsgInfo = '答卷提交成功，感谢您的支持!'
+              this.survey.answerMsg.answerMsgInfo = '答卷提交成功'
               this.survey.answerMsg.answerCheckResult = resultData
               this.isReAnswer = false
               // 必须是答卷提交成功时清掉暂存的数据，考虑加上访问token
@@ -232,6 +237,11 @@ export default {
               surveyAnswerLocalStorage.clearAnswerHistory(sid, answerId)
               // 存入答卷记录到本地，方便下次进入时直接过滤
               // surveyAnswerLocalStorage
+              // 最好是处里返回的答卷结束，直接重新显示
+              this.indexResponseId = indexResponseId
+              if (this.survey.surveyAttrs.scoreAttr.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.showContent==='sumAndDetail') {
+                this.$router.push(`/v6/diaowen/an/review/${sid}/${indexResponseId}`)
+              }
             } else {
               // 处理各种未完成保存的返回值
               if (resultData.hasOwnProperty('anCheckResultMsg')) {
@@ -260,6 +270,10 @@ export default {
         this.fullscreenLoading = false
       })
       console.debug('submit-answer')
+    },
+    showAnswerDetail () {
+      const sid = this.survey.sid
+      this.$router.push(`/v6/diaowen/an/review/${sid}/${this.indexResponseId}`)
     }
   }
 }

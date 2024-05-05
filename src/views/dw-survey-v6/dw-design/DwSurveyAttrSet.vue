@@ -18,14 +18,14 @@
                       <div style="padding-left: 10px;">
                         <el-form-item>
                           <div><el-checkbox v-model="thSurvey.surveyAttrs.anBroAttr.enabled" >启用浏览器终端回答限制</el-checkbox></div>
-                          <div v-show="thSurvey.surveyAttrs.anBroAttr.enabled" style="font-size: 12px;">
-                            每个浏览器可回答次数<el-input-number :min="1" :max="100000" v-model="thSurvey.surveyAttrs.anBroAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
+                          <div style="font-size: 12px;">
+                            每个浏览器可回答次数 <el-input-number :min="1" :max="100000" v-model="thSurvey.surveyAttrs.anBroAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
                           </div>
                         </el-form-item>
                         <el-form-item>
                           <div><el-checkbox v-model="thSurvey.surveyAttrs.anIpAttr.enabled" >启用IP回答限制</el-checkbox></div>
-                          <div v-show="thSurvey.surveyAttrs.anIpAttr.enabled" style="font-size: 12px;">
-                            每个IP可回答次数<el-input-number :min="1" :max="100000" v-model="thSurvey.surveyAttrs.anIpAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
+                          <div style="font-size: 12px;">
+                            每个IP可回答次数 <el-input-number :min="1" :max="100000" v-model="thSurvey.surveyAttrs.anIpAttr.anNum" size="mini" style="width: 130px;"></el-input-number>&nbsp;次
                           </div>
                         </el-form-item>
                         <el-form-item>
@@ -33,7 +33,7 @@
                         </el-form-item>
                         <el-form-item>
                           <div><el-checkbox v-model="thSurvey.surveyAttrs.anPwdAttr.enabled" >启用通过密码答卷</el-checkbox></div>
-                          <div v-show="thSurvey.surveyAttrs.anPwdAttr.enabled"><el-input v-model="thSurvey.surveyAttrs.anPwdAttr.anPwdCode" size="mini" placeholder="请输入密码" style="width: 160px;"></el-input></div>
+                          <div><el-input v-model="thSurvey.surveyAttrs.anPwdAttr.anPwdCode" size="mini" placeholder="请输入密码" style="width: 160px;"></el-input></div>
                         </el-form-item>
                       </div>
                     </el-col>
@@ -58,6 +58,27 @@
                         </el-form-item>
                       </div>
                     </el-col>
+                    <el-col :span="12">
+                      <h5>计分属性</h5>
+                      <div style="padding-left: 10px;">
+                        <el-form-item>
+                          <div><el-checkbox v-model="thSurvey.surveyAttrs.scoreAttr.enabled">打开计分功能</el-checkbox></div>
+                        </el-form-item>
+                        <el-form-item>
+                          <div><el-checkbox v-model="thSurvey.surveyAttrs.scoreAttr.showSumScore.enabled">答卷结束显示总分</el-checkbox></div>
+                          <div v-show="thSurvey.surveyAttrs.scoreAttr.showSumScore.enabled">
+                            <el-select v-model="thSurvey.surveyAttrs.scoreAttr.showSumScore.showContent">
+                              <el-option value="sum" label="仅显示总分"></el-option>
+                              <el-option value="sumAfterDetail" label="先显示总分后显示详情"></el-option>
+                              <el-option value="sumAndDetail" label="直接显示总分与详细"></el-option>
+                            </el-select>
+                          </div>
+                        </el-form-item>
+                      </div>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+
                   </el-row>
                   <el-form-item>
                     <el-button type="primary" @click="onSubmit"> 保存修改 </el-button>
