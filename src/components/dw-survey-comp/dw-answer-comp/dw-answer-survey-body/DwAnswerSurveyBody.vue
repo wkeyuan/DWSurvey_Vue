@@ -238,9 +238,14 @@ export default {
               // 存入答卷记录到本地，方便下次进入时直接过滤
               // surveyAnswerLocalStorage
               // 最好是处里返回的答卷结束，直接重新显示
+              this.fullscreenLoading = false
               this.indexResponseId = indexResponseId
               if (this.survey.surveyAttrs.scoreAttr.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.showContent==='sumAndDetail') {
-                this.$router.push(`/v6/diaowen/an/review/${sid}/${indexResponseId}`)
+                this.$message.success('提交成功，即将显示答卷结果...')
+                const _that = this
+                setTimeout(function () {
+                  _that.$router.push(`/v6/diaowen/an/review/${sid}/${indexResponseId}`)
+                }, 1500)
               }
             } else {
               // 处理各种未完成保存的返回值
