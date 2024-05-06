@@ -24,6 +24,24 @@
         </div>
       </div>
       <div style="margin-top: 20px;">
+        <div class="dw-title-attr">计分属性</div>
+        <div style="padding-left: 10px;">
+          <el-form-item>
+            <div><el-checkbox v-model="survey.surveyAttrs.scoreAttr.enabled">打开计分功能</el-checkbox></div>
+          </el-form-item>
+          <el-form-item>
+            <div><el-checkbox v-model="survey.surveyAttrs.scoreAttr.showSumScore.enabled">答卷结束显示总分</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.scoreAttr.showSumScore.enabled">
+              <el-select v-model="survey.surveyAttrs.scoreAttr.showSumScore.showContent">
+                <el-option value="sum" label="仅显示总分"></el-option>
+                <el-option value="sumAfterDetail" label="先显示总分后显示详情"></el-option>
+                <el-option value="sumAndDetail" label="直接显示总分与详细"></el-option>
+              </el-select>
+            </div>
+          </el-form-item>
+        </div>
+      </div>
+      <div style="margin-top: 20px;">
         <div class="dw-title-attr">何时结束</div>
         <div style="padding-left: 10px;">
           <el-form-item>

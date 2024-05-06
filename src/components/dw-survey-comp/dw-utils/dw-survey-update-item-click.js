@@ -63,6 +63,7 @@ export function resetOtherClickItem (survey, quIndex) {
       survey.questions[i].quFocusObj.quLogicShow = false
       survey.questions[i].quFocusObj.quMoreOptionShow = false
       survey.questions[i].quFocusObj.quMoreOptionShowEdit = false
+      survey.questions[i].quFocusObj.quScorePopoverShow = false
     }
   }
 }

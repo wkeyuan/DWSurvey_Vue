@@ -20,8 +20,6 @@ import Login from '@/views/Login'
 import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
 import DwSurveyPreview from '../views/dw-survey-v6/dw-design/DwSurveyPreview.vue'
 import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
-import DwSurveyAnswerReview
-  from '../components/dw-survey-comp/dw-data-comp/dw-answer-data-comp/DwSurveyAnswerReview.vue'
 import DwAnswerUrlV6 from '../views/dw-survey-v6/dw-collect-v6/DwAnswerUrlV6'
 import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
 import DwSurveyListV6 from '../views/dw-survey-v6/DwSurveyListV6.vue'
@@ -32,6 +30,7 @@ import DwSiteCompV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteCompV6.vue'
 import DwSiteShareV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteShareV6.vue'
 import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
 import EmptyRouterView from '../components/layouts/EmptyRouterView.vue'
+import DwSurveyAnswerReviewV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue'
 
 Vue.use(Router)
 
@@ -305,7 +304,7 @@ const routes = [
             meta: {
               title: '原始答卷'
             },
-            component: DwSurveyAnswerReview
+            component: DwSurveyAnswerReviewV6
           }
         ]
       }

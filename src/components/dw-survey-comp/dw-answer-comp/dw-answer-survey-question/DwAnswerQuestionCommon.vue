@@ -25,12 +25,15 @@
                       <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuTypeName') && survey.surveyStyle.showQuTypeName" class="dw-qu-type-name" >
                         <div class="dw-font-12 dw-color-grey-10">【{{ survey.questions[index].quTypeName }}】</div>
                       </div>
+                      <div v-show="survey.hasOwnProperty('surveyStyle') && survey.surveyStyle.hasOwnProperty('showQuScoreNum') && survey.surveyStyle.showQuScoreNum" style="margin-left: 2px;">
+                        <div class="dw-font-12 dw-color-grey-10">满分{{ survey.questions[index].quAttr.scoreAttr.maxScore }}分</div>
+                      </div>
                     </div>
                   </div>
                 </template>
                 <template v-else>
                   <div class="dw-width-100bf">
-                    <template v-if="survey.hasOwnProperty('pageAttr') && survey.pageAttr.hasOwnProperty('curPage')">
+                    <template v-if="survey.hasOwnProperty('pageAttr') && survey.pageAttr.hasOwnProperty('curPage') && !survey.readonly">
                       <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1)" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
                       <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
                     </template>
@@ -48,10 +51,6 @@
 
                 <div class="dw-question-body-bottom">
                   <div>
-                    <!--
-                    animate__fadeIn
-                    animate__fadeInUp
-                    -->
                     <transition enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipOutX">
                       <div v-show="!survey.questions[index].validateObj.isOk && survey.questions[index].validateObj.errorText!==''" class="dw-answer-question-error">
                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -59,6 +58,24 @@
                       </div>
                     </transition>
                     <div v-show="survey.dwDebug">{{ survey.questions[index].validateObj }}</div>
+                  </div>
+                  <div v-if="survey.hasOwnProperty('isShowScore') && survey.isShowScore && survey.questions[index].hasOwnProperty('anQuestion') && survey.questions[index].anQuestion.hasOwnProperty('quAnScore')" class="dw-qu-answer-score">
+                    本题得：
+                    <template v-if="survey.questions[index].quAttr.scoreAttr.maxScore === survey.questions[index].anQuestion.quAnScore" >
+                      <span style="color: red;">
+                        满分{{ survey.questions[index].anQuestion.quAnScore }}分 <i class="el-icon-check"></i>
+                      </span>
+                    </template>
+                    <template v-else-if="survey.questions[index].quAttr.scoreAttr.maxScore>0 && survey.questions[index].anQuestion.quAnScore===0" >
+                      <span style="color: red;">
+                        {{ survey.questions[index].anQuestion.quAnScore }}分 <i class="el-icon-close"></i>
+                      </span>
+                    </template>
+                    <template v-else >
+                      <span style="color: red;">
+                        {{ survey.questions[index].anQuestion.quAnScore }}分
+                      </span>
+                    </template>
                   </div>
                 </div>
 
@@ -228,7 +245,7 @@ export default {
 }
 .dw-qu-title-body .dw-qu-type-name{
   text-align: left;
-  min-width: 100px;
+  /*min-width: 100px;*/
 }
 @media screen and (max-width: 750px) {
   .dw-qu-type-name{
@@ -237,6 +254,9 @@ export default {
 }
 .dw-qu-paragraph{
   font-weight: bold;
+}
+.dw-qu-answer-score{
+  padding: 5px;color: red;background: #f6f6f7;
 }
 </style>
 <style>

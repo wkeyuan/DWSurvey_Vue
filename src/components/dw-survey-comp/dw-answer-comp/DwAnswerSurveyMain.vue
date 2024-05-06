@@ -70,7 +70,10 @@ export default {
       getSurveyAnswerJsonBySurveyId(params, (survey, answerCheckResult) => {
         // survey.surveyStyle.themeColor = '#025bb7'
         survey.dwDebug = false
-        if (this.extProps!=null && this.extProps.hasOwnProperty('readonly')) survey.readonly = this.extProps.readonly
+        if (this.extProps!=null) {
+          if (this.extProps.hasOwnProperty('readonly')) survey.readonly = this.extProps.readonly
+          if (this.extProps.hasOwnProperty('isShowScore')) survey.isShowScore = this.extProps.isShowScore
+        }
         this.answerCheckResult = answerCheckResult
         if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass && answerCheckResult.anCheckResultCode!==403 && answerCheckResult.anCheckResultCode!==409) {
           survey.answerMsg = {showAnswerMsg: true, answerMsgInfo: answerCheckResult.anCheckResultMsg, noSurveyJson: false, answerCheckResult}
