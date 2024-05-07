@@ -172,6 +172,10 @@ function addNewQuProps (question) {
   if (!question.quAttr.hasOwnProperty('scoreAttr')) {
     question.quAttr.scoreAttr = {maxScore: 0, designShowScoreNum: false}
   }
+  const quType = question.quType
+  if (quType==='CHECKBOX' && !question.quAttr.scoreAttr.hasOwnProperty('allRight')) {
+    question.quAttr.scoreAttr.allRight = {enabled: false, scoreNum: 0}
+  }
   return question
 }
 
@@ -344,6 +348,7 @@ function resetQuOptionType1 (question, quOptions) {
     quOptions.forEach((quOption, optionIndex) => {
       quOption.dwId = uuidv4()
     })
+    parseQuOptionType1(question, quOptions)
   }
 }
 
