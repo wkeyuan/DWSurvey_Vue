@@ -95,7 +95,7 @@
                             </dw-popover-more-options>
                           </el-tooltip>
                         </template>
-                        <template>
+                        <template v-if="survey.questions[index].quType==='RADIO' || survey.questions[index].quType==='CHECKBOX'">
                           <el-tooltip :open-delay="openDelay" :disabled="survey.questions[index].quFocusObj.quScorePopoverShow" class="item dw-margin-right-20" effect="dark" content="批量配置分值" placement="right">
                             <dw-popover-set-qu-score v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
                               <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color fa-regular fa-star" aria-hidden="true"></i></div>
