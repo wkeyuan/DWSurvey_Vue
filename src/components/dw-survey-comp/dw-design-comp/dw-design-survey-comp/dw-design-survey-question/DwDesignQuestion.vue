@@ -5,29 +5,38 @@
         <div v-if="item.quType === 'RADIO'">
           <dw-design-qu-radio ref="dwQuRadio" :index="index" v-model="survey" ></dw-design-qu-radio>
         </div>
-        <div v-if="item.quType === 'CHECKBOX'">
+        <div v-else-if="item.quType === 'CHECKBOX'">
           <dw-design-qu-checkbox ref="dwQuCheckbox" :index="index" v-model="survey" ></dw-design-qu-checkbox>
         </div>
-        <div v-if="item.quType === 'FILLBLANK'">
+        <div v-else-if="item.quType === 'FILLBLANK'">
           <dw-design-qu-fbk ref="dwQuFbk" :index="index" v-model="survey" ></dw-design-qu-fbk>
         </div>
-        <div v-if="item.quType === 'SCORE'">
+        <div v-else-if="item.quType === 'SCORE'">
           <dw-design-qu-score ref="dwQuScore" :index="index" v-model="survey" ></dw-design-qu-score>
         </div>
-        <div v-if="item.quType === 'ORDERQU'">
+        <div v-else-if="item.quType === 'ORDERQU'">
           <dw-design-qu-oderby ref="dwQuOderby" :index="index" v-model="survey" ></dw-design-qu-oderby>
         </div>
-        <div v-if="item.quType === 'MULTIFILLBLANK'">
+        <div v-else-if="item.quType === 'MULTIFILLBLANK'">
           <dw-design-qu-m-fbk ref="dwQuMfbk" :index="index" v-model="survey" ></dw-design-qu-m-fbk>
         </div>
-        <div v-if="item.quType === 'UPLOADFILE'">
+        <div v-else-if="item.quType === 'UPLOADFILE'">
           <dw-design-qu-upload ref="dwQuUpload" :index="index" v-model="survey" ></dw-design-qu-upload>
         </div>
-        <div v-if="item.quType === 'PAGETAG'">
+        <div v-else-if="item.quType === 'PAGETAG'">
           <dw-design-qu-page ref="dwQuPage" :index="index" v-model="survey" ></dw-design-qu-page>
         </div>
-        <div v-if="item.quType === 'PARAGRAPH'">
+        <div v-else-if="item.quType === 'PARAGRAPH'">
           <dw-design-qu-paragraph ref="dwQuUpload" :index="index" v-model="survey" ></dw-design-qu-paragraph>
+        </div>
+        <div v-else-if="item.quType === 'MATRIX_RADIO'">
+          <dw-design-qu-matrix-radio ref="dwQuMatrixRadio" :index="index" v-model="survey" ></dw-design-qu-matrix-radio>
+        </div>
+        <div v-else-if="item.quType === 'MATRIX_CHECKBOX'">
+          <dw-design-qu-matrix-checkbox ref="dwQuMatrixCheckbox" :index="index" v-model="survey" ></dw-design-qu-matrix-checkbox>
+        </div>
+        <div v-else-if="item.quType === 'MATRIX_INPUT'">
+          <dw-design-qu-matrix-fbk ref="dwQuMatrixCheckbox" :index="index" v-model="survey" ></dw-design-qu-matrix-fbk>
         </div>
       </template>
     </dw-design-question-common>
@@ -47,10 +56,19 @@ import DwDesignQuestionCommon from './DwDesignQuestionCommon.vue'
 import DwQuRadioOptions from './dw-design-questions/dw-design-qu-radio/components/DwQuRadioOptions.vue'
 import DwDesignQuPage from './dw-design-questions/dw-design-qu-pagetag/DwDesignQuPage.vue'
 import DwDesignQuParagraph from './dw-design-questions/dw-design-paragraph/DwDesignQuParagraph.vue'
+import DwDesignQuMatrixRadio
+  from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-radio/DwDesignQuMatrixRadio.vue'
+import DwDesignQuMatrixCheckbox
+  from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-checkbox/DwDesignQuMatrixCheckbox.vue'
+import DwDesignQuMatrixFbk
+  from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-fbk/DwDesignQuMatrixFbk.vue'
 
 export default {
   name: 'DwDesignQuestion',
   components: {
+    DwDesignQuMatrixFbk,
+    DwDesignQuMatrixCheckbox,
+    DwDesignQuMatrixRadio,
     DwDesignQuParagraph,
     DwDesignQuPage,
     DwQuRadioOptions,

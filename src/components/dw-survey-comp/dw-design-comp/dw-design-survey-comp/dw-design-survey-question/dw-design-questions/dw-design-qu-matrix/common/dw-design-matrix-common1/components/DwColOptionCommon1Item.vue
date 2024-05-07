@@ -1,59 +1,31 @@
 <template>
   <!--  @click.stop="clickItem"-->
-  <div @click="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
-    <div class="dw-qu-item-body">
-      <div class="dw-qu-item">
-        <div class="dw-qu-item-el-checkbox-radio">
-          <el-badge :hidden="!(survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled) || options[optionIndex].scoreNum===undefined" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
-            <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
-            <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
-          </el-badge>
-          <!--
-          <div v-if="survey.questions[quIndex].designShowScoreNum" style="font-size: 12px;margin-right: 5px;">
-            <strong style="color: red;">{{ options[optionIndex].scoreNum }}</strong>
-          </div>
-          -->
-          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
-        </div>
-        <div v-show="itemBtnShow" class="dw-qu-item-toolbar dw-display-flex-right" >
-          <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
-            <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
-            <div class="dw-question-toolbar dw-margin-right-10" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除当前选项" placement="top">
-            <div class="dw-question-toolbar dw-margin-right-10" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
-          </el-tooltip>
-        </div>
+  <div class="dw-qu-item" @click="clickItem" @mouseover="mouseoverItem" @mouseleave="mouseleaveItem" >
+    <div v-show="itemBtnShow" class="dw-qu-item-toolbar" >
+      <div class="dw-display-grid">
+        <div class="dw-question-toolbar"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
+        <div class="dw-question-toolbar" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
       </div>
-      <template v-if="quType==='MULTIFILLBLANK' || ((quType==='RADIO' || quType==='CHECKBOX') && options[optionIndex].showOptionNote)" >
-        <el-input v-if="options[optionIndex].answerInputRow>1" v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" :autosize="{ minRows: options[optionIndex].inputAttr.commonAttr.inputRow }" type="textarea" ></el-input>
-        <el-input v-else v-model="inputText" :placeholder="options[optionIndex].inputAttr.commonAttr.placeholder" />
-      </template>
-      <el-rate v-if="quType==='SCORE'" :max="survey.questions[quIndex].paramInt02" ></el-rate>
     </div>
-    <!--    <div v-show="survey.curEditObj[itemIndex].itemClick" class="dw-qu-item-toolbar dw-display-flex-right" >
-      <el-tooltip class="item" effect="dark" content="排序选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10"><i class="dwMoveSortQuOption dw-cursor-pointer dw-event-color el-icon-rank" aria-hidden="true" ></i></div>
-      </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="在后添加选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10" @click.stop="addOptionBefore" ><i class="dw-cursor-pointer dw-event-color el-icon-circle-plus-outline" aria-hidden="true"></i></div>
-      </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="删除当前选项" placement="top">
-        <div class="dw-question-toolbar dw-margin-right-10" @click.stop="deleteOption"><i class="dw-cursor-pointer dw-event-color el-icon-remove-outline" aria-hidden="true"></i></div>
-      </el-tooltip>
-    </div>-->
+    <div class="dw-qu-item-body">
+      <div class="dw-qu-item-el-checkbox-radio">
+        <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel.vue'
-import {v4 as uuidV4} from 'uuid'
-
+import DwTextEditLabel from '../../../../../../dw-design-survey-common/DwTextEditLabel.vue'
 export default {
-  name: 'DwQuOptionCommon2Item',
+  name: 'DwColOptionCommon1Item',
   components: {DwTextEditLabel},
+  /*
+  model: {
+    prop: 'value',
+    event: 'update-input'
+  },*/
   model: {
     prop: 'options',
     event: 'update-options'
@@ -62,7 +34,6 @@ export default {
     quIndex: {type: Number, default: 0},
     optionIndex: {type: Number, default: 0},
     options: {type: Array, default: () => []},
-    option: {type: Object, default: () => {}},
     survey: {type: Object, default: () => {}},
     quType: {type: String, default: ''},
     value: {type: Object, default: () => {}}
@@ -73,8 +44,10 @@ export default {
         itemHover: false,
         itemClick: false
       },
+      itemHover: false,
+      itemClick: false,
       itemIndex: 0,
-      inputText: ''
+      inputText: null
     }
   },
   computed: {
@@ -102,16 +75,13 @@ export default {
   },
   methods: {
     clickItem () {
-      // this.upItemClick(true)
+      // this.upItemClick()
       // this.upAllItemClick()
     },
     upItemClick (itemClick) {
-      // console.debug('this.itemIndex', this.itemIndex)
-      // this.itemClick = itemClick
-      this.itemStatus.itemClick = itemClick
-      // this.options[this.optionIndex].itemClick = itemClick
       // if (this.itemIndex === 0) this.itemIndex = this.survey.curEditObj.push({itemClick: true})-1
       // this.survey.curEditObj[this.itemIndex].itemClick = true
+      this.itemStatus.itemClick = itemClick
     },
     upAllItemClick () {
       // const curObjs = this.survey.curEditObj
@@ -126,11 +96,7 @@ export default {
       this.itemStatus.itemHover = true
     },
     addOptionBefore () {
-      // this.options.push({id:'5',optionTitle:'<p>请设置选项</p>'})
-      // this.question.quRadios = this.options;
-      // this.$emit('update-survey',this.options)
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
-      quOption.dwId = uuidV4()
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)
@@ -143,12 +109,9 @@ export default {
       this.$emit('update-options', this.options)
     },
     dragClick (focusIndex) {
-      // console.debug('dragClick')
       // this.$refs.dwEditLabel.upEditorText(this.value.dwHtml)
       // this.upAllItemClick()
       this.$refs.dwEditLabel.upEditorText(this.options[this.optionIndex].optionTitleObj.dwHtml)
-      console.debug('this.optionIndex', this.optionIndex)
-      console.debug('focusIndex', focusIndex)
       if (focusIndex !==null && this.optionIndex === focusIndex) {
         this.upItemClick()
         this.editFocus()
@@ -158,7 +121,7 @@ export default {
       this.$refs.dwEditLabel.editFocus()
     },
     deleteOption () {
-      console.debug('delete')
+      // console.debug('delete')
       this.options.splice(this.optionIndex, 1)
       this.$emit('refresh-options', null)
     }
@@ -194,8 +157,9 @@ export default {
 }
 .dw-display-flex-right{
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  /*justify-content: flex-end;*/
+  /*align-items: center;*/
+  /*align-content: center;*/
 }
 .dw-event-color{
   color: #095aaa;
@@ -204,17 +168,18 @@ export default {
   margin-right: 10px;
 }
 .dw-qu-item{
-  display: grid;
-  grid-template-columns: auto 90px;
+  /*display: grid;*/
+  /*grid-template-columns: auto 90px;*/
+  position: relative;
 }
 .dw-qu-item-body{
-  margin: 0;
+  margin: 0px;
 }
 .dw-qu-item-el-checkbox-radio{
   /*display: inline-flex;*/
   display: flex;
   align-items: center;
-  padding: 5px 0px;
+  padding: 5px 0;
   font-size: 14px;
 }
 .dw-qu-item-el-checkbox-radio-icon{
@@ -239,6 +204,28 @@ export default {
   border: 1px solid #095aaa;
   background: #e5f5f5;
 }
+.dw-display-grid{
+  display: grid;
+  grid-template-columns: repeat(3,auto);
+  grid-column-gap: 5px;
+  align-items: center;
+  align-content: center;
+  justify-items: start;
+  justify-content: start;
+}
+.dw-qu-item-toolbar{
+  position: absolute;
+  right: 40px;
+  top: -20px;
+  z-index: 10;
+  /*border: 1px solid #095aaa;*/
+}
+.dw-qu-item-toolbar .dw-question-toolbar{
+  padding: 2px 3px 0px 3px;
+  /*background: red;*/
+  line-height: normal;
+}
+
 .dw-el-badge-option-score /deep/ .el-badge__content{
   border-radius: 3px;
   font-size: 8px;

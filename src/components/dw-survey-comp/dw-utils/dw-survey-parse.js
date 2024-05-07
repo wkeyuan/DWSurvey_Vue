@@ -347,6 +347,28 @@ function resetQuOptionType1 (question, quOptions) {
   }
 }
 
+export function buildMatrixOption (question) {
+  const quType = question.quType
+  if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT') {
+    if (!question.hasOwnProperty('quRows') || question.quRows===null || question.quRows.length===0) {
+      const quRows = []
+      for (let i=0; i<3; i++) {
+        const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `行选项${i}`, dwText: `行选项${i}`, dwPlaceholder: '请输入选项内容'}}
+        quRows.push(quOption)
+      }
+      question.quRows = quRows
+    }
+    if (!question.hasOwnProperty('quCols') || question.quCols===null || question.quCols.length===0) {
+      const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, disableOption: true}]
+      for (let i=0; i<3; i++) {
+        const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `列选项${i}`, dwText: `列选项${i}`, dwPlaceholder: '请输入选项内容'}, scoreNum: null}
+        quCols.push(quOption)
+      }
+      question.quCols = quCols
+    }
+  }
+}
+
 // 如果SurveyJson没有，则从结构化的数据中取问卷数据。
 // 编辑的时候只保存JSON结构副本，直到发布好一步才生成结构化数据。
 // 发布时保存的方案，结构化数据提交到数据库，如果有ID则更新对应的数据，如果没有ID，则新增，同时把最新的结构化数据返回。
