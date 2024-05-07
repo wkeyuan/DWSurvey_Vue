@@ -121,8 +121,6 @@ table,tbody,tr,th,td{
   border: none;
 }
 td{
-  padding: 10px 0;
-  line-height: 25px;
   border-top: 1px solid #d8d8d9;
 }
 </style>

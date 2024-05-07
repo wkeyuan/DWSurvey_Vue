@@ -354,15 +354,23 @@ function resetQuOptionType1 (question, quOptions) {
 
 export function buildMatrixOption (question) {
   const quType = question.quType
-  if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT') {
+  if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT' || quType==='MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
     if (!question.hasOwnProperty('quRows') || question.quRows===null || question.quRows.length===0) {
       const quRows = []
       for (let i=0; i<3; i++) {
         const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `行选项${i}`, dwText: `行选项${i}`, dwPlaceholder: '请输入选项内容'}}
+        if (quType==='MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+          quOption.lr = {
+            left: {optionTitleObj: {dwHtml: `极不可能`, dwText: `不可能`, dwPlaceholder: '请输入选项内容'}},
+            right: {optionTitleObj: {dwHtml: `极有可能`, dwText: `极有可能`, dwPlaceholder: '请输入选项内容'}}
+          }
+        }
         quRows.push(quOption)
       }
       question.quRows = quRows
     }
+  }
+  if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT') {
     if (!question.hasOwnProperty('quCols') || question.quCols===null || question.quCols.length===0) {
       const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, disableOption: true}]
       for (let i=0; i<3; i++) {

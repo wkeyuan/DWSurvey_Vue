@@ -38,6 +38,9 @@
         <div v-else-if="item.quType === 'MATRIX_INPUT'">
           <dw-design-qu-matrix-fbk ref="dwQuMatrixCheckbox" :index="index" v-model="survey" ></dw-design-qu-matrix-fbk>
         </div>
+        <div v-else-if="item.quType === 'MATRIX_SCALE'">
+          <dw-design-qu-matrix-scale ref="dwQuMatrixScale" :index="index" v-model="survey" ></dw-design-qu-matrix-scale>
+        </div>
       </template>
     </dw-design-question-common>
   </div>
@@ -62,10 +65,13 @@ import DwDesignQuMatrixCheckbox
   from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-checkbox/DwDesignQuMatrixCheckbox.vue'
 import DwDesignQuMatrixFbk
   from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-fbk/DwDesignQuMatrixFbk.vue'
+import DwDesignQuMatrixScale
+  from "./dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-scale/DwDesignQuMatrixScale.vue";
 
 export default {
   name: 'DwDesignQuestion',
   components: {
+    DwDesignQuMatrixScale,
     DwDesignQuMatrixFbk,
     DwDesignQuMatrixCheckbox,
     DwDesignQuMatrixRadio,
