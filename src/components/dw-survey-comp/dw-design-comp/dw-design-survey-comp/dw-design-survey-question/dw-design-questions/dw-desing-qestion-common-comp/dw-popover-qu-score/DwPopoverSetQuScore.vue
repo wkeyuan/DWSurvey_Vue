@@ -133,7 +133,8 @@ export default {
             quMaxScore+= optionScoreNum
           }
         })
-        if (this.survey.questions[this.index].quAttr.scoreAttr.allRight.enabled) {
+        const scoreAttr = this.survey.questions[this.index].quAttr.scoreAttr
+        if (scoreAttr.hasOwnProperty('allRight') && scoreAttr.allRight.enabled) {
           quMaxScore = this.survey.questions[this.index].quAttr.scoreAttr.allRight.scoreNum
         }
       } else if (quType==='MATRIX_RADIO') {
