@@ -166,7 +166,7 @@ export function initQuestionModels (questions) {
   if (questions !== null && questions.length > 0) {
     // 循环然后定义以上内容
     questions.map((question, quIndex) => {
-      question.isRequired = 1
+      // question.isRequired = 1
       question.showQu = true
       question.logicIsHide = false
       addNewQuProps(question)
