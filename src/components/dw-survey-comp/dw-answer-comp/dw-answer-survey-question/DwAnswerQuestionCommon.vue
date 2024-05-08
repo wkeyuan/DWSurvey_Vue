@@ -17,7 +17,7 @@
                     </div>-->
                     <div class="dw-display-flex" style="align-items: baseline;flex-wrap: wrap;">
                       <div v-if="survey.questions[index].quType !== 'PARAGRAPH'" class="dw-qu-title">
-                        <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :qu-num="quNum" :is-required="survey.questions[index].isRequired === 1"></dw-html-label-common>
+                        <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :qu-num="quNum" :is-required="survey.questions[index].quAttr.isRequired"></dw-html-label-common>
                       </div>
                       <div v-else class="dw-qu-title dw-qu-paragraph">
                         <dw-html-label-common ref="dwQuTitle" v-model="survey.questions[index].quTitleObj" :survey="survey" :is-required="false"></dw-html-label-common>

@@ -14,9 +14,9 @@
         <div style="min-height: 50px;">
           <el-form ref="form" label-width="80px" size="mini">
             <el-form-item label="是否必答">
-              <el-radio-group v-model="survey.questions[index].isRequired">
-                <el-radio :label="1">是</el-radio>
-                <el-radio :label="0">否</el-radio>
+              <el-radio-group v-model="survey.questions[index].quAttr.isRequired">
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
             <template v-if="survey.questions[index].quType === 'RADIO' || survey.questions[index].quType === 'CHECKBOX'">
