@@ -9,7 +9,7 @@
 import DwQuMatrixOptionCommon2 from '../../common/dw-design-matrix-common2/DwQuMatrixOptionCommon2.vue'
 
 export default {
-  name: 'DwQuMatrixScaleOptions',
+  name: 'DwQuMatrixSliderOptions',
   components: {DwQuMatrixOptionCommon2},
   model: {
     prop: 'survey',

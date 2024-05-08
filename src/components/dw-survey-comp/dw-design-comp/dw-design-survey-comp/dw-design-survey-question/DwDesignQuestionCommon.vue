@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click.stop="clickItem">
     <!--    :class="hover || survey.curEditObj[itemIndex].itemClick ? 'focus-question':''" -->
     <div :class="hover || survey.questions[index].quFocusObj.quFocus ? 'focus-question':''" class="dw-question-root dw-padding-tb-5" @mouseover="mouseover" @mouseleave="mouseleave">
       <div class="dw-question-top dw-height-20px" style="display: none;" >
@@ -45,7 +45,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="dw-question-body-center">
+        <div class="dw-question-body-center" >
           <div class="dw-question-body-center-body dw-color-333" >
             <div class="dw-qu-content">
               <div v-if="survey.questions[index].quType !== 'PAGETAG'" class="dw-qu-title-body dw-display-flex dw-width-100bf">
@@ -57,7 +57,7 @@
                   <div v-show="hover" class="dw-font-12 dw-color-grey-10">{{ survey.questions[index].quTypeName }}</div>
                 </div>
               </div>
-              <div style="font-size: 12px;color: grey;margin-bottom: 5px;" >
+              <div style="font-size: 12px;color: grey;margin-bottom: 5px;display: none;" >
                 <dw-text-edit-label-common ref="dwQuNote" v-model="survey.questions[index].quNoteObj" :survey="survey" :index="index"></dw-text-edit-label-common>
               </div>
               <div class="dw-qu-content-body">
@@ -105,6 +105,36 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div>
+                  <el-collapse-transition>
+                    <div v-show="survey.questions[index].quFocusObj.quFocus" >
+                      <div style="border-top: 1px solid #dadada;margin-top: 10px;padding: 10px 0;">
+                        <div class="dw-display-flex" style="font-size: 13px;">
+                          <div>
+                            <el-switch v-model="tempValue" active-text="必答题"></el-switch>
+                          </div>
+                          <div style="margin-left: 15px;">
+                            <el-switch v-model="tempValue" active-text="副标题"></el-switch>
+                          </div>
+                          <div style="margin-left: 10px;">
+                            最小分 <el-input-number v-model="num1" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                          </div>
+                          <div style="margin-left: 10px;">
+                            最大分 <el-input-number v-model="num1" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                          </div>
+                          <div style="margin-left: 10px;">
+                            极点文字
+                            <el-select v-model="value" placeholder="请选择" size="small" style="width: 100px;">
+                              <el-option>显示</el-option>
+                              <el-option>不显示</el-option>
+                            </el-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </el-collapse-transition>
                 </div>
 
               </div>
@@ -171,7 +201,8 @@ export default {
       quTitle: 'text',
       itemIndex: 0,
       moreOptionText: '',
-      openDelay: 300
+      openDelay: 300,
+      tempValue: 0
     }
   },
   computed: {

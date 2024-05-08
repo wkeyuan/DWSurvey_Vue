@@ -12,17 +12,22 @@
       chosen-class="dwChosenClass"
       @start="onStart"
       @end="onEnd">
-      <tbody v-for="(rowOption, rowOptionIndex) in survey.questions[index].quRows" :key="`matrix-rowOption-${rowOptionIndex}`">
+      <tbody v-for="(rowOption, rowOptionIndex) in dragOptions" :key="`matrix-rowOption-${rowOption.dwId}`">
         <tr>
           <td>
             <dw-row-option-common2-item ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="rowOptionIndex" :qu-type="quType" value-type="row" @refresh-options="refreshOptions" ></dw-row-option-common2-item>
           </td>
         </tr>
-        <tr class="dwMoveSortQuOption">
+        <tr v-if="quType==='MATRIX_SCALE'" class="dwMoveSortQuOption">
           <td style="padding-right: 40px;">
             <el-button-group>
-              <el-button v-for="number in 10" :key="`scale_${number}`" >{{ number }}</el-button>
+              <el-button v-for="number in 10" :key="`scale_${number}`" disabled >{{ number }}</el-button>
             </el-button-group>
+          </td>
+        </tr>
+        <tr v-else-if="quType==='MATRIX_SLIDER'" class="dwMoveSortQuOption" >
+          <td style="padding-right: 40px;">
+            <el-slider v-model="value1" disabled style="width: 600px;margin: 0;" ></el-slider>
           </td>
         </tr>
         <tr style="font-size: 13px;">
@@ -45,9 +50,9 @@
 <script>
 
 import draggable from 'vuedraggable'
-import DwRowOptionCommon2Item from "./components/DwRowOptionCommon2Item.vue";
+import DwRowOptionCommon2Item from './components/DwRowOptionCommon2Item.vue'
 export default {
-  name: "DwQuMartixOptionCommon2",
+  name: 'DwQuMatrixOptionCommon2',
   components: {DwRowOptionCommon2Item, draggable},
   model: {
     prop: 'options',
@@ -63,13 +68,7 @@ export default {
     return {
       dragOptions: this.options,
       drag: false,
-      headers: ['id', 'name', 'sport'],
-      list: [
-        {id: 1, name: 'Abby', sport: 'basket'},
-        {id: 2, name: 'Brooke', sport: 'foot'},
-        {id: 3, name: 'Courtenay', sport: 'volley'},
-        {id: 4, name: 'David', sport: 'rugby'}
-      ]
+      value1: 50
     }
   },
   watch: {
@@ -125,5 +124,8 @@ td{
 }
 tbody tr:last-child td{
   padding-bottom: 5px;
+}
+/deep/ .el-slider__runway{
+  margin: 0!important;
 }
 </style>

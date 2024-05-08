@@ -11,7 +11,7 @@
     chosen-class="dwChosenClass"
     @start="onStart"
     @end="onEnd">
-    <tr v-for="(rowOption, rowOptionIndex) in survey.questions[index].quRows" :key="`matrix-rowOption-${rowOptionIndex}`" >
+    <tr v-for="(rowOption, rowOptionIndex) in dragOptions" :key="`matrix-rowOption-${rowOption.dwId}`" >
       <td style="text-align: left;width: 20%;" >
         <div style="padding-left: 10px;">
           <dw-row-option-common1-item ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="rowOptionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-row-option-common1-item>
