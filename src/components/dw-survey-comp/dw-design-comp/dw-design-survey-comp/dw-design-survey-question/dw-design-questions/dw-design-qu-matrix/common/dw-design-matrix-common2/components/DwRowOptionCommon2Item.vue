@@ -18,14 +18,14 @@
     <template v-else-if="valueType==='left'">
       <div class="dw-qu-item-body">
         <div class="dw-qu-item-el-checkbox-radio">
-          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].lr.left.optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+          <dw-text-edit-label ref="dwEditLabelLeft" v-model="options[optionIndex].lr.left.optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
         </div>
       </div>
     </template>
     <template v-else-if="valueType==='right'">
       <div class="dw-qu-item-body">
         <div class="dw-qu-item-el-checkbox-radio">
-          <dw-text-edit-label ref="dwEditLabel" v-model="options[optionIndex].lr.right.optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
+          <dw-text-edit-label ref="dwEditLabelRight" v-model="options[optionIndex].lr.right.optionTitleObj" :item-status="itemStatus" @upItemClick="upItemClick" @upValue="upValue" ></dw-text-edit-label>
         </div>
       </div>
     </template>
@@ -34,6 +34,7 @@
 
 <script>
 import DwTextEditLabel from '../../../../../../dw-design-survey-common/DwTextEditLabel.vue'
+import {v4 as uuidV4} from "uuid";
 export default {
   name: 'DwRowOptionCommon2Item',
   components: {DwTextEditLabel},
@@ -114,6 +115,7 @@ export default {
     },
     addOptionBefore () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
+      quOption.dwId = uuidV4()
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)
@@ -122,7 +124,13 @@ export default {
       // 此处使用了引用类型可以不传更新
       // console.debug('html', html)
       // this.$emit('update-input', html)
-      this.options[this.optionIndex].optionTitleObj = html
+      if (this.valueType==='left') {
+        this.options[this.optionIndex].lr.left.optionTitleObj = html
+      } else if (this.valueType==='right') {
+        this.options[this.optionIndex].lr.right.optionTitleObj = html
+      } else {
+        this.options[this.optionIndex].optionTitleObj = html
+      }
       this.$emit('update-options', this.options)
     },
     dragClick (focusIndex) {
