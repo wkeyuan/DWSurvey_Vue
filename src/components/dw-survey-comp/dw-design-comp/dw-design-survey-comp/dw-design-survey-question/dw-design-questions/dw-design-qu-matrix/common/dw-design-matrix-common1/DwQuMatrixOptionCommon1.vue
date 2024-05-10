@@ -2,7 +2,7 @@
   <div style="padding: 10px 0;">
     <div class="dw-display-flex" style="align-items: flex-start;">
       <div style="flex-grow: 1;">
-        <div :style="`width: ${matrixWidth}px`" style="overflow: scroll;" class="dw-matrix-table-content" >
+        <div :style="`width: ${survey.clientBrowser.matrixWidth}px`" style="overflow: scroll;" class="dw-matrix-table-content" >
           <div style="padding: 5px 0 5px 0;width: 100%;" >
             <div class="dw-display-flex">
               <div style="position: sticky;left: 0;z-index: 1;padding-left: 5px;font-size: 12px;color: #afafb0;">如显示不全，试试在矩阵表区域左右滑动</div>
@@ -61,13 +61,12 @@ export default {
     }
   },
   mounted () {
-    this.handleResize()
-    // window.addEventListener('scroll', this.onScroll)
-    window.addEventListener('resize', this.handleResize, true)
+    // this.handleResize()
+    // window.addEventListener('resize', this.handleResize, true)
   },
   beforeDestroy () {
     // 记得在组件销毁前移除事件监听器，以避免潜在的内存泄漏。 考虑提到全局
-    window.removeEventListener('resize', this.handleResize)
+    // window.removeEventListener('resize', this.handleResize)
   },
   methods: {
     handleResize () {

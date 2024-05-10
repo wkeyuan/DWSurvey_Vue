@@ -88,6 +88,14 @@ export default {
       drag: false
     }
   },
+  mounted () {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, true)
+  },
+  beforeDestroy () {
+    // 记得在组件销毁前移除事件监听器，以避免潜在的内存泄漏。 考虑提到全局
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     onAdd (attrs) {
       console.debug('onAdd attrs', attrs)
@@ -149,6 +157,13 @@ export default {
     },
     addNewQu () {
       this.$refs.dwAddNewQuDialog.openDialog()
+    },
+    handleResize () {
+      const windowWidth = window.innerWidth
+      if (this.survey.hasOwnProperty('clientBrowser')) {
+        this.survey.clientBrowser.windowWidth = windowWidth
+        this.survey.clientBrowser.matrixWidth = windowWidth*0.66 - 130
+      }
     }
   }
 }
