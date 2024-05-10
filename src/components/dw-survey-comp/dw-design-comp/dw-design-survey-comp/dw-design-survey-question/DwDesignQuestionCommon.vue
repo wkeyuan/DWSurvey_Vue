@@ -212,7 +212,7 @@ import {resetOtherClickItem} from '../../../dw-utils/dw-survey-update-item-click
 import DwPopoverSetQuScore
   from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-score/DwPopoverSetQuScore.vue'
 import DwPopoverQuScaleText
-  from "./dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-scale-text/DwPopoverQuScaleText.vue";
+  from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-scale-text/DwPopoverQuScaleText.vue'
 
 export default {
   name: 'DwDesignQuestionCommon',

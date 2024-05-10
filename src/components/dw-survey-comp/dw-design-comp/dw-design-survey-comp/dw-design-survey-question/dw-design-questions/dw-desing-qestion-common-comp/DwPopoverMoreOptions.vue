@@ -88,6 +88,7 @@ export default {
               quOption.dwId = uuidV4()
               this.dwAddQuItem(quOption)
             }
+            this.survey.questions[this.index].quFocusObj.quMoreOptionColShow = false
           } else {
             for (let i=0; i<options.length; i++) {
               const quOption = {id: null, optionTitleObj: {dwHtml: options[i], dwText: options[i], dwPlaceholder: '请输入内容'}, itemClick: false}

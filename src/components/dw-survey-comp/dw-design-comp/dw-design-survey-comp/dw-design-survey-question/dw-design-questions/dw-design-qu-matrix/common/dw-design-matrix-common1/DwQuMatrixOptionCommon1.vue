@@ -18,10 +18,10 @@
         </div>
       </div>
       <div class="dw-text-align-center" style="width: 50px;">
-        <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="增加新列" placement="top">
+        <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="增加新列" placement="right">
           <div class="dw-question-toolbar dw-margin-bottom-10" @click.stop="dwAddQuItemEvent" ><i class="dw-cursor-pointer dw-event-icon dw-event-color dw-event-color fa fa-plus" aria-hidden="true"></i></div>
         </el-tooltip>
-        <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="批量增加" placement="top">
+        <el-tooltip :open-delay="openDelay" class="item" effect="dark" content="批量增加" placement="right">
           <dw-popover-more-options v-model="survey" :index="index" add-or-edit="addCol" @click-item="clickItem">
             <div class="dw-question-toolbar dw-margin-bottom-10"><i class="dw-cursor-pointer dw-event-color fa fa-list-ul" aria-hidden="true"></i></div>
           </dw-popover-more-options>
@@ -72,7 +72,7 @@ export default {
   methods: {
     handleResize () {
       const windowWidth = window.innerWidth
-      this.matrixWidth = windowWidth*0.66 - 100
+      this.matrixWidth = windowWidth*0.66 - 130
     },
     arraySpanMethod ({row, column, rowIndex, columnIndex}) {
       if (rowIndex % 2 === 0) {

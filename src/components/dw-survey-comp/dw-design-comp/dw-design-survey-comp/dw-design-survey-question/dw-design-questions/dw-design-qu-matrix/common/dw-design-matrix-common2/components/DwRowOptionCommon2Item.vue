@@ -74,12 +74,12 @@ export default {
   },
   watch: {
     options: function (newValue, oldValue) {
-      // console.debug(newValue)
       // console.log('upEditorText changed from ' + oldValue + ' to ' + newValue)
       // console.debug('newValue', newValue)
       // console.debug('oldValue', oldValue)
       // console.debug('watch-options', this.options[this.optionIndex].optionTitleObj.dwHtml)
       // this.$refs.dwEditLabel.upEditorText(this.options[this.optionIndex].optionTitleObj.dwHtml)
+      // this.$refs.dwEditLabel.upEditorText()
     }
   },
   mounted () {

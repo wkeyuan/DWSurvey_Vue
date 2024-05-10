@@ -30,7 +30,7 @@
             <el-slider v-model="value1" :min="survey.questions[index].quAttr.sliderAttr.min" :max="survey.questions[index].quAttr.sliderAttr.max" :step="survey.questions[index].quAttr.sliderAttr.step" disabled style="width: 600px;margin: 0;" ></el-slider>
           </td>
         </tr>
-        <tr style="font-size: 13px;">
+        <tr v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
           <td>
             <div class="dw-display-flex" style="justify-content: space-between;color: grey;">
               <div>
@@ -51,7 +51,7 @@
 
 import draggable from 'vuedraggable'
 import DwRowOptionCommon2Item from './components/DwRowOptionCommon2Item.vue'
-import {generateNumbers} from "../../../../../../../dw-utils/dw-common/dw-common-utils";
+import {generateNumbers} from '../../../../../../../dw-utils/dw-common/dw-common-utils'
 export default {
   name: 'DwQuMatrixOptionCommon2',
   components: {DwRowOptionCommon2Item, draggable},
