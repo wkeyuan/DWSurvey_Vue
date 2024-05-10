@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid'
+import {parseQuestion} from './dw-survey-parse'
 
 export function dwSurveyQuAddMatrixColOption (survey, index, quOption) {
   const quType = survey.questions[index].quType
@@ -57,6 +58,7 @@ export function dwSurveyQuAddOption (survey, index, quOption) {
     quOptions.push(quOption)
   }
   // console.debug('question', survey.questions[index])
+  parseQuestion(survey.questions[index], true)
   return survey
 }
 

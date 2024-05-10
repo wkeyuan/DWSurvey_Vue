@@ -334,24 +334,28 @@ function parseQuUploadFile (question) {
 function parseQuOptionType1 (question, quOptions) {
   if (quOptions !==null && quOptions.length>0) {
     quOptions.forEach((quOption, optionIndex) => {
-      const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
-      // oss版本把html保存在 optionTitle
-      const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
-      if (!quOption.hasOwnProperty('optionTitleObj')) quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
-      if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
-      if (!quOption.hasOwnProperty('checked')) quOption.checked = false
-      if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
       if (question.hasOwnProperty('dwId') && !quOption.hasOwnProperty('dwId')) quOption.dwId = uuidv4()
-      const inputAttr = getInputQuProps()
-      if (!quOption.hasOwnProperty('inputAttr')) quOption.inputAttr = inputAttr
-      if (!quOption.hasOwnProperty('showOptionNote')) quOption.showOptionNote = 0 // 选项题
-      if (!quOption.hasOwnProperty('isRequired')) quOption.isRequired = 1 // 多项填空题
-      if (!quOption.hasOwnProperty('otherText')) quOption.otherText = null // 多项填空题
-      quOption.validateObj = {errorText: '', isOk: true}
-      if (!quOption.hasOwnProperty('scoreNum')) quOption.scoreNum = null
+      parseQuOptionType1Item(quOption)
     })
   }
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
+}
+
+export function parseQuOptionType1Item (quOption) {
+  const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
+  // oss版本把html保存在 optionTitle
+  const optionName = quOption.optionName !== null ? quOption.optionName : optionTitle
+  if (!quOption.hasOwnProperty('optionTitleObj')) quOption.optionTitleObj = {dwHtml: optionName, dwText: optionTitle, dwPlaceholder: '请输入选项内容'}
+  if (!quOption.hasOwnProperty('dateAttrs')) quOption.dateAttrs = []
+  if (!quOption.hasOwnProperty('checked')) quOption.checked = false
+  if (!quOption.hasOwnProperty('orderIndex')) quOption.orderIndex = 0
+  const inputAttr = getInputQuProps()
+  if (!quOption.hasOwnProperty('inputAttr')) quOption.inputAttr = inputAttr
+  if (!quOption.hasOwnProperty('showOptionNote')) quOption.showOptionNote = 0 // 选项题
+  if (!quOption.hasOwnProperty('isRequired')) quOption.isRequired = 1 // 多项填空题
+  if (!quOption.hasOwnProperty('otherText')) quOption.otherText = null // 多项填空题
+  quOption.validateObj = {errorText: '', isOk: true}
+  if (!quOption.hasOwnProperty('scoreNum')) quOption.scoreNum = null
 }
 
 export function resetQuestion (question) {
