@@ -274,6 +274,7 @@ function parseQuMatrixScaleAnswerData2Qu (question, anQuestion) {
         const answerScore = anRowOption.answerScore
         if (anRowDwId===rowDwId && answerScore!==null && answerScore!==undefined) {
           rowOption.answerValue = parseFloat(answerScore)
+          rowOption.sliderAnswerValue = parseFloat(answerScore)
           return true
         }
       })
