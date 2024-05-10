@@ -213,6 +213,7 @@ export default {
       const answerId = getEsId(this.survey)
       const answer = getSurveyAnswerData(this.survey)
       answer.anPwd = this.anPwd
+      answer.answerCommon.sid = sid
       this.answer = answer
       console.debug('answer', answer)
       const surveyAnswerJsonText = JSON.stringify(answer)

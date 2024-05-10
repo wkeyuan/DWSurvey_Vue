@@ -59,9 +59,10 @@ export default {
       // const sid = this.$route.params.id
       // const answerId = this.$route.params.answerId
       console.debug('sidProps', this.answerProps)
+      const surveyId = this.answerProps.surveyId
       const sid = this.answerProps.sid
       const answerId = this.answerProps.answerId
-      const params = {sid, answerId, anPwd: this.answerProps.anPwd}
+      const params = {surveyId, sid, answerId, anPwd: this.answerProps.anPwd}
       console.debug('loadSurvey params 1', params)
       if (this.$route.query.hasOwnProperty('anPwd')) params.anPwd = this.$route.query.anPwd
       // 1、答卷合法性判断

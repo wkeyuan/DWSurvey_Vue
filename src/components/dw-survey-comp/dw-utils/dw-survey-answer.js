@@ -10,7 +10,8 @@ export function getSurveyAnswerData (survey) {
   const isDelete = 0
   const answerDwId = uuidV4() // 答卷ID，记录在数据库原始记录表中,实现没有起对作用
   const surveyId = survey.id
-  const answerCommon = {surveyId, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete}
+  const sid = survey.sid
+  const answerCommon = {surveyId, sid, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete}
   const surveyAnswer = {answerCommon, anQuestions: []}
   const questions = survey.questions
   if (questions !== undefined) {
