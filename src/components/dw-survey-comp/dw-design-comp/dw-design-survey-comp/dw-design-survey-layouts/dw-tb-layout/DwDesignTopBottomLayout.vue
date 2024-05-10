@@ -102,6 +102,10 @@ export default {
     this.loadDesignSurveyData()
     window.addEventListener('scroll', this.onScroll)
   },
+  beforeDestroy () {
+    // 记得在组件销毁前移除事件监听器，以避免潜在的内存泄漏。
+    window.removeEventListener('scroll', this.onScroll)
+  },
   methods: {
     onStart () {
       this.drag = true
@@ -179,6 +183,7 @@ export default {
         this.containerLRStyle.top = `0px`
         // height:${lrHeight}px;
         this.lrContentHeight = lrHeight
+        // 取窗口宽度
       }
     },
     documentClick () {

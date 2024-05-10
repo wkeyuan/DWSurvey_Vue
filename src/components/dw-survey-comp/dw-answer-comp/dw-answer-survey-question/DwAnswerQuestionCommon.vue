@@ -225,9 +225,9 @@ export default {
   line-height: 19px;
 }
 .dw-question-body{
-  display: grid;
+  /*display: grid;*/
   /*grid-template-columns: 40px auto 40px;*/
-  grid-template-columns: auto;
+  /*grid-template-columns: auto;*/
   padding: 2px 0 0 0;
   margin: 0;
 }

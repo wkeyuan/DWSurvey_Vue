@@ -135,6 +135,16 @@ export function parseQuestion (question, noModel) {
     question.quTypeName = '分页组件'
   } else if (quType === 'PARAGRAPH') {
     question.quTypeName = '分段组件'
+  } else if (quType === 'MATRIX_RADIO') {
+    question.quTypeName = '矩阵单选题'
+  } else if (quType === 'MATRIX_CHECKBOX') {
+    question.quTypeName = '矩阵多选题'
+  } else if (quType === 'MATRIX_INPUT') {
+    question.quTypeName = '矩阵填空题'
+  } else if (quType === 'MATRIX_SCALE') {
+    question.quTypeName = '矩阵量表题'
+  } else if (quType === 'MATRIX_SLIDER') {
+    question.quTypeName = '矩阵滑块题'
   }
   if (!question.hasOwnProperty('validateObj')) question.validateObj = {errorText: '', isOk: true}
   /*
@@ -157,7 +167,9 @@ export function parseQuestion (question, noModel) {
     quLogicShow: false,
     quMoreOptionShow: false,
     quMoreOptionShowEdit: false,
-    quScorePopoverShow: false
+    quScorePopoverShow: false,
+    quScaleTextPopoverShow: false,
+    quMoreOptionColShow: false
   }
 }
 
@@ -175,6 +187,26 @@ function addNewQuProps (question) {
   const quType = question.quType
   if (quType==='CHECKBOX' && !question.quAttr.scoreAttr.hasOwnProperty('allRight')) {
     question.quAttr.scoreAttr.allRight = {enabled: false, scoreNum: 0}
+  }
+  if (!question.quAttr.hasOwnProperty('showQuNote')) {
+    question.quAttr.showQuNote = false
+  }
+  // 数值区间数据
+  if (quType==='SCORE') {
+    if (!question.quAttr.hasOwnProperty('scoreQuAttr')) {
+      // 评分题的属性
+      question.quAttr.scoreQuAttr = {max: 5, texts: []}
+    }
+  }
+  if (quType==='MATRIX_SCALE') {
+    if (!question.quAttr.hasOwnProperty('scaleAttr')) {
+      question.quAttr.scaleAttr = {min: 0, max: 10, showLrText: true}
+    }
+  }
+  if (quType==='MATRIX_SLIDER') {
+    if (!question.quAttr.hasOwnProperty('sliderAttr')) {
+      question.quAttr.sliderAttr = {min: 0, max: 100, step: 1, showLrText: true}
+    }
   }
   return question
 }
@@ -372,9 +404,9 @@ export function buildMatrixOption (question) {
   }
   if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT') {
     if (!question.hasOwnProperty('quCols') || question.quCols===null || question.quCols.length===0) {
-      const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, disableOption: true}]
+      const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, tempEmptyOption: true}] // tempEmptyOption 表示不是真实选项，用于显示列时保证列数多一列。
       for (let i=0; i<3; i++) {
-        const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `列选项${i}`, dwText: `列选项${i}`, dwPlaceholder: '请输入选项内容'}, scoreNum: null}
+        const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `列选项${i}`, dwText: `列选项${i}`, dwPlaceholder: '请输入选项内容'}, scoreNum: null, tempEmptyOption: false}
         quCols.push(quOption)
       }
       question.quCols = quCols

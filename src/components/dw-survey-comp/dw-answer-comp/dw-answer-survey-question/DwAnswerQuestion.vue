@@ -25,6 +25,21 @@
             <div v-if="item.quType === 'UPLOADFILE'">
               <dw-answer-qu-upload ref="dwQuUpload" v-model="survey" :index="index" ></dw-answer-qu-upload>
             </div>
+            <div v-if="item.quType === 'MATRIX_RADIO'">
+              <dw-answer-qu-matrix-radio ref="dwQuMatrixRadio" v-model="survey" :index="index" ></dw-answer-qu-matrix-radio>
+            </div>
+            <div v-if="item.quType === 'MATRIX_CHECKBOX'">
+              <dw-answer-qu-matrix-checkbox ref="dwQuMatrixCheckbox" v-model="survey" :index="index" ></dw-answer-qu-matrix-checkbox>
+            </div>
+            <div v-if="item.quType === 'MATRIX_INPUT'">
+              <dw-answer-qu-matrix-input ref="dwQuMatrixInput" v-model="survey" :index="index" ></dw-answer-qu-matrix-input>
+            </div>
+            <div v-if="item.quType === 'MATRIX_SCALE'">
+              <dw-answer-qu-matrix-scale ref="dwQuMatrixScale" v-model="survey" :index="index" ></dw-answer-qu-matrix-scale>
+            </div>
+            <div v-if="item.quType === 'MATRIX_SLIDER'">
+              <dw-answer-qu-matrix-scale ref="dwQuMatrixSlider" v-model="survey" :index="index" ></dw-answer-qu-matrix-scale>
+            </div>
           </template>
         </dw-answer-question-common>
       </div>
@@ -43,10 +58,22 @@ import DwAnswerQuOrder from './dw-answer-questions/dw-answer-qu-orderby/DwAnswer
 import DwAnswerQuMFbk from './dw-answer-questions/dw-answer-qu-mfbk/DwAnswerQuMFbk.vue'
 import DwAnswerQuUpload from './dw-answer-questions/dw-answer-qu-upload/DwAnswerQuUpload.vue'
 import {quLogicIsHide} from '../dw-utils/dw-survey-answer-logic'
+import DwAnswerQuMatrixRadio
+  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-radio/DwAnswerQuMatrixRadio.vue";
+import DwAnswerQuMatrixCheckbox
+  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-checkbox/DwAnswerQuMatrixCheckbox.vue";
+import DwAnswerQuMatrixInput
+  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-fbk/DwAnswerQuMatrixInput.vue";
+import DwAnswerQuMatrixScale
+  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-scale/DwAnswerQuMatrixScale.vue";
 
 export default {
   name: 'DwAnswerQuestion',
   components: {
+    DwAnswerQuMatrixScale,
+    DwAnswerQuMatrixInput,
+    DwAnswerQuMatrixCheckbox,
+    DwAnswerQuMatrixRadio,
     DwAnswerQuUpload,
     DwAnswerQuMFbk,
     DwAnswerQuOrder,

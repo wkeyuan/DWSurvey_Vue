@@ -57,8 +57,13 @@
                   <div v-show="hover" class="dw-font-12 dw-color-grey-10">{{ survey.questions[index].quTypeName }}</div>
                 </div>
               </div>
-              <div style="font-size: 12px;color: grey;margin-bottom: 5px;display: none;" >
-                <dw-text-edit-label-common ref="dwQuNote" v-model="survey.questions[index].quNoteObj" :survey="survey" :index="index"></dw-text-edit-label-common>
+
+              <div>
+                <el-collapse-transition>
+                  <div v-show="survey.questions[index].quAttr.hasOwnProperty('showQuNote') && survey.questions[index].quAttr.showQuNote" style="font-size: 12px;color: grey;margin-bottom: 5px;" >
+                    <dw-text-edit-label-common ref="dwQuNote" v-model="survey.questions[index].quNoteObj" :survey="survey" :index="index"></dw-text-edit-label-common>
+                  </div>
+                </el-collapse-transition>
               </div>
               <div class="dw-qu-content-body">
 
@@ -102,6 +107,13 @@
                             </dw-popover-set-qu-score>
                           </el-tooltip>
                         </template>
+                        <template v-if="survey.questions[index].quType === 'MATRIX_SCALE' || survey.questions[index].quType === 'MATRIX_SLIDER' ">
+                          <el-tooltip :open-delay="openDelay" :disabled="survey.questions[index].quFocusObj.quScaleTextPopoverShow" class="item dw-margin-right-20" effect="dark" content="批量配置分值" placement="right">
+                            <dw-popover-qu-scale-text v-model="survey" :index="index" add-or-edit="add" @click-item="clickItem">
+                              <div class="dw-question-toolbar" ><i class="dw-cursor-pointer dw-event-color el-icon-set-up" aria-hidden="true"></i></div>
+                            </dw-popover-qu-scale-text>
+                          </el-tooltip>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -112,24 +124,50 @@
                     <div v-show="survey.questions[index].quFocusObj.quFocus" >
                       <div style="border-top: 1px solid #dadada;margin-top: 10px;padding: 10px 0;">
                         <div class="dw-display-flex" style="font-size: 13px;">
-                          <div>
-                            <el-switch v-model="tempValue" active-text="必答题"></el-switch>
+                          <div class="bottomQuAttrItem">
+                            <el-switch v-model="survey.questions[index].quAttr.isRequired" active-text="必答题"></el-switch>
                           </div>
-                          <div style="margin-left: 15px;">
-                            <el-switch v-model="tempValue" active-text="副标题"></el-switch>
-                          </div>
-                          <div style="margin-left: 10px;">
-                            最小分 <el-input-number v-model="num1" size="small" controls-position="right" style="width: 100px;"></el-input-number>
-                          </div>
-                          <div style="margin-left: 10px;">
-                            最大分 <el-input-number v-model="num1" size="small" controls-position="right" style="width: 100px;"></el-input-number>
-                          </div>
-                          <div style="margin-left: 10px;">
-                            极点文字
-                            <el-select v-model="value" placeholder="请选择" size="small" style="width: 100px;">
-                              <el-option>显示</el-option>
-                              <el-option>不显示</el-option>
-                            </el-select>
+                          <template v-if="survey.questions[index].quType === 'SCORE' ">
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>最大值</strong> <el-input-number v-model="survey.questions[index].quAttr.scoreQuAttr.max" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                          </template>
+                          <template v-if="survey.questions[index].quType === 'MATRIX_SCALE' ">
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>最小值</strong> <el-input-number v-model="survey.questions[index].quAttr.scaleAttr.min" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>最大值</strong> <el-input-number v-model="survey.questions[index].quAttr.scaleAttr.max" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <el-switch v-model="survey.questions[index].quAttr.scaleAttr.showLrText" active-text="显示极点"></el-switch>
+                            </div>
+                          </template>
+                          <template v-if="survey.questions[index].quType === 'MATRIX_SLIDER' ">
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>最小值</strong> <el-input-number v-model="survey.questions[index].quAttr.sliderAttr.min" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>最大值</strong> <el-input-number v-model="survey.questions[index].quAttr.sliderAttr.max" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <strong>步长</strong> <el-input-number v-model="survey.questions[index].quAttr.sliderAttr.step" size="small" controls-position="right" style="width: 100px;"></el-input-number>
+                            </div>
+                            <el-divider direction="vertical"></el-divider>
+                            <div class="bottomQuAttrItem">
+                              <el-switch v-model="survey.questions[index].quAttr.sliderAttr.showLrText" active-text="显示极点"></el-switch>
+                            </div>
+                          </template>
+                          <el-divider direction="vertical"></el-divider>
+                          <div class="bottomQuAttrItem">
+                            <el-switch v-model="survey.questions[index].quAttr.showQuNote" active-text="副标题"></el-switch>
                           </div>
                         </div>
                       </div>
@@ -173,10 +211,13 @@ import {resetQuestion} from '../../../dw-utils/dw-survey-parse'
 import {resetOtherClickItem} from '../../../dw-utils/dw-survey-update-item-click'
 import DwPopoverSetQuScore
   from './dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-score/DwPopoverSetQuScore.vue'
+import DwPopoverQuScaleText
+  from "./dw-design-questions/dw-desing-qestion-common-comp/dw-popover-qu-scale-text/DwPopoverQuScaleText.vue";
 
 export default {
   name: 'DwDesignQuestionCommon',
   components: {
+    DwPopoverQuScaleText,
     DwPopoverSetQuScore,
     DwPopoverQuLogics, DwPopoverQuAttrs, DwPopoverMoreOptions, DwTextEditLabelCommon, DwTextEditLabel},
   model: {
@@ -235,7 +276,8 @@ export default {
           quLogicShow: false,
           quMoreOptionShow: false,
           quMoreOptionShowEdit: false,
-          quScorePopoverShow: false
+          quScorePopoverShow: false,
+          quMoreOptionColShow: false
         }
         resetOtherClickItem(this.survey, this.index)
       }
@@ -268,11 +310,13 @@ export default {
         quLogicShow: false,
         quMoreOptionShow: false,
         quMoreOptionShowEdit: false,
-        quScorePopoverShow: false
+        quScorePopoverShow: false,
+        quScaleTextPopoverShow: false,
+        quMoreOptionColShow: false
       }
     },
     dwAddQuItemEvent () {
-      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}
+      const quOption = {id: null, optionTitleObj: {dwHtml: '选项内容', dwText: '选项内容', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}
       quOption.dwId = uuidV4()
       const newSurvey = dwSurveyQuAddOption(this.survey, this.index, quOption)
       this.$emit('update-survey', newSurvey)
@@ -382,6 +426,12 @@ export default {
   right: 30px;*/
   top: -5px;
   right: 5px;
+}
+.bottomQuAttrItem{
+  padding: 0 5px;
+}
+.bottomQuAttrItem:first-child{
+  padding-left: 0;
 }
 </style>
 <style>

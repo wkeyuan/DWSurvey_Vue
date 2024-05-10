@@ -18,6 +18,7 @@
 
 <script>
 import DwTextEditLabel from '../../../../../../dw-design-survey-common/DwTextEditLabel.vue'
+import {v4 as uuidV4} from 'uuid'
 export default {
   name: 'DwColOptionCommon1Item',
   components: {DwTextEditLabel},
@@ -96,7 +97,8 @@ export default {
       this.itemStatus.itemHover = true
     },
     addOptionBefore () {
-      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
+      const quOption = {id: null, optionTitleObj: {dwHtml: '新列选项', dwText: '新列选项', dwPlaceholder: '请输入内容'}, itemClick: false, tempEmptyOption: false}
+      quOption.dwId = uuidV4()
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)
@@ -217,7 +219,7 @@ export default {
   position: absolute;
   right: 40px;
   top: -20px;
-  z-index: 10;
+  z-index: 1000;
   /*border: 1px solid #095aaa;*/
 }
 .dw-qu-item-toolbar .dw-question-toolbar{

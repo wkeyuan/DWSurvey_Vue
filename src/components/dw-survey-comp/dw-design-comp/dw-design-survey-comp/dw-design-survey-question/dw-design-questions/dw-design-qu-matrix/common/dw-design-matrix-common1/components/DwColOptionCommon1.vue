@@ -13,7 +13,7 @@
       chosen-class="dwChosenClass"
       @start="onStart"
       @end="onEnd">
-      <td v-for="(colOption, optionIndex) in dragOptions" :key="`${colOption.dwId}`" :class="optionIndex>0 ? 'sortMatrixTd': 'undrag'" scope="col">
+      <td v-for="(colOption, optionIndex) in dragOptions" :key="`${colOption.dwId}`" :class="colOption.tempEmptyOption ? 'undrag dw-position-sticky': 'sortMatrixTd'" scope="col" class="matrix-title-td">
         <dw-col-option-common1-item v-if="optionIndex>0" ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="optionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-col-option-common1-item>
       </td>
     </draggable>
@@ -94,7 +94,16 @@ export default {
 </script>
 
 <style scoped>
-tbody tr{
+tbody tr:last-child{
   background-color: #d8d8d9;
+}
+td{
+  background-color: #d8d8d9;
+}
+.dw-position-sticky{
+  position: sticky;left: 0;z-index: 1;
+}
+.matrix-title-td {
+  white-space: nowrap;
 }
 </style>

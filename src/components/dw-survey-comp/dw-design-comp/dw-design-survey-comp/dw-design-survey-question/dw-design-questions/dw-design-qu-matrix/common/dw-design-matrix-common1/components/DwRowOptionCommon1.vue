@@ -11,13 +11,13 @@
     chosen-class="dwChosenClass"
     @start="onStart"
     @end="onEnd">
-    <tr v-for="(rowOption, rowOptionIndex) in dragOptions" :key="`matrix-rowOption-${rowOption.dwId}`" >
-      <td style="text-align: left;width: 20%;" >
+    <tr v-for="(rowOption, rowOptionIndex) in dragOptions" :key="`matrix-rowOption-${rowOption.dwId}`">
+      <td style="text-align: left;min-width: 200px;position: sticky;left: 0;z-index: 1;padding-left: 5px;" >
         <div style="padding-left: 10px;">
           <dw-row-option-common1-item ref="quCommonItem" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="rowOptionIndex" :qu-type="quType" @refresh-options="refreshOptions" ></dw-row-option-common1-item>
         </div>
       </td>
-      <td v-for="(option, colIndex) in survey.questions[index].quCols" v-if="colIndex>0" :key="`matrix-colOption-content-${colIndex}`" style="padding-right: 40px;" class="dwMoveSortQuOption">
+      <td v-for="(option, colIndex) in survey.questions[index].quCols" v-if="!option.tempEmptyOption" :key="`matrix-colOption-content-${colIndex}`" style="padding-right: 40px;" class="dwMoveSortQuOption">
         <template v-if="quType === 'MATRIX_RADIO'">
           <el-badge :hidden="!(survey.questions[index].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled) || option.scoreNum===undefined" :value="`${option.scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
             <i class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
@@ -122,5 +122,13 @@ table,tbody,tr,th,td{
 }
 td{
   border-top: 1px solid #d8d8d9;
+}
+  /* 交替行颜色 */
+tbody tr:nth-child(odd) td{
+  background-color: #f9f9f9;
+}
+/* 偶数行颜色 */
+tbody tr:nth-child(even) td{
+  background-color: #f0f0f0;
 }
 </style>

@@ -18,6 +18,7 @@
 
 <script>
 import DwTextEditLabel from '../../../../../../dw-design-survey-common/DwTextEditLabel.vue'
+import {v4 as uuidV4} from "uuid";
 export default {
   name: 'DwRowOptionCommon1Item',
   components: {DwTextEditLabel},
@@ -96,7 +97,8 @@ export default {
       this.itemStatus.itemHover = true
     },
     addOptionBefore () {
-      const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
+      const quOption = {id: null, optionTitleObj: {dwHtml: '新行选项', dwText: '新行选项', dwPlaceholder: '请输入内容'}, itemClick: false}
+      quOption.dwId = uuidV4()
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)

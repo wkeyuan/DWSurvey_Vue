@@ -40,6 +40,16 @@ export function parseAnQuAnswer2SurveyQu (question, anQuestion) {
     parseQuFbkAnswerData2Qu(question, anQuestion)
   } else if (quType === 'UPLOADFILE') {
     parseQuUploadAnswerData2Qu(question, anQuestion)
+  } else if (quType === 'MATRIX_RADIO') {
+    parseQuMatrixRadioAnswerData2Qu(question, anQuestion)
+  } else if (quType === 'MATRIX_CHECKBOX') {
+    parseQuMatrixCheckboxAnswerData2Qu(question, anQuestion)
+  } else if (quType === 'MATRIX_INPUT') {
+    parseQuMatrixInputAnswerData2Qu(question, anQuestion)
+  } else if (quType === 'MATRIX_SCALE') {
+    parseQuMatrixScaleAnswerData2Qu(question, anQuestion)
+  } else if (quType === 'MATRIX_SLIDER') {
+    parseQuMatrixScaleAnswerData2Qu(question, anQuestion)
   }
 }
 
@@ -168,6 +178,110 @@ function parseQuUploadAnswerData2Qu (question, anQuestion) {
   }
 }
 
+/**
+ * 矩阵单选题答案同步
+ * @param question
+ * @param anQuestion
+ */
+function parseQuMatrixRadioAnswerData2Qu (question, anQuestion) {
+  const quRows = question.quRows
+  const anMatrixRadios = anQuestion.anMatrixRadios
+  if (anMatrixRadios!=null) {
+    anMatrixRadios.forEach((anRowOption, index) => {
+      const anRowDwId = anRowOption.rowDwId
+      const anColDwId = anRowOption.colDwId
+      quRows.forEach((rowOption, rowIndex) => {
+        const rowDwId = rowOption.dwId
+        const quRowCols = rowOption.rowCols
+        quRowCols.forEach((quRowCol, quRowColIndex) => {
+          const colDwId = quRowCol.dwId
+          if (anRowDwId===rowDwId && anColDwId === colDwId) {
+            quRowCol.checked = true
+            return true
+          }
+        })
+      })
+    })
+    question.anQuestion = anQuestion
+  }
+}
+
+/**
+ * 矩阵多选题答案同步
+ * @param question
+ * @param anQuestion
+ */
+function parseQuMatrixCheckboxAnswerData2Qu (question, anQuestion) {
+  const quRows = question.quRows
+  const anMatrixCheckboxes = anQuestion.anMatrixCheckboxes
+  if (anMatrixCheckboxes!=null) {
+    quRows.forEach((rowOption, rowIndex) => {
+      const rowDwId = rowOption.dwId
+      const quRowCols = rowOption.rowCols
+      quRowCols.forEach((quRowCol, quRowColIndex) => {
+        const colDwId = quRowCol.dwId
+        anMatrixCheckboxes.forEach((anRowOption, index) => {
+          const anRowDwId = anRowOption.rowDwId
+          const rowAnCheckboxs = anRowOption.rowAnCheckboxs
+          rowAnCheckboxs.forEach((anRowAnCheckbox, anRowIndex) => {
+            const anColDwId = anRowAnCheckbox.optionDwId
+            if (anRowDwId===rowDwId && anColDwId === colDwId) {
+              quRowCol.checked = true
+              return true
+            }
+          })
+        })
+      })
+    })
+    question.anQuestion = anQuestion
+  }
+}
+
+function parseQuMatrixInputAnswerData2Qu (question, anQuestion) {
+  const quRows = question.quRows
+  const anMatrixFbks = anQuestion.anMatrixFbks
+  if (anMatrixFbks!=null) {
+    quRows.forEach((rowOption, rowIndex) => {
+      const rowDwId = rowOption.dwId
+      const quRowCols = rowOption.rowCols
+      quRowCols.forEach((quRowCol, quRowColIndex) => {
+        const colDwId = quRowCol.dwId
+        anMatrixFbks.forEach((anRowOption, index) => {
+          const anRowDwId = anRowOption.rowDwId
+          const rowAnFbks = anRowOption.rowAnFbks
+          rowAnFbks.forEach((rowAnFbk, anRowIndex) => {
+            const anColDwId = rowAnFbk.optionDwId
+            if (anRowDwId===rowDwId && anColDwId === colDwId) {
+              quRowCol.answerValue = rowAnFbk.answer
+              return true
+            }
+          })
+        })
+      })
+    })
+    question.anQuestion = anQuestion
+  }
+}
+
+function parseQuMatrixScaleAnswerData2Qu (question, anQuestion) {
+  const quRows = question.quRows
+  const anMatrixScales = anQuestion.anMatrixScales
+  if (anMatrixScales!=null) {
+    quRows.forEach((rowOption, rowIndex) => {
+      const rowDwId = rowOption.dwId
+      anMatrixScales.forEach((anRowOption, index) => {
+        const anRowDwId = anRowOption.rowDwId
+        const answerScore = anRowOption.answerScore
+        if (anRowDwId===rowDwId && answerScore!==null && answerScore!==undefined) {
+          rowOption.answerValue = parseFloat(answerScore)
+          return true
+        }
+      })
+    })
+    question.anQuestion = anQuestion
+  }
+}
+
 // 生成需要的答卷对象
 export function initAnswerBySurvey (survey) {
   const questions = survey.questions
@@ -192,6 +306,22 @@ export function initAnswerBySurvey (survey) {
         console.debug('answer RADIO')
       } else if (quType === 'CHECKBOX') {
         console.debug('answer CHECKBOX')
+      } else if (quType === 'MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType==='MATRIX_INPUT') {
+        const quRows = question.quRows
+        const quCols = question.quCols
+        quRows.forEach((quOption, quOptionIndex) => {
+          const rowCols = []
+          quCols.forEach((quColOption) => {
+            rowCols.push({dwId: quColOption.dwId, checked: false, answerValue: null, tempEmptyOption: quColOption.tempEmptyOption})
+          })
+          quOption.rowCols = rowCols
+        })
+      } else if (quType === 'MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+        const quRows = question.quRows
+        quRows.forEach((quOption, quOptionIndex) => {
+          quOption.answerValue = null
+          quOption.sliderAnswerValue = null
+        })
       }
       // 初始化题目辅助参数
       question.showQu = true // 默认显示, 分页控制

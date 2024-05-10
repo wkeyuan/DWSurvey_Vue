@@ -41,6 +41,16 @@ export function getQuestionAnswerData (question) {
     getQuFbkAnswerData(question, anQuestion)
   } else if (quType === 'UPLOADFILE') {
     getQuUploadAnswerData(question, anQuestion)
+  } else if (quType === 'MATRIX_RADIO') {
+    getQuMatrixRadioAnswerData(question, anQuestion)
+  } else if (quType === 'MATRIX_CHECKBOX') {
+    getQuMatrixCheckboxAnswerData(question, anQuestion)
+  } else if (quType === 'MATRIX_INPUT') {
+    getQuMatrixInputAnswerData(question, anQuestion)
+  } else if (quType === 'MATRIX_SCALE') {
+    getQuMatrixScaleAnswerData(question, anQuestion)
+  } else if (quType === 'MATRIX_SLIDER') {
+    getQuMatrixScaleAnswerData(question, anQuestion)
   }
   question.anQuestion = anQuestion
   return anQuestion
@@ -120,4 +130,67 @@ function getQuOrderByAnswerData (question, anQuestion) {
     if (option.hasOwnProperty('checked') && option.checked && option.orderIndex>0) anQuestion.anOrders.push({optionDwId: option.dwId, orderNum: option.orderIndex})
     // , optionName: option.optionTitleObj.dwHtml
   })
+}
+
+function getQuMatrixRadioAnswerData (question, anQuestion) {
+  const quRows = question.quRows
+  const anQuRows = []
+  quRows.map((rowOption, index) => {
+    const rowCols = rowOption.rowCols
+    rowCols.map((rowColOption, index) => {
+      if (rowColOption.hasOwnProperty('checked') && rowColOption.checked) {
+        // anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
+        anQuRows.push({rowDwId: rowOption.dwId, colDwId: rowColOption.dwId, quAnScore: 0})
+      }
+    })
+  })
+  anQuestion.anMatrixRadios = anQuRows
+}
+
+function getQuMatrixCheckboxAnswerData (question, anQuestion) {
+  const quRows = question.quRows
+  const anQuRows = []
+  quRows.map((rowOption, index) => {
+    const rowCols = rowOption.rowCols
+    const anQuRowCols = []
+    rowCols.map((rowColOption, index) => {
+      if (rowColOption.hasOwnProperty('checked') && rowColOption.checked) {
+        // anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
+        anQuRowCols.push({optionDwId: rowColOption.dwId, otherText: null})
+      }
+    })
+    if (anQuRowCols.length>0) {
+      anQuRows.push({rowDwId: rowOption.dwId, rowAnCheckboxs: anQuRowCols, rowAnScore: 0})
+    }
+  })
+  anQuestion.anMatrixCheckboxes = anQuRows
+}
+
+function getQuMatrixInputAnswerData (question, anQuestion) {
+  const quRows = question.quRows
+  const anQuRows = []
+  quRows.map((rowOption, index) => {
+    const rowCols = rowOption.rowCols
+    const anQuRowCols = []
+    rowCols.map((rowColOption, index) => {
+      if (rowColOption.answerValue!==null && rowColOption.answerValue!==undefined && rowColOption.answerValue.length>0) {
+        anQuRowCols.push({optionDwId: rowColOption.dwId, answer: rowColOption.answerValue})
+      }
+    })
+    anQuRows.push({rowDwId: rowOption.dwId, rowAnFbks: anQuRowCols})
+  })
+  anQuestion.anMatrixFbks = anQuRows
+}
+
+function getQuMatrixScaleAnswerData (question, anQuestion) {
+  const quRows = question.quRows
+  const anQuRows = []
+  quRows.map((rowOption, index) => {
+    const answerValue = rowOption.answerValue
+    if (answerValue!==null && answerValue!==undefined) {
+      anQuRows.push({rowDwId: rowOption.dwId, answerScore: answerValue, rowAnScore: 0})
+    }
+  })
+  console.debug('anQuRows', anQuRows)
+  anQuestion.anMatrixScales = anQuRows
 }

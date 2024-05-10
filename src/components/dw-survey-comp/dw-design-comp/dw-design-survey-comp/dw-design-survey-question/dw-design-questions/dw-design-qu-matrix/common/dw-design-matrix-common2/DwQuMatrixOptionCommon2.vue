@@ -20,14 +20,14 @@
         </tr>
         <tr v-if="quType==='MATRIX_SCALE'" class="dwMoveSortQuOption">
           <td style="padding-right: 40px;">
-            <el-button-group>
-              <el-button v-for="number in 10" :key="`scale_${number}`" disabled >{{ number }}</el-button>
+            <el-button-group v-if="survey.questions[index].quAttr.scaleAttr.min!==undefined && survey.questions[index].quAttr.scaleAttr.max!==undefined">
+              <el-button v-for="number in numbers(survey.questions[index].quAttr.scaleAttr.min, survey.questions[index].quAttr.scaleAttr.max)" :key="`scale_${number}`" disabled >{{ number }}</el-button>
             </el-button-group>
           </td>
         </tr>
         <tr v-else-if="quType==='MATRIX_SLIDER'" class="dwMoveSortQuOption" >
-          <td style="padding-right: 40px;">
-            <el-slider v-model="value1" disabled style="width: 600px;margin: 0;" ></el-slider>
+          <td v-if="survey.questions[index].quAttr.sliderAttr.min!==undefined && survey.questions[index].quAttr.sliderAttr.max!==undefined" style="padding-right: 40px;" >
+            <el-slider v-model="value1" :min="survey.questions[index].quAttr.sliderAttr.min" :max="survey.questions[index].quAttr.sliderAttr.max" :step="survey.questions[index].quAttr.sliderAttr.step" disabled style="width: 600px;margin: 0;" ></el-slider>
           </td>
         </tr>
         <tr style="font-size: 13px;">
@@ -51,6 +51,7 @@
 
 import draggable from 'vuedraggable'
 import DwRowOptionCommon2Item from './components/DwRowOptionCommon2Item.vue'
+import {generateNumbers} from "../../../../../../../dw-utils/dw-common/dw-common-utils";
 export default {
   name: 'DwQuMatrixOptionCommon2',
   components: {DwRowOptionCommon2Item, draggable},
@@ -68,7 +69,12 @@ export default {
     return {
       dragOptions: this.options,
       drag: false,
-      value1: 50
+      value1: 50,
+      numbers (start, end) {
+        // this.survey.questions[this.index].quAttr.scaleAttr.min
+        // this.survey.questions[this.index].quAttr.scaleAttr.max
+        return generateNumbers(start, end)
+      }
     }
   },
   watch: {
