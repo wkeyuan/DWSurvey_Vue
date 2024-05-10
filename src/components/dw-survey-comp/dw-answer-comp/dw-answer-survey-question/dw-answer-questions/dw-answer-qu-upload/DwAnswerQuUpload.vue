@@ -75,7 +75,9 @@ export default {
       if (fileAccept===100) this.accept = question.customFileAccept
     }
     if (question.hasOwnProperty('fileSize') && question.fileSize!==null) this.fileSize = question.fileSize
-    this.upFileList = this.survey.questions[this.index].upFileList
+    if (this.survey.questions[this.index].upFileList!==undefined) {
+      this.upFileList = this.survey.questions[this.index].upFileList
+    }
   },
   methods: {
     handleRemove (file, fileList) {
@@ -107,17 +109,32 @@ export default {
       console.debug('response', response)
       console.debug('file', file)
       console.debug('fileList', fileList)
-      this.upFileList = fileList
-      this.updateUpFileAnswer()
-      /*
+      // this.upFileList = fileList
+      // this.updateUpFileAnswer()
       const resultCode = response.resultCode
       if (resultCode===200) {
+        /*
         const upDatas = response.data
         upDatas.map((item, index) => {
           const anUploadFile = {belongId: null, belongAnswerId: null, quId: null, filePath: item.location, fileName: item.filename, randomCode: ''}
           this.survey.questions[this.index].anUplodFiles.push(anUploadFile)
-        })
-      }*/
+        })*/
+        this.upFileList = fileList
+        this.updateUpFileAnswer()
+      } else {
+        // 提交错误原因
+        this.$message.error('上传失败，'+response.resultMsg)
+        if (this.upFileList.length>0) {
+          // const upFileList = this.upFileList
+          // upFileList.splice(-1, 1)
+          // this.upFileList = upFileList
+          this.upFileList = fileList
+          this.upFileList.pop()
+        } else {
+          this.upFileList = []
+        }
+        // console.debug('this.upFileList', this.upFileList)
+      }
     },
     updateUpFileAnswer () {
       // console.debug(this.upFileList)
