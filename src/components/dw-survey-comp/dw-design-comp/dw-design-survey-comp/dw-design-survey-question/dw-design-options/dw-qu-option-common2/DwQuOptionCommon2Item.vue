@@ -50,6 +50,7 @@
 <script>
 import DwTextEditLabel from '../../../dw-design-survey-common/DwTextEditLabel.vue'
 import {v4 as uuidV4} from 'uuid'
+import {parseQuOptionType1Item} from '../../../../../dw-utils/dw-survey-parse'
 
 export default {
   name: 'DwQuOptionCommon2Item',
@@ -131,6 +132,7 @@ export default {
       // this.$emit('update-survey',this.options)
       const quOption = {id: null, optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: '请输入内容'}, itemClick: false}
       quOption.dwId = uuidV4()
+      parseQuOptionType1Item(quOption)
       this.options.splice(this.optionIndex+1, 0, quOption)
       this.$emit('update-options', this.options)
       this.$emit('refresh-options', this.optionIndex+1)

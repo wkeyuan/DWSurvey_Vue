@@ -91,7 +91,7 @@ function validateQuRadio (question) {
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anRadio')) {
     answerSize = question.anQuestion.anRadio.length
   }
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<=0) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<=0) {
     // question.validateObj.errorText = '此题必答'
     // question.validateObj.isOk = false
     errorTexts.push('此题必答')
@@ -138,7 +138,7 @@ function validateCheckbox (question) {
   const validateObj = question.validateObj
   let answerSize = 0
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anCheckboxs')) answerSize = question.anQuestion.anCheckboxs.length
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<=0) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<=0) {
     // validateObj.errorText = '此题必答'
     // validateObj.isOk = false
     errorTexts.push('此题必答')
@@ -204,7 +204,7 @@ function validateQuOrderbys (question) {
   const validateObj = question.validateObj
   let answerSize = 0
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anOrders')) answerSize = question.anQuestion.anOrders.length
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<quOptions.length) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quOptions.length) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }
@@ -219,10 +219,12 @@ function validateQuFbk (question) {
   const validateObj = question.validateObj
   let answerValue = null
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anFbk')) answerValue = question.anQuestion.anFbk.answer
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && (answerValue===null || answerValue===undefined || answerValue.length<=0)) {
+  /*
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && (answerValue===null || answerValue===undefined || answerValue.length<=0)) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }
+  */
   const errorTexts = []
   if (answerValue===null || answerValue===undefined) answerValue = ''
   if (question.hasOwnProperty('quAttr')) {
@@ -296,7 +298,7 @@ function validateQuMultiFillblanks (question) {
   const validateObj = question.validateObj
   let answerSize = 0
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMFbks')) answerSize = question.anQuestion.anMFbks.length
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<quOptions.length) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quOptions.length) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }
@@ -315,7 +317,7 @@ function validateQuScores (question) {
   console.debug('quScores.answerSize', answerSize)
   console.debug('quScores.length', quScores.length)
   console.debug('question.anQuestion', question.anQuestion)
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<quScores.length) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quScores.length) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }
@@ -330,7 +332,7 @@ function validateQuUploadFile (question) {
   const validateObj = question.validateObj
   let answerSize = 0
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anUploadFiles')) answerSize = question.anQuestion.anUploadFiles.length
-  if (question.hasOwnProperty('isRequired') && question.isRequired===1 && answerSize<=0) {
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<=0) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }
