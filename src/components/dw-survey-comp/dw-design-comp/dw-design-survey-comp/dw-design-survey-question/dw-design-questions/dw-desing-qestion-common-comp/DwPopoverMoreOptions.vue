@@ -81,7 +81,10 @@ export default {
         const options = this.moreOptionText.split(/\r\n|[\r\n]/)
         if (options !== undefined && options.length > 0) {
           // 如果是修改先重置
-          if (this.addOrEdit === 'edit') dwResetQuOptions(this.survey, this.index, (survey) => { this.survey = survey })
+          if (this.addOrEdit === 'edit') {
+            dwResetQuOptions(this.survey, this.index, (survey) => { this.survey = survey })
+            this.survey.questions[this.index].quFocusObj.quMoreOptionShowEdit = false
+          }
           if (this.addOrEdit === 'addCol') {
             for (let i=0; i<options.length; i++) {
               const quOption = {id: null, optionTitleObj: {dwHtml: options[i], dwText: options[i], dwPlaceholder: '请输入内容'}, itemClick: false, tempEmptyOption: false}
@@ -95,6 +98,7 @@ export default {
               quOption.dwId = uuidV4()
               this.dwAddQuItem(quOption)
             }
+            this.survey.questions[this.index].quFocusObj.quMoreOptionShow = false
           }
           // this.survey.curEditObj[this.itemIndex].itemClick = false
           this.moreOptionText = ''

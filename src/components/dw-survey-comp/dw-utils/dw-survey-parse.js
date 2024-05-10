@@ -161,15 +161,17 @@ export function parseQuestion (question, noModel) {
   // const inputAttr = {commonAttr, dateTimeAttr, numAttr}
   // if (!question.hasOwnProperty('quAttr')) question.quAttr = {isRequired: true, inputAttr}
   question.itemClick = false
-  question.quFocusObj = {
-    quFocus: false,
-    quSetShow: false,
-    quLogicShow: false,
-    quMoreOptionShow: false,
-    quMoreOptionShowEdit: false,
-    quScorePopoverShow: false,
-    quScaleTextPopoverShow: false,
-    quMoreOptionColShow: false
+  if (!question.hasOwnProperty('question')) {
+    question.quFocusObj = {
+      quFocus: false,
+      quSetShow: false,
+      quLogicShow: false,
+      quMoreOptionShow: false,
+      quMoreOptionShowEdit: false,
+      quScorePopoverShow: false,
+      quScaleTextPopoverShow: false,
+      quMoreOptionColShow: false
+    }
   }
 }
 

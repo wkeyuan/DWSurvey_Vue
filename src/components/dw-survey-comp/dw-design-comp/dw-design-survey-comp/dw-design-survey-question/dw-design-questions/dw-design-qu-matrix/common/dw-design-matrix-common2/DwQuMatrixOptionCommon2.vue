@@ -32,7 +32,7 @@
         </tr>
         <tr v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
           <td>
-            <div class="dw-display-flex" style="justify-content: space-between;color: grey;">
+            <div v-if="rowOption.hasOwnProperty('lr')" class="dw-display-flex" style="justify-content: space-between;color: grey;">
               <div>
                 <dw-row-option-common2-item ref="quCommonItemLeft" v-model="dragOptions" :survey="survey" :qu-index="index" :option-index="rowOptionIndex" :qu-type="quType" value-type="left" @refresh-options="refreshOptions" ></dw-row-option-common2-item>
               </div>

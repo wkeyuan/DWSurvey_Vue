@@ -34,7 +34,7 @@
                   </div>
                 </td>
               </tr>
-              <tr v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
+              <tr  v-if="rowOption.hasOwnProperty('lr')" v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
                 <td colspan="2">
                   <div class="dw-display-flex" style="justify-content: space-between;color: #858585;">
                     <div>
@@ -57,7 +57,7 @@
                     <tr>
                       <td><el-slider v-model="rowOption.sliderAnswerValue" :min="survey.questions[index].quAttr.sliderAttr.min" :max="survey.questions[index].quAttr.sliderAttr.max" :step="survey.questions[index].quAttr.sliderAttr.step" :disabled="survey.readonly" style="width: 100%;margin: 0;" @change="sliderChange(rowOptionIndex)"></el-slider></td>
                     </tr>
-                    <tr v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
+                    <tr v-if="rowOption.hasOwnProperty('lr')" v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
                       <td>
                         <div class="dw-display-flex" style="justify-content: space-between;color: #858585;">
                           <div>
