@@ -271,6 +271,8 @@ export default {
         } else if (questionData.quType === 'MULTIFILLBLANK') {
           questionData.quTypeName = '多项填空题'
           quOptionsObj = questionData.quMultiFillblanks
+        } else if (questionData.quType === 'MULTIFILLBLANK') {
+          questionData.quTypeName = '矩阵填空题'
         } else {
           questionData.quTypeName = questionData.quType
         }

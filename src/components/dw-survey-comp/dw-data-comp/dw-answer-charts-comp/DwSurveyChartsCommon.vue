@@ -5,9 +5,6 @@
       <span v-html="question.quTitle" ></span>
       <span>【{{ question.quTypeName }}】</span>
     </div>
-    <div v-if="question.quType === 'FILLBLANK' || question.quType === 'UPLOADFILE'" style="padding: 30px;">
-      填写回答：{{ question.anCount }} 份
-    </div>
     <div v-if="question.quType === 'RADIO' && question.quType === 'CHECKBOX' || question.quType === 'SCORE' || question.quType === 'ORDERQU' || question.quType === 'MULTIFILLBLANK' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'">
       <el-table
         :data="question.quStatOptions"
@@ -132,6 +129,9 @@
           </el-tab-pane>
         </el-tabs>
       </div>
+    </div>
+    <div v-else style="padding: 30px;">
+      填写回答：{{ question.anCount }} 份
     </div>
   </div>
 </template>
