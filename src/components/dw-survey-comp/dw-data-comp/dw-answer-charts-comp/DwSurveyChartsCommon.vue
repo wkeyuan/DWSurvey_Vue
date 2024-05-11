@@ -8,7 +8,7 @@
     <div v-if="question.quType === 'FILLBLANK' || question.quType === 'UPLOADFILE'" style="padding: 30px;">
       填写回答：{{ question.anCount }} 份
     </div>
-    <div v-if="question.quType !== 'FILLBLANK' && question.quType !== 'UPLOADFILE'">
+    <div v-if="question.quType === 'RADIO' && question.quType === 'CHECKBOX' || question.quType === 'SCORE' || question.quType === 'ORDERQU' || question.quType === 'MULTIFILLBLANK' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'">
       <el-table
         :data="question.quStatOptions"
         style="width: 100%">
@@ -17,7 +17,7 @@
           label="题目选项">
         </el-table-column>
         <el-table-column
-          :label="question.quType === 'SCORE' ? '占总分比例' : question.quType === 'ORDERQU' ? '排名占总名次比' : question.quType === 'MULTIFILLBLANK' ? '填写比例' : '频次比例'"
+          :label="question.quType === 'SCORE' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER' ? '占总分比例' : question.quType === 'ORDERQU' ? '排名占总名次比' : question.quType === 'MULTIFILLBLANK' ? '填写比例' : '频次比例'"
           width="330" >
           <template slot-scope="scope">
             <el-progress :text-inside="true" :stroke-width="26" :percentage="parseFloat(scope.row.percent)" text-color="white"></el-progress>
@@ -35,7 +35,7 @@
           label="平均分"
           width="130"
           align="center">
-          <template slot-scope="scope">平均 {{ scope.row.anCount }} 分</template>
+          <template slot-scope="scope">{{ scope.row.anCount }} 分</template>
         </el-table-column>
         <el-table-column
           v-if="question.quType === 'ORDERQU'"
@@ -51,7 +51,71 @@
           align="center">
           <template slot-scope="scope">{{ scope.row.anCount }} 次</template>
         </el-table-column>
+        <el-table-column
+          v-if="question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'"
+          label="平均分"
+          width="130"
+          align="center">
+          <template slot-scope="scope"> {{ scope.row.anCount }} 分</template>
+        </el-table-column>
+        <el-table-column
+          v-if="question.quType === 'MATRIX_RADIO' || question.quType === 'MATRIX_CHECKBOX'"
+          label="频次"
+          width="130"
+          align="center">
+          <template slot-scope="scope"> {{ scope.row.anCount }} 分</template>
+        </el-table-column>
       </el-table>
+      <div>
+        <el-tabs v-model="activeName" style="width: 100%;" @tab-click="handleClick" >
+          <el-tab-pane label="柱状图" name="bar">
+            <div ref="dwsChart_bar" class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="拆线图" name="line">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="拼状图" name="pie">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+          <el-tab-pane label="条形图" name="barY">
+            <div class="dwsurveyMain" style="width: 100%;height:400px;" ></div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </div>
+    <div v-else-if="question.quType === 'MATRIX_RADIO' || question.quType === 'MATRIX_CHECKBOX'">
+      <div v-for="quRow in question.quRows" :key="`matrix_chart_${quRow.dwId}`" >
+        <div>
+          <div style="padding: 5px 0;">
+            <div>
+              <div style="font-weight: bold;padding: 5px;background: #eee;">{{ quRow.optionTitleObj.dwText }}</div>
+            </div>
+            <div style="padding: 0 5px;">
+              <el-table
+                :data="quRow.rowCols"
+                style="width: 100%">
+                <el-table-column
+                  prop="dwText"
+                  label="题目选项">
+                </el-table-column>
+                <el-table-column
+                  :label="'频次比例'"
+                  width="330" >
+                  <template slot-scope="scope">
+                    <el-progress :text-inside="true" :stroke-width="26" :percentage="parseFloat(scope.row.percent)" text-color="white"></el-progress>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="频次"
+                  width="130"
+                  align="center">
+                  <template slot-scope="scope">{{ scope.row.anCount }} 次</template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
         <el-tabs v-model="activeName" style="width: 100%;" @tab-click="handleClick" >
           <el-tab-pane label="柱状图" name="bar">
