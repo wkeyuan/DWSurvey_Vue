@@ -43,7 +43,7 @@
 
 <script>
 
-import {routesAdminChildren} from '@/router/index'
+import {v6Route} from '../../../router/dw-v6-routes'
 
 export default {
   name: 'DwLrAsideMenu',
@@ -52,7 +52,7 @@ export default {
       isCollapse: false,
       isCollapseActive: false,
       defActive: '/v6/lr/dw/survey',
-      routesAdminChildren
+      routesAdminChildren: v6Route.routesAdminChildren
     }
   },
   watch: {
