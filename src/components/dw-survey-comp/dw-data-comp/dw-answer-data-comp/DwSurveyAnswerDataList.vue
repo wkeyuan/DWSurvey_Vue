@@ -230,7 +230,6 @@ export default {
         })
         this.currentPage = (maxTotal/this.pageSize)-1
       }
-      // this.pageSize, pageNo, this.$route.params.id
       console.debug('anTime:', this.formInline.anTime)
       console.debug('anIp:', this.formInline.ip)
       console.debug('anCity:', this.formInline.city)
@@ -241,7 +240,7 @@ export default {
         anTime.bgAnDate = formAnTime[0]
         anTime.endAnDate = formAnTime[1]
       }
-      const params = {surveyId: this.$route.params.id, pageNo: this.currentPage, bgAnDate: anTime.bgAnDate, endAnDate: anTime.endAnDate, ip: this.formInline.ip, city: this.formInline.city}
+      const params = {surveyId: this.$route.params.dwSurveyId, pageNo: this.currentPage, bgAnDate: anTime.bgAnDate, endAnDate: anTime.endAnDate, ip: this.formInline.ip, city: this.formInline.city}
       dwSurveyAnswerListV6(params).then((response) => {
         const page = response.data
         this.pageSize = page.pageSize
@@ -265,11 +264,8 @@ export default {
       this.isProgress = false
     },
     executeExportData () {
-      // const downUrl = `${process.env.DW_API_URL}${API.surveyAnswerExport}?surveyId=${this.$route.params.id}&expUpQu=${this.expUpQu}&handleState=${this.handleState}`
-      // this.dialogFormVisible = false
-      // window.location.href = downUrl
       this.isProgress = true
-      const params = {surveyId: this.$route.params.id, expUpQu: this.expUpQu, handleState: this.handleState, threadMax: this.threadMax, expDataContent: this.expDataContent}
+      const params = {surveyId: this.$route.params.dwSurveyId, expUpQu: this.expUpQu, handleState: this.handleState, threadMax: this.threadMax, expDataContent: this.expDataContent}
       dwSurveyAnswerExportSync(params).then((response) => {
         console.log('dwSurveyAnswerExportSync', response)
         const httpResult = response.data
@@ -320,7 +316,7 @@ export default {
     },
     downloadExportData () {
       const surveyAnswerExportDownload = `/api/dwsurvey/app/answer/export-log/download-answer-xls.do`
-      const downUrl = `${process.env.DW_API_URL}${surveyAnswerExportDownload}?surveyId=${this.$route.params.id}&exportLogId=${this.exportLogId}`
+      const downUrl = `${process.env.DW_API_URL}${surveyAnswerExportDownload}?surveyId=${this.$route.params.dwSurveyId}&exportLogId=${this.exportLogId}`
       console.log('downUrl', downUrl)
       window.location.href = downUrl
     },

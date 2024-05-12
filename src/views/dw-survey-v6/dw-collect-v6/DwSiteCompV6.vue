@@ -122,37 +122,45 @@ export default {
       }
       const webSiteElementCode = document.getElementById('dwsurveyWebAnswerCompCode')
       const webSiteElement = document.getElementById('dwsurveyWebSiteFixed')
-      webSiteElement.style.top = posHeight + 'px'
-      console.debug(webSiteElementCode.innerHTML)
-      this.siteCompCode = webSiteElementCode.innerHTML
+      if (webSiteElement!==null) {
+        webSiteElement.style.top = posHeight + 'px'
+        console.debug(webSiteElementCode.innerHTML)
+        this.siteCompCode = webSiteElementCode.innerHTML
+      }
     },
     handleLRButton (val) {
       console.debug(val)
       const webSiteElementCode = document.getElementById('dwsurveyWebAnswerCompCode')
       const webSiteElement = document.getElementById('dwsurveyWebSiteFixed')
-      if (val === '左边') {
-        webSiteElement.style.left = '0px'
-        webSiteElement.style.right = 'auto'
-      } else {
-        webSiteElement.style.left = 'auto'
-        webSiteElement.style.right = '0px'
+      if (webSiteElement!==null) {
+        if (val === '左边') {
+          webSiteElement.style.left = '0px'
+          webSiteElement.style.right = 'auto'
+        } else {
+          webSiteElement.style.left = 'auto'
+          webSiteElement.style.right = '0px'
+        }
+        console.debug(webSiteElementCode.innerHTML)
+        this.siteCompCode = webSiteElementCode.innerHTML
       }
-      console.debug(webSiteElementCode.innerHTML)
-      this.siteCompCode = webSiteElementCode.innerHTML
     },
     handleBgColor (color) {
       const webSiteElementCode = document.getElementById('dwsurveyWebAnswerCompCode')
       const webSiteElement = document.getElementById('dwsurveyWebSiteFixedA')
-      webSiteElement.style.backgroundColor = color
-      console.debug(webSiteElementCode.innerHTML)
-      this.siteCompCode = webSiteElementCode.innerHTML
+      if (webSiteElement!==null) {
+        webSiteElement.style.backgroundColor = color
+        console.debug(webSiteElementCode.innerHTML)
+        this.siteCompCode = webSiteElementCode.innerHTML
+      }
     },
     handleTextColor (color) {
       const webSiteElementCode = document.getElementById('dwsurveyWebAnswerCompCode')
       const webSiteElement = document.getElementById('dwsurveyWebSiteFixedA')
-      webSiteElement.style.color = color
-      console.debug(webSiteElementCode.innerHTML)
-      this.siteCompCode = webSiteElementCode.innerHTML
+      if (webSiteElement.hasAttribute('style')) {
+        webSiteElement.style.color = color
+        console.debug(webSiteElementCode.innerHTML)
+        this.siteCompCode = webSiteElementCode.innerHTML
+      }
     }
   }
 }
