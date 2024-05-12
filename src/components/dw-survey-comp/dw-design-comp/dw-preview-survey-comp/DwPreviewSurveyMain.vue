@@ -123,7 +123,7 @@ export default {
     }
   },
   mounted () {
-    this.answerProps.sid = this.$route.params.id
+    this.answerProps.sid = this.$route.params.dwSurveyId
     this.loadSurvey()
     // 左右布局
     dwFooterUtils.isLayoutLr((footerInfo) => { this.prevPath = '/v6/lr' })
@@ -133,7 +133,7 @@ export default {
       this.$router.push(to)
     },
     loadSurvey () {
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       const params = {surveyId}
       getDesignSurveyJsonBySurveyId(params, (survey) => {
         console.debug('design survey', survey)
@@ -162,11 +162,11 @@ export default {
       this.previewTypeClass = className
     },
     designSurvey () {
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       this.$router.push('/v6/diaowen/dw-design/survey/'+surveyId)
     },
     devSurvey () {
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       const params = {surveyId}
       dwDevSurvey(params).then((response) => {
         console.debug('response')

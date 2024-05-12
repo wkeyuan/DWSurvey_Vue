@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     loadSurvey () {
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       const params = {surveyId}
       getDesignSurveyJsonBySurveyId(params, (survey) => {
         console.debug('design survey', survey)

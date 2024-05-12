@@ -31,9 +31,9 @@
           mode="horizontal"
           @select="handleSelect">
           <el-menu-item :index="`${prevPath}/dw/survey`">我的问卷</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.id}`">数据统计</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.id}`">答卷收集</el-menu-item>
-          <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.id}`" >问卷设计</el-menu-item>
+          <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.dwSurveyId}`">数据统计</el-menu-item>
+          <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.dwSurveyId}`">答卷收集</el-menu-item>
+          <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.dwSurveyId}`" >问卷设计</el-menu-item>
         </el-menu>
       </div>
     </el-col>
@@ -58,7 +58,7 @@ export default {
       logoTitle: '调问网-全新问卷编辑器',
       logoTitleNote: '拖动或点击控件即可加入新题目，纯VUE全部重写，易于二开上手',
       switchValue: '上下',
-      defActive: `/v6/diaowen/dw-design/survey/${this.$route.params.id}`,
+      defActive: `/v6/diaowen/dw-design/survey/${this.$route.params.dwSurveyId}`,
       prevPath: '/v6'
     }
   },

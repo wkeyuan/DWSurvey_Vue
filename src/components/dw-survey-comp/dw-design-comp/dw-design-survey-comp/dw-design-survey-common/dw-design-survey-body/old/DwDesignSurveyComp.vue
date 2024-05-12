@@ -402,7 +402,7 @@ export default {
           this.questions = httpResult.data
         }
       })
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       const params = {surveyId}
       querySurveyAll(params).then((response) => {
         console.debug('querySurveyAll',response)
