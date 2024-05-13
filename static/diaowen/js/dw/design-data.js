@@ -348,7 +348,7 @@ function parseMfbk(item){
   $.each(quMultiFillblanks,function(i,item_2){
     quCoItemTable.append("<tr class='mFillblankTableTr'>"+quItemHtml+"</tr>");
     var itemLast=quCoItemTable.find("tr.mFillblankTableTr:last");
-    itemLast.find(".editAble").text(item_2.optionName);
+    itemLast.find(".editAble").html(item_2.optionName);
     var quItemInputCase = itemLast.find(".quItemInputCase");
     quItemInputCase.find("input[name='quItemId']").val(item_2.id);
   });
