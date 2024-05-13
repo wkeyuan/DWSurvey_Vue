@@ -196,6 +196,7 @@ export default {
       })
     },
     submitAnswer () {
+      // this.survey.dwDebug = true
       // const sid = this.$route.params.id
       if (validateQuestionsBool(this.survey.questions)) {
         if (this.extProps!==null && this.extProps!==undefined && this.extProps.hasOwnProperty('isPreview') && this.extProps.isPreview) {
@@ -212,6 +213,7 @@ export default {
       const answerId = getEsId(this.survey)
       const answer = getSurveyAnswerData(this.survey)
       answer.anPwd = this.anPwd
+      answer.answerCommon.sid = sid
       this.answer = answer
       console.debug('answer', answer)
       const surveyAnswerJsonText = JSON.stringify(answer)
@@ -294,7 +296,7 @@ export default {
 }
 .dw-survey-answer-body{
   /*min-height: 300px;*/
-  padding: 0 25px;
+  padding: 0 20px;
 }
 @media screen and (max-width: 750px) {
   .dw-survey-answer-body{

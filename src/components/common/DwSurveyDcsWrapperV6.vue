@@ -151,7 +151,7 @@ export default {
     },
     surveyStateChange () {
       console.debug(this.survey.surveyState)
-      dwSurveyUpState(this.$route.params.id, this.survey.surveyState).then((response) => {
+      dwSurveyUpState(this.$route.params.dwSurveyId, this.survey.surveyState).then((response) => {
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
           this.$message.success('问卷状态设置成功')
@@ -161,7 +161,7 @@ export default {
       })
     },
     getSurveyInfo () {
-      dwSurveyInfo(this.$route.params.id).then((response) => {
+      dwSurveyInfo(this.$route.params.dwSurveyId).then((response) => {
         const resultData = response.data.data
         this.survey = resultData
         this.survey.answerUrl = location.origin + '/#/diaowen/' + this.survey.sid

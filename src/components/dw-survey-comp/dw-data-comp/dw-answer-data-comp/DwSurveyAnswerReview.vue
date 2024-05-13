@@ -10,7 +10,7 @@
               </template>
               <el-descriptions-item>
                 <template slot="label"><i class="el-icon-key"></i>&nbsp;&nbsp;ID</template>
-                {{ dwEsSurveyAnswer.esId }}
+                {{ dwEsSurveyAnswer.answerCommon.sid }}/{{ dwEsSurveyAnswer.esId }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label"><i class="el-icon-user"></i>&nbsp;&nbsp;用户</template>
@@ -60,7 +60,7 @@ export default {
   data () {
     return {
       thDwEsSurveyAnswer: null,
-      answerProps: {sid: null, answerId: null, anPwd: ''} // surveyId 或 sid
+      answerProps: {surveyId: null, sid: null, answerId: null, anPwd: ''} // surveyId 或 sid
     }
   },
   mounted () {
@@ -69,7 +69,8 @@ export default {
       this.answerProps.answerId = this.$route.params.answerId
     } else {
       if (this.dwEsSurveyAnswer!==null) {
-        this.answerProps.sid = this.dwEsSurveyAnswer.answerCommon.surveyId
+        this.answerProps.surveyId = this.dwEsSurveyAnswer.answerCommon.surveyId
+        this.answerProps.sid = this.dwEsSurveyAnswer.answerCommon.sid
         this.answerProps.answerId = this.dwEsSurveyAnswer.esId
       }
     }

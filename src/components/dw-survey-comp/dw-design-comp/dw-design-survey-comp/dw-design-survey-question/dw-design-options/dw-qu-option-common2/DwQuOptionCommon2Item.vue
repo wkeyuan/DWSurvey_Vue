@@ -4,7 +4,7 @@
     <div class="dw-qu-item-body">
       <div class="dw-qu-item">
         <div class="dw-qu-item-el-checkbox-radio">
-          <el-badge :hidden="!(survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled)" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
+          <el-badge :hidden="!(survey.questions[quIndex].quAttr.scoreAttr.designShowScoreNum && survey.surveyAttrs.scoreAttr.enabled) || options[optionIndex].scoreNum===undefined" :value="`${options[optionIndex].scoreNum}分`" class="dw-el-badge-option-score" type="warning" >
             <i v-if="quType==='RADIO'" class="dw-qu-item-el-checkbox-radio-icon far fa-circle"></i>
             <i v-if="quType==='CHECKBOX'" class="dw-qu-item-el-checkbox-radio-icon far fa-square"></i>
           </el-badge>

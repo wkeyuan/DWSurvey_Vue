@@ -32,6 +32,7 @@
       <div
         :class="isCollapseActive ? 'mouseEnter' : 'mouseLeave'"
         class="dw-menu-collapse"
+        style="display:none;"
         @click="isCollapse = !isCollapse"
         @mouseenter="mouseEnterIsCollapse"
         @mouseleave="mouseLeaveIsCollapse">
@@ -43,16 +44,22 @@
 
 <script>
 
-import {routesAdminChildren} from '@/router/index'
+import {v6Route} from '../../../router/dw-v6-routes'
 
 export default {
   name: 'DwLrAsideMenu',
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
-      isCollapse: false,
+      // isCollapse: false,
       isCollapseActive: false,
       defActive: '/v6/lr/dw/survey',
-      routesAdminChildren
+      routesAdminChildren: v6Route.routesAdminChildren
     }
   },
   watch: {

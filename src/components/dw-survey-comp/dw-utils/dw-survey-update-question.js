@@ -1,6 +1,20 @@
 import {v4 as uuidv4} from 'uuid'
 import {parseQuestion} from './dw-survey-parse'
 
+export function dwSurveyQuAddMatrixColOption (survey, index, quOption) {
+  const quType = survey.questions[index].quType
+  if (quType === 'MATRIX_RADIO') {
+    const quOptions = survey.questions[index].quCols
+    quOptions.push(quOption)
+  } else if (quType === 'MATRIX_CHECKBOX') {
+    const quOptions = survey.questions[index].quCols
+    quOptions.push(quOption)
+  } else if (quType === 'MATRIX_INPUT') {
+    const quOptions = survey.questions[index].quCols
+    quOptions.push(quOption)
+  }
+  return survey
+}
 export function dwSurveyQuAddOption (survey, index, quOption) {
   /*
   // 从组件中抽取的原代码片段备注
@@ -39,6 +53,24 @@ export function dwSurveyQuAddOption (survey, index, quOption) {
     const quOptions = survey.questions[index].quMultiFillblanks
     quOptions.push(quOption)
     survey.questions[index].quMultiFillblanks = quOptions
+  } else if (quType === 'MATRIX_RADIO') {
+    const quOptions = survey.questions[index].quRows
+    quOptions.push(quOption)
+  } else if (quType === 'MATRIX_CHECKBOX') {
+    const quOptions = survey.questions[index].quRows
+    quOptions.push(quOption)
+  } else if (quType === 'MATRIX_INPUT') {
+    const quOptions = survey.questions[index].quRows
+    quOptions.push(quOption)
+  } else if (quType === 'MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+    const quOptions = survey.questions[index].quRows
+    if (quType==='MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+      quOption.lr = {
+        left: {optionTitleObj: {dwHtml: `极不可能`, dwText: `不可能`, dwPlaceholder: '请输入选项内容'}},
+        right: {optionTitleObj: {dwHtml: `极有可能`, dwText: `极有可能`, dwPlaceholder: '请输入选项内容'}}
+      }
+    }
+    quOptions.push(quOption)
   }
   // console.debug('question', survey.questions[index])
   parseQuestion(survey.questions[index], true)

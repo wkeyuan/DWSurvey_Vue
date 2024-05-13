@@ -1,7 +1,7 @@
 <template>
   <div class="dw-answer-custom-theme">
     <el-row>
-      <el-col v-if="(answerProps.sid!==undefined && answerProps.sid!==null)">
+      <el-col v-if="(answerProps.sid!==undefined && answerProps.sid!==null) || (answerProps.surveyId!==undefined && answerProps.surveyId!==null)">
         <dw-answer-survey-main :answer-props="answerProps" :ext-props="extProps"></dw-answer-survey-main>
       </el-col>
     </el-row>

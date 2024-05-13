@@ -199,7 +199,7 @@ export default {
     },
     previewSurvey () {
       this.saveSurveyFun(() => {
-        const surveyId = this.$route.params.id
+        const surveyId = this.$route.params.dwSurveyId
         // 进行数据合法性检查，主要是防止空的标题与选项
         this.$router.push('/v6/diaowen/dw-preview/survey/'+surveyId)
       })

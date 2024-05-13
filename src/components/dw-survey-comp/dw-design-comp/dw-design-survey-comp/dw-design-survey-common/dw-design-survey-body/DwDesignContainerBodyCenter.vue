@@ -58,7 +58,7 @@ import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
-import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
+import {buildMatrixOption, resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 import DwAddNewQuDialog
   from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue'
 
@@ -88,6 +88,14 @@ export default {
       drag: false
     }
   },
+  mounted () {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, true)
+  },
+  beforeDestroy () {
+    // 记得在组件销毁前移除事件监听器，以避免潜在的内存泄漏。 考虑提到全局
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     onAdd (attrs) {
       console.debug('onAdd attrs', attrs)
@@ -100,6 +108,7 @@ export default {
       this.survey.questions[newIndex].isNew = true
       resetQuestion(this.survey.questions[newIndex])
       // 还没选项的ID
+      buildMatrixOption(this.survey.questions[newIndex])
     },
     onStart () {
       this.drag = true
@@ -148,6 +157,13 @@ export default {
     },
     addNewQu () {
       this.$refs.dwAddNewQuDialog.openDialog()
+    },
+    handleResize () {
+      const windowWidth = window.innerWidth
+      if (this.survey.hasOwnProperty('clientBrowser')) {
+        this.survey.clientBrowser.windowWidth = windowWidth
+        this.survey.clientBrowser.matrixWidth = windowWidth*0.66 - 130
+      }
     }
   }
 }

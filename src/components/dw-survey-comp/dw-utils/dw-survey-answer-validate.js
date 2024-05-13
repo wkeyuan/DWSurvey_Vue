@@ -71,6 +71,16 @@ export function validateQuestion (question) {
           validateQuFbk(question)
         } else if (quType === 'UPLOADFILE') {
           validateQuUploadFile(question)
+        } else if (quType === 'MATRIX_RADIO') {
+          validateQuMatrixRadio(question)
+        } else if (quType === 'MATRIX_CHECKBOX') {
+          validateQuMatrixCheckbox(question)
+        } else if (quType === 'MATRIX_INPUT') {
+          validateQuMatrixInput(question)
+        } else if (quType === 'MATRIX_SCALE') {
+          validateQuMatrixScale(question)
+        } else if (quType === 'MATRIX_SLIDER') {
+          validateQuMatrixScale(question)
         }
       }
       if (question.validateObj.isOk) question.validateObj.isAnswerOk = true
@@ -333,6 +343,80 @@ function validateQuUploadFile (question) {
   let answerSize = 0
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anUploadFiles')) answerSize = question.anQuestion.anUploadFiles.length
   if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<=0) {
+    validateObj.errorText = '此题必答'
+    validateObj.isOk = false
+  }
+  question.validateObj = validateObj
+}
+
+/**
+ * 矩阵单选题验证
+ * @param question
+ */
+function validateQuMatrixRadio (question) {
+  const validateObj = question.validateObj
+  const quRows = question.quRows
+  let answerSize = 0
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMatrixRadios')) answerSize = question.anQuestion.anMatrixRadios.length
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quRows.length) {
+    validateObj.errorText = '此题必答'
+    validateObj.isOk = false
+  }
+  question.validateObj = validateObj
+}
+
+/**
+ * 矩阵多选题验证
+ * @param question
+ */
+function validateQuMatrixCheckbox (question) {
+  const validateObj = question.validateObj
+  const quRows = question.quRows
+  let answerSize = 0
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMatrixCheckboxes')) answerSize = question.anQuestion.anMatrixCheckboxes.length
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quRows.length) {
+    validateObj.errorText = '此题必答'
+    validateObj.isOk = false
+  }
+  question.validateObj = validateObj
+}
+
+/**
+ * 矩阵填空题验证
+ * @param question
+ */
+function validateQuMatrixInput (question) {
+  const validateObj = question.validateObj
+  let isAnswer = true
+  const quRows = question.quRows
+  quRows.map((rowOption, index) => {
+    const rowCols = rowOption.rowCols
+    rowCols.map((rowColOption, rowColIndex) => {
+      if (!rowColOption.tempEmptyOption) {
+        const answerValue = rowColOption.answerValue
+        if (answerValue===null || answerValue===undefined || answerValue==='') {
+          isAnswer = false
+        }
+      }
+    })
+  })
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && !isAnswer) {
+    validateObj.errorText = '此题必答'
+    validateObj.isOk = false
+  }
+  question.validateObj = validateObj
+}
+
+/**
+ * 矩阵量表题验证,矩阵滑块题验证
+ * @param question
+ */
+function validateQuMatrixScale (question) {
+  const validateObj = question.validateObj
+  const quRows = question.quRows
+  let answerSize = 0
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMatrixScales')) answerSize = question.anQuestion.anMatrixScales.length
+  if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quRows.length) {
     validateObj.errorText = '此题必答'
     validateObj.isOk = false
   }

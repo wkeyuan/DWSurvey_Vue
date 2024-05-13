@@ -9,7 +9,7 @@
             </el-col>
             <el-col :span="20">
               <div style="padding: 30px;">
-                <el-descriptions title="账号信息" column="1" border >
+                <el-descriptions :column="1" title="账号信息" border >
                   <el-descriptions-item label="账号">{{ userInfo.loginName }}</el-descriptions-item>
                   <el-descriptions-item label="状态">
                     <el-tag

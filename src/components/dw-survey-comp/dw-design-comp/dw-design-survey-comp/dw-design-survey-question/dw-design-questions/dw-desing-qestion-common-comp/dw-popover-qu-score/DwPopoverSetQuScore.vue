@@ -33,6 +33,20 @@
             </el-table>
           </div>
         </template>
+        <template v-if="survey.questions[index].quType === 'MATRIX_RADIO' || survey.questions[index].quType === 'MATRIX_CHECKBOX'">
+          <div>
+            <el-table
+              ref="singleTable"
+              :data="survey.questions[index].quCols.slice(1)" >
+              <el-table-column property="optionTitleObj.dwText" label="列标题" width="520"></el-table-column>
+              <el-table-column property="address" label="列分值" width="180">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.scoreNum" size="small" @change="inputNumberChange"></el-input-number>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </template>
       </div>
       <div style="text-align: right;padding: 5px;">
         <!--        <el-button type="text" size="small" style="margin-top:5px;" @click="cancelAddOptionEvent">取消</el-button>-->
@@ -123,6 +137,26 @@ export default {
         if (scoreAttr.hasOwnProperty('allRight') && scoreAttr.allRight.enabled) {
           quMaxScore = this.survey.questions[this.index].quAttr.scoreAttr.allRight.scoreNum
         }
+      } else if (quType==='MATRIX_RADIO') {
+        // 计算矩阵单选分数
+        const quCols = this.survey.questions[this.index].quCols
+        quCols.forEach((quRadio, optionIndex) => {
+          const optionScoreNum = quRadio.scoreNum
+          if (optionScoreNum!=null && optionScoreNum>0) {
+            if (quMaxScore<optionScoreNum) quMaxScore = optionScoreNum
+          }
+        })
+        quMaxScore = quMaxScore * this.survey.questions[this.index].quRows.length
+      } else if (quType==='MATRIX_CHECKBOX') {
+        // 计算矩阵单选分数
+        const quCols = this.survey.questions[this.index].quCols
+        quCols.forEach((quRadio, optionIndex) => {
+          const optionScoreNum = quRadio.scoreNum
+          if (optionScoreNum!=null && optionScoreNum>0) {
+            quMaxScore+= optionScoreNum
+          }
+        })
+        quMaxScore = quMaxScore * this.survey.questions[this.index].quRows.length
       }
       this.survey.questions[this.index].quAttr.scoreAttr.maxScore = quMaxScore
       // 2、计算问卷总分

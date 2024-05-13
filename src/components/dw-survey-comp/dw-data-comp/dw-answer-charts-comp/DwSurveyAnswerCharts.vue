@@ -26,14 +26,31 @@ export default {
     this.surveyState()
   },
   methods: {
+    initSurveyData () {
+      const questions = this.survey.questions
+      questions.map((question, index) => {
+        const quType = question.quType
+        if (quType === 'MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType==='MATRIX_INPUT') {
+          const quRows = question.quRows
+          const quCols = question.quCols
+          quRows.forEach((quOption, quOptionIndex) => {
+            const rowCols = []
+            quCols.forEach((quColOption) => {
+              rowCols.push({dwId: quColOption.dwId, answerValue: null})
+            })
+            quOption.rowCols = rowCols
+          })
+        }
+      })
+    },
     surveyState () {
-      const surveyId = this.$route.params.id
+      const surveyId = this.$route.params.dwSurveyId
       const params = {surveyId}
       getDesignSurveyJsonBySurveyId(params, (survey) => {
         console.debug('design survey', survey)
         this.survey = survey
         dwSurveyAnswerStatsV6(params).then((response) => {
-          console.debug('response', response)
+          console.debug('dwSurveyAnswerStatsV6 response', response)
           const responseResult = response.data
           this.surveyAggStats = responseResult.data
           const surveyAggMaps = this.surveyAggStats
@@ -114,6 +131,104 @@ export default {
                 }
               })
               // 计算每组数据的名次
+            } else if (quType === 'MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+              const quRows = question.quRows
+              quRows.map((option, index) => {
+                if (surveyAggMaps.hasOwnProperty('optionStats')) {
+                  const optionStats = surveyAggMaps.optionStats
+                  for (const key in optionStats) {
+                    if (optionStats.hasOwnProperty(key)) { // 确保属性是对象自身的而不是从原型链继承的
+                      const value = optionStats[key].statsAvg
+                      console.debug('value', value)
+                      if (option.dwId === key) {
+                        console.debug('option.dwId', option.dwId, key)
+                        option.avgScore = value
+                        break
+                      }
+                    }
+                  }
+                }
+              })
+            } else if (quType === 'MATRIX_RADIO') {
+              const quRows = question.quRows
+              const quCols = question.quCols
+              quRows.map((rowOption, index) => {
+                if (surveyAggMaps.hasOwnProperty('count_matrix_radio')) {
+                  const countMatrixRadio = surveyAggMaps.count_matrix_radio
+                  for (const rowKey in countMatrixRadio) {
+                    if (countMatrixRadio.hasOwnProperty(rowKey)) { // 确保属性是对象自身的而不是从原型链继承的
+                      const rowCountResult = countMatrixRadio[rowKey]
+                      const rowDocCount = rowCountResult.docCount
+                      console.debug('countMatrixRadio value', rowDocCount)
+                      if (rowOption.dwId === rowKey) {
+                        console.debug('countMatrixRadio option.dwId', rowOption.dwId, rowKey)
+                        rowOption.anCount = rowDocCount
+                        // 继续找这行对应的列
+                        const rowCols = [] // 需要给矩阵每列生成占位数据
+                        const rowAnAggMap = rowCountResult.rowAnAggMap
+                        if (rowAnAggMap != null) {
+                          quCols.forEach((quCol, rowColIndex) => {
+                            const colDwId = quCol.dwId
+                            if (!quCol.hasOwnProperty('tempEmptyOption') || (quCol.hasOwnProperty('tempEmptyOption') && !quCol.tempEmptyOption)) {
+                              const quRowCol = {dwText: quCol.optionTitleObj.dwText, dwId: colDwId, anCount: 0}
+                              for (const rowColKey in rowAnAggMap) {
+                                if (rowAnAggMap.hasOwnProperty(rowColKey)) {
+                                  const rowColDocCount = rowAnAggMap[rowColKey].docCount
+                                  if (colDwId===rowColKey) {
+                                    quRowCol.anCount = rowColDocCount
+                                  }
+                                }
+                              }
+                              rowCols.push(quRowCol)
+                            }
+                          })
+                        }
+                        rowOption.rowCols = rowCols
+                      }
+                    }
+                  }
+                }
+              })
+            } else if (quType === 'MATRIX_CHECKBOX') {
+              const quRows = question.quRows
+              const quCols = question.quCols
+              quRows.map((rowOption, index) => {
+                if (surveyAggMaps.hasOwnProperty('count_matrix_checkbox')) {
+                  const countMatrixCheckbox = surveyAggMaps.count_matrix_checkbox
+                  for (const rowKey in countMatrixCheckbox) {
+                    if (countMatrixCheckbox.hasOwnProperty(rowKey)) { // 确保属性是对象自身的而不是从原型链继承的
+                      const rowCountResult = countMatrixCheckbox[rowKey]
+                      const rowDocCount = rowCountResult.docCount
+                      console.debug('value', rowDocCount)
+                      if (rowOption.dwId === rowKey) {
+                        console.debug('option.dwId', rowOption.dwId, rowKey)
+                        rowOption.anCount = rowDocCount
+                        // 继续找这行对应的列
+                        const rowCols = [] // 需要给矩阵每列生成占位数据
+                        const rowAnAggMap = rowCountResult.rowAnAggMap
+                        if (rowAnAggMap != null) {
+                          quCols.forEach((quCol, rowColIndex) => {
+                            const colDwId = quCol.dwId
+                            if (!quCol.hasOwnProperty('tempEmptyOption') || (quCol.hasOwnProperty('tempEmptyOption') && !quCol.tempEmptyOption)) {
+                              const quRowCol = {dwText: quCol.optionTitleObj.dwText, dwId: colDwId, anCount: 0}
+                              for (const rowColKey in rowAnAggMap) {
+                                if (rowAnAggMap.hasOwnProperty(rowColKey)) {
+                                  const rowColDocCount = rowAnAggMap[rowColKey].docCount
+                                  if (colDwId===rowColKey) {
+                                    quRowCol.anCount = rowColDocCount
+                                  }
+                                }
+                              }
+                              rowCols.push(quRowCol)
+                            }
+                          })
+                        }
+                        rowOption.rowCols = rowCols
+                      }
+                    }
+                  }
+                }
+              })
             }
             if (surveyAggMaps.hasOwnProperty('countQu')) {
               const quAgg = surveyAggMaps.countQu
@@ -156,6 +271,8 @@ export default {
         } else if (questionData.quType === 'MULTIFILLBLANK') {
           questionData.quTypeName = '多项填空题'
           quOptionsObj = questionData.quMultiFillblanks
+        } else if (questionData.quType === 'MULTIFILLBLANK') {
+          questionData.quTypeName = '矩阵填空题'
         } else {
           questionData.quTypeName = questionData.quType
         }
@@ -210,6 +327,62 @@ export default {
             }
             quStatOptions.push(quStatOption)
           }
+        }
+        if (questionData.quType === 'MATRIX_SCALE') {
+          questionData.quTypeName = '矩阵量表题'
+        } else if (questionData.quType === 'MATRIX_SLIDER') {
+          questionData.quTypeName = '矩阵滑块题'
+        }
+        if (questionData.quType === 'MATRIX_SCALE' || questionData.quType === 'MATRIX_SLIDER') {
+          const quRows = questionData.quRows
+          for (let j=0; j < quRows.length; j++) {
+            const item = quRows[j]
+            let avgScore = 0
+            if (item.hasOwnProperty('avgScore')) avgScore = item.avgScore
+            if (avgScore === null || avgScore=== undefined) avgScore = 0
+            item.avgScore = avgScore
+            let max = 100
+            if (questionData.quType === 'MATRIX_SCALE') {
+              max = questionData.quAttr.scaleAttr.max
+            }
+            if (questionData.quType === 'MATRIX_SLIDER') {
+              max = questionData.quAttr.sliderAttr.max
+            }
+            const bfbFloat = avgScore/max*100
+            // console.debug('bfbFloat', bfbFloat)
+            const percent = bfbFloat.toFixed(2)
+            // 平均分 setAvgScore
+            const anAvgScore = avgScore.toFixed(2)
+            const quStatOption = {'optionName': item.optionTitleObj.dwText, 'anCount': anAvgScore, 'percent': percent}
+            quStatOptions.push(quStatOption)
+          }
+        } else if (questionData.quType === 'MATRIX_RADIO' || questionData.quType === 'MATRIX_CHECKBOX') {
+          if (questionData.quType === 'MATRIX_RADIO') {
+            questionData.quTypeName = '矩阵单选题'
+          } else if (questionData.quType === 'MATRIX_CHECKBOX') {
+            questionData.quTypeName = '矩阵多选题'
+          }
+          const quRows = questionData.quRows
+          for (let j=0; j < quRows.length; j++) {
+            const quRow = quRows[j]
+            let rowCount = 0
+            if (quRow.hasOwnProperty('anCount')) rowCount = quRow.anCount
+            if (rowCount === 0) rowCount = 1
+            const quRowCols = quRow.rowCols
+            for (let k=0; k < quRowCols.length; k++) {
+              const rowCol = quRowCols[k]
+              let anCount = 0
+              if (rowCol.hasOwnProperty('anCount')) anCount = rowCol.anCount
+              if (anCount === null || anCount=== undefined) anCount = 0
+              rowCol.anCount = anCount
+              const bfbFloat = rowCol.anCount / rowCount * 100
+              const percent = bfbFloat.toFixed(2)
+              rowCol.percent = percent
+              const quStatOption = {'optionName': quRow.optionTitleObj.dwText+'-'+rowCol.dwText, 'anCount': rowCol.anCount, 'percent': rowCol.percent}
+              quStatOptions.push(quStatOption)
+            }
+          }
+          // 每行一个统计数据
         }
         questions[i].quStatOptions = quStatOptions
       }
