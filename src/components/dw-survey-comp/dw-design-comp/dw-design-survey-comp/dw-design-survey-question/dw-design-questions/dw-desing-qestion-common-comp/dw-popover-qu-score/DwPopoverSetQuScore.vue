@@ -34,7 +34,7 @@
           </div>
         </template>
         <template v-if="survey.questions[index].quType === 'MATRIX_RADIO' || survey.questions[index].quType === 'MATRIX_CHECKBOX'">
-          <div>
+          <div v-if="survey.questions[index].quCols!==null">
             <el-table
               ref="singleTable"
               :data="survey.questions[index].quCols.slice(1)" >
