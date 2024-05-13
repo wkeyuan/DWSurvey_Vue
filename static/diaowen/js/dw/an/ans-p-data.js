@@ -409,7 +409,7 @@ function parseMfbk(item,pageNo){
   $.each(quMultiFillblanks,function(i,item_2){
     quCoItemTable.append(quItemHtml);
     var itemLast=quCoItemTable.find("tr.mFillblankTableTr:last");
-    itemLast.find(".editAble").text(item_2.optionName);
+    itemLast.find(".editAble").html(item_2.optionName);
     var dwMFillblankInput = itemLast.find(".dwMFillblankOptionId");
     dwMFillblankInput.val(item_2.id);
     var dwMFillblankInput = itemLast.find(".dwMFillblankInput");

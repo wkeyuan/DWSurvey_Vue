@@ -395,7 +395,7 @@ function parseMfbk(item,pageNo){
     quCoItemTable.append(quItemHtml);
     var itemLast=quCoItemTable.find(".mFillblankTableTr:last");
     var editAble = itemLast.find(".editAble")
-    editAble.text(item_2.optionName);
+    editAble.html(item_2.optionName);
     editAble.prop("for",dwMFillblankInputName+item_2.id);
     var dwMFillblankInput = itemLast.find(".dwMFillblankOptionId");
     dwMFillblankInput.val(item_2.id);
