@@ -29,7 +29,7 @@
                   </template>
                   <template v-else>
                     <div class="toolbars-draggable-group">
-                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" @click.stop="clickToolbarItem(item)" >
+                      <div v-for="(item, index) in item.questions" :key="`base${index}`" class="toolbar-item" style="cursor: pointer;" @click.stop="clickToolbarItem(item)" >
                         <dw-design-toolbar-question :item="item" ></dw-design-toolbar-question>
                       </div>
                     </div>
@@ -70,7 +70,7 @@
         </el-row>
       </div>
     </el-tab-pane>
-    <el-tab-pane label="外观预览" name="designStyle" ></el-tab-pane>
+    <!--    <el-tab-pane label="外观预览" name="designStyle" ></el-tab-pane>-->
   </el-tabs>
 </template>
 
@@ -124,6 +124,10 @@ export default {
     clickToolbarItem (item) {
       if (item.eventName!==undefined && item.eventName!==null) {
         // 处理对应的按钮事件
+        const eventName = item.eventName
+        if (eventName==='SurveyStyleEvent') {
+          this.previewSurvey()
+        }
       } else {
         item.isNew = true
         this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
