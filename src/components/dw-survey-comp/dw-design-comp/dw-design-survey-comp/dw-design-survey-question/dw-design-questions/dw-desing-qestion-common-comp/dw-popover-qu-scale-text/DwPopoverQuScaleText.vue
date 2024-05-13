@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "DwPopoverQuScaleText",
+  name: 'DwPopoverQuScaleText',
   model: {
     prop: 'survey',
     event: 'update-survey'

@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import DwAnswerQuMatrixOptionCommon1 from "../common/dw-answer-matrix-common1/DwAnswerQuMatrixOptionCommon1.vue";
+import DwAnswerQuMatrixOptionCommon1 from '../common/dw-answer-matrix-common1/DwAnswerQuMatrixOptionCommon1.vue'
 
 export default {
-  name: "DwAnswerQuMatrixRadio",
+  name: 'DwAnswerQuMatrixRadio',
   components: {DwAnswerQuMatrixOptionCommon1},
   model: {
     prop: 'survey',
