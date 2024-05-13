@@ -34,7 +34,7 @@
                   </div>
                 </td>
               </tr>
-              <tr  v-if="rowOption.hasOwnProperty('lr')" v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
+              <tr v-if="rowOption.hasOwnProperty('lr')" v-show="(survey.questions[index].quAttr.scaleAttr!==undefined && survey.questions[index].quAttr.scaleAttr.showLrText) || (survey.questions[index].quAttr.sliderAttr!==undefined && survey.questions[index].quAttr.sliderAttr.showLrText)" style="font-size: 13px;">
                 <td colspan="2">
                   <div class="dw-display-flex" style="justify-content: space-between;color: #858585;">
                     <div>
@@ -87,7 +87,7 @@ import {showReadNotify} from '../../../../../../dw-utils/dw-common/dw-msg-common
 import {answerQuEventCommon} from '../../../../../dw-utils/dw-survey-answer-common'
 import DwRowOptionCommon2Item
   from '../../../../../../dw-design-comp/dw-design-survey-comp/dw-design-survey-question/dw-design-questions/dw-design-qu-matrix/common/dw-design-matrix-common2/components/DwRowOptionCommon2Item.vue'
-import {generateNumbers} from "../../../../../../dw-utils/dw-common/dw-common-utils";
+import {generateNumbers} from '../../../../../../dw-utils/dw-common/dw-common-utils'
 
 export default {
   name: 'DwAnswerQuMatrixOptionCommon2',

@@ -35,13 +35,12 @@
 
 import DwColOptionCommon1 from './components/DwColOptionCommon1.vue'
 import DwRowOptionCommon1 from './components/DwRowOptionCommon1.vue'
-import {v4 as uuidV4} from "uuid";
+import {v4 as uuidV4} from 'uuid'
 import {
-  dwSurveyQuAddMatrixColOption,
-  dwSurveyQuAddOption
-} from "../../../../../../../dw-utils/dw-survey-update-question";
-import {resetOtherClickItem} from "../../../../../../../dw-utils/dw-survey-update-item-click";
-import DwPopoverMoreOptions from "../../../dw-desing-qestion-common-comp/DwPopoverMoreOptions.vue";
+  dwSurveyQuAddMatrixColOption
+} from '../../../../../../../dw-utils/dw-survey-update-question'
+import {resetOtherClickItem} from '../../../../../../../dw-utils/dw-survey-update-item-click'
+import DwPopoverMoreOptions from '../../../dw-desing-qestion-common-comp/DwPopoverMoreOptions.vue'
 
 export default {
   name: 'DwQuMatrixOptionCommon1',

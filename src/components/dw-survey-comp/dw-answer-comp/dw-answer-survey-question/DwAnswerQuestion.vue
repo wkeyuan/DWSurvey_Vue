@@ -59,13 +59,13 @@ import DwAnswerQuMFbk from './dw-answer-questions/dw-answer-qu-mfbk/DwAnswerQuMF
 import DwAnswerQuUpload from './dw-answer-questions/dw-answer-qu-upload/DwAnswerQuUpload.vue'
 import {quLogicIsHide} from '../dw-utils/dw-survey-answer-logic'
 import DwAnswerQuMatrixRadio
-  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-radio/DwAnswerQuMatrixRadio.vue";
+  from './dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-radio/DwAnswerQuMatrixRadio.vue'
 import DwAnswerQuMatrixCheckbox
-  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-checkbox/DwAnswerQuMatrixCheckbox.vue";
+  from './dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-checkbox/DwAnswerQuMatrixCheckbox.vue'
 import DwAnswerQuMatrixInput
-  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-fbk/DwAnswerQuMatrixInput.vue";
+  from './dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-fbk/DwAnswerQuMatrixInput.vue'
 import DwAnswerQuMatrixScale
-  from "./dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-scale/DwAnswerQuMatrixScale.vue";
+  from './dw-answer-questions/dw-answer-qu-matrix/dw-answer-qu-matrix-scale/DwAnswerQuMatrixScale.vue'
 
 export default {
   name: 'DwAnswerQuestion',

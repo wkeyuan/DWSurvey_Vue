@@ -13,7 +13,7 @@
               </td>
             </tr>
             <tr class="dw-el-radio-checkbox-tr">
-              <td v-for="(colOption, colIndex) in survey.questions[index].quCols" v-if="!colOption.tempEmptyOption" :key="`col_${colOption.dwId}`" class="matrix-title-td">
+              <td v-for="(colOption) in survey.questions[index].quCols" v-if="!colOption.tempEmptyOption" :key="`col_${colOption.dwId}`" class="matrix-title-td">
                 <dw-html-label-common ref="dwEditLabel" :value="colOption.optionTitleObj" ></dw-html-label-common>
               </td>
             </tr>
@@ -59,9 +59,9 @@
 
 <script>
 
-import DwHtmlLabelCommon from "../../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue";
-import {showReadNotify} from "../../../../../../dw-utils/dw-common/dw-msg-common";
-import {answerQuEventCommon} from "../../../../../dw-utils/dw-survey-answer-common";
+import DwHtmlLabelCommon from '../../../../../dw-answer-survey-common/DwHtmlLabelCommon.vue'
+import {showReadNotify} from '../../../../../../dw-utils/dw-common/dw-msg-common'
+import {answerQuEventCommon} from '../../../../../dw-utils/dw-survey-answer-common'
 
 export default {
   name: 'DwAnswerQuMatrixOptionCommon1',

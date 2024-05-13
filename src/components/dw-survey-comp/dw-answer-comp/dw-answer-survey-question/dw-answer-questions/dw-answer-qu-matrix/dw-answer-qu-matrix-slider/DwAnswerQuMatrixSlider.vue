@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import DwAnswerQuMatrixOptionCommon1 from "../common/dw-answer-matrix-common1/DwAnswerQuMatrixOptionCommon1.vue";
-import DwAnswerQuMatrixOptionCommon2 from "../common/dw-answer-matrix-common2/DwAnswerQuMatrixOptionCommon2.vue";
+import DwAnswerQuMatrixOptionCommon1 from '../common/dw-answer-matrix-common1/DwAnswerQuMatrixOptionCommon1.vue'
+import DwAnswerQuMatrixOptionCommon2 from '../common/dw-answer-matrix-common2/DwAnswerQuMatrixOptionCommon2.vue'
 
 export default {
-  name: "DwAnswerQuMatrixSlider",
+  name: 'DwAnswerQuMatrixSlider',
   components: {DwAnswerQuMatrixOptionCommon2, DwAnswerQuMatrixOptionCommon1},
   model: {
     prop: 'survey',

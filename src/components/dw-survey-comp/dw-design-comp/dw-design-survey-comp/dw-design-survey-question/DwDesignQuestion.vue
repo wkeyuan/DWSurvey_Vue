@@ -69,9 +69,9 @@ import DwDesignQuMatrixCheckbox
 import DwDesignQuMatrixFbk
   from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-fbk/DwDesignQuMatrixFbk.vue'
 import DwDesignQuMatrixScale
-  from "./dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-scale/DwDesignQuMatrixScale.vue";
+  from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-scale/DwDesignQuMatrixScale.vue'
 import DwDesignQuMatrixSlider
-  from "./dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-slider/DwDesignQuMatrixSlider.vue";
+  from './dw-design-questions/dw-design-qu-matrix/dw-design-qu-matrix-slider/DwDesignQuMatrixSlider.vue'
 
 export default {
   name: 'DwDesignQuestion',

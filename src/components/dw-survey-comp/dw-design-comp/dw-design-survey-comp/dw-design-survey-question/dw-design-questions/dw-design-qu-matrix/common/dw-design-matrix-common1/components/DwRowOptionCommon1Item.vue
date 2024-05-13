@@ -18,7 +18,7 @@
 
 <script>
 import DwTextEditLabel from '../../../../../../dw-design-survey-common/DwTextEditLabel.vue'
-import {v4 as uuidV4} from "uuid";
+import {v4 as uuidV4} from 'uuid'
 export default {
   name: 'DwRowOptionCommon1Item',
   components: {DwTextEditLabel},
