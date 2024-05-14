@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 0;">
     <div>
-      <div v-if="survey.questions[index].hasOwnProperty('quCols') && survey.questions[index].quCols!==null" style="overflow-x: scroll;width: 100%;display: block;">
+      <div v-if="survey.questions[index].hasOwnProperty('quCols') && survey.questions[index].quCols!==null && survey.questions[index].quCols.length>0" style="overflow-x: scroll;width: 100%;display: block;">
         <table>
           <thead>
             <tr>

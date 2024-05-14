@@ -308,15 +308,7 @@ export function initAnswerBySurvey (survey) {
       } else if (quType === 'CHECKBOX') {
         console.debug('answer CHECKBOX')
       } else if (quType === 'MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType==='MATRIX_INPUT') {
-        const quRows = question.quRows
-        const quCols = question.quCols
-        quRows.forEach((quOption, quOptionIndex) => {
-          const rowCols = []
-          quCols.forEach((quColOption) => {
-            rowCols.push({dwId: quColOption.dwId, checked: false, answerValue: null, tempEmptyOption: quColOption.tempEmptyOption})
-          })
-          quOption.rowCols = rowCols
-        })
+        buildMatrixQuRowCols(question)
       } else if (quType === 'MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
         const quRows = question.quRows
         quRows.forEach((quOption, quOptionIndex) => {
@@ -334,6 +326,18 @@ export function initAnswerBySurvey (survey) {
   // 初始化Page信息
   survey.pageAttr = {pageSize: surveyPageUtils.pageSize(survey), curPage: 1}
   survey.answerProgress = {totalAnQu: 0, completeAnQu: 0, percentage: 0}
+}
+
+export function buildMatrixQuRowCols (question) {
+  const quRows = question.quRows
+  const quCols = question.quCols
+  quRows.forEach((quOption, quOptionIndex) => {
+    const rowCols = []
+    quCols.forEach((quColOption) => {
+      rowCols.push({dwId: quColOption.dwId, checked: false, answerValue: null, tempEmptyOption: quColOption.tempEmptyOption})
+    })
+    quOption.rowCols = rowCols
+  })
 }
 
 function inputAttrInit (inputAttr) {
