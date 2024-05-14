@@ -1,5 +1,6 @@
 import {v4 as uuidv4} from 'uuid'
 import {getDefaultSurveyStyle} from './dw-common/dw-common-utils'
+import {buildMatrixQuRowCols} from './dw-survey-answer-data'
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -223,6 +224,11 @@ function getInputQuProps () {
   return inputAttr
 }
 
+/**
+ * 生成题目模板
+ * @param questions
+ * @returns {*}
+ */
 export function initQuestionModels (questions) {
   if (questions !== null && questions.length > 0) {
     // 循环然后定义以上内容
@@ -231,6 +237,8 @@ export function initQuestionModels (questions) {
       question.showQu = true
       question.logicIsHide = false
       addNewQuProps(question)
+      // 为矩阵题构建选项
+      buildMatrixOption(question)
     })
   }
   return questions
@@ -361,6 +369,10 @@ export function parseQuOptionType1Item (quOption) {
   if (!quOption.hasOwnProperty('scoreNum')) quOption.scoreNum = null
 }
 
+/**
+ * 重置题目所有Id, 包括内部选项ID
+ * @param question
+ */
 export function resetQuestion (question) {
   question.dwId = uuidv4()
   const quType = question.quType
@@ -374,11 +386,13 @@ export function resetQuestion (question) {
     resetQuOptionType1(question, question.quMultiFillblanks)
   } else if (quType === 'SCORE') {
     resetQuOptionType1(question, question.quScores)
+  } else if (quType === 'MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT' || quType==='MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
+    resetMatrixQuOptionType1(question, question.quRows, question.quCols)
   }
 }
 
 /**
- * 重置选项
+ * 重置选项的ID
  * @param question
  * @param quOptions
  */
@@ -391,6 +405,29 @@ function resetQuOptionType1 (question, quOptions) {
   }
 }
 
+/**
+ * 重置选项的ID，矩阵题的
+ * @param question
+ * @param quRows
+ * @param quCols
+ */
+function resetMatrixQuOptionType1 (question, quRows, quCols) {
+  if (quRows !==null && quRows.length>0) {
+    quRows.forEach((quRow, optionIndex) => {
+      quRow.dwId = uuidv4()
+    })
+  }
+  if (quCols !==null && quCols.length>0) {
+    quCols.forEach((quCol, optionIndex) => {
+      quCol.dwId = uuidv4()
+    })
+  }
+}
+
+/**
+ * 初始化工具栏组件模板时会调用
+ * @param question
+ */
 export function buildMatrixOption (question) {
   const quType = question.quType
   if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT' || quType==='MATRIX_SCALE' || quType === 'MATRIX_SLIDER') {
@@ -411,13 +448,14 @@ export function buildMatrixOption (question) {
   }
   if (quType==='MATRIX_RADIO' || quType === 'MATRIX_CHECKBOX' || quType === 'MATRIX_INPUT') {
     if (!question.hasOwnProperty('quCols') || question.quCols===null || question.quCols.length===0) {
-      const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, tempEmptyOption: true}] // tempEmptyOption 表示不是真实选项，用于显示列时保证列数多一列。
+      const quCols = [{dwId: uuidv4(), optionTitleObj: {dwHtml: '', dwText: '', dwPlaceholder: ''}, scoreNum: null, tempEmptyOption: true}] // tempEmptyOption 表示不是真实选项，用于显示列时保证列数多一列。
       for (let i=0; i<3; i++) {
         const quOption = {dwId: uuidv4(), optionTitleObj: {dwHtml: `列选项${i}`, dwText: `列选项${i}`, dwPlaceholder: '请输入选项内容'}, scoreNum: null, tempEmptyOption: false}
         quCols.push(quOption)
       }
       question.quCols = quCols
     }
+    buildMatrixQuRowCols(question)
   }
 }
 

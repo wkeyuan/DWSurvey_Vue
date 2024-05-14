@@ -58,7 +58,7 @@ import draggable from 'vuedraggable'
 import DwFooter from '../../../../../layouts/DwFooter'
 import DwDesignQuestionCommon from '../../dw-design-survey-question/DwDesignQuestionCommon.vue'
 import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update-question'
-import {buildMatrixOption, resetQuestion} from '../../../../dw-utils/dw-survey-parse'
+import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 import DwAddNewQuDialog
   from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue'
 
@@ -106,9 +106,8 @@ export default {
       this.refreshData(newIndex)
       // this.survey.questions[newIndex].quTitleObj.isNew = true // 新加入的不需要通过这个获得焦点，如果下面题目标记isNew 然后再初始化进行执行
       this.survey.questions[newIndex].isNew = true
+      // 还没选项的ID，不管有没有，全部需要重置
       resetQuestion(this.survey.questions[newIndex])
-      // 还没选项的ID
-      buildMatrixOption(this.survey.questions[newIndex])
     },
     onStart () {
       this.drag = true
