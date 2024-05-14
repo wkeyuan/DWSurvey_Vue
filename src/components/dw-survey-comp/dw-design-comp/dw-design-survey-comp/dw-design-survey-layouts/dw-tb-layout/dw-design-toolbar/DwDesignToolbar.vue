@@ -84,6 +84,7 @@ import DwDesignToolbarQuestion from './components/DwDesignToolbarQuestion.vue'
 import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
 import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
+import {caleDesignSurveySumScore} from '../../../../../dw-utils/dw-common/dw-survey-design-score'
 
 export default {
   name: 'DwDesignToolbar',
@@ -132,6 +133,8 @@ export default {
         item.isNew = true
         this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
         resetQuestion(this.survey.questions[this.survey.questions.length-1])
+        // 如果已经配置了分值则自动计算分数并显示
+        caleDesignSurveySumScore(this.survey, this.survey.questions.length-1)
       }
     },
     onStart () {

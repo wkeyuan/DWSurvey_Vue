@@ -61,7 +61,7 @@ import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update
 import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 import DwAddNewQuDialog
   from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue'
-import {caleDesignSurveySumScore} from "../../../../dw-utils/dw-common/dw-survey-design-score";
+import {caleDesignSurveySumScore} from '../../../../dw-utils/dw-common/dw-survey-design-score'
 
 export default {
   name: 'DwDesignContainerBodyCenter',

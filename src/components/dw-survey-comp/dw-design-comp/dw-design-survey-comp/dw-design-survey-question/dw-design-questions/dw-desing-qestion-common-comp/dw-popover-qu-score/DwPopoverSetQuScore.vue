@@ -61,7 +61,7 @@
 
 <script>
 
-import {caleDesignSurveySumScore} from "../../../../../../dw-utils/dw-common/dw-survey-design-score";
+import {caleDesignSurveySumScore} from '../../../../../../dw-utils/dw-common/dw-survey-design-score'
 
 export default {
   name: 'DwPopoverSetQuScore',
