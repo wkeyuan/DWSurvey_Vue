@@ -61,6 +61,8 @@
 
 <script>
 
+import {caleDesignSurveySumScore} from '../../../../../../dw-utils/dw-common/dw-survey-design-score'
+
 export default {
   name: 'DwPopoverSetQuScore',
   model: {
@@ -109,77 +111,7 @@ export default {
       // upAllItemClick(this.survey, itemClicks, (survey) => { this.survey = survey })
     },
     inputNumberChange () {
-      this.survey.questions[this.index].quAttr.scoreAttr.designShowScoreNum = true
-      // 调用计算总分方法
-      // 1、计算当前题总分
-      const question = this.survey.questions[this.index]
-      const quType = question.quType
-      let quMaxScore = 0
-      if (quType==='RADIO') {
-        // 计算单选分数
-        const quRadios = this.survey.questions[this.index].quRadios
-        quRadios.forEach((quRadio, optionIndex) => {
-          const optionScoreNum = quRadio.scoreNum
-          if (optionScoreNum!=null && optionScoreNum>0) {
-            if (quMaxScore<optionScoreNum) quMaxScore = optionScoreNum
-          }
-        })
-      } else if (quType==='CHECKBOX') {
-        // 计算多选分数
-        const quCheckboxs = this.survey.questions[this.index].quCheckboxs
-        quCheckboxs.forEach((quCheckbox, optionIndex) => {
-          const optionScoreNum = quCheckbox.scoreNum
-          if (optionScoreNum!=null && optionScoreNum>0) {
-            quMaxScore+= optionScoreNum
-          }
-        })
-        const scoreAttr = this.survey.questions[this.index].quAttr.scoreAttr
-        if (scoreAttr.hasOwnProperty('allRight') && scoreAttr.allRight.enabled) {
-          quMaxScore = this.survey.questions[this.index].quAttr.scoreAttr.allRight.scoreNum
-        }
-      } else if (quType==='MATRIX_RADIO') {
-        // 计算矩阵单选分数
-        const quCols = this.survey.questions[this.index].quCols
-        quCols.forEach((quRadio, optionIndex) => {
-          const optionScoreNum = quRadio.scoreNum
-          if (optionScoreNum!=null && optionScoreNum>0) {
-            if (quMaxScore<optionScoreNum) quMaxScore = optionScoreNum
-          }
-        })
-        quMaxScore = quMaxScore * this.survey.questions[this.index].quRows.length
-      } else if (quType==='MATRIX_CHECKBOX') {
-        // 计算矩阵单选分数
-        const quCols = this.survey.questions[this.index].quCols
-        quCols.forEach((quRadio, optionIndex) => {
-          const optionScoreNum = quRadio.scoreNum
-          if (optionScoreNum!=null && optionScoreNum>0) {
-            quMaxScore+= optionScoreNum
-          }
-        })
-        quMaxScore = quMaxScore * this.survey.questions[this.index].quRows.length
-      }
-      this.survey.questions[this.index].quAttr.scoreAttr.maxScore = quMaxScore
-      // 2、计算问卷总分
-      let surveyMaxScore = 0
-      const questions = this.survey.questions
-      questions.forEach((question, quIndex) => {
-        const thQuType = question.quType
-        if (thQuType==='SCORE') {
-          // 计分题 calcSumScore
-          const quScores = question.quScores
-          let quMaxScore = 0
-          quScores.forEach((quScore, optionIndex) => {
-            quMaxScore+= question.paramInt02
-          })
-          question.quAttr.scoreAttr.maxScore = quMaxScore
-          question.quAttr.scoreAttr.designShowScoreNum = true
-        }
-        if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('scoreAttr') && question.quAttr.scoreAttr.hasOwnProperty('maxScore')) {
-          surveyMaxScore+=question.quAttr.scoreAttr.maxScore
-        }
-      })
-      this.survey.surveyAttrs.scoreAttr.maxScore = surveyMaxScore
-      this.survey.surveyAttrs.scoreAttr.enabled = true
+      caleDesignSurveySumScore(this.survey, this.index)
     }
   }
 }

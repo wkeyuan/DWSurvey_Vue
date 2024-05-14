@@ -61,6 +61,7 @@ import {dwResetQuestionRefreshValue} from '../../../../dw-utils/dw-survey-update
 import {resetQuestion} from '../../../../dw-utils/dw-survey-parse'
 import DwAddNewQuDialog
   from '../../dw-design-survey-layouts/dw-tb-layout/dw-design-toolbar/components/DwAddNewQuDialog.vue'
+import {caleDesignSurveySumScore} from '../../../../dw-utils/dw-common/dw-survey-design-score'
 
 export default {
   name: 'DwDesignContainerBodyCenter',
@@ -108,6 +109,8 @@ export default {
       this.survey.questions[newIndex].isNew = true
       // 还没选项的ID，不管有没有，全部需要重置
       resetQuestion(this.survey.questions[newIndex])
+      // 如果已经配置了分值则自动计算分数并显示
+      caleDesignSurveySumScore(this.survey, newIndex)
     },
     onStart () {
       this.drag = true
