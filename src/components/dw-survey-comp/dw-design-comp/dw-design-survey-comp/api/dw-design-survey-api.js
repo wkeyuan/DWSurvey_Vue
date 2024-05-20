@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function questionComps () {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/toolbar-qus.do',
+    url: '/api/dwsurvey/app/v6/dw-design-survey/toolbar-qus.do',
     method: 'get'
   })
 }
@@ -22,7 +22,7 @@ export function querySurveyAll (params) {
  */
 export function surveyJsonDesignBySurveyId (params) {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/survey-json-by-survey-id.do',
+    url: '/api/dwsurvey/app/v6/dw-design-survey/survey-json-by-survey-id.do',
     method: 'get',
     params
   })
@@ -35,7 +35,7 @@ export function surveyJsonDesignBySurveyId (params) {
  */
 export function dwSaveSurveyJson (data) {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/save-survey-json.do',
+    url: '/api/dwsurvey/app/v6/dw-design-survey/save-survey-json.do',
     method: 'post',
     data
   })
@@ -43,7 +43,7 @@ export function dwSaveSurveyJson (data) {
 
 export function dwDevSurvey (params) {
   return request({
-    url: '/api/dwsurvey/app/dw-design-survey/dev-survey.do',
+    url: '/api/dwsurvey/app/v6/dw-design-survey/dev-survey.do',
     method: 'post',
     params
   })
