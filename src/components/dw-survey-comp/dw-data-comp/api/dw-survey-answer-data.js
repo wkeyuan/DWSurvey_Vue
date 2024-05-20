@@ -35,7 +35,7 @@ export function dwSurveyAnswerExportSync (params) {
  */
 export function dwSurveyAnswerExportLogInfo (params) {
   return request({
-    url: '/api/dwsurvey/app/answer/export-log/export-log-info.do',
+    url: '/api/dwsurvey/app/v6/answer/export-log/export-log-info.do',
     method: 'get',
     params
   })
