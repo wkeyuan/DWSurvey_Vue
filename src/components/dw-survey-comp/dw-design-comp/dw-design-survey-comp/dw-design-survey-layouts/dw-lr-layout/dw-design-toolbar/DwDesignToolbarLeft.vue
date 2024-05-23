@@ -1,18 +1,17 @@
 <template>
   <div v-loading="loading" v-if="tabs.length>0" >
-
+    <div style="padding-bottom: 5px;">
+      <el-alert title="点击或拖动可加入到问卷中" type="info" show-icon></el-alert>
+    </div>
     <el-collapse v-model="activeName" >
-      <el-collapse-item v-for="(tab, tabIndex) in tabs" :key="`quBank_${tabIndex}`" :title="tab.tabName" :name="tabIndex">
-        <div style="padding-bottom: 5px;">
-          <el-alert title="点击或拖动可加入到问卷中" type="info" show-icon></el-alert>
-        </div>
+      <el-collapse-item v-for="(tab, tabIndex) in tabs" :key="`quBank_${tabIndex}`" :title="tab.tabName" :name="tabIndex" >
         <template>
           <div v-for="(item, index) in tab.tabQus" v-if="item.questions.length>0" :key="`toolbar${index}`" class="tools_item">
-            <div>
-              <div class="toolbars-text" style="border-top: none;text-align: left;padding-left: 10px;">{{ item.tabQuName }}</div>
-            </div>
             <div class="quBanks">
               <template v-if="item.eventType === undefined || item.eventType === null">
+                <div>
+                  <div class="toolbars-text" style="border-top: none;text-align: left;padding-left: 10px;">{{ item.tabQuName }}</div>
+                </div>
                 <draggable
                   v-model="item.questions"
                   :group="{ name: 'questionGroup', pull: 'clone', put: false }"
@@ -33,11 +32,11 @@
                 </draggable>
               </template>
               <template v-else>
-                <div class="dw-list-group dw-grid">
+                <!--                <div class="dw-list-group dw-grid">
                   <div v-for="(item, index) in item.questions" :key="`base${index}`" class="dw-list-group-item" @click.stop="clickToolbarItem(item)" >
                     <dw-design-qu-bank-question :item="item" ></dw-design-qu-bank-question>
                   </div>
-                </div>
+                </div>-->
               </template>
             </div>
           </div>
@@ -85,7 +84,7 @@ export default {
       isAutoSave: true,
       autoSaveTime: 30,
       intervalSaveSurvey: null,
-      activeName: 0
+      activeName: [0, 1, 2, 3]
     }
   },
   mounted () {
