@@ -30,6 +30,7 @@ export function parseSurvey (survey) {
     if (!survey.hasOwnProperty('dwId')) survey.dwId = uuidv4()
     survey.showSurvey = true
     if (!survey.hasOwnProperty('surveyStyle')) survey.surveyStyle = getDefaultSurveyStyle()
+    if (!survey.hasOwnProperty('designLayout')) survey.designLayout = 'LR'
   }
   return survey
 }

@@ -15,7 +15,7 @@
 
               <div :style="containerBodyStyle" style="margin-top: 157px;margin-bottom: 0;" >
                 <div class="dw-container-body">
-                  <el-row :gutter="10">
+                  <el-row :gutter="10" style="margin: 0;">
                     <el-col :span="4">
                       <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
                         <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
