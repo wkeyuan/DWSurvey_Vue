@@ -23,18 +23,33 @@
       </div>
     </el-col>
     <el-col :span="9">
-      <div style="text-align: right;">
-        <el-menu
-          :default-active="defActive"
-          router
-          class="dw-design-survey-menu dw-menu-height"
-          mode="horizontal"
-          @select="handleSelect">
-          <el-menu-item :index="`${prevPath}/dw/survey`">我的问卷</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.dwSurveyId}`">数据统计</el-menu-item>
-          <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.dwSurveyId}`">答卷收集</el-menu-item>
-          <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.dwSurveyId}`" >问卷设计</el-menu-item>
-        </el-menu>
+      <div class="dw-display-flex" style="justify-content: flex-end;">
+        <div style="text-align: right;margin-right: 20px;">
+          <el-dropdown @command="handleCommand">
+            <span class="el-dropdown-link" style="color: #ff7510;">
+              <i v-if="survey.designLayout === 'LR'" class="fa-solid fa-table-columns"></i>
+              <i v-else class="fa-solid fa-laptop"></i>
+              切换布局<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="LR"> <i class="fa-solid fa-table-columns"></i> 左右新式布局</el-dropdown-item>
+              <el-dropdown-item command="TB"> <i class="fa-solid fa-laptop"></i> 上下经典布局</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div style="text-align: right;">
+          <el-menu
+            :default-active="defActive"
+            router
+            class="dw-design-survey-menu dw-menu-height"
+            mode="horizontal"
+            @select="handleSelect">
+            <el-menu-item :index="`${prevPath}/dw/survey`">我的问卷</el-menu-item>
+            <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.dwSurveyId}`">数据统计</el-menu-item>
+            <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.dwSurveyId}`">答卷收集</el-menu-item>
+            <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.dwSurveyId}`" >问卷设计</el-menu-item>
+          </el-menu>
+        </div>
       </div>
     </el-col>
   </el-row>
@@ -76,6 +91,15 @@ export default {
     },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
+    },
+    handleCommand (command) {
+      if (command==='TB') {
+        this.$message({message: '已经切换成"上下经典布局"', type: 'warning'})
+      } else {
+        this.$message({message: '已经切换成"左右新式布局"', type: 'warning'})
+      }
+      // if (!this.survey.hasOwnProperty('designLayout')) this.survey.designLayout = command
+      this.survey.designLayout = command
     }
   }
 }
@@ -133,5 +157,8 @@ export default {
   background: var(--dw-primary-bg-color-hover)!important;
   color: white;
   border-bottom: 2px solid var(--dw-primary-bg-color-hover)!important;
+}
+.dw-design-survey-menu .el-menu-item,.dw-design-survey-menu .el-menu--horizontal>.el-menu-item{
+  color: #d0cfcf;
 }
 </style>

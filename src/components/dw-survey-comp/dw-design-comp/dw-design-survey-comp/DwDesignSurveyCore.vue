@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <dw-design-top-bottom-layout v-model="survey"></dw-design-top-bottom-layout>
+  <div v-if="survey!=null" >
+    <div v-if="survey.hasOwnProperty('designLayout') && survey.designLayout === 'TB'">
+      <dw-design-top-bottom-layout v-model="survey"></dw-design-top-bottom-layout>
+    </div>
+    <div v-else>
+      <dw-design-left-right-layout v-model="survey"></dw-design-left-right-layout>
+    </div>
   </div>
 </template>
 
