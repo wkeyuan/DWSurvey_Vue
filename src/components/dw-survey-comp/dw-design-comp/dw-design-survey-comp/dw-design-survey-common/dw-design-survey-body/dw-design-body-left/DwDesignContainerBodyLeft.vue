@@ -2,10 +2,12 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane v-if="survey.hasOwnProperty('designLayout') && survey.designLayout === 'LR'" label="题型">
-        <dw-design-toolbar-left v-model="survey" ></dw-design-toolbar-left>
+        <div :style="`height:${lrContentHeight}px;`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
+          <dw-design-toolbar-left v-model="survey" ></dw-design-toolbar-left>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="大纲">
-        <div :style="contentStyle" style="overflow-y: scroll;">
+        <div :style="`height:${lrContentHeight}px;`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
           <!--          <el-collapse>
             <el-collapse-item title="第1页" name="1">
               <ul class="dw_left_ul">
@@ -42,10 +44,12 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="属性">
-        <div style="padding-bottom: 5px;">
-          <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
+        <div :style="`height:${lrContentHeight}px;`" class="scrollable-hidden scrollable-y">
+          <div style="padding-bottom: 5px;">
+            <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
+          </div>
+          <dw-design-survey-attrs v-model="survey" ></dw-design-survey-attrs>
         </div>
-        <dw-design-survey-attrs v-model="survey" ></dw-design-survey-attrs>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -57,8 +61,7 @@ import draggable from 'vuedraggable'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
 import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
-import DwDesignToolbarLeft
-  from '../../../dw-design-survey-layouts/dw-lr-layout/dw-design-toolbar/DwDesignToolbarLeft.vue'
+import DwDesignToolbarLeft from './components/DwDesignToolbarLeft.vue'
 
 export default {
   name: 'DwDesignContainerBodyLeft',
@@ -73,7 +76,8 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    lrContentHeight: {type: Number, default: () => {}}
   },
   data () {
     return {
@@ -82,7 +86,7 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.onScroll)
+    // window.addEventListener('scroll', this.onScroll)
   },
   methods: {
     onAdd (attrs) {

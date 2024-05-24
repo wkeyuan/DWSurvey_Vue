@@ -18,7 +18,7 @@
                   <el-row :gutter="10" style="margin: 0;">
                     <el-col :span="4">
                       <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
-                        <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
+                        <dw-design-container-body-left v-model="survey" :lr-content-height="lrContentHeight"></dw-design-container-body-left>
                       </div>
                     </el-col>
                     <el-col :span="16">
@@ -26,7 +26,7 @@
                     </el-col>
                     <el-col :span="4">
                       <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
-                        <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
+                        <dw-design-container-body-right v-model="survey" :lr-content-height="lrContentHeight" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
                       </div>
                     </el-col>
                   </el-row>
@@ -55,7 +55,6 @@ import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions
 import DwTextEditLabelCommon from '../../dw-design-survey-common/DwTextEditLabelCommon'
 import DwDesignHeader from './comp/DwDesignHeader'
 import DwDesignToolbar from './dw-design-toolbar/DwDesignToolbar.vue'
-import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
@@ -91,7 +90,7 @@ export default {
       drag: false,
       headerQuToolbarStyle: {top: 60, index: 200},
       containerLRStyle: {top: 0, index: 100},
-      lrContentHeight: '',
+      lrContentHeight: 157,
       containerBodyStyle: '',
       questions: [],
       radio: '1',
@@ -99,8 +98,8 @@ export default {
     }
   },
   mounted () {
-    this.loadDesignSurveyData()
     window.addEventListener('scroll', this.onScroll)
+    this.onScroll()
   },
   beforeDestroy () {
     // 记得在组件销毁前移除事件监听器，以避免潜在的内存泄漏。
@@ -136,27 +135,6 @@ export default {
       this.headerQuToolbarStyle.index = 100
       this.containerLRStyle.index = 200
     },
-    loadDesignSurveyData () {
-      questionComps().then((response) => {
-        console.debug('response')
-        console.debug(response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          this.questions = httpResult.data
-        }
-      })
-      /*
-      const surveyId = this.$route.params.id
-      const params = {surveyId}
-      querySurveyAll(params).then((response) => {
-        console.debug('querySurveyAll',response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          this.questions = httpResult.data
-        }
-      }) */
-      this.centerMarginTop()
-    },
     centerMarginTop () {
       let centerMarginTop = 157
       const windowInnerHeight = window.innerHeight
@@ -164,13 +142,14 @@ export default {
       this.containerBodyStyle = `margin-top:${centerMarginTop}px;`
       return centerMarginTop
     },
-    onScroll (position) {
+    onScroll () {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const headerHeight = 60
       const centerMarginTop = this.centerMarginTop()
+      const lrUnContentHeight = 60 // 60 是左右去掉非内容区域的高度
       if (scrollTop >= headerHeight) {
         const newTop1 = scrollTop - headerHeight
-        const lrHeight = window.innerHeight - (centerMarginTop) - 10
+        const lrHeight = window.innerHeight - (centerMarginTop) - lrUnContentHeight
         console.debug('lrHeight', lrHeight)
         this.headerQuToolbarStyle.top = '0px'
         this.containerLRStyle.top = `${newTop1}px`
@@ -178,7 +157,7 @@ export default {
       } else {
         const newTop = headerHeight - scrollTop
         console.debug('window.innerHeight', window.innerHeight)
-        const lrHeight = window.innerHeight - (centerMarginTop+newTop) - 10
+        const lrHeight = window.innerHeight - (centerMarginTop+newTop) - lrUnContentHeight
         this.headerQuToolbarStyle.top = `${newTop}px`
         this.containerLRStyle.top = `0px`
         // height:${lrHeight}px;
@@ -210,6 +189,6 @@ export default {
 
 .dw-container-body-lr{
   background-color: white;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 </style>

@@ -12,20 +12,20 @@
               <div id="tools_wrap" ref="toolsWrap" :style="`top:${headerQuToolbarStyle.top};z-index: ${headerQuToolbarStyle.index};`" >
                 <dw-design-toolbar-top v-model="survey" @start-drag="onStartToolbar" @end-drag="onEnd" ></dw-design-toolbar-top>
               </div>
-              <div :style="containerBodyStyle" style="margin-top: 110px;margin-bottom: 0;" >
+              <div style="margin-top: 50px;margin-bottom: 0;" >
                 <div class="dw-container-body">
                   <el-row :gutter="10" style="margin: 0;">
                     <el-col :span="4">
-                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr">
-                        <dw-design-container-body-left v-model="survey" ></dw-design-container-body-left>
+                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-left dw-container-body-lr dw-container-body-lr-flex">
+                        <dw-design-container-body-left v-model="survey" :lr-content-height="lrContentHeight"></dw-design-container-body-left>
                       </div>
                     </el-col>
-                    <el-col :span="16">
+                    <el-col :span="16" :offset="4">
                       <dw-design-container-body-center ref="designContainerBody" v-model="survey" @start-drag-container="onStartDragContainer" @end-drag="onEnd" ></dw-design-container-body-center>
                     </el-col>
                     <el-col :span="4">
-                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
-                        <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
+                      <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr dw-container-body-lr-flex">
+                        <dw-design-container-body-right v-model="survey" :lr-content-height="lrContentHeight" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
                       </div>
                     </el-col>
                   </el-row>
@@ -52,7 +52,6 @@ import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
 import DwTextEditLabelCommon from '../../dw-design-survey-common/DwTextEditLabelCommon'
-import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
@@ -91,17 +90,15 @@ export default {
       surveyId: '',
       drag: false,
       headerQuToolbarStyle: {top: 60, index: 200},
-      containerLRStyle: {top: 0, index: 100},
-      lrContentHeight: '',
-      containerBodyStyle: '',
-      questions: [],
+      containerLRStyle: {top: 110, index: 100},
+      lrContentHeight: 100,
       radio: '1',
       hover: false
     }
   },
   mounted () {
-    this.loadDesignSurveyData()
     window.addEventListener('scroll', this.onScroll)
+    this.onScroll()
   },
   methods: {
     onStart () {
@@ -133,53 +130,21 @@ export default {
       this.headerQuToolbarStyle.index = 100
       this.containerLRStyle.index = 200
     },
-    loadDesignSurveyData () {
-      questionComps().then((response) => {
-        console.debug('response')
-        console.debug(response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          this.questions = httpResult.data
-        }
-      })
-      /*
-      const surveyId = this.$route.params.id
-      const params = {surveyId}
-      querySurveyAll(params).then((response) => {
-        console.debug('querySurveyAll',response)
-        const httpResult = response.data
-        if (httpResult.resultCode === 200) {
-          this.questions = httpResult.data
-        }
-      }) */
-      this.centerMarginTop()
-    },
-    centerMarginTop () {
-      let centerMarginTop = 50
-      const windowInnerHeight = window.innerHeight
-      if (windowInnerHeight > 1280) centerMarginTop = 50
-      this.containerBodyStyle = `margin-top:${centerMarginTop}px;`
-      return centerMarginTop
-    },
-    onScroll (position) {
+    onScroll () {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const headerHeight = 60
-      const centerMarginTop = this.centerMarginTop()
+      const centerMarginTop = 50
+      const lrUnContentHeight = 60 // 60 是左右去掉非内容区域的高度
       if (scrollTop >= headerHeight) {
-        const newTop1 = scrollTop - headerHeight
-        const lrHeight = window.innerHeight - (centerMarginTop) - 10
-        console.debug('lrHeight', lrHeight)
         this.headerQuToolbarStyle.top = '0px'
-        this.containerLRStyle.top = `${newTop1}px`
-        this.lrContentHeight = lrHeight
+        this.containerLRStyle.top = `${centerMarginTop}px`
+        this.lrContentHeight = window.innerHeight - centerMarginTop - lrUnContentHeight
       } else {
         const newTop = headerHeight - scrollTop
-        console.debug('window.innerHeight', window.innerHeight)
-        const lrHeight = window.innerHeight - (centerMarginTop+newTop) - 10
         this.headerQuToolbarStyle.top = `${newTop}px`
-        this.containerLRStyle.top = `0px`
-        // height:${lrHeight}px;
-        this.lrContentHeight = lrHeight
+        const newTop2 = centerMarginTop + newTop
+        this.containerLRStyle.top = `${newTop2}px`
+        this.lrContentHeight = window.innerHeight - newTop2 - lrUnContentHeight
       }
     },
     documentClick () {
@@ -206,10 +171,25 @@ export default {
 
 .dw-container-body-lr{
   background-color: white;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 
 /deep/ #tools_wrap{
   background: white!important;
 }
+.dw-container-body-lr-flex{
+  position: fixed;
+  z-index: 20;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  top: 110px;
+  width: inherit;
+  height: 100vh;
+}
+.dw-container-body-center-left{
+  left: 0;
+}
+.dw-container-body-center-right{
+  right: 0;
+}
+
 </style>
