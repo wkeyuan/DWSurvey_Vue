@@ -49,15 +49,15 @@
 
 <script>
 
-import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api'
+import {dwSaveSurveyJson, questionComps} from '../../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {initQuestionModels, parseQuestions, resetQuestion} from '../../../../../dw-utils/dw-survey-parse'
-import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
-import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
-import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
-import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
+import {initQuestionModels, parseQuestions, resetQuestion} from '../../../../../../dw-utils/dw-survey-parse'
+import DwDesignQuestion from '../../../../dw-design-survey-question/DwDesignQuestion.vue'
+import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../../dw-utils/dw-survey-design'
+import DwAnswerQuestion from '../../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
+import {dwResetQuestionRefreshValue} from '../../../../../../dw-utils/dw-survey-update-question'
 import DwDesignQuBankQuestion
-  from '../../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/components/DwDesignQuBankQuestion.vue'
+  from '../../../../dw-design-survey-common/dw-design-survey-body/dw-design-body-right/components/DwDesignQuBankQuestion.vue'
 
 export default {
   name: 'DwDesignToolbarLeft',
@@ -205,8 +205,8 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
-@import '../../../../../../../assets/css/design-survey.css';
+@import '../../../../../../../../assets/css/font-dwsurvey-1.4/iconfont.css';
+@import '../../../../../../../../assets/css/design-survey.css';
 
 .dragClass{
   border: none;

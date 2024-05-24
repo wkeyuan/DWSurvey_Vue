@@ -1,5 +1,5 @@
 import {surveyPageUtils} from './dw-survey-common'
-import {getQuestionAnswerData} from "./dw-survey-answer";
+import {getQuestionAnswerData} from './dw-survey-answer'
 
 export function parseAnswerData (survey, answer) {
   survey.dwEsSurveyAnswer = answer

@@ -57,8 +57,7 @@ import draggable from 'vuedraggable'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
 import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
-import DwDesignToolbarLeft
-  from '../../../dw-design-survey-layouts/dw-lr-layout/dw-design-toolbar/DwDesignToolbarLeft.vue'
+import DwDesignToolbarLeft from './components/DwDesignToolbarLeft.vue'
 
 export default {
   name: 'DwDesignContainerBodyLeft',
