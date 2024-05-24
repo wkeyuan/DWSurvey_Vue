@@ -2,12 +2,12 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane v-if="survey.hasOwnProperty('designLayout') && survey.designLayout === 'LR'" label="题型">
-        <div :style="contentStyle" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
+        <div :style="`height: ${lrContentHeight}px`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
           <dw-design-toolbar-left v-model="survey" ></dw-design-toolbar-left>
         </div>
       </el-tab-pane>
       <el-tab-pane label="大纲">
-        <div :style="contentStyle" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
+        <div :style="`height: ${lrContentHeight}px`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
           <!--          <el-collapse>
             <el-collapse-item title="第1页" name="1">
               <ul class="dw_left_ul">
@@ -44,7 +44,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="属性">
-        <div :style="contentStyle" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
+        <div :style="`height: ${lrContentHeight}px`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
           <div style="padding-bottom: 5px;">
             <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
           </div>
@@ -76,7 +76,8 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    lrContentHeight: {type: Number, default: () => {}}
   },
   data () {
     return {
