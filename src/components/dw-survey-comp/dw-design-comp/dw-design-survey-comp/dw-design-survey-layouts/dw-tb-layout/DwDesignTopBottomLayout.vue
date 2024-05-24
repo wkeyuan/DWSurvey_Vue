@@ -55,7 +55,6 @@ import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions
 import DwTextEditLabelCommon from '../../dw-design-survey-common/DwTextEditLabelCommon'
 import DwDesignHeader from './comp/DwDesignHeader'
 import DwDesignToolbar from './dw-design-toolbar/DwDesignToolbar.vue'
-import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'
