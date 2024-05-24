@@ -2,7 +2,9 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="题库">
-        <dw-design-qu-banks v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-qu-banks>
+        <div :style="`height:${lrContentHeight}px;`" class="scrollable-hidden scrollable-y">
+          <dw-design-qu-banks v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-qu-banks>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -19,7 +21,8 @@ export default {
     event: 'update-survey'
   },
   props: {
-    survey: {type: Object, default: () => {}}
+    survey: {type: Object, default: () => {}},
+    lrContentHeight: {type: Number, default: () => {}}
   },
   methods: {
     onStartRight () {
