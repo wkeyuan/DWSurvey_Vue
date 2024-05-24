@@ -26,7 +26,7 @@
                     </el-col>
                     <el-col :span="4">
                       <div :style="`top:${containerLRStyle.top};z-index: ${containerLRStyle.index};`" class="dw-container-body-center-right dw-container-body-lr">
-                        <dw-design-container-body-right v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
+                        <dw-design-container-body-right v-model="survey" :lr-content-height="lrContentHeight" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-container-body-right>
                       </div>
                     </el-col>
                   </el-row>
