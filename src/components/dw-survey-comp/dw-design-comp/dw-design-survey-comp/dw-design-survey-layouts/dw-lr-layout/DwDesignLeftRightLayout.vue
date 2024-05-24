@@ -52,7 +52,6 @@ import DwDesignQuestion from '../../dw-design-survey-question/DwDesignQuestion'
 import DwTextEditLabel from '../../dw-design-survey-common/DwTextEditLabel'
 import DwDesignQuRadio from '../../dw-design-survey-question/dw-design-questions/dw-design-qu-radio/DwDesignQuRadio'
 import DwTextEditLabelCommon from '../../dw-design-survey-common/DwTextEditLabelCommon'
-import {questionComps} from '../../api/dw-design-survey-api'
 import DwDesignContainerBodyCenter
   from '../../dw-design-survey-common/dw-design-survey-body/DwDesignContainerBodyCenter'
 import DwDesignContainerBodyLeft from '../../dw-design-survey-common/dw-design-survey-body/dw-design-body-left/DwDesignContainerBodyLeft.vue'

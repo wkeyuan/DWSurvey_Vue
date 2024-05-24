@@ -26,7 +26,7 @@
 import {dwSaveSurveyJson} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
 import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
-import {dwFooterUtils} from "../../../../../dw-utils/dw-common/dw-footer-util";
+import {dwFooterUtils} from '../../../../../dw-utils/dw-common/dw-footer-util'
 
 export default {
   name: 'DwDesignToolbarTop',
@@ -88,7 +88,7 @@ export default {
     },
     setSurvey () {
       this.stopIntervalSaveSurvey()
-      this.saveSurveyFun( () => {
+      this.saveSurveyFun(() => {
         // /v6/lr/dw/survey/c/attr/ec61389d-ac9f-4824-b272-c403b4119554
         const surveyId = this.$route.params.dwSurveyId
         this.$router.push(this.prevPath+'/dw/survey/c/attr/'+surveyId)
