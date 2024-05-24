@@ -2,7 +2,7 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="题库">
-        <div :style="`height:${lrContentHeight}px;`">
+        <div :style="`height:${lrContentHeight}px;`" class="scrollable-hidden scrollable-y">
           <dw-design-qu-banks v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-qu-banks>
         </div>
       </el-tab-pane>
