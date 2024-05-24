@@ -172,6 +172,8 @@ export default {
         this.headerQuToolbarStyle.top = '0px'
         this.containerLRStyle.top = `${newTop1}px`
         this.lrContentHeight = lrHeight
+        const newTop2 = 50
+        this.containerLRStyle.top = `${newTop2}px`
       } else {
         const newTop = headerHeight - scrollTop
         console.debug('window.innerHeight', window.innerHeight)
@@ -180,6 +182,8 @@ export default {
         this.containerLRStyle.top = `0px`
         // height:${lrHeight}px;
         this.lrContentHeight = lrHeight
+        const newTop2 = 50 + newTop
+        this.containerLRStyle.top = `${newTop2}px`
       }
     },
     documentClick () {
@@ -211,5 +215,9 @@ export default {
 
 /deep/ #tools_wrap{
   background: white!important;
+}
+.dw-container-body-lr{
+  position: fixed;
+  top: 108px;
 }
 </style>

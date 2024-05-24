@@ -132,3 +132,15 @@
 .logo a{
   text-decoration: none;
 }
+/* 隐藏滚动条 */
+.scrollable-hidden {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* 启用滚动 */
+.scrollable-y {
+  overflow-y: scroll; /* 对于垂直滚动 */
+}
+.scrollable-x {
+  overflow-x: scroll; /* 对于垂直滚动 */
+}
