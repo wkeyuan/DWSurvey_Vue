@@ -1,4 +1,5 @@
 import {surveyPageUtils} from './dw-survey-common'
+import {getQuestionAnswerData} from './dw-survey-answer'
 
 export function parseAnswerData (survey, answer) {
   survey.dwEsSurveyAnswer = answer
@@ -301,6 +302,7 @@ export function initAnswerBySurvey (survey) {
         if (checkType==='TIME' && inputAttr.dateTimeAttr.attrs.includes('range')) question.answer = {startTime: null, endTime: null}
         const defaultValue = commonAttr.defaultValue
         if (defaultValue!==null && defaultValue!=='') question.answer = defaultValue
+        getQuestionAnswerData(question)
       } else if (quType === 'MULTIFILLBLANK') {
         console.debug('answer MULTIFILLBLANK')
       } else if (quType === 'RADIO') {

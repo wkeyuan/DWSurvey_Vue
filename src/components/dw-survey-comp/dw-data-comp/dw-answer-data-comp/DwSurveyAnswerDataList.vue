@@ -315,7 +315,7 @@ export default {
       })
     },
     downloadExportData () {
-      const surveyAnswerExportDownload = `/api/dwsurvey/app/answer/export-log/download-answer-xls.do`
+      const surveyAnswerExportDownload = `/api/dwsurvey/app/v6/answer/export-log/download-answer-xls.do`
       const downUrl = `${process.env.DW_API_URL}${surveyAnswerExportDownload}?surveyId=${this.$route.params.dwSurveyId}&exportLogId=${this.exportLogId}`
       console.log('downUrl', downUrl)
       window.location.href = downUrl
