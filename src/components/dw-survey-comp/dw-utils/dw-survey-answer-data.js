@@ -333,13 +333,15 @@ export function initAnswerBySurvey (survey) {
 export function buildMatrixQuRowCols (question) {
   const quRows = question.quRows
   const quCols = question.quCols
-  quRows.forEach((quOption, quOptionIndex) => {
-    const rowCols = []
-    quCols.forEach((quColOption) => {
-      rowCols.push({dwId: quColOption.dwId, checked: false, answerValue: null, tempEmptyOption: quColOption.tempEmptyOption})
+  if ((quRows!==null && quRows !==undefined && quRows.length>0) && (quCols!==null && quCols!==undefined && quCols.length>0)) {
+    quRows.forEach((quOption, quOptionIndex) => {
+      const rowCols = []
+      quCols.forEach((quColOption) => {
+        rowCols.push({dwId: quColOption.dwId, checked: false, answerValue: null, tempEmptyOption: quColOption.tempEmptyOption})
+      })
+      quOption.rowCols = rowCols
     })
-    quOption.rowCols = rowCols
-  })
+  }
 }
 
 function inputAttrInit (inputAttr) {
