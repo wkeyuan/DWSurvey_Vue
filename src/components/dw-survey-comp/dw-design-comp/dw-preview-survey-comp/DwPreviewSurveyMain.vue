@@ -23,7 +23,7 @@
 
     <el-container style="height: calc(100vh);">
       <el-aside style="width: 300px;border-right: 1px solid rgb(230 228 228);">
-        <div :style="`top: ${containerTop}px;`" style="position: fixed;width: 300px;">
+        <div :style="`top: ${containerTop.lrFixedTop}px;`" style="position: fixed;width: 300px;">
           <div v-if="survey!==null" class="dw-preview-left-aside" >
             <dw-survey-style-design-aside v-model="survey"></dw-survey-style-design-aside>
           </div>
@@ -35,7 +35,7 @@
           <div v-show="previewTypeClass === 'dw-preview-pc'" class="dw-preview-main" >
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-pc">
-                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop.centerMarginTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -50,7 +50,7 @@
           <div v-show="previewTypeClass === 'dw-preview-pad'" class="dw-preview-main">
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-pad">
-                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop.centerMarginTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -65,7 +65,7 @@
           <div v-show="previewTypeClass === 'dw-preview-phone'" class="dw-preview-main">
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-phone">
-                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop.centerMarginTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '861px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -122,7 +122,10 @@ export default {
       },
       answerProps: {sid: null, answerId: null, anPwd: null},
       prevPath: '/v6',
-      containerTop: 40
+      containerTop: {
+        lrFixedTop: 40,
+        centerMarginTop: 40
+      }
     }
   },
   watch: {
