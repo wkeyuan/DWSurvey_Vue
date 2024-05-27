@@ -39,7 +39,7 @@
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
-                      <dw-answer-default-layout v-model="survey" :ext-props="{isPreview: true}" ></dw-answer-default-layout>
+                      <dw-answer-default-layout v-model="survey" :ext-props="{anBodyStyle: {minHeight: 'calc(100vh - 40px)',height: 'auto'}, isPreview: true}" ></dw-answer-default-layout>
                     </div>
                   </div>
                 </div>
@@ -269,12 +269,12 @@ export default {
   /*padding-top: 38px;*/
 }
 .dw-preview-answer-survey-container .dw-preview-pc{
-  height: calc(100vh);
+  /*height: calc(100vh);*/
   overflow: scroll;
   margin: 0 auto;
 }
 .dw-preview-pc .dw-preview-body{
-  /*height: calc(100vh - 40px);*/
+  height: calc(100vh - 40px);
   padding: 0;
 }
 /*
@@ -310,7 +310,7 @@ export default {
 */
 
 .dw-preview-answer-survey-container .dw-preview-pad{
-
+  padding-top: 10px;
 }
 .dw-preview-pad .dw-preview-body{
   width: 910px;
@@ -323,7 +323,7 @@ export default {
   padding: 0;
 }
 .dw-preview-answer-survey-container .dw-preview-phone{
-
+  padding-top: 10px;
 }
 .dw-preview-phone .dw-preview-body{
   width: 418px;
