@@ -13,7 +13,7 @@
       <div class="dw-preview-header-right">
         <div class="dw-display-flex-right">
           <el-button type="primary" size="small" @click="devSurvey">确认发布</el-button>
-          <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>
+          <!--          <el-button type="primary" plain size="small" @click="saveSurvey">保存修改</el-button>-->
           <el-button type="primary" plain size="small" @click="designSurvey">返回编辑</el-button>
           <el-button size="small" @click="handlePush(`${prevPath}/dw/survey/c/url/${survey.id}`)">答卷地址</el-button>
           <el-button size="small" @click="handlePush(prevPath)">返回列表</el-button>
@@ -23,8 +23,10 @@
 
     <el-container style="height: calc(100vh);">
       <el-aside style="width: 300px;border-right: 1px solid rgb(230 228 228);">
-        <div v-if="survey!==null" class="dw-preview-left-aside" >
-          <dw-survey-style-design-aside v-model="survey"></dw-survey-style-design-aside>
+        <div :style="`top: ${containerTop}px;`" style="position: fixed;width: 300px;">
+          <div v-if="survey!==null" class="dw-preview-left-aside" >
+            <dw-survey-style-design-aside v-model="survey"></dw-survey-style-design-aside>
+          </div>
         </div>
       </el-aside>
 
@@ -33,7 +35,7 @@
           <div v-show="previewTypeClass === 'dw-preview-pc'" class="dw-preview-main" >
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-pc">
-                <div class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -48,7 +50,7 @@
           <div v-show="previewTypeClass === 'dw-preview-pad'" class="dw-preview-main">
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-pad">
-                <div class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '630px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -63,7 +65,7 @@
           <div v-show="previewTypeClass === 'dw-preview-phone'" class="dw-preview-main">
             <div class="dw-preview-answer-survey-container">
               <div class="dw-preview-phone">
-                <div class="dw-preview-body">
+                <div :style="`margin-top: ${containerTop}px;`" class="dw-preview-body">
                   <div>
                     <!--                    <dw-answer-survey :answer-props="answerProps" :ext-props="{anBodySpan: padPhoneAnBodySpan, anBodyStyle: {minHeight: '861px',height: 'auto'}, isPreview: true}"></dw-answer-survey>-->
                     <div class="dw-answer-custom-theme">
@@ -119,7 +121,19 @@ export default {
         xl: {span: 24, offset: 0}
       },
       answerProps: {sid: null, answerId: null, anPwd: null},
-      prevPath: '/v6'
+      prevPath: '/v6',
+      containerTop: 40
+    }
+  },
+  watch: {
+    'survey.surveyStyle': {
+      immediate: false,
+      deep: true,
+      handler (newVal, oldVal) {
+        // 在这里处理属性变化
+        console.debug('newVal', newVal)
+        this.saveSurvey()
+      }
     }
   },
   mounted () {
@@ -198,10 +212,10 @@ export default {
         console.debug('dwSaveSurveyJson-response', response)
         const httpResult = response.data
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
-          this.$message.success('保存成功！')
+          // this.$message.success('保存成功！')
           if (callback!=null) callback()
         } else {
-          this.$message.success('保存失败！')
+          this.$message.success('保存样式失败！')
         }
       })
     }
@@ -258,7 +272,6 @@ export default {
 }
 .dw-preview-pc .dw-preview-body{
   /*height: calc(100vh - 40px);*/
-  margin-top: 40px;
   padding: 0;
 }
 /*
