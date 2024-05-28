@@ -2,7 +2,8 @@
   <div>
     <dw-design-question-model-common :item="item" >
       <div class="dw-list-group-item-content qu-bank-question-content">
-        <div class="dw-list-group-item-in"> {{ item.quName }} <span class="dw-list-group-item-in-type">[{{ item.quTypeName }}]</span> </div>
+        <div v-if="item.hasOwnProperty('dwQuIcon') && item.dwQuIcon!==null && item.dwQuIcon!==undefined" class="dw-list-group-item-in"> <span v-html="item.dwQuIcon"></span> {{ item.quName }} <span class="dw-list-group-item-in-type"></span> </div>
+        <div v-else class="dw-list-group-item-in"> {{ item.quName }} <span class="dw-list-group-item-in-type">[{{ item.quTypeName }}]</span> </div>
       </div>
     </dw-design-question-model-common>
   </div>

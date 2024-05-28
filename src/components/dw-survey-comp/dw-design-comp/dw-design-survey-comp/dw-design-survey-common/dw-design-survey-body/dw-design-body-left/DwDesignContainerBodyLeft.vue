@@ -1,6 +1,11 @@
 <template>
   <div>
     <el-tabs type="border-card">
+      <el-tab-pane v-if="survey.hasOwnProperty('designLayout') && survey.designLayout === 'LR'" label="题型">
+        <div :style="`height:${lrContentHeight}px;`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
+          <dw-design-toolbar-left v-model="survey" ></dw-design-toolbar-left>
+        </div>
+      </el-tab-pane>
       <el-tab-pane label="大纲">
         <div :style="`height:${lrContentHeight}px;`" style="overflow-y: scroll;" class="scrollable-hidden scrollable-y">
           <!--          <el-collapse>
@@ -56,10 +61,12 @@ import draggable from 'vuedraggable'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
 import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
+import DwDesignToolbarLeft from './components/DwDesignToolbarLeft.vue'
 
 export default {
   name: 'DwDesignContainerBodyLeft',
   components: {
+    DwDesignToolbarLeft,
     DwDesignSurveyAttrs,
     DwDesignCatalogQuItem,
     draggable
