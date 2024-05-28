@@ -1,12 +1,12 @@
 <template>
   <div v-if="survey!=null && survey.hasOwnProperty('surveyStyle') ">
     <div>
-      <div style="padding: 40px 10px 10px 10px;">
+      <div style="padding: 10px 10px 10px 10px;">
         <div style="font-size: 14px;font-weight: bold;text-align: left;padding: 10px 0;">
           <i class="fa-solid fa-palette" style="color: #7d55f7;"></i> 问卷样式配置
         </div>
         <div style="padding: 5px 0;">
-          <el-alert title="配置完成点击确认发布才会生效" type="info" show-icon></el-alert>
+          <el-alert title="样式修改会自动保存" type="info" show-icon></el-alert>
         </div>
         <div>
           <el-form ref="form" size="small" >

@@ -33,6 +33,7 @@ export function parseSurvey (survey) {
     if (!survey.hasOwnProperty('surveyStyle')) survey.surveyStyle = getDefaultSurveyStyle()
     if (!survey.surveyStyle.hasOwnProperty('showQuScoreNum')) survey.surveyStyle.showQuScoreNum = true
     survey.clientBrowser = {windowWidth: 0, matrixWidth: 0}
+    if (!survey.hasOwnProperty('designLayout')) survey.designLayout = 'LR'
   }
   return survey
 }

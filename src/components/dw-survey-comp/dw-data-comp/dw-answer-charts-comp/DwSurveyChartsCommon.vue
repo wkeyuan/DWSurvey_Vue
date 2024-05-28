@@ -5,7 +5,7 @@
       <span v-html="question.quTitle" ></span>
       <span>【{{ question.quTypeName }}】</span>
     </div>
-    <div v-if="question.quType === 'RADIO' && question.quType === 'CHECKBOX' || question.quType === 'SCORE' || question.quType === 'ORDERQU' || question.quType === 'MULTIFILLBLANK' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'">
+    <div v-if="question.quType === 'RADIO' || question.quType === 'CHECKBOX' || question.quType === 'SCORE' || question.quType === 'ORDERQU' || question.quType === 'MULTIFILLBLANK' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'">
       <el-table
         :data="question.quStatOptions"
         style="width: 100%">
