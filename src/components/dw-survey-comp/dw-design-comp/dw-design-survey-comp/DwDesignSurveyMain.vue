@@ -3,7 +3,7 @@
   </el-skeleton>-->
   <div v-loading="loading">
     <!--    <dw-design-survey-comp></dw-design-survey-comp>-->
-    <dw-design-survey-core v-model="survey" style="user-select: none;"></dw-design-survey-core>
+    <dw-design-survey-core v-model="survey" class="user-select-none"></dw-design-survey-core>
   </div>
 </template>
 

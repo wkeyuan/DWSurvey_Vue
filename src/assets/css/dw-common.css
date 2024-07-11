@@ -144,3 +144,9 @@
 .scrollable-x {
   overflow-x: scroll; /* 对于垂直滚动 */
 }
+.user-select-none{
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE/Edge */
+  user-select: none;          /* 标准语法 */
+}
