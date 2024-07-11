@@ -1,5 +1,5 @@
 <template>
-  <el-menu
+  <!--  <el-menu
     :default-active="defActive"
     mode="horizontal"
     text-color="#fff"
@@ -9,15 +9,51 @@
     <el-menu-item index="/v6/dw/survey" >我的问卷</el-menu-item>
     <el-menu-item index="/v6/dw/user" >个人中心</el-menu-item>
     <el-menu-item v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" index="/v6/dw/admin/user" >用户管理</el-menu-item>
-  </el-menu>
+  </el-menu>-->
+  <div>
+    <el-menu
+      :default-active="defActive"
+      :unique-opened="true"
+      mode="horizontal"
+      text-color="#fff"
+      active-text-color="#efc605"
+      background-color="#064b91"
+      style="border-right: none;"
+      class="dw-menu"
+      router
+      @open="handleOpen"
+      @close="handleClose">
+      <template v-for="item in dwMenus" >
+        <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path" >
+          <template slot="title" >
+            <i :class="item.icon" ></i>
+            <span slot="title">{{ item.name }}</span>
+          </template>
+          <template v-for="itemChild in item.children" >
+            <el-menu-item v-has-dw-role="itemChild.authority" v-if="itemChild.name" :key="itemChild.path" :index="prevPath+itemChild.path" >
+              <span slot="title">{{ itemChild.name }}</span>
+            </el-menu-item>
+          </template>
+        </el-submenu>
+        <el-menu-item v-else :key="item.path" :index="prevPath+item.path" >
+          <i :class="item.icon" ></i>
+          <span slot="title">{{ item.name }}</span>
+        </el-menu-item>
+      </template>
+    </el-menu>
+  </div>
 </template>
 <script>
+
+import {dwV6Menu} from "../../router/dw-v6-menu";
 
 export default {
   name: 'DwNavMenu',
   data () {
     return {
-      defActive: '/dw/survey'
+      defActive: '/dw/survey',
+      dwMenus: dwV6Menu.dwMenus,
+      prevPath: '/v6'
     }
   },
   watch: {
@@ -27,9 +63,16 @@ export default {
   },
   mounted () {
     this.setDefActive()
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.prevPath = '/v6/lr'
+    }
   },
   methods: {
     handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleOpen (key, keyPath) {
       console.log(key, keyPath)
     },
     handleClose (key, keyPath) {
@@ -56,6 +99,11 @@ export default {
   font-weight: 400;
   font-size: 16px;
 }
+.el-menu-item i,.el-submenu__title i{
+  vertical-align: text-top;
+  color: inherit;
+}
+/*
 .dw-menu{
   border-bottom: none;
 }
@@ -77,4 +125,5 @@ export default {
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
   color: white!important;
 }
+ */
 </style>

@@ -124,6 +124,7 @@ export default {
     clickToolbarItem (item) {
       if (item.eventName!==undefined && item.eventName!==null) {
         // 处理对应的按钮事件
+        if (item.eventName==='SurveyStyleEvent') this.previewSurvey()
       } else {
         item.isNew = true
         this.survey.questions.push(dwResetQuestionRefreshValue(JSON.parse(JSON.stringify(item))))
@@ -201,7 +202,7 @@ export default {
       this.saveSurveyFun(() => {
         const surveyId = this.$route.params.dwSurveyId
         // 进行数据合法性检查，主要是防止空的标题与选项
-        this.$router.push('/v6/diaowen/dw-preview/survey/'+surveyId)
+        this.$router.push('/v6/diaowen/dw-preview-style/survey/'+surveyId)
       })
     },
     saveSurveyFun (callback) {

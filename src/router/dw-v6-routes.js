@@ -6,7 +6,6 @@ import DwUserPwd from '@/views/dw-user/DwUserPwd'
 import AdminUserList from '@/views/dw-admin/AdminUserList'
 import DwDesign from '../views/dw-survey/dw-design1/DwDesign'
 import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
-import DwSurveyPreview from '../views/dw-survey-v6/dw-design/DwSurveyPreview.vue'
 import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
 import DwSurveyAnswerReview
   from '../components/dw-survey-comp/dw-data-comp/dw-answer-data-comp/DwSurveyAnswerReview.vue'
@@ -19,37 +18,7 @@ import DwSurveyAttrSet from '../views/dw-survey-v6/dw-design/DwSurveyAttrSet.vue
 import DwSiteCompV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteCompV6.vue'
 import DwSiteShareV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteShareV6.vue'
 import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
-
-// 用于定义左右结构右边菜单，未用于路由注册，相关路由注册在v6Routes里面完成
-const routesAdminChildren = [
-  {
-    path: '/v6/lr/dw/survey',
-    icon: 'el-icon-s-claim',
-    name: '我的问卷',
-    meta: {
-      title: '我的问卷'
-    },
-    component: DwSurveyListV6
-  },
-  {
-    path: '/v6/lr/dw/user',
-    icon: 'el-icon-user',
-    name: '个人中心',
-    meta: {
-      title: '个人中心'
-    },
-    component: AdminUserList
-  },
-  {
-    path: '/v6/lr/dw/admin/user',
-    icon: 'el-icon-s-check',
-    name: '用户管理',
-    meta: {
-      title: '用户管理'
-    },
-    component: AdminUserList
-  }
-]
+import DwSurveyStyle from "../views/dw-survey-v6/dw-design/DwSurveyStyle.vue";
 
 // v6版本的新路由数组
 const v6Routes = [
@@ -160,12 +129,12 @@ const v6RouteRoots = [
         component: DwDesign
       },
       {
-        path: 'dw-preview/survey/:dwSurveyId',
-        name: 'DwSurveyPreviewV6',
+        path: 'dw-preview-style/survey/:dwSurveyId',
+        name: 'DwSurveyStyle',
         meta: {
-          title: '问卷预览'
+          title: '问卷样式'
         },
-        component: DwSurveyPreview
+        component: DwSurveyStyle
       },
       {
         path: 'an/:sid',
@@ -197,6 +166,6 @@ const v6RouteRoots = [
   }
 ]
 
-const v6Route = {v6Routes, v6RouteRoots, routesAdminChildren}
+const v6Route = {v6Routes, v6RouteRoots}
 
 export {v6Route}

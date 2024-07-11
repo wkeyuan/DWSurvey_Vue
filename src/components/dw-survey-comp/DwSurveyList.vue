@@ -77,7 +77,7 @@
                     <el-button size="mini" icon="el-icon-s-data" @click="handlePush(`${prevPath}/survey/d/chart/${scope.row.id}`)"></el-button>
                   </el-tooltip>
                   <el-tooltip effect="dark" content="预览问卷" placement="top">
-                    <el-button size="mini" icon="el-icon-view" @click="handlePush(`/v6/diaowen/dw-preview/survey/${scope.row.id}`)"></el-button>
+                    <el-button size="mini" icon="el-icon-view" @click="handlePush(`/v6/diaowen/dw-preview-style/survey/${scope.row.id}`)"></el-button>
                   </el-tooltip>
                   <!--                  <el-tooltip effect="dark" content="复制问卷" placement="top">
                     <el-button size="mini" icon="el-icon-copy-document" @click="handleCopy(scope.$index, scope.row)"></el-button>

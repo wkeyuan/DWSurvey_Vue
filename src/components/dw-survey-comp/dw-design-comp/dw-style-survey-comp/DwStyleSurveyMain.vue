@@ -102,7 +102,7 @@ import {surveyAnswerLocalStorage} from '../../dw-answer-comp/dw-utils/dw-survey-
 import {dwFooterUtils} from '../../dw-utils/dw-common/dw-footer-util'
 
 export default {
-  name: 'DwPreviewSurveyMain',
+  name: 'DwStyleSurveyMain',
   components: {
     DwSurveyStyleDesignAside, DwAnswerDefaultLayout, DwAnswerSurvey, DwAnswerSurveyMain},
   data () {
