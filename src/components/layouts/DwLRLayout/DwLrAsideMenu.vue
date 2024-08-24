@@ -6,24 +6,26 @@
         :collapse="isCollapse"
         :unique-opened="true"
         text-color="#fff"
+        active-text-color="#efc605"
+        background-color="#064b91"
         style="border-right: none;"
         class="dw-menu"
         router
         @open="handleOpen"
         @close="handleClose">
-        <template v-for="item in routesAdminChildren" >
-          <el-submenu v-if="item.children" :key="item.path" :index="item.path" >
+        <template v-for="item in dwMenus" >
+          <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path" >
             <template slot="title" >
               <i :class="item.icon" ></i>
               <span slot="title">{{ item.name }}</span>
             </template>
             <template v-for="itemChild in item.children" >
-              <el-menu-item v-has-dw-role="itemChild.authority" v-if="itemChild.name" :key="itemChild.path" :index="itemChild.path" >
+              <el-menu-item v-has-dw-role="itemChild.authority" v-if="itemChild.name" :key="itemChild.path" :index="prevPath+itemChild.path" >
                 <span slot="title">{{ itemChild.name }}</span>
               </el-menu-item>
             </template>
           </el-submenu>
-          <el-menu-item v-else :key="item.path" :index="item.path" >
+          <el-menu-item v-else :key="item.path" :index="prevPath+item.path" >
             <i :class="item.icon" ></i>
             <span slot="title">{{ item.name }}</span>
           </el-menu-item>
@@ -44,7 +46,7 @@
 
 <script>
 
-import {v6Route} from '../../../router/dw-v6-routes'
+import {dwV6Menu} from '../../../router/dw-v6-menu'
 
 export default {
   name: 'DwLrAsideMenu',
@@ -59,7 +61,8 @@ export default {
       // isCollapse: false,
       isCollapseActive: false,
       defActive: '/v6/lr/dw/survey',
-      routesAdminChildren: v6Route.routesAdminChildren
+      dwMenus: dwV6Menu.dwMenus,
+      prevPath: '/v6'
     }
   },
   watch: {
@@ -69,6 +72,10 @@ export default {
   },
   mounted () {
     this.setActiveMenu()
+    const routePath = this.$route.path
+    if (routePath.indexOf('/v6/lr') >= 0) {
+      this.prevPath = '/v6/lr'
+    }
   },
   methods: {
     handleOpen (key, keyPath) {
@@ -84,6 +91,7 @@ export default {
 
     },
     setActiveMenu () {
+      /*
       const fullPath = this.$route.fullPath
       if (fullPath.indexOf('/dw/survey') >= 0) {
         this.defActive = '/v6/lr/dw/survey'
@@ -91,7 +99,7 @@ export default {
         this.defActive = '/v6/lr/dw/admin/user'
       } else if (fullPath.indexOf('/dw/user') >= 0) {
         this.defActive = '/v6/lr/dw/user'
-      }
+      }*/
     }
   }
 }
@@ -135,6 +143,7 @@ active-text-color="#409eff"
   color: inherit;
 }
 
+/*
 .dw-menu{
   border-bottom: none;
 }
@@ -160,5 +169,6 @@ active-text-color="#409eff"
 .el-menu-item{
   transition: none!important;
 }
+*/
 
 </style>
