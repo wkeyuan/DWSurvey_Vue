@@ -11,32 +11,37 @@
     <el-menu-item v-has-dw-role="'DWSURVEY_SUPER_ADMIN'" index="/v6/dw/admin/user" >用户管理</el-menu-item>
   </el-menu>-->
   <div>
+    <!--
+    active-text-color="#efc605"
+    background-color="#064b91"
+    -->
     <el-menu
       :default-active="defActive"
       :unique-opened="true"
+      :background-color="sysThemeStyle.dwPrimaryThemeColor"
       mode="horizontal"
       text-color="#fff"
       active-text-color="#efc605"
-      background-color="#064b91"
       style="border-right: none;"
       class="dw-menu"
       router
       @open="handleOpen"
-      @close="handleClose">
-      <template v-for="item in dwMenus" >
-        <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path" >
-          <template slot="title" >
-            <i :class="item.icon" ></i>
+      @close="handleClose"
+    >
+      <template v-for="item in dwMenus">
+        <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path">
+          <template slot="title">
+            <i :class="item.icon"></i>
             <span slot="title">{{ item.name }}</span>
           </template>
-          <template v-for="itemChild in item.children" >
-            <el-menu-item v-has-dw-role="itemChild.authority" v-if="itemChild.name" :key="itemChild.path" :index="prevPath+itemChild.path" >
+          <template v-for="itemChild in item.children">
+            <el-menu-item v-if="itemChild.name" :key="itemChild.path" v-has-dw-role="itemChild.authority" :index="prevPath+itemChild.path">
               <span slot="title">{{ itemChild.name }}</span>
             </el-menu-item>
           </template>
         </el-submenu>
-        <el-menu-item v-else :key="item.path" :index="prevPath+item.path" >
-          <i :class="item.icon" ></i>
+        <el-menu-item v-else :key="item.path" :index="prevPath+item.path">
+          <i :class="item.icon"></i>
           <span slot="title">{{ item.name }}</span>
         </el-menu-item>
       </template>
@@ -45,7 +50,8 @@
 </template>
 <script>
 
-import {dwV6Menu} from "../../router/dw-v6-menu";
+import {dwV6Menu} from '../../router/dw-v6-menu'
+import {dwSurveyRootStyle} from '../../utils/dw-common-theme'
 
 export default {
   name: 'DwNavMenu',
@@ -53,7 +59,8 @@ export default {
     return {
       defActive: '/dw/survey',
       dwMenus: dwV6Menu.dwMenus,
-      prevPath: '/v6'
+      prevPath: '/v6',
+      sysThemeStyle: dwSurveyRootStyle.sysThemeStyle
     }
   },
   watch: {

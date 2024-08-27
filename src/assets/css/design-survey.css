@@ -48,8 +48,9 @@
   height: auto;
   background: none;
   font-size: 56px;
-  color: #001529;
-  color: #085097;
+  /*color: #001529;
+  color: #085097;*/
+  color: var(--dw-primary-button-toolbar-theme-color);
 }
 /*@media screen and (max-width: 2560px) {
   .toolbars .toolbar-item .dwToolbar_icon {
@@ -127,8 +128,9 @@
   }
 }
 .toolbars .toolbar-item:hover .dwToolbar_icon,.toolbars .toolbar-item.hover .dwToolbar_icon{
-  background-color: dodgerblue;
+  /*background-color: dodgerblue;*/
   color: white;
+  background-color: var(--dw-primary-button-theme-color);
 }
 .toolbars .toolbar-item .dwQuTypeModel{
   display: none;

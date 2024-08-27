@@ -1,3 +1,5 @@
+import {dwSurveyRootStyle} from "../../../../utils/dw-common-theme";
+
 export const dwSurveyColorUtils = {
   /**
    * rgb 转 hex
@@ -116,20 +118,27 @@ export const dwSurveyColorUtils = {
 }
 
 export function getDefaultSurveyStyle () {
+  const answerThemeStyle = dwSurveyRootStyle.answerThemeStyle
   const defaultSurveyStyle = {
     pageTopImg: {enabled: false, src: null, httpSrc: null},
     pageBgImg: {enabled: false, src: null, httpSrc: null},
     logoImg: {enabled: false, src: null, httpSrc: null, position: 'topLogoRight'},
-    pageBgColor: '#eeeeee',
+    // pageBgColor: '#eeeeee',
     /*
     pageThemeColor: '#b53bde',
     pageThemeColor1: '#7d08a9',
     logoBgColor: '#900abd',
     progressColor: '#a40ed7',*/
+    /*
     pageThemeColor: '#0965c2',
     pageThemeColor1: '#044a8d',
     logoBgColor: '#3593ee',
-    progressColor: '#0667c6',
+    progressColor: '#0667c6',*/
+    pageBgColor: answerThemeStyle.dwAnswerPageBgColor,
+    pageThemeColor: answerThemeStyle.dwAnswerPrimaryColor,
+    pageThemeColor1: answerThemeStyle.dwAnswerPrimaryColor1,
+    logoBgColor: answerThemeStyle.dwAnswerLogoBgColor,
+    progressColor: answerThemeStyle.dwAnswerProgressColor,
     showQuNum: true,
     showProgressbar: true,
     showPageHeader: true,

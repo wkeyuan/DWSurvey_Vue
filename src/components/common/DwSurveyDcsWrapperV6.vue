@@ -211,8 +211,9 @@ export default {
   font-size: 14px;
 }
 .dw-link-primary,.dw-link:hover{
-  color: #409eff;
+  /*color: #409eff;*/
   font-weight: bold;
+  color: var(--dw-primary-text-color-active);
 }
 .dw-link i{
   margin-right: 6px;

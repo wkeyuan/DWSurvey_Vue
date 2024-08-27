@@ -1,32 +1,34 @@
 <template>
-  <el-aside width="initial" class="dw-lr-aside" >
+  <el-aside width="initial" class="dw-lr-aside">
     <div>
+      <!--      background-color="#064b91"-->
       <el-menu
         :default-active="defActive"
         :collapse="isCollapse"
         :unique-opened="true"
+        :background-color="sysThemeStyle.dwPrimaryThemeColor"
         text-color="#fff"
         active-text-color="#efc605"
-        background-color="#064b91"
         style="border-right: none;"
         class="dw-menu"
         router
         @open="handleOpen"
-        @close="handleClose">
-        <template v-for="item in dwMenus" >
-          <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path" >
-            <template slot="title" >
-              <i :class="item.icon" ></i>
+        @close="handleClose"
+      >
+        <template v-for="item in dwMenus">
+          <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path">
+            <template slot="title">
+              <i :class="item.icon"></i>
               <span slot="title">{{ item.name }}</span>
             </template>
-            <template v-for="itemChild in item.children" >
-              <el-menu-item v-has-dw-role="itemChild.authority" v-if="itemChild.name" :key="itemChild.path" :index="prevPath+itemChild.path" >
+            <template v-for="itemChild in item.children">
+              <el-menu-item v-if="itemChild.name" :key="itemChild.path" v-has-dw-role="itemChild.authority" :index="prevPath+itemChild.path">
                 <span slot="title">{{ itemChild.name }}</span>
               </el-menu-item>
             </template>
           </el-submenu>
-          <el-menu-item v-else :key="item.path" :index="prevPath+item.path" >
-            <i :class="item.icon" ></i>
+          <el-menu-item v-else :key="item.path" :index="prevPath+item.path">
+            <i :class="item.icon"></i>
             <span slot="title">{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -37,8 +39,9 @@
         style="display:none;"
         @click="isCollapse = !isCollapse"
         @mouseenter="mouseEnterIsCollapse"
-        @mouseleave="mouseLeaveIsCollapse">
-        <span style="width:24px;text-align: center;" > <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i> </span>
+        @mouseleave="mouseLeaveIsCollapse"
+      >
+        <span style="width:24px;text-align: center;"> <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i> </span>
       </div>
     </div>
   </el-aside>
@@ -47,6 +50,7 @@
 <script>
 
 import {dwV6Menu} from '../../../router/dw-v6-menu'
+import {dwSurveyRootStyle} from '../../../utils/dw-common-theme'
 
 export default {
   name: 'DwLrAsideMenu',
@@ -62,7 +66,8 @@ export default {
       isCollapseActive: false,
       defActive: '/v6/lr/dw/survey',
       dwMenus: dwV6Menu.dwMenus,
-      prevPath: '/v6'
+      prevPath: '/v6',
+      sysThemeStyle: dwSurveyRootStyle.sysThemeStyle
     }
   },
   watch: {

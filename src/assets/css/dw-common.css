@@ -4,6 +4,8 @@
   --dw-primary-bg-color-active: #033e75;
   --dw-primary-bg-color-hover: #0662c0;
   --dw-primary-text-color-active: #0b72dc;
+  --dw-primary-button-theme-color: #0b72dc;
+  --dw-primary-button-toolbar-theme-color: #0b63bd;
 }
 /**
  在DW中定义的全局样式
@@ -101,23 +103,28 @@
   height: 20px;
 }
 .dw-event-color{
-  color: #095aaa;
+  /*color: #095aaa;*/
+  color: var(--dw-primary-button-theme-color);
 }
 
 .dw-btn-blue-1{
-  border: 1px solid #095aaa;
   background: #b5d8fc;
-  color: #095aaa;
   text-align: center;
+  /*border: 1px solid #095aaa;*/
+  /*color: #095aaa;*/
+  border: 1px solid var(--dw-primary-button-theme-color);
+  color: var(--dw-primary-button-theme-color);
 }
 
 .dwDragClass{
-  border: 1px solid dodgerblue;
   background: #f5f5f5;
+  /*border: 1px solid dodgerblue;*/
+  border: 1px solid var(--dw-primary-button-theme-color);
 }
 .dwGhostClass{
   background: #e5ecfa;
-  border: 1px dashed dodgerblue;
+  /*border: 1px dashed dodgerblue;*/
+  border: 1px dashed var(--dw-primary-button-theme-color);
 }
 
 /** 横向等分排列，默认2等分 **/

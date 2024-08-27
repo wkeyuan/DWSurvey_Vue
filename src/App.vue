@@ -10,6 +10,7 @@ import DwHeader from '@/components/layouts/DwHeader.vue'
 import DwHeaderLogin from '@/components/layouts/DwHeaderLogin.vue'
 import DwNavMenu from '@/components/layouts/DwNavMenu.vue'
 import DwFooter from '@/components/layouts/DwFooter.vue'
+import {dwUpSysThemeStyleVar} from "./utils/dw-common-theme";
 
 export default {
   name: 'App',
@@ -26,6 +27,7 @@ export default {
   },
   mounted () {
     this.loginStatus()
+    dwUpSysThemeStyleVar()
   },
   methods: {
     loginStatus: function () {
