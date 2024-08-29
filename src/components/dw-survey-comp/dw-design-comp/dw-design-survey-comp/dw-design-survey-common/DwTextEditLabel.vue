@@ -166,12 +166,14 @@ export default {
   background: #dde6fa;
   /*background: white;*/
   outline-width: 1px;
+  border: 1px solid var(--dw-primary-button-toolbar-theme-color)!important;
 }
 .dw-input-hover{
   background: #f6f8f8;
   background: #dde6fa;
   /*background: white;*/
   border: 1px dashed #095aaa;
+  border: 1px dashed var(--dw-primary-button-toolbar-theme-color)!important;
 }
 .dw-edit-toolbar{
   width: 40px;

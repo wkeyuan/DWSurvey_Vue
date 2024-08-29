@@ -7,7 +7,8 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 // import 'element-ui/lib/theme-chalk/index.css' // 默认主题
-import './theme/element-#0868CA/index.css' // 自定义主题
+// import './theme/element-#0868CA/index.css' // 自定义主题
+import './theme/element-#AF174D/index.css' // 自定义主题
 import 'normalize.css'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'

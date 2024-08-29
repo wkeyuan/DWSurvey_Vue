@@ -8,6 +8,7 @@ export const dwSurveyRootStyle = {
     'dwPrimaryTextColorActive': '#0b72dc',
     'dwPrimaryButtonThemeColor': '#0b72dc',
     'dwPrimaryButtonToolbarThemeColor': '#0b63bd'
+    'dwPrimaryButtonBgColor6': '#b5d8fc'
     */
     'dwPrimaryThemeColor': '#af174d',
     'dwPrimaryBgColor': '#af174d',
@@ -15,7 +16,8 @@ export const dwSurveyRootStyle = {
     'dwPrimaryBgColorHover': '#af174d',
     'dwPrimaryTextColorActive': '#af174d',
     'dwPrimaryButtonThemeColor': '#af174d',
-    'dwPrimaryButtonToolbarThemeColor': '#af174d'
+    'dwPrimaryButtonToolbarThemeColor': '#af174d',
+    'dwPrimaryButtonBgColor6': '#f1c3d2'
   },
   answerThemeStyle: {
     'dwAnswerPageBgColor': '#eeeeee',
@@ -35,6 +37,7 @@ export function dwUpSysThemeStyleVar (survey) {
   document.documentElement.style.setProperty('--dw-primary-text-color-active', sysTheme.dwPrimaryTextColorActive)
   document.documentElement.style.setProperty('--dw-primary-button-theme-color', sysTheme.dwPrimaryButtonThemeColor)
   document.documentElement.style.setProperty('--dw-primary-button-toolbar-theme-color', sysTheme.dwPrimaryButtonToolbarThemeColor)
+  document.documentElement.style.setProperty('--dw-primary-button-bg-color-6', sysTheme.dwPrimaryButtonBgColor6)
   /*
   // 答卷默认样式
   const surveyStyle = rootStyle.answerTheme

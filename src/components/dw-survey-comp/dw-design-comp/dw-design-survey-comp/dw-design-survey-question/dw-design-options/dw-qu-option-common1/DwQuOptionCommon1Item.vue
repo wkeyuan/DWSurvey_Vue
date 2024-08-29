@@ -178,6 +178,7 @@ export default {
 }
 .dw-event-color{
   color: #095aaa;
+  color: var(--dw-primary-button-theme-color);
 }
 .dw-margin-right-10{
   margin-right: 10px;

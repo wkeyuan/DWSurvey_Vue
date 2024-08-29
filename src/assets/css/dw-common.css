@@ -6,6 +6,7 @@
   --dw-primary-text-color-active: #0b72dc;
   --dw-primary-button-theme-color: #0b72dc;
   --dw-primary-button-toolbar-theme-color: #0b63bd;
+  --dw-primary-button-bg-color-6: #b5d8fc;
 }
 /**
  在DW中定义的全局样式
@@ -114,6 +115,7 @@
   /*color: #095aaa;*/
   border: 1px solid var(--dw-primary-button-theme-color);
   color: var(--dw-primary-button-theme-color);
+  background: var(--dw-primary-button-bg-color-6);
 }
 
 .dwDragClass{

@@ -51,6 +51,7 @@ export default {
 .dw-list-group-item-content:hover, .dw-list-group-item:hover .dw-list-group-item-in-type{
   background-color: dodgerblue;
   color: white;
+  background-color: var(--dw-primary-button-toolbar-theme-color);
 }
 .cloneQuRoot{
   padding: 10px;
