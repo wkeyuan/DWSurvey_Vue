@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     :visible.sync="dialogVisible"
+    :modal-append-to-body="false"
     title="切换布局"
     width="30%">
     <div>
