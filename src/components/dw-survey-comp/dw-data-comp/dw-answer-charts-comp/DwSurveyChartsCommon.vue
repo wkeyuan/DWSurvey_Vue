@@ -143,6 +143,7 @@ import {GridComponent, TitleComponent, TooltipComponent, LegendComponent} from '
 import {LineChart, BarChart, PieChart} from 'echarts/charts'
 import {UniversalTransition, LabelLayout} from 'echarts/features'
 import {CanvasRenderer} from 'echarts/renderers'
+import {echartsThemeConfig} from "../../../../utils/dw-theme/echarts-theme";
 
 echarts.use([GridComponent, LineChart, BarChart, CanvasRenderer, UniversalTransition, TitleComponent,
   TooltipComponent,
@@ -179,6 +180,7 @@ export default {
     */
     const dwsurveyMain = this.$refs.dwsChart_bar
     if (dwsurveyMain) {
+      echarts.registerTheme('dw-echarts-theme', echartsThemeConfig)
       this.loadChart(dwsurveyMain, 'bar')
     }
   },
@@ -193,7 +195,8 @@ export default {
       this.loadChart(dwsurveyMain[0], curChartType)
     },
     loadChart: function (chartDom, type) {
-      const myChart = echarts.init(chartDom)
+      // const myChart = echarts.init(chartDom)
+      const myChart = echarts.init(chartDom, 'dw-echarts-theme')
       const option = this.buildOption(this.question, type)
       option && myChart.setOption(option)
     },

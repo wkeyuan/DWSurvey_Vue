@@ -51,7 +51,7 @@
 <script>
 
 import {dwV6Menu} from '../../router/dw-v6-menu'
-import {dwSurveyRootStyle} from '../../utils/dw-common-theme'
+import {dwSurveyRootStyle} from '../../utils/dw-theme/dw-common-theme'
 
 export default {
   name: 'DwNavMenu',

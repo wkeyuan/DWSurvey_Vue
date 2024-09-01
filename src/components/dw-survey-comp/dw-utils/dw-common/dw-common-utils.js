@@ -1,4 +1,4 @@
-import {dwSurveyRootStyle} from "../../../../utils/dw-common-theme";
+import {dwSurveyRootStyle} from "../../../../utils/dw-theme/dw-common-theme";
 
 export const dwSurveyColorUtils = {
   /**
