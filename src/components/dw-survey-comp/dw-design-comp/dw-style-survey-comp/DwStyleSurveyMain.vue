@@ -2,7 +2,7 @@
   <div class="dw-preview-container" >
     <div class="dw-preview-header">
       <div class="dw-preview-header-left">
-        <label><i class="dw-icon-button fa-regular fa-eye active" style="color: #7249ee;"></i>问卷预览</label>
+        <label><i class="dw-icon-button fa-solid fa-palette active" style=""></i>问卷样式配置</label>
         <!--        <i class=" fa-solid fa-wand-magic-sparkles active" style="color: #6e45e8;"></i>-->
       </div>
       <div class="dw-preview-header-center">
@@ -246,7 +246,7 @@ export default {
 }
 .dw-preview-header-left{
   position: fixed;
-  left: 10px;
+  left: 0px;
   top: 0px;
 }
 .dw-preview-header-right{

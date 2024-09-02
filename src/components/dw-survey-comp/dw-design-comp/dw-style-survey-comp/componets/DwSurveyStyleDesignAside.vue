@@ -3,7 +3,7 @@
     <div>
       <div style="padding: 10px 10px 10px 10px;">
         <div style="font-size: 14px;font-weight: bold;text-align: left;padding: 10px 0;">
-          <i class="fa-solid fa-palette" style="color: #7d55f7;"></i> 问卷样式配置
+          <i class="fa-solid fa-gear" style="color: var(--dw-primary-theme-color);"></i> 配置项
         </div>
         <div style="padding: 5px 0;">
           <el-alert title="样式修改会自动保存" type="info" show-icon></el-alert>
