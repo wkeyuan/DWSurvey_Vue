@@ -21,10 +21,10 @@ export const dwSurveyRootStyle = {
   },
   answerThemeStyle: {
     'dwAnswerPageBgColor': '#eeeeee',
-    'dwAnswerPrimaryColor': '#0965c2',
-    'dwAnswerPrimaryColor1': '#044a8d',
-    'dwAnswerLogoBgColor': '#3593ee',
-    'dwAnswerProgressColor': '#0667c6'
+    'dwAnswerPrimaryColor': '#af174d',
+    'dwAnswerPrimaryColor1': '#910536',
+    'dwAnswerLogoBgColor': '#dc5585',
+    'dwAnswerProgressColor': '#e10f59'
   }
 }
 
