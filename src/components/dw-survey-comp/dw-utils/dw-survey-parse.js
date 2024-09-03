@@ -353,6 +353,14 @@ function parseQuOptionType1 (question, quOptions) {
   // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
 }
 
+export function parseQuOptionTypeByQu (question, quOption) {
+  const quType = question.quType
+  if (quType === 'RADIO' || quType === 'CHECKBOX' || quType === 'ORDERQU' || quType === 'MULTIFILLBLANK' || quType === 'SCORE') {
+    parseQuOptionType1Item(quOption)
+  }
+  // question.quOptions = quOptions // 暂时先不考虑这个方案，还是分别处理更清楚
+}
+
 export function parseQuOptionType1Item (quOption) {
   const optionTitle = quOption.optionTitle !== null ? quOption.optionTitle : quOption.optionName
   // oss版本把html保存在 optionTitle

@@ -24,6 +24,7 @@ import {
   dwSurveyQuAddOption
 } from '../../../../../dw-utils/dw-survey-update-question'
 import {v4 as uuidV4} from 'uuid'
+import {parseQuOptionType1Item, parseQuOptionTypeByQu} from "../../../../../dw-utils/dw-survey-parse";
 
 export default {
   name: 'DwPopoverMoreOptions',
@@ -96,6 +97,8 @@ export default {
             for (let i=0; i<options.length; i++) {
               const quOption = {id: null, optionTitleObj: {dwHtml: options[i], dwText: options[i], dwPlaceholder: '请输入内容'}, itemClick: false}
               quOption.dwId = uuidV4()
+              // parseQuOptionType1Item(quOption)
+              parseQuOptionTypeByQu(this.survey.questions[this.index], quOption)
               this.dwAddQuItem(quOption)
             }
             this.survey.questions[this.index].quFocusObj.quMoreOptionShow = false
