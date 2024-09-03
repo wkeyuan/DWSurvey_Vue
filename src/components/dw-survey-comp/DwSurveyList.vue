@@ -58,9 +58,9 @@
                 </el-popover>
               </template>
             </el-table-column>
-            <el-table-column label="答卷数" width="80" >
+            <el-table-column label="答卷数" width="130" >
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.answerNum!=null ? scope.row.answerNum:0 }}&nbsp;份</span>
+                <span>{{ scope.row.answerNum!=null ? scope.row.answerNum:0 }}&nbsp;份</span>
               </template>
             </el-table-column>
             <el-table-column label="状态" width="80" >
