@@ -125,7 +125,8 @@ export default {
       containerTop: {
         lrFixedTop: 40,
         centerMarginTop: 40
-      }
+      },
+      oldQuestions: null
     }
   },
   watch: {
@@ -157,6 +158,7 @@ export default {
         if (!survey.hasOwnProperty('surveyStyle') || !survey.surveyStyle.hasOwnProperty('pageThemeColor')) {
           survey.surveyStyle = getDefaultSurveyStyle()
         }
+        this.oldQuestions = JSON.stringify(survey.questions)
         // 初始化答卷数据
         survey.dwDebug = false
         survey.answerMsg = {showAnswerMsg: false, answerMsgInfo: null, noSurveyJson: false}
@@ -204,6 +206,7 @@ export default {
       const surveyId = this.survey.id
       const sid = this.survey.sid
       // 清理无效数据
+      this.survey.questions = JSON.parse(this.oldQuestions)
       clearSurveyJson(this.survey)
       clearSurveyAnswer(this.survey)
       console.debug('save this.survey', this.survey)
