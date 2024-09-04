@@ -326,7 +326,7 @@ export function initAnswerBySurvey (survey) {
     })
   }
   // 初始化Page信息
-  survey.pageAttr = {pageSize: surveyPageUtils.pageSize(survey), curPage: 1}
+  survey.pageAttr = {pageSize: surveyPageUtils.pageSize(survey), curPage: 1, begin: null, end: null}
   survey.answerProgress = {totalAnQu: 0, completeAnQu: 0, percentage: 0}
 }
 
@@ -384,9 +384,18 @@ function inputAttrInit (inputAttr) {
 }
 export function showPageByIndex (survey, pageIndex) {
   const questions = survey.questions
+  let beginIndex = null
+  let endIndex = null
   questions.forEach((item, index) => {
     console.debug('item.pageIndex === pageIndex', item.pageIndex === pageIndex)
     item.showQu = item.pageIndex === pageIndex
+    if (item.showQu) {
+      if (beginIndex==null) beginIndex = index
+      endIndex = index
+    }
   })
   survey.pageAttr.curPage = pageIndex
+  survey.pageAttr.begin = beginIndex
+  survey.pageAttr.end = endIndex
 }
+

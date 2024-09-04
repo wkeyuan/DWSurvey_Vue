@@ -45,7 +45,7 @@
                   <div>
                     <div>
                       <transition-group>
-                        <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" >
+                        <div v-for="(item, index) in survey.questions" :key="`surveyQu${index}`" ref="designQuestionRoot">
                           <dw-answer-question ref="designQuestion" v-model="survey" :index="index" :item="item" ></dw-answer-question>
                         </div>
                       </transition-group>
@@ -157,6 +157,17 @@ export default {
   },
   mounted () {
     dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
+  },
+  watch: {
+    'survey.scrollToQuIndex': {
+      // immediate: true, // 组件实例化时立即触发
+      // deep: true, // 对象或数组的深层属性变化也触发
+      handler: function (newVal, oldVal) {
+        // 处理prop变化的逻辑, 还可以优化为提供具体变便的数据，直接针对性更新
+        console.debug('newVal', newVal)
+        this.dwScrollIntoView()
+      }
+    }
   },
   methods: {
     nextPage (pageIndex) {
@@ -281,6 +292,14 @@ export default {
     showAnswerDetail () {
       const sid = this.survey.sid
       this.$router.push(`/v6/diaowen/an/review/${sid}/${this.indexResponseId}`)
+    },
+    dwScrollIntoView () {
+      // 滚动到第一个错误题位置
+      const scrollToQuIndex = this.survey.scrollToQuIndex
+      console.debug('scrollToQuIndex', scrollToQuIndex)
+      if (scrollToQuIndex!==null && scrollToQuIndex>=0 && this.$refs.designQuestionRoot[scrollToQuIndex]) {
+        this.$refs.designQuestionRoot[scrollToQuIndex].scrollIntoView({behavior: 'smooth', block: 'center'})
+      }
     }
   }
 }

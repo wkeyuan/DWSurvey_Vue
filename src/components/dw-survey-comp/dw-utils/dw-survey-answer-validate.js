@@ -1,6 +1,23 @@
 import {dwCheckValue} from './dw-common/dw-common-1'
 import {getQuestionAnswerData} from './dw-survey-answer'
 
+export function validateQuestionsBoolBySurvey (survey) {
+  const questions = survey.questions
+  survey.scrollToQuIndex = null
+  let isSuccess = true
+  submitValidateQuestions(questions, true)
+  questions.forEach((question, quIndex) => {
+    if (question.showQu && !question.logicIsHide) {
+      if (!question.validateObj.isOk) {
+        if (survey.scrollToQuIndex===null) survey.scrollToQuIndex = quIndex
+        isSuccess = false
+        return false
+      }
+    }
+  })
+  return isSuccess
+}
+
 /**
  * 一组题，答卷表单验证，返回是否成功
  * @param questions

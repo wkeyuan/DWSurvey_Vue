@@ -104,7 +104,7 @@ import {clickQuItem, upAllItemClick} from '../../dw-utils/dw-survey-update-item-
 import DwPopoverQuAttrs from '../../dw-design-comp/dw-design-survey-comp/dw-design-survey-question/dw-design-questions/dw-desing-qestion-common-comp/DwPopoverQuAttrs.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
-import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
+import {validateQuestionsBool, validateQuestionsBoolBySurvey} from '../../dw-utils/dw-survey-answer-validate'
 
 export default {
   name: 'DwAnswerQuestionCommon',
@@ -159,7 +159,8 @@ export default {
   },
   methods: {
     nextPage (pageIndex) {
-      if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBool(this.survey.questions)) {
+      if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBoolBySurvey(this.survey)) {
+        this.survey.scrollToQuIndex = this.survey.pageAttr.begin
         showPageByIndex(this.survey, pageIndex)
       }
     },
