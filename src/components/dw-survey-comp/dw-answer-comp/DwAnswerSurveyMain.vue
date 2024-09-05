@@ -85,8 +85,8 @@ export default {
           initAnswerBySurvey(survey)
           // 加载原答卷数据
           this.loadAnswerData(survey)
+          this.survey.answerCheckResult = this.answerCheckResult
         }
-        this.survey.answerCheckResult = this.answerCheckResult
         const surveyName = survey.surveyNameObj.dwText
         document.title = surveyName+' - 调问网'
         // 以服务的方式调用的 Loading 需要异步关闭
