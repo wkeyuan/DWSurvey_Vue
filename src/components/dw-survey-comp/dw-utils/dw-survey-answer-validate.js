@@ -181,8 +181,9 @@ function validateCheckbox (question) {
     }
     if (question.hasOwnProperty('maxLimit')) {
       const maxLimit = question.maxLimit
-      if (maxLimit!=null && maxLimit>0 && answerSize>=maxLimit) {
+      if (maxLimit!=null && maxLimit>0 && answerSize>maxLimit) {
         // 其它设置成不可用
+        errorTexts.push('最多选择'+maxLimit+'个选项')
       }
     }
   }
