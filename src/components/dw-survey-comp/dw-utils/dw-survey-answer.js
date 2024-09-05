@@ -14,19 +14,22 @@ export function getSurveyAnswerData (survey) {
   const answerCommon = {surveyId, sid, surveyDwId, answerDwId, anUser, anTime, anIp, anState, isDelete}
   const surveyAnswer = {answerCommon, anQuestions: []}
   const questions = survey.questions
+  let totalAnQuNum = 0
   if (questions !== undefined) {
-    console.debug('questions', questions)
     surveyAnswer.anQuestions = questions.map((item, index) => {
-      console.debug('item', item)
-      return getQuestionAnswerData(item)
+      const anQuestion = getQuestionAnswerData(item)
+      if (item.hasOwnProperty('item') && item.isAn) totalAnQuNum++
+      return anQuestion
     })
   }
+  surveyAnswer.answerCommon.anState.anQuNum = totalAnQuNum
   return surveyAnswer
 }
 
 export function getQuestionAnswerData (question) {
   const quType = question.quType
   const anQuestion = {quDwId: question.dwId, quType: quType}
+  question.isAn = false
   if (quType === 'RADIO') {
     getQuRadioAnswerData(question, anQuestion)
   } else if (quType === 'CHECKBOX') {
@@ -62,6 +65,7 @@ function getQuRadioAnswerData (question, anQuestion) {
   quRadios.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
       anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
+      question.isAn = true
     }
   })
 }
@@ -72,13 +76,14 @@ function getQuCheckboxAnswerData (question, anQuestion) {
   quCheckboxs.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked) {
       anQuestion.anCheckboxs.push({optionDwId: option.dwId, otherText: option.otherText})
+      question.isAn = true
     }
   })
 }
 
 function getQuFbkAnswerData (question, anQuestion) {
   anQuestion.anFbk = {answer: question.answer}
-  console.debug('anFillblank', anQuestion.anFbk.answer)
+  question.isAn = true
 }
 
 function getQuMFbkAnswerData (question, anQuestion) {
@@ -87,6 +92,7 @@ function getQuMFbkAnswerData (question, anQuestion) {
   quMultiFillblanks.map((option, index) => {
     if (option.hasOwnProperty('inputText') && option.inputText!=='') {
       anQuestion.anMFbks.push({optionDwId: option.dwId, answer: option.inputText})
+      question.isAn = true
     }
   })
 }
@@ -95,7 +101,6 @@ function getQuUploadAnswerData (question, anQuestion) {
   anQuestion.anUploadFiles = []
   if (question.hasOwnProperty('upFileList')) {
     const quUpFileList = question.upFileList
-    console.debug('quUpFileList', quUpFileList)
     if (quUpFileList!==undefined && quUpFileList!==null) {
       quUpFileList.forEach((item, index) => {
         if (item.hasOwnProperty('response') && item.response.hasOwnProperty('data')) {
@@ -104,12 +109,12 @@ function getQuUploadAnswerData (question, anQuestion) {
             responseData.forEach((responseItem) => {
               const anUploadFile = {filePath: responseItem.location, fileName: responseItem.filename}
               anQuestion.anUploadFiles.push(anUploadFile)
+              question.isAn = true
             })
           }
         }
       })
     }
-    console.debug('anQuestion.anUploadFiles', anQuestion.anUploadFiles)
   }
 }
 
@@ -119,6 +124,7 @@ function getQuScoreAnswerData (question, anQuestion) {
   quScores.map((option, index) => {
     if (option.hasOwnProperty('checked') && option.checked && option.hasOwnProperty('answerScore')) {
       anQuestion.anScores.push({optionDwId: option.dwId, answerScore: option.answerScore})
+      question.isAn = true
     }
   })
 }
@@ -130,8 +136,10 @@ function getQuOrderByAnswerData (question, anQuestion) {
   const quOrderbys = question.quOrderbys
   anQuestion.anOrders = []
   quOrderbys.forEach((option, itemIndex) => {
-    if (option.hasOwnProperty('checked') && option.checked && option.orderIndex>0) anQuestion.anOrders.push({optionDwId: option.dwId, orderNum: option.orderIndex})
-    // , optionName: option.optionTitleObj.dwHtml
+    if (option.hasOwnProperty('checked') && option.checked && option.orderIndex>0) {
+      anQuestion.anOrders.push({optionDwId: option.dwId, orderNum: option.orderIndex})
+      question.isAn = true
+    }
   })
 }
 
@@ -144,6 +152,7 @@ function getQuMatrixRadioAnswerData (question, anQuestion) {
       if (rowColOption.hasOwnProperty('checked') && rowColOption.checked) {
         // anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
         anQuRows.push({rowDwId: rowOption.dwId, colDwId: rowColOption.dwId, quAnScore: 0})
+        question.isAn = true
       }
     })
   })
@@ -160,6 +169,7 @@ function getQuMatrixCheckboxAnswerData (question, anQuestion) {
       if (rowColOption.hasOwnProperty('checked') && rowColOption.checked) {
         // anQuestion.anRadio = {optionDwId: option.dwId, otherText: option.otherText}
         anQuRowCols.push({optionDwId: rowColOption.dwId, otherText: null})
+        question.isAn = true
       }
     })
     if (anQuRowCols.length>0) {
@@ -178,6 +188,7 @@ function getQuMatrixInputAnswerData (question, anQuestion) {
     rowCols.map((rowColOption, index) => {
       if (rowColOption.answerValue!==null && rowColOption.answerValue!==undefined && rowColOption.answerValue.length>0) {
         anQuRowCols.push({optionDwId: rowColOption.dwId, answer: rowColOption.answerValue})
+        question.isAn = true
       }
     })
     anQuRows.push({rowDwId: rowOption.dwId, rowAnFbks: anQuRowCols})
@@ -192,6 +203,7 @@ function getQuMatrixScaleAnswerData (question, anQuestion) {
     const answerValue = rowOption.answerValue
     if (answerValue!==null && answerValue!==undefined) {
       anQuRows.push({rowDwId: rowOption.dwId, answerScore: answerValue, rowAnScore: 0})
+      question.isAn = true
     }
   })
   console.debug('anQuRows', anQuRows)
