@@ -15,7 +15,6 @@ import {dwSurveyAnswerLogic} from './dw-survey-answer-logic'
 export function getSurveyAnswerJsonBySurveyId (params, successCallback, noJsonCallback) {
   // 先看看有没有JSON，有就取JSON数据。没有再取原来的Survey结构数据进行转换
   dwSurveyJsonBySurveyId(params).then((response) => {
-    console.debug('surveyJsonBySurveyId', response)
     const httpResult = response.data
     if (httpResult.resultCode === 200) {
       const surveyAnswerResult = httpResult.data

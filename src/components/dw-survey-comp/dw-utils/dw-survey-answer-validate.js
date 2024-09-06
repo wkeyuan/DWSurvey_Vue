@@ -322,12 +322,46 @@ function validateAnswerInput (question, inputAttr, errorTexts, answerValue) {
  * @param question
  */
 function validateQuMultiFillblanks (question) {
+  const errorTexts = []
   const quOptions = question.quMultiFillblanks
   const validateObj = question.validateObj
   let answerSize = 0
+  getQuestionAnswerData(question)
   if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMFbks')) answerSize = question.anQuestion.anMFbks.length
   if (question.hasOwnProperty('quAttr') && question.quAttr.hasOwnProperty('isRequired') && question.quAttr.isRequired && answerSize<quOptions.length) {
-    validateObj.errorText = '此题必答'
+    // validateObj.errorText = '此题必答'
+    // validateObj.isOk = false
+    errorTexts.push('此题必答')
+  }
+  if (question.hasOwnProperty('anQuestion') && question.anQuestion.hasOwnProperty('anMFbks')) {
+    const anCheckboxs = question.anQuestion.anMFbks
+    const quCheckboxs = question.quMultiFillblanks
+    for (let i=0; i<quCheckboxs.length; i++) {
+      const quCheckbox = quCheckboxs[i]
+      quCheckbox.validateObj = {errorText: '', isOk: true}
+      for (let j=0; j< anCheckboxs.length; j++) {
+        const anCheckbox = anCheckboxs[j]
+        if (quCheckbox.dwId === anCheckbox.optionDwId) {
+          // 查看是否需要进行填空验证
+          if (quCheckbox.hasOwnProperty('inputAttr')) {
+            const inputAttr = quCheckbox.inputAttr
+            const answerValue = anCheckbox.answer
+            const optionErrorTexts = []
+            validateAnswerInput(question, inputAttr, optionErrorTexts, answerValue)
+            if (optionErrorTexts.length>0 && question.hasOwnProperty('showOptionError') && question.showOptionError) {
+              quCheckbox.validateObj.errorText = optionErrorTexts.join('，')
+              quCheckbox.validateObj.isOk = false
+              validateObj.isOk = false
+            }
+            // errorTexts.push(optionErrorTexts)
+          }
+        }
+      }
+    }
+  }
+  validateObj.errorText = ''
+  if (errorTexts.length>0) {
+    validateObj.errorText = errorTexts.join('，')
     validateObj.isOk = false
   }
   question.validateObj = validateObj

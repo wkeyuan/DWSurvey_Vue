@@ -58,15 +58,12 @@ export default {
       })
       // const sid = this.$route.params.id
       // const answerId = this.$route.params.answerId
-      console.debug('sidProps', this.answerProps)
       const surveyId = this.answerProps.surveyId
       const sid = this.answerProps.sid
       const answerId = this.answerProps.answerId
       const params = {surveyId, sid, answerId, anPwd: this.answerProps.anPwd}
-      console.debug('loadSurvey params 1', params)
       if (this.$route.query.hasOwnProperty('anPwd')) params.anPwd = this.$route.query.anPwd
       // 1、答卷合法性判断
-      console.debug('loadSurvey params', params)
       // 2、加载问卷与答卷
       getSurveyAnswerJsonBySurveyId(params, (survey, answerCheckResult) => {
         // survey.surveyStyle.themeColor = '#025bb7'
@@ -108,7 +105,6 @@ export default {
         // const answerId = this.$route.params.answerId
         const answerId = this.answerProps.answerId
         dwSurveyAnswerById({answerId}).then((response) => {
-          console.debug('loadAnswer response', response)
           const httpResult = response.data
           if (httpResult.resultCode === 200) {
             this.answerData = httpResult.data
@@ -125,10 +121,8 @@ export default {
       if (this.answerData!=null) {
         parseAnswerData(survey, this.answerData)
       }
-      console.debug('db survey', survey)
       survey.answerMsg = {showAnswerMsg: false, answerMsgInfo: null, noSurveyJson: false}
       this.setSurveyData(survey)
-      console.debug('this survey', survey)
     },
     setSurveyData (survey) {
       // 先判断是否有 answerId ，如果有则不需要考虑本地之前的缓存数据
@@ -141,8 +135,6 @@ export default {
             if (endAnDate!==null) {
               const endAnDateTime =new Date(endAnDate).getTime()
               const localLastActionDateTime = surveyAnswerLocalStorage.getSurveyAnswerActionTime(survey)
-              console.debug('endAnDateTime', endAnDateTime)
-              console.debug('localLastActionDateTime', localLastActionDateTime)
               if (localLastActionDateTime>endAnDateTime) {
                 this.$confirm('检测到当前加载的答卷数据在本地有过修改，是否使用本地最新修改。', '提示', {
                   confirmButtonText: '是，使用本地最新数据',

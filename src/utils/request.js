@@ -28,8 +28,6 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    console.debug('response')
-    console.debug(response)
     if (response.status === 200) {
       const {data} = response
       if (data.hasOwnProperty('resultCode')) {
