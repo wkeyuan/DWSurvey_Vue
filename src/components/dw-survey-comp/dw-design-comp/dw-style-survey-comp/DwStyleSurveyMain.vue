@@ -158,7 +158,6 @@ export default {
         if (!survey.hasOwnProperty('surveyStyle') || !survey.surveyStyle.hasOwnProperty('pageThemeColor')) {
           survey.surveyStyle = getDefaultSurveyStyle()
         }
-        this.oldQuestions = JSON.stringify(survey.questions)
         // 初始化答卷数据
         survey.dwDebug = false
         survey.answerMsg = {showAnswerMsg: false, answerMsgInfo: null, noSurveyJson: false}
@@ -170,6 +169,7 @@ export default {
         initAnswerSurveyProgress(survey)
         // 初始化分页
         showPageByIndex(survey, 1)
+        this.oldQuestions = JSON.stringify(survey.questions)
         this.survey = survey
         this.loading = false
       })

@@ -82,7 +82,7 @@ export default {
           initAnswerBySurvey(survey)
           // 加载原答卷数据
           this.loadAnswerData(survey)
-          this.survey.answerCheckResult = this.answerCheckResult
+          if (this.survey!==null) this.survey.answerCheckResult = this.answerCheckResult
         }
         const surveyName = survey.surveyNameObj.dwText
         document.title = surveyName+' - 调问网'
@@ -221,7 +221,7 @@ export default {
       showPageByIndex(survey, 1)
       // 加载完成把问卷初始数据存入local
       // surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
-      surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey)
+      // surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey) // 这个数据没有取到作用
       // 如果是答新问卷，则需要检查答卷密码。
       this.checkAnswerPwd()
       if (this.survey!=null && this.survey.hasOwnProperty('firstLoadAnswer')) this.survey.firstLoadAnswer = false

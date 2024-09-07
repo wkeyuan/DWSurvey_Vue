@@ -181,8 +181,8 @@ export default {
       this.answer = {}
       // this.survey = {}
       // this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.$route.params.id, this.$route.params.answerId).questions
-      this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.survey.sid, this.survey.dwEsSurveyAnswer.esId).questions
-      this.survey.pageAttr.curPage = 1
+      // this.survey.questions = surveyInitLocalStorage.getSurveyByLocalStorage(this.survey.sid, this.survey.dwEsSurveyAnswer.esId).questions
+      // this.survey.pageAttr.curPage = 1
     },
     configCheckAnswerPwdButton () {
       // 进行检查 anPwd,sid
