@@ -87,6 +87,7 @@
         @current-change="handleCurrentChange"
       >
       </el-pagination>
+      <span v-if="total>10000" style="font-size: 10px;color: grey;"> 仅显示前1万条数据，更多可以通过改变查询条件或导出 </span>
     </div>
     <el-dialog :visible.sync="dialogFormVisible" append-to-body title="导出答卷数据" width="40%" >
       <div style="line-height: 30px;">是否同时下载上传题的文件</div>
