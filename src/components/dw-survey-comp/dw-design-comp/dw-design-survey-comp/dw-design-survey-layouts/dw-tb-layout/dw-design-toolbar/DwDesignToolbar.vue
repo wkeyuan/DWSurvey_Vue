@@ -146,7 +146,8 @@ export default {
       this.drag=false
     },
     loadDesignSurveyData () {
-      questionComps().then((response) => {
+      const params = {surveyType: this.survey.surveyType}
+      questionComps(params).then((response) => {
         console.debug('questionComps-response')
         console.debug(response)
         const httpResult = response.data

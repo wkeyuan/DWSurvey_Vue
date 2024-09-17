@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function questionComps () {
+export function questionComps (params) {
   return request({
     url: '/api/dwsurvey/app/v6/dw-design-survey/toolbar-qus.do',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
