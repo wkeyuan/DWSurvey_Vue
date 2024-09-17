@@ -1,8 +1,8 @@
 <template>
-  <div class="dw-preview-container" >
+  <div v-if="survey!==null" class="dw-preview-container" >
     <div class="dw-preview-header">
       <div class="dw-preview-header-left">
-        <label><i class="dw-icon-button fa-solid fa-palette active" style=""></i>问卷样式配置</label>
+        <label><i class="dw-icon-button fa-solid fa-palette active" style=""></i>{{ survey.surveyTypeSimpleName }}样式配置</label>
         <!--        <i class=" fa-solid fa-wand-magic-sparkles active" style="color: #6e45e8;"></i>-->
       </div>
       <div class="dw-preview-header-center">

@@ -5,8 +5,8 @@
         <div v-loading="loading">
           <div v-if="thSurvey!==null">
             <div class="dw-dcs-main-title">
-              <h4>问卷属性设置</h4>
-              <div class="dw-dcs-main-p">配置问卷答卷时的收集规则</div>
+              <h4>{{ survey.surveyTypeSimpleName }}属性设置</h4>
+              <div class="dw-dcs-main-p">配置答卷时的收集规则</div>
             </div>
             <div class="dw-dcs-main-content">
 

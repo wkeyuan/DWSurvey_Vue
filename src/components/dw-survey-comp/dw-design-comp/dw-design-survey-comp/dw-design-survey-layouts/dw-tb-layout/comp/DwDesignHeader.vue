@@ -44,10 +44,10 @@
             class="dw-design-survey-menu dw-menu-height"
             mode="horizontal"
             @select="handleSelect">
-            <el-menu-item :index="`${prevPath}/dw/survey`">我的问卷</el-menu-item>
+            <el-menu-item :index="`${prevPath}/dw/survey`">我的项目</el-menu-item>
             <el-menu-item :index="`${prevPath}/dw/survey/d/chart/${$route.params.dwSurveyId}`">数据统计</el-menu-item>
             <el-menu-item :index="`${prevPath}/dw/survey/c/url/${$route.params.dwSurveyId}`">答卷收集</el-menu-item>
-            <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.dwSurveyId}`" >问卷设计</el-menu-item>
+            <el-menu-item :index="`/v6/diaowen/dw-design/survey/${$route.params.dwSurveyId}`">{{ survey.surveyTypeSimpleName }}设计</el-menu-item>
           </el-menu>
         </div>
       </div>
@@ -58,6 +58,7 @@
 <script>
 
 import {dwFooterUtils} from '../../../../../dw-utils/dw-common/dw-footer-util'
+import {getSurveyTypeName} from "../../../../../dw-utils/dw-survey-common";
 
 export default {
   name: 'DwDesignHeader',
@@ -88,6 +89,8 @@ export default {
         // 左右布局
         dwFooterUtils.isLayoutLr((footerInfo) => { this.prevPath = '/v6/lr' })
       })
+      getSurveyTypeName(this.survey)
+      this.logoTitle = `调问网-全新${this.survey.surveyTypeSimpleName}编辑器`
     },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)

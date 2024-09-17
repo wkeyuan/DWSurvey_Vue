@@ -15,7 +15,7 @@
               <el-input id="copyCodeInput" v-model="survey.answerUrlV6" readonly style="width: 500px;" ></el-input>
               <el-button-group>
                 <el-button type="primary" icon="el-icon-copy-document" @click="copyActiveCode($event,survey.answerUrlV6 )" >复制地址</el-button>
-                <el-link :href="survey.answerUrlV6" :underline="false" target="_blank" ><el-button icon="el-icon-link" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" >打开问卷</el-button></el-link>
+                <el-link :href="survey.answerUrlV6" :underline="false" target="_blank" ><el-button icon="el-icon-link" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" >打开{{ survey.surveyTypeSimpleName }}</el-button></el-link>
               </el-button-group>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import {v4 as uuidv4} from 'uuid'
 import {getDefaultSurveyStyle} from './dw-common/dw-common-utils'
 import {buildMatrixQuRowCols} from './dw-survey-answer-data'
+import {getSurveyTypeSimpleName} from "./dw-survey-common";
 /**
  * 解析原始survey，使之能符合前端设计器相关规则
  * @param survey
@@ -35,6 +36,8 @@ export function parseSurvey (survey) {
     survey.clientBrowser = {windowWidth: 0, matrixWidth: 0}
     if (!survey.hasOwnProperty('designLayout')) survey.designLayout = 'LR'
     survey.scrollToQuIndex = null
+    survey.surveyTypeSimpleName = '问卷'
+    getSurveyTypeSimpleName(survey)
   }
   return survey
 }

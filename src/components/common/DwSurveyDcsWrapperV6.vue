@@ -24,16 +24,16 @@
             <div class="dw-dcs-main-survey-step-item" style="padding: 13px 16px;">
               <el-row type="flex" justify="space-between" align="middle" >
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link dw-link-1" ><i class="el-icon-edit"></i>问卷设计</router-link>
+                  <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link dw-link-1" ><i class="el-icon-edit"></i>{{ survey.surveyTypeSimpleName }}设计</router-link>
                 </el-col>
                 <el-col :span="3" >
-                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>问卷收集</router-link>
+                  <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>{{ survey.surveyTypeSimpleName }}收集</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i>问卷数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i> {{ survey.surveyTypeSimpleName }}数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
-                  <el-button type="primary" size="small" @click="handlePush(`/v6/diaowen/dw-design/survey/${survey.id}`)" >问卷设计</el-button>
+                  <el-button type="primary" size="small" @click="handlePush(`/v6/diaowen/dw-design/survey/${survey.id}`)" >{{ survey.surveyTypeSimpleName }}设计</el-button>
                   <el-button size="small" @click="handlePush(`${prevPath}/survey/c/url/${survey.id}`)" >答卷地址</el-button>
                 </el-col>
               </el-row>
@@ -41,10 +41,10 @@
             <div class="dw-dcs-main-survey-step-item" style="padding-left: 16px;">
               <el-row v-show="isSurveySet">
                 <el-col :span="3">
-                  <router-link :to="`/v6/diaowen/dw-design/survey/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>问卷设计</router-link>
+                  <router-link :to="`/v6/diaowen/dw-design/survey/${survey.id}`" :class="{ 'dw-link-primary' : isSiteComp}" class="dw-link" ><i class="el-icon-edit"></i>{{ survey.surveyTypeSimpleName }}设计</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`/v6/diaowen/dw-preview/survey/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
+                  <router-link :to="`/v6/diaowen/dw-preview-style/survey/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerWx}" class="dw-link" ><i class="el-icon-brush"></i>样式设计</router-link>
                 </el-col>
                 <el-col :span="3">
                   <router-link :to="`${prevPath}/survey/c/attr/${survey.id}`" :class="{ 'dw-link-primary' : isSurveySet}" class="dw-link" ><i class="el-icon-setting"></i>答卷设置</router-link>
@@ -106,6 +106,7 @@
 <script>
 import {dwSurveyInfo} from '@/api/dw-survey'
 import {dwSurveyUpState} from '../../api/dw-survey'
+import {getSurveyTypeSimpleName} from "../dw-survey-comp/dw-utils/dw-survey-common";
 export default {
   name: 'DwSurveyDcsWrapperV6',
   props: {
@@ -154,9 +155,9 @@ export default {
       dwSurveyUpState(this.$route.params.dwSurveyId, this.survey.surveyState).then((response) => {
         const httpResult = response.data
         if (httpResult.resultCode === 200) {
-          this.$message.success('问卷状态设置成功')
+          this.$message.success(`${this.survey.surveyTypeSimpleName}状态设置成功`)
         } else {
-          this.$message.error('问卷状态设置失败')
+          this.$message.error(`${this.survey.surveyTypeSimpleName}状态设置失败`)
         }
       })
     },
@@ -175,6 +176,8 @@ export default {
         this.survey.surveyDetail.rule = resultData.surveyDetail.rule === 1
         this.survey.surveyDetail.ynEndNum = resultData.surveyDetail.ynEndNum === 1
         this.survey.surveyDetail.ynEndTime = resultData.surveyDetail.ynEndTime === 1
+        this.survey.surveyTypeSimpleName = '问卷'
+        getSurveyTypeSimpleName(this.survey)
       })
     }
   }

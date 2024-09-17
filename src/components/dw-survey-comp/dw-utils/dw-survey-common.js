@@ -73,3 +73,23 @@ export const surveyPageUtils= {
     return pageNum
   }
 }
+
+export function getSurveyTypeSimpleName (survey) {
+  if (survey!==null) {
+    if (survey.surveyType === 'survey') {
+      survey.surveyTypeSimpleName = '问卷'
+    } else if (survey.surveyType==='exam') {
+      survey.surveyTypeSimpleName = '试卷'
+    } else if (survey.surveyType==='vote') {
+      survey.surveyTypeSimpleName = '投票'
+    } else if (survey.surveyType==='satisfaction') {
+      survey.surveyTypeSimpleName = '满意度'
+    } else if (survey.surveyType==='satisfaction') {
+      survey.surveyTypeSimpleName = '测评'
+    } else if (survey.surveyType==='360eval') {
+      survey.surveyTypeSimpleName = '360评估'
+    } else {
+      survey.surveyTypeSimpleName = '调查'
+    }
+  }
+}
