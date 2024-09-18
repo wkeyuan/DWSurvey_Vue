@@ -36,8 +36,9 @@
             </el-form-item>
             <template v-if="survey.questions[index].quType === 'RADIO'">
               <div style="border: 1px solid rgb(212 225 237);border-radius: 4px;padding: 5px;">
+                <div style="padding: 10px;color: gray;">选择属性设置</div>
                 <div style="padding: 8px 0;">
-                  <el-form-item label="选项属性" style="margin-bottom: 0;">
+                  <el-form-item label="配置选项" style="margin-bottom: 0;">
                     <el-select v-model="tempForm.selectOptionIndex" placeholder="请选择选项">
                       <el-option v-for="(item, optionIndex) in survey.questions[index].quRadios" :key="`quCheckbox_${optionIndex}`" :label="item.optionTitleObj.dwText" :value="optionIndex"></el-option>
                     </el-select>
@@ -62,8 +63,9 @@
                 <div>最多 <el-input-number v-model="survey.questions[index].maxLimit"></el-input-number></div>
               </el-form-item>
               <div style="border: 1px solid rgb(212 225 237);border-radius: 4px;padding: 5px;">
+                <div style="padding: 10px;color: gray;">选择属性设置</div>
                 <div style="padding: 8px 0;">
-                  <el-form-item label="选项属性" style="margin-bottom: 0;">
+                  <el-form-item label="配置选项" style="margin-bottom: 0;">
                     <el-select v-model="tempForm.selectOptionIndex" placeholder="请选择选项">
                       <el-option v-for="(item, optionIndex) in survey.questions[index].quCheckboxs" :key="`quCheckbox_${optionIndex}`" :label="item.optionTitleObj.dwText" :value="optionIndex"></el-option>
                     </el-select>
