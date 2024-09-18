@@ -38,6 +38,10 @@ export function parseSurvey (survey) {
     survey.scrollToQuIndex = null
     survey.surveyTypeSimpleName = '问卷'
     getSurveyTypeSimpleName(survey)
+    survey.surveyFocusObj = {
+      rightFocusTab: 'surveySet',
+      focusQuIndex: null
+    }
   }
   return survey
 }

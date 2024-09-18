@@ -314,6 +314,11 @@ export default {
         quScaleTextPopoverShow: false,
         quMoreOptionColShow: false
       }
+      // 显示特定的tab
+      this.survey.surveyFocusObj = {
+        rightFocusTab: 'quSet',
+        focusQuIndex: this.index
+      }
     },
     dwAddQuItemEvent () {
       const quOption = {id: null, optionTitleObj: {dwHtml: '选项内容', dwText: '选项内容', dwPlaceholder: '请输入内容', isRefreshValue: true}, itemClick: true}

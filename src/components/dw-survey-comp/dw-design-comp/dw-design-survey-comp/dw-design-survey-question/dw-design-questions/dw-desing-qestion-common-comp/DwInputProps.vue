@@ -16,17 +16,17 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-show="inputProp.commonAttr.checkType === 'TIME'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" style="width: 290px;" >
+      <el-select v-show="inputProp.commonAttr.checkType === 'TIME'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" >
         <el-option :value="5" label="时分秒（HH:mm:ss）"></el-option>
         <el-option :value="6" label="时分（HH:mm）"></el-option>
         <el-option :value="7" label="时分下拉控件（HH:mm）"></el-option>
       </el-select>
-      <el-select v-show="inputProp.commonAttr.checkType === 'DATE'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" style="width: 290px;">
+      <el-select v-show="inputProp.commonAttr.checkType === 'DATE'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" >
         <el-option :value="3" label="年月日（YYYY-MM-DD）"></el-option>
         <el-option :value="2" label="年月（YYYY-MM）"></el-option>
         <el-option :value="1" label="年（YYYY）"></el-option>
       </el-select>
-      <el-select v-show="inputProp.commonAttr.checkType === 'DATETIME'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" style="width: 290px;">
+      <el-select v-show="inputProp.commonAttr.checkType === 'DATETIME'" v-model="inputProp.dateTimeAttr.dateFormat" placeholder="日期格式" >
         <el-option :value="4" label="年月日时分秒（YYYY-MM-DD HH:mm:ss）"></el-option>
         <!--        <el-option :value="8" label="年月日时分（YYYY-MM-DD HH:mm）"></el-option>-->
       </el-select>
@@ -50,14 +50,14 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item v-show="(inputProp.commonAttr.checkType === 'TIME' && inputProp.dateTimeAttr.dateFormat===7) || (inputProp.commonAttr.checkType === 'TIME' && inputProp.dateTimeAttr.dateFormat!==7 && !inputProp.dateTimeAttr.attrs.includes('range'))" label="时间限制">
-      <el-time-picker v-show="inputProp.dateTimeAttr.dateFormat===7 || (inputProp.dateTimeAttr.dateFormat!==7 && !inputProp.dateTimeAttr.attrs.includes('range'))" v-model="inputProp.dateTimeAttr.timeRange.range" format="HH:mm" value-format="HH:mm" is-range style="margin-right: 10px;width: 300px;" ></el-time-picker>
+      <el-time-picker v-show="inputProp.dateTimeAttr.dateFormat===7 || (inputProp.dateTimeAttr.dateFormat!==7 && !inputProp.dateTimeAttr.attrs.includes('range'))" v-model="inputProp.dateTimeAttr.timeRange.range" format="HH:mm" value-format="HH:mm" is-range style="margin-right: 10px;width: 200px;" ></el-time-picker>
       <span v-show="inputProp.dateTimeAttr.dateFormat === 7">步长 <el-time-picker v-model="inputProp.dateTimeAttr.timeRange.step" format="HH:mm" value-format="HH:mm" style="width: 100px;" ></el-time-picker></span>
     </el-form-item>
 
     <el-form-item v-show="inputProp.commonAttr.checkType === 'NUM' || inputProp.commonAttr.checkType === 'DIGITS'" label="数据范围">
       <span>
-        最小值 <el-input-number v-model="inputProp.numAttr.min" style="margin-right: 10px;"></el-input-number>
-        最大值 <el-input-number v-model="inputProp.numAttr.max" ></el-input-number>
+        <div>最小值 <el-input-number v-model="inputProp.numAttr.min" style="margin-right: 10px;"></el-input-number></div>
+        <div>最大值 <el-input-number v-model="inputProp.numAttr.max" ></el-input-number></div>
       </span>
     </el-form-item>
     <el-form-item v-show="inputProp.commonAttr.checkType === 'NUM'" label="保留精度" style="display: none;">
@@ -65,8 +65,8 @@
     </el-form-item>
 
     <el-form-item v-show="inputProp.commonAttr.checkType !== 'NUM' && inputProp.commonAttr.checkType !== 'DIGITS' && inputProp.commonAttr.checkType !== 'TIME' && inputProp.commonAttr.checkType !== 'DATE' && inputProp.commonAttr.checkType !== 'DATETIME'" label="数据范围">
-      最少字数 <el-input-number v-model="inputProp.commonAttr.minlength" style="margin-right: 10px;"></el-input-number>
-      最大字数 <el-input-number v-model="inputProp.commonAttr.maxlength" ></el-input-number>
+      <div>最少字数 <el-input-number v-model="inputProp.commonAttr.minlength" style="margin-right: 10px;"></el-input-number></div>
+      <div>最大字数 <el-input-number v-model="inputProp.commonAttr.maxlength" ></el-input-number></div>
     </el-form-item>
   </el-form>
 </template>

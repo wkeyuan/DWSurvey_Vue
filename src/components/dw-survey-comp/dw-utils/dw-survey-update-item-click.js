@@ -68,4 +68,8 @@ export function resetOtherClickItem (survey, quIndex) {
       survey.questions[i].quFocusObj.quMoreOptionColShow = false
     }
   }
+  survey.surveyFocusObj = {
+    rightFocusTab: 'surveySet',
+    focusQuIndex: null
+  }
 }

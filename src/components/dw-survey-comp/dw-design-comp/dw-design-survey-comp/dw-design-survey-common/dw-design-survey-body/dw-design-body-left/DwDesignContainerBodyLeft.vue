@@ -43,12 +43,9 @@
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="属性">
+      <el-tab-pane label="题库">
         <div :style="`height:${lrContentHeight}px;`" class="scrollable-hidden scrollable-y">
-          <div style="padding-bottom: 5px;">
-            <el-alert title="可以配置整个问卷的基本属性" type="info" show-icon></el-alert>
-          </div>
-          <dw-design-survey-attrs v-model="survey" ></dw-design-survey-attrs>
+          <dw-design-qu-banks v-model="survey" @start-drag-right="onStartRight" @end-drag="onEnd" ></dw-design-qu-banks>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -62,10 +59,12 @@ import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-upd
 import DwDesignCatalogQuItem from './components/DwDesignCatalogQuItem.vue'
 import DwDesignSurveyAttrs from './components/DwDesignSurveyAttrs.vue'
 import DwDesignToolbarLeft from './components/DwDesignToolbarLeft.vue'
+import DwDesignQuBanks from "../dw-design-body-right/components/DwDesignQuBanks.vue";
 
 export default {
   name: 'DwDesignContainerBodyLeft',
   components: {
+    DwDesignQuBanks,
     DwDesignToolbarLeft,
     DwDesignSurveyAttrs,
     DwDesignCatalogQuItem,
