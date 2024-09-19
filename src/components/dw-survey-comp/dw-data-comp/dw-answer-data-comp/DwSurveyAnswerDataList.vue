@@ -12,7 +12,7 @@
           <el-form-item label="时间" >
             <el-date-picker
               v-model="formInline.anTime"
-              type="daterange"
+              type="datetimerange"
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
