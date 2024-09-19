@@ -70,7 +70,11 @@ export default {
         survey.dwDebug = false
         if (this.extProps!=null) {
           if (this.extProps.hasOwnProperty('readonly')) survey.readonly = this.extProps.readonly
-          if (this.extProps.hasOwnProperty('isShowScore')) survey.isShowScore = this.extProps.isShowScore
+          if (this.extProps.hasOwnProperty('isShowScore')) {
+            survey.isShowScore = this.extProps.isShowScore
+            if (survey.hasOwnProperty('surveyAttrs')) survey.isShowScore = (survey.surveyAttrs.scoreAttr.enabled && this.extProps.isShowScore)
+            if (survey.hasOwnProperty('surveyType')) survey.isShowScore = (this.extProps.isShowScore && survey.surveyType === 'exam')
+          }
         }
         this.answerCheckResult = answerCheckResult
         if (answerCheckResult.hasOwnProperty('anCheckIsPass') && answerCheckResult.hasOwnProperty('anCheckResultMsg') && !answerCheckResult.anCheckIsPass && answerCheckResult.anCheckResultCode!==403 && answerCheckResult.anCheckResultCode!==409) {

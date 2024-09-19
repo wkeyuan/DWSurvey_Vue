@@ -62,13 +62,13 @@
                   <div v-if="survey.hasOwnProperty('isShowScore') && survey.isShowScore && survey.questions[index].hasOwnProperty('anQuestion') && survey.questions[index].anQuestion.hasOwnProperty('quAnScore')" class="dw-qu-answer-score">
                     本题得：
                     <template v-if="survey.questions[index].quAttr.scoreAttr.maxScore === survey.questions[index].anQuestion.quAnScore" >
-                      <span style="color: red;">
-                        满分{{ survey.questions[index].anQuestion.quAnScore }}分 <i class="el-icon-check"></i>
+                      <span style="color: green;">
+                        满分{{ survey.questions[index].anQuestion.quAnScore }}分 <i class="fa-solid fa-check"></i>
                       </span>
                     </template>
                     <template v-else-if="survey.questions[index].quAttr.scoreAttr.maxScore>0 && survey.questions[index].anQuestion.quAnScore===0" >
                       <span style="color: red;">
-                        {{ survey.questions[index].anQuestion.quAnScore }}分 <i class="el-icon-close"></i>
+                        {{ survey.questions[index].anQuestion.quAnScore }}分 <i class="fa-solid fa-xmark"></i>
                       </span>
                     </template>
                     <template v-else >
@@ -257,7 +257,9 @@ export default {
   font-weight: bold;
 }
 .dw-qu-answer-score{
-  padding: 5px;color: red;background: #f6f6f7;
+  padding: 5px;
+  color: #7c7c7c;
+  background: #f6f6f7;
 }
 </style>
 <style>

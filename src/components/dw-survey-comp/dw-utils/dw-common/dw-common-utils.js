@@ -145,7 +145,7 @@ export function getDefaultSurveyStyle () {
     showQuTypeName: true,
     showSurveyTitle: true,
     showSurveyNote: true,
-    showQuScoreNum: true
+    showQuScoreNum: false
   }
   return defaultSurveyStyle
 }
