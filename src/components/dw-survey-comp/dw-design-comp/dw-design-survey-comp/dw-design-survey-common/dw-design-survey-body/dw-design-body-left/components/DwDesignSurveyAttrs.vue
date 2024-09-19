@@ -42,12 +42,18 @@
         </div>
       </div>
       <div style="margin-top: 20px;">
-        <div class="dw-title-attr">何时结束</div>
+        <div class="dw-title-attr">开始结束</div>
         <div style="padding-left: 10px;">
           <el-form-item>
             <div><el-checkbox v-model="survey.surveyAttrs.anEndNumAttr.enabled">指定结束份数</el-checkbox></div>
             <div v-show="survey.surveyAttrs.anEndNumAttr.enabled">
               <el-input-number :min="1" :max="100000" v-model="survey.surveyAttrs.anEndNumAttr.endNum" size="mini" style="width: 160px;"></el-input-number>
+            </div>
+          </el-form-item>
+          <el-form-item>
+            <div><el-checkbox v-model="survey.surveyAttrs.anStartTimeAttr.enabled">指定开始时间</el-checkbox></div>
+            <div v-show="survey.surveyAttrs.anStartTimeAttr.enabled">
+              <el-date-picker v-model="survey.surveyAttrs.anStartTimeAttr.startTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间" style="width: 160px;" ></el-date-picker>
             </div>
           </el-form-item>
           <el-form-item>

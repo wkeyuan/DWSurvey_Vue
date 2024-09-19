@@ -72,6 +72,9 @@ export function parseSurveyDetail (survey) {
       anEndTimeAttr: {enabled: false, endTime: null}
     }
   }
+  if (!survey.surveyAttrs.hasOwnProperty('anStartTimeAttr')) {
+    survey.surveyAttrs.anStartTimeAttr = {enabled: false, startTime: null}
+  }
   if (!survey.surveyAttrs.hasOwnProperty('scoreAttr')) {
     survey.surveyAttrs.scoreAttr = {
       enabled: false, // 是否打开计分功能
