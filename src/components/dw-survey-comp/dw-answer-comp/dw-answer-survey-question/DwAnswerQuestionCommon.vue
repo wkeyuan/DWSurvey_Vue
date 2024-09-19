@@ -34,8 +34,8 @@
                 <template v-else>
                   <div class="dw-width-100bf">
                     <template v-if="survey.hasOwnProperty('pageAttr') && survey.pageAttr.hasOwnProperty('curPage') && !survey.readonly">
-                      <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1)" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
-                      <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
+                      <el-button type="primary" class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage+1, 'next')" >下一页（{{ survey.pageAttr.curPage }}/{{ survey.pageAttr.pageSize }}）</el-button>
+                      <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1, 'prev')" >上一页</el-button>
                     </template>
                   </div>
                 </template>
@@ -105,6 +105,7 @@ import DwPopoverQuAttrs from '../../dw-design-comp/dw-design-survey-comp/dw-desi
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
 import {validateQuestionsBool, validateQuestionsBoolBySurvey} from '../../dw-utils/dw-survey-answer-validate'
+import {answerQuEventCommon} from "../dw-utils/dw-survey-answer-common";
 
 export default {
   name: 'DwAnswerQuestionCommon',
@@ -158,10 +159,10 @@ export default {
     }
   },
   methods: {
-    nextPage (pageIndex) {
+    nextPage (pageIndex, prevOrNext) {
       if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBoolBySurvey(this.survey)) {
         this.survey.scrollToQuIndex = this.survey.pageAttr.begin
-        showPageByIndex(this.survey, pageIndex)
+        showPageByIndex(this.survey, pageIndex, prevOrNext)
       }
     },
     mouseleave () {

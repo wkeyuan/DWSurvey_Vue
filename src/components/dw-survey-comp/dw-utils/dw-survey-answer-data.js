@@ -1,5 +1,6 @@
 import {surveyPageUtils} from './dw-survey-common'
 import {getQuestionAnswerData} from './dw-survey-answer'
+import {answerQuEventCommon} from "../dw-answer-comp/dw-utils/dw-survey-answer-common";
 
 export function parseAnswerData (survey, answer) {
   survey.dwEsSurveyAnswer = answer
@@ -382,10 +383,12 @@ function inputAttrInit (inputAttr) {
     commonAttr.placeholder = newPlaceholder
   }
 }
-export function showPageByIndex (survey, pageIndex) {
+export function showPageByIndex (survey, pageIndex, prevOrNext) {
   const questions = survey.questions
   let beginIndex = null
   let endIndex = null
+  let curPageIsShowQu = false
+  let isAutoNextPage = false
   questions.forEach((item, index) => {
     console.debug('item.pageIndex === pageIndex', item.pageIndex === pageIndex)
     item.showQu = item.pageIndex === pageIndex
@@ -393,9 +396,30 @@ export function showPageByIndex (survey, pageIndex) {
       if (beginIndex==null) beginIndex = index
       endIndex = index
     }
+    if (item.pageIndex===pageIndex) {
+      // 当前页有显示，则分页显示
+      if (!item.logicIsHide) curPageIsShowQu = true
+      const quType = item.quType
+      if (quType === 'PAGETAG') {
+        if (curPageIsShowQu) {
+          item.logicIsHide = false
+        } else {
+          // 如果当前页都逻辑隐藏了，说明当前页跳过
+          item.logicIsHide = true
+          isAutoNextPage = true
+        }
+      }
+    }
   })
   survey.pageAttr.curPage = pageIndex
   survey.pageAttr.begin = beginIndex
   survey.pageAttr.end = endIndex
+  if (isAutoNextPage) {
+    if (prevOrNext === 'next') {
+      showPageByIndex(survey, pageIndex + 1)
+    } else {
+      showPageByIndex(survey, pageIndex - 1)
+    }
+  }
 }
 

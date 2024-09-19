@@ -219,10 +219,10 @@ export default {
       const survey = this.survey
       // 初始化问卷进度状态
       initAnswerSurveyProgress(survey)
-      // 逻辑处理初始化
-      dwSurveyAnswerLogicLoad(survey)
       // 此处需要重置分页
       showPageByIndex(survey, 1)
+      // 逻辑处理初始化
+      dwSurveyAnswerLogicLoad(survey)
       // 加载完成把问卷初始数据存入local
       // surveyInitLocalStorage.saveSurvey2LocalStorage(this.$route.params.id, this.$route.params.answerId, this.survey)
       // surveyInitLocalStorage.saveSurvey2LocalStorage(this.survey) // 这个数据没有取到作用

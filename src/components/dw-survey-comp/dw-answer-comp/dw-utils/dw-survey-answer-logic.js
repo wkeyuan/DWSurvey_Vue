@@ -5,6 +5,7 @@ import {clearQuestionAnswerData} from './dw-survey-answer-clear'
  * @param survey
  */
 export function dwSurveyAnswerLogicLoad (survey) {
+  survey.surveyLogicControl = {hideQus: []} // hideQus 所有要逻辑隐藏题目信息
   const questions = survey.questions
   if (questions !== undefined) {
     questions.map((item, index) => {
@@ -302,6 +303,8 @@ function questionLogicData (survey, question) {
 export function surveyLogicControlExe (survey) {
   const questions = survey.questions
   if (questions !== undefined) {
+    let curPageIsShowQu = false
+    let curQuPageIndex = 1
     questions.map((question, index) => {
       const isHide = quLogicIsHide(survey, question)
       if (!question.logicIsHide && isHide) {
@@ -309,6 +312,26 @@ export function surveyLogicControlExe (survey) {
         questionLogicData(survey, question)
       }
       question.logicIsHide = isHide
+      // 处理分页按钮
+      const quType = question.quType
+      if (question.pageIndex>curQuPageIndex) {
+        // 新的一页
+        curQuPageIndex = question.pageIndex
+        curPageIsShowQu = false
+      }
+      if (question.pageIndex === curQuPageIndex) {
+        // 判断有没有显示的题
+        if (!question.logicIsHide) curPageIsShowQu = true
+        // 分页按钮处理，如果有显示题则显示分页，没有分页按钮就是逻辑隐藏
+        if (quType === 'PAGETAG') {
+          if (curPageIsShowQu) {
+            question.logicIsHide = false
+          } else {
+            // 如果当前页都逻辑隐藏了，说明当前页跳过
+            question.logicIsHide = true
+          }
+        }
+      }
     })
   }
 }
