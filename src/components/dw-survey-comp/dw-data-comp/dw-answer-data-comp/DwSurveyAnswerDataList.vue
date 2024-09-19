@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="survey!==null">
     <div class="dw-dcs-main-title" >
       <div style="padding: 5px 10px;">
         <el-row type="flex">
@@ -62,6 +62,11 @@
       <el-table-column label="回答题数" >
         <template slot-scope="scope">
           <div>{{ scope.row.answerCommon.anState.anQuNum!=null ? scope.row.answerCommon.anState.anQuNum:0 }}&nbsp;题</div>
+        </template>
+      </el-table-column>
+      <el-table-column v-if="survey!==null && ((survey.hasOwnProperty('surveyType') && survey.surveyType === 'exam') || (survey.hasOwnProperty('surveyAttrs') && survey.surveyAttrs.scoreAttr.enabled))" label="分数" >
+        <template slot-scope="scope">
+          <div>{{ scope.row.answerCommon.sumScore!=null ? scope.row.answerCommon.sumScore:0 }}&nbsp;分</div>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160" >
@@ -153,6 +158,9 @@ import {secondsToHms} from '../../dw-utils/dw-common/dw-common-1'
 export default {
   name: 'DwSurveyAnswerDataList',
   components: {DwSurveyAnswerInfoDialog},
+  props: {
+    survey: {type: Object, default: () => {}}
+  },
   data () {
     return {
       tableData: [],
