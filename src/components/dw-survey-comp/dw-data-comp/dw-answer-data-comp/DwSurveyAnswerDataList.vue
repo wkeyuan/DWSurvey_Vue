@@ -118,11 +118,13 @@
       <div style="padding: 10px;">
         单个线程最多导出
         <el-select v-model="threadMax" placeholder="请选择" style="width: 300px;">
-          <el-option :value="2000" label="2000条" ></el-option>
-          <el-option :value="4000" label="4000条" ></el-option>
-          <el-option :value="6000" label="6000条" ></el-option>
-          <el-option :value="8000" label="8000条" ></el-option>
-          <el-option :value="10000" label="10000条" ></el-option>
+              <el-option :value="500" label="500条" ></el-option>
+              <el-option :value="1000" label="1000条" ></el-option>
+              <el-option :value="2000" label="2000条" ></el-option>
+              <el-option :value="4000" label="4000条" ></el-option>
+<!--          <el-option :value="6000" label="6000条" ></el-option>-->
+<!--          <el-option :value="8000" label="8000条" ></el-option>-->
+<!--          <el-option :value="10000" label="10000条" ></el-option>-->
         </el-select>
       </div>
       <div style="padding: 10px;">
@@ -176,7 +178,7 @@ export default {
         handleState: 100
       },
       handleState: 100,
-      threadMax: 6000,
+      threadMax: 2000,
       expDataContent: 1,
       formInlineDivStyle: 'display: flex;',
       isProgress: false,
@@ -335,8 +337,8 @@ export default {
         this.percentage = 0
         this.exportLogId = null
         this.isProgress = false
-        this.dialogFormVisible = false
       }
+      this.dialogFormVisible = false
     }
   }
 }
