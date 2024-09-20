@@ -2,7 +2,7 @@
   <div style="width: 100%;" >
     <div style="font-size: 16px;font-weight: bold;">
       <span>{{ index+1 }}、</span>
-      <span v-html="question.quTitle" ></span>
+      <span v-html="question.quTitleObj.dwText" ></span>
       <span>【{{ question.quTypeName }}】</span>
     </div>
     <div v-if="question.quType === 'RADIO' || question.quType === 'CHECKBOX' || question.quType === 'SCORE' || question.quType === 'ORDERQU' || question.quType === 'MULTIFILLBLANK' || question.quType === 'MATRIX_SCALE' || question.quType === 'MATRIX_SLIDER'">
