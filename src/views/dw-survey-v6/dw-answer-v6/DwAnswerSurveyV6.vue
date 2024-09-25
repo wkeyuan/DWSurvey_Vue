@@ -20,9 +20,15 @@ export default {
       answerProps: {sid: null, answerId: null, anPwd: ''}
     }
   },
+  watch: {
+    '$route' (to, from) {
+      console.debug('parent to', to)
+      this.answerProps.sid = this.$route.params.sid
+      this.answerProps.answerId = this.$route.params.answerId
+      // console.debug('answerProps:', this.answerProps)
+    }
+  },
   mounted () {
-    console.debug('first sid', this.$route.params.sid)
-    console.debug('first answerId', this.$route.params.answerId)
     this.answerProps.sid = this.$route.params.sid
     this.answerProps.answerId = this.$route.params.answerId
   }

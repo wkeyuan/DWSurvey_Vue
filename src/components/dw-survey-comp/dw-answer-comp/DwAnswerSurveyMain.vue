@@ -44,6 +44,16 @@ export default {
       answerCheckResult: null
     }
   },
+  watch: {
+    '$route' (to, from) {
+      console.debug('$route to', to)
+      this.survey = null
+      this.loading = true
+      this.answerData = null
+      this.answerCheckResult = null
+      this.loadSurvey()
+    }
+  },
   mounted () {
     this.loadSurvey()
   },
