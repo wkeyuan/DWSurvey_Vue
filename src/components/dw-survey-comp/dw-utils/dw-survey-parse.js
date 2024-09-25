@@ -231,7 +231,7 @@ function addNewQuProps (question) {
 
 function getInputQuProps () {
   // 新版重新梳理属性结构
-  const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 123}
+  const commonAttr = {checkType: null, placeholder: '', defaultValue: '', inputRow: 1, minlength: 0, maxlength: 119, isRequired: 1}
   const dateTimeAttr = {timeRange: {range: null, step: null}, dateFormat: null, attrs: []}
   const numAttr = {min: null, max: null}
   const inputAttr = {commonAttr, dateTimeAttr, numAttr}

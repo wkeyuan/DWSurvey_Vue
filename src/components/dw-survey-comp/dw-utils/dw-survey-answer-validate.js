@@ -275,7 +275,7 @@ function validateQuFbk (question) {
 function validateAnswerInput (question, inputAttr, errorTexts, answerValue) {
   if (inputAttr.hasOwnProperty('commonAttr')) {
     const commonAttr = inputAttr.commonAttr
-    if (commonAttr.hasOwnProperty('isRequired') && commonAttr.isRequired===1 && (answerValue===undefined || answerValue===null || answerValue.length<=0)) {
+    if (commonAttr.hasOwnProperty('isRequired') && commonAttr.isRequired===1 && (answerValue===undefined || answerValue===null || answerValue==='null' || answerValue.length<=0)) {
       errorTexts.push('此项必答')
       question.showOptionError = true // 只有在必答的情况下才会强制提醒，会覆盖前面的配置，这样就不管是不是首次填写，只要选择了如果是必填就提醒，此方法内优先级最高，
     }
