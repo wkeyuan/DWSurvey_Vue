@@ -1,5 +1,6 @@
 import {dwCheckValue} from './dw-common/dw-common-1'
 import {getQuestionAnswerData} from './dw-survey-answer'
+import {v4 as uuidv4} from "uuid";
 
 export function validateQuestionsBoolBySurvey (survey) {
   const questions = survey.questions
@@ -15,6 +16,7 @@ export function validateQuestionsBoolBySurvey (survey) {
       }
     }
   })
+  if (survey.scrollToQuIndex!==null) survey.watchEventScrollToId = uuidv4()
   return isSuccess
 }
 

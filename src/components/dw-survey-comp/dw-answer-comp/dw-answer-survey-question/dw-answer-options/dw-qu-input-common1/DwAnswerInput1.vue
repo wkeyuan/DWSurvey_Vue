@@ -160,57 +160,76 @@ export default {
       return false
     }
   },
-  mounted () {
-    // console.debug('this.survey.questions[this.index].answerA', this.survey.questions[this.index].answer)
-    const quType = this.survey.questions[this.index].quType
-    if (quType === 'FILLBLANK') {
-      try {
-        if (this.survey.questions[this.index].hasOwnProperty('answer') && this.survey.questions[this.index].answer!==undefined) {
-          this.inputAnswer = JSON.parse(this.survey.questions[this.index].answer)
-        }
-      } catch (e) {
-        console.debug('e', e)
-        if (this.survey.questions[this.index].hasOwnProperty('answer') && this.survey.questions[this.index].answer!==undefined) {
-          this.inputAnswer = this.survey.questions[this.index].answer
-        }
-      }
-    } else if (quType === 'MULTIFILLBLANK') {
-      try {
-        if (this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].hasOwnProperty('inputText') && this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText!==undefined) {
-          this.inputAnswer = JSON.parse(this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText)
-        }
-      } catch (e) {
-        console.debug('e', e)
-        if (this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].hasOwnProperty('inputText') && this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText!==undefined) {
-          this.inputAnswer = this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText
-        }
-      }
-    } else if (quType === 'RADIO') {
-      try {
-        if (this.survey.questions[this.index].quRadios[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quRadios[this.optionIndex].otherText!==undefined) {
-          this.inputAnswer = JSON.parse(this.survey.questions[this.index].quRadios[this.optionIndex].otherText)
-        }
-      } catch (e) {
-        console.debug('e', e)
-        if (this.survey.questions[this.index].quRadios[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quRadios[this.optionIndex].otherText!==undefined) {
-          this.inputAnswer = this.survey.questions[this.index].quRadios[this.optionIndex].otherText
-        }
-      }
-    } else if (quType === 'CHECKBOX') {
-      try {
-        if (this.survey.questions[this.index].quCheckboxs[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText!==undefined) {
-          this.inputAnswer = JSON.parse(this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText)
-        }
-      } catch (e) {
-        console.debug('e', e)
-        if (this.survey.questions[this.index].quCheckboxs[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText!==undefined) {
-          this.inputAnswer = this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText
-        }
+  watch: {
+    'survey.watchEvent': {
+      // immediate: true, // 组件实例化时立即触发
+      // deep: true, // 对象或数组的深层属性变化也触发
+      handler: function (newVal, oldVal) {
+        // 处理prop变化的逻辑, 还可以优化为提供具体变便的数据，直接针对性更新
+        console.debug('newVal', newVal)
+        this.loadInputAnswer()
       }
     }
-    // console.debug('this.survey.questions[this.index].answer', this.survey.questions[this.index].answer)
+  },
+  mounted () {
+    this.loadInputAnswer()
   },
   methods: {
+    loadInputAnswer () {
+      const quType = this.survey.questions[this.index].quType
+      if (quType === 'FILLBLANK') {
+        try {
+          if (this.survey.questions[this.index].hasOwnProperty('answer') && this.survey.questions[this.index].answer!==undefined) {
+            this.inputAnswer = JSON.parse(this.survey.questions[this.index].answer)
+          }
+        } catch (e) {
+          if (this.survey.questions[this.index].hasOwnProperty('answer') && this.survey.questions[this.index].answer!==undefined) {
+            this.inputAnswer = this.survey.questions[this.index].answer
+          }
+        }
+      } else if (quType === 'MULTIFILLBLANK') {
+        try {
+          if (this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].hasOwnProperty('inputText') && this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText!==undefined) {
+            this.inputAnswer = JSON.parse(this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText)
+          }
+        } catch (e) {
+          if (this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].hasOwnProperty('inputText') && this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText!==undefined) {
+            this.inputAnswer = this.survey.questions[this.index].quMultiFillblanks[this.optionIndex].inputText
+          }
+        }
+      } else if (quType === 'RADIO') {
+        try {
+          if (this.survey.questions[this.index].quRadios[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quRadios[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = JSON.parse(this.survey.questions[this.index].quRadios[this.optionIndex].otherText)
+          }
+        } catch (e) {
+          if (this.survey.questions[this.index].quRadios[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quRadios[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = this.survey.questions[this.index].quRadios[this.optionIndex].otherText
+          }
+        }
+      } else if (quType === 'CHECKBOX') {
+        try {
+          if (this.survey.questions[this.index].quCheckboxs[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = JSON.parse(this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText)
+          }
+        } catch (e) {
+          if (this.survey.questions[this.index].quCheckboxs[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = this.survey.questions[this.index].quCheckboxs[this.optionIndex].otherText
+          }
+        }
+      } else if (quType === 'ORDERQU') {
+        try {
+          if (this.survey.questions[this.index].quOrderbys[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quOrderbys[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = JSON.parse(this.survey.questions[this.index].quOrderbys[this.optionIndex].otherText)
+          }
+        } catch (e) {
+          if (this.survey.questions[this.index].quOrderbys[this.optionIndex].hasOwnProperty('otherText') && this.survey.questions[this.index].quOrderbys[this.optionIndex].otherText!==undefined) {
+            this.inputAnswer = this.survey.questions[this.index].quOrderbys[this.optionIndex].otherText
+          }
+        }
+      }
+      // console.debug('this.survey.questions[this.index].answer', this.survey.questions[this.index].answer)
+    },
     parseNumber (s) {
       // 解析用户输入的值为数字
       return s.replace(/[^\d]/g, '')

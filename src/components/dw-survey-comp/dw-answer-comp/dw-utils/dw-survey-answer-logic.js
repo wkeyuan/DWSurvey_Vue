@@ -1,4 +1,5 @@
-import {clearQuestionAnswerData} from './dw-survey-answer-clear'
+import {clearQuestionAnswer} from './dw-clear-question-answer'
+import {v4 as uuidv4} from 'uuid'
 
 /**
  * 逻辑初始化
@@ -30,6 +31,8 @@ export function dwSurveyAnswerLogic (survey, quIndex) {
   }
   surveyLogicControlExe(survey)
   // 对于隐藏的题目需要先清除答卷数据，然后触发这题的逻辑事件递归执行
+  survey.watchEvent = uuidv4()
+  console.debug('watchEvent', survey.watchEvent)
 }
 
 /**
@@ -308,7 +311,7 @@ export function surveyLogicControlExe (survey) {
     questions.map((question, index) => {
       const isHide = quLogicIsHide(survey, question)
       if (!question.logicIsHide && isHide) {
-        if (!survey.hasOwnProperty('firstLoadAnswer') || !survey.firstLoadAnswer) clearQuestionAnswerData(question)
+        if (!survey.hasOwnProperty('firstLoadAnswer') || !survey.firstLoadAnswer) clearQuestionAnswer(question)
         questionLogicData(survey, question)
       }
       question.logicIsHide = isHide

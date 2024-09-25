@@ -120,7 +120,7 @@ import DwFooter from '../../../layouts/DwFooter.vue'
 import DwAnswerQuestion from '../dw-answer-survey-question/DwAnswerQuestion.vue'
 import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {getSurveyAnswerData} from '../../dw-utils/dw-survey-answer'
-import {validateQuestionsBool} from '../../dw-utils/dw-survey-answer-validate'
+import {validateQuestionsBool, validateQuestionsBoolBySurvey} from '../../dw-utils/dw-survey-answer-validate'
 import {dwSaveSurveyAnswerJson, dwSurveyAnswerCheckPwd} from '../api/dw-survey-answer'
 import DwAnswerMessageBody from '../dw-answer-message-body/DwAnswerMessageBody'
 import {getEsId, surveyAnswerLocalStorage, surveyInitLocalStorage} from '../dw-utils/dw-survey-answer-utils'
@@ -155,11 +155,8 @@ export default {
       indexResponseId: null
     }
   },
-  mounted () {
-    dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
-  },
   watch: {
-    'survey.scrollToQuIndex': {
+    'survey.watchEventScrollToId': {
       // immediate: true, // 组件实例化时立即触发
       // deep: true, // 对象或数组的深层属性变化也触发
       handler: function (newVal, oldVal) {
@@ -168,6 +165,9 @@ export default {
         this.dwScrollIntoView()
       }
     }
+  },
+  mounted () {
+    dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
   methods: {
     nextPage (pageIndex) {
@@ -209,7 +209,8 @@ export default {
     submitAnswer () {
       // this.survey.dwDebug = true
       // const sid = this.$route.params.id
-      if (validateQuestionsBool(this.survey.questions)) {
+      // validateQuestionsBool(this.survey.questions)
+      if (validateQuestionsBoolBySurvey(this.survey)) {
         if (this.extProps!==null && this.extProps!==undefined && this.extProps.hasOwnProperty('isPreview') && this.extProps.isPreview) {
           this.$message.warning('当前预览状态，不可以提交答卷！')
         } else {

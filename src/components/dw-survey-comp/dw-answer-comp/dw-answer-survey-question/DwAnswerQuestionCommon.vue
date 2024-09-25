@@ -106,6 +106,7 @@ import DwHtmlLabelCommon from '../dw-answer-survey-common/DwHtmlLabelCommon.vue'
 import {showPageByIndex} from '../../dw-utils/dw-survey-answer-data'
 import {validateQuestionsBool, validateQuestionsBoolBySurvey} from '../../dw-utils/dw-survey-answer-validate'
 import {answerQuEventCommon} from "../dw-utils/dw-survey-answer-common";
+import {v4 as uuidv4} from 'uuid'
 
 export default {
   name: 'DwAnswerQuestionCommon',
@@ -162,6 +163,7 @@ export default {
     nextPage (pageIndex, prevOrNext) {
       if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBoolBySurvey(this.survey)) {
         this.survey.scrollToQuIndex = this.survey.pageAttr.begin
+        this.survey.scrollToQuIndexWatchEvent = uuidv4()
         showPageByIndex(this.survey, pageIndex, prevOrNext)
       }
     },

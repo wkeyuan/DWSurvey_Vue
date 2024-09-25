@@ -173,6 +173,7 @@ export default {
       // 先判断本地有没有临时数据，如果有则看本地的临时数据版本是否与线上一致，一致则使用本地临时数据。
       const localStorageSurveyObj = this.getLocalStorage(survey)
       if (localStorageSurveyObj!==null) {
+        this.localSurveyInitParams(localStorageSurveyObj)
         this.survey = localStorageSurveyObj
       } else {
         // 此处需要重置分页
@@ -229,6 +230,15 @@ export default {
       // 如果是答新问卷，则需要检查答卷密码。
       this.checkAnswerPwd()
       if (this.survey!=null && this.survey.hasOwnProperty('firstLoadAnswer')) this.survey.firstLoadAnswer = false
+      if (this.survey!=null) {
+        const relateContactEsId = this.answerProps.relateContactEsId
+        this.survey.dwParams = {relateContactEsId}
+      }
+    },
+    localSurveyInitParams (localStorageSurveyObj) {
+      localStorageSurveyObj.watchEvent = 'oooww'
+      localStorageSurveyObj.watchEventScrollToId = 'aa22'
+      localStorageSurveyObj.scrollToQuIndex = null
     }
   }
 }
