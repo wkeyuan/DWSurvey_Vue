@@ -25,20 +25,7 @@
             <el-row :span="24" type="flex" justify="space-between" align="middle">
               <el-col :span="4"><h3>我的问卷</h3></el-col>
               <el-col :span="20" style="text-align: right;">
-                <!--                <el-button type="primary" size="medium" @click="form.id=null;form.name=null;dialogTitle = '创建问卷';dialogFormVisible = true" >新建问卷</el-button>-->
-                <el-dropdown @command="handleCommand" >
-                  <el-button type="primary" size="medium">
-                    新建问卷 <i class="el-icon-arrow-down el-icon--right"></i>
-                  </el-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="survey">问卷调查</el-dropdown-item>
-                    <el-dropdown-item command="exam" disabled>在线考试</el-dropdown-item>
-                    <el-dropdown-item command="vote" disabled>投票评选</el-dropdown-item>
-                    <el-dropdown-item command="satisfaction" disabled>满意度调查</el-dropdown-item>
-                    <el-dropdown-item command="eval" disabled>在线测评</el-dropdown-item>
-                    <el-dropdown-item command="360eval" disabled>360测评</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
+                <el-button type="primary" size="medium" @click="form.id=null;form.name=null;dialogTitle = '创建问卷';dialogFormVisible = true" >新建问卷</el-button>
               </el-col>
             </el-row>
           </div>
@@ -74,17 +61,6 @@
             <el-table-column label="创建时间" width="180" >
               <template slot-scope="scope">
                 <span>{{ scope.row.createDate }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="类型" width="120" >
-              <template slot-scope="scope">
-                <el-tag v-if="scope.row.surveyType === 'survey'">问卷调查</el-tag>
-                <el-tag v-else-if="scope.row.surveyType === 'exam'">在线考试</el-tag>
-                <el-tag v-else-if="scope.row.surveyType === 'vote'">投票评选</el-tag>
-                <el-tag v-else-if="scope.row.surveyType === 'satisfaction'">满意度调查</el-tag>
-                <el-tag v-else-if="scope.row.surveyType === 'eval'">在线测评</el-tag>
-                <el-tag v-else-if="scope.row.surveyType === '360eval'">360评估</el-tag>
-                <el-tag v-else>问卷调查</el-tag>
               </template>
             </el-table-column>
             <el-table-column label="操作" width="280">
@@ -136,14 +112,6 @@
           <el-form-item :label-width="formLabelWidth" label="问卷标题" >
             <el-input v-model="form.name" autocomplete="off" placeholder="请输入问卷标题" ></el-input>
           </el-form-item>
-          <el-form-item :label-width="formLabelWidth" label="问卷类型" >
-            <el-radio v-model="form.surveyType" label="survey">问卷调查</el-radio>
-            <el-radio v-model="form.surveyType" label="exam" disabled>在线考试</el-radio>
-            <el-radio v-model="form.surveyType" label="vote" disabled>投票评选</el-radio>
-            <el-radio v-model="form.surveyType" label="satisfaction" disabled>满意度调查</el-radio>
-            <el-radio v-model="form.surveyType" label="eval" disabled>在线测评</el-radio>
-            <el-radio v-model="form.surveyType" label="360eval" disabled>360评估</el-radio>
-          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -177,7 +145,7 @@ export default {
       form: {
         name: '',
         id: null,
-        surveyType: null
+        surveyType: 'survey'
       },
       formLabelWidth: '120px',
       prevPath: '/v6/dw'
