@@ -83,7 +83,7 @@ export default {
           if (this.extProps.hasOwnProperty('isShowScore')) {
             survey.isShowScore = this.extProps.isShowScore
             if (survey.hasOwnProperty('surveyAttrs')) survey.isShowScore = (survey.surveyAttrs.scoreAttr.enabled && this.extProps.isShowScore)
-            if (survey.hasOwnProperty('surveyType')) survey.isShowScore = (this.extProps.isShowScore && survey.surveyType === 'exam')
+            if (survey.hasOwnProperty('surveyType')) survey.isShowScore = (survey.isShowScore || survey.surveyType === 'exam')
           }
         }
         this.answerCheckResult = answerCheckResult
