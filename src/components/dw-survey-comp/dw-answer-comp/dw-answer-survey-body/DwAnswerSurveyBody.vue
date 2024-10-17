@@ -53,7 +53,7 @@
                   </div>
                   <div v-if="!survey.readonly && survey.pageAttr.curPage >= survey.pageAttr.pageSize" style="text-align: left;" class="dw-width-100bf">
                     <div>
-                      <div v-if="survey.hasOwnProperty('answerCheckResult') && survey.answerCheckResult!==null && survey.answerCheckResult.anCheckResultCode===409">
+                      <div v-if="survey.hasOwnProperty('answerCheckResult') && survey.answerCheckResult!==null && survey.answerCheckResult.showCaptcha">
                         <!--                        {{ survey.answerCheckResult }}-->
                         <div class="dw-display-flex" style="margin-bottom: 10px;">
                           <div style="width: 160px;"><el-input v-model="anRandomCode" placeholder="请输入右侧验证码" ></el-input></div>
