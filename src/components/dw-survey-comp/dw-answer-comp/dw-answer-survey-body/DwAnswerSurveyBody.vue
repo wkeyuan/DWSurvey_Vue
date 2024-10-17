@@ -167,6 +167,7 @@ export default {
     }
   },
   mounted () {
+    this.anPwd = this.$route.query.anPwd
     dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
   methods: {
