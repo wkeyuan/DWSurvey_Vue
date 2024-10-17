@@ -167,6 +167,7 @@ export default {
     }
   },
   mounted () {
+    if (this.$route.query.hasOwnProperty('anPwd')) this.anPwd = this.$route.query.anPwd
     this.anPwd = this.$route.query.anPwd
     dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
