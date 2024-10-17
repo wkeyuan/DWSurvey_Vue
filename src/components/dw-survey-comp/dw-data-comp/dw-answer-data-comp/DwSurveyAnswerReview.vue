@@ -35,6 +35,10 @@
                 </template>
                 {{ dwEsSurveyAnswer.answerCommon.sumScore }}
               </el-descriptions-item>
+              <el-descriptions-item>
+                <template slot="label"><i class="el-icon-user"></i>&nbsp;&nbsp;密码</template>
+                {{ dwEsSurveyAnswer.anPwd }}
+              </el-descriptions-item>
             </el-descriptions>
           </div>
           <div style="margin-top: 0;">
@@ -72,6 +76,7 @@ export default {
         this.answerProps.surveyId = this.dwEsSurveyAnswer.answerCommon.surveyId
         this.answerProps.sid = this.dwEsSurveyAnswer.answerCommon.sid
         this.answerProps.answerId = this.dwEsSurveyAnswer.esId
+        this.answerProps.anPwd = this.dwEsSurveyAnswer.anPwd
       }
     }
   },
