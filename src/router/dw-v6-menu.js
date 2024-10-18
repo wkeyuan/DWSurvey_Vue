@@ -15,7 +15,10 @@ const dwMenus = [
     meta: {
       title: '个人中心'
     }
-  },
+  }
+]
+
+const dwMenusAdmin = [
   {
     path: '/dw/admin/user',
     icon: 'el-icon-s-check',
@@ -26,6 +29,6 @@ const dwMenus = [
   }
 ]
 
-const dwV6Menu = {dwMenus}
+const dwV6Menu = {dwMenus, dwMenusAdmin}
 
 export {dwV6Menu}

@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       defActive: '/dw/survey',
-      dwMenus: dwV6Menu.dwMenus,
+      dwMenus: [],
       prevPath: '/v6',
       sysThemeStyle: dwSurveyRootStyle.sysThemeStyle
     }
@@ -74,6 +74,7 @@ export default {
     if (routePath.indexOf('/v6/lr') >= 0) {
       this.prevPath = '/v6/lr'
     }
+    this.dwMenus = dwV6Menu.dwMenus.concat(dwV6Menu.dwMenusAdmin)
   },
   methods: {
     handleSelect (key, keyPath) {

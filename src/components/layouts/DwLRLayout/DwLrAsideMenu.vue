@@ -65,7 +65,7 @@ export default {
       // isCollapse: false,
       isCollapseActive: false,
       defActive: '/v6/lr/dw/survey',
-      dwMenus: dwV6Menu.dwMenus,
+      dwMenus: [],
       prevPath: '/v6',
       sysThemeStyle: dwSurveyRootStyle.sysThemeStyle
     }
@@ -81,6 +81,7 @@ export default {
     if (routePath.indexOf('/v6/lr') >= 0) {
       this.prevPath = '/v6/lr'
     }
+    this.dwMenus = dwV6Menu.dwMenus.concat(dwV6Menu.dwMenusAdmin)
   },
   methods: {
     handleOpen (key, keyPath) {
