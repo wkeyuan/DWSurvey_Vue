@@ -1,53 +1,14 @@
-import Layout from '@/components/layouts/Layout.vue'
-import NoTopLayout from '@/components/layouts/NoTopLayout.vue'
-import DwAnswerWeixin from '@/views/dw-survey/dw-collect/DwAnswerWeixin'
-import DwUser from '@/views/dw-user/DwUser'
-import DwUserPwd from '@/views/dw-user/DwUserPwd'
-import AdminUserList from '@/views/dw-admin/AdminUserList'
+import Layout from '../components/layouts/Layout.vue'
+import NoTopLayout from '../components/layouts/NoTopLayout.vue'
 import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
-import DwSurveyAnswerDataListV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerDataListV6.vue'
-import DwAnswerUrlV6 from '../views/dw-survey-v6/dw-collect-v6/DwAnswerUrlV6'
 import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
-import DwSurveyListV6 from '../views/dw-survey-v6/DwSurveyListV6.vue'
-import DwSurveyChartsV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyChartsV6.vue'
 import DwAnswerSurveyMobileV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue'
-import DwSurveyAttrSet from '../views/dw-survey-v6/dw-design/DwSurveyAttrSet.vue'
-import DwSiteCompV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteCompV6.vue'
-import DwSiteShareV6 from '../views/dw-survey-v6/dw-collect-v6/DwSiteShareV6.vue'
 import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
 import DwSurveyAnswerReviewV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue'
 import DwSurveyStyle from '../views/dw-survey-v6/dw-design/DwSurveyStyle.vue'
-
-// 用于定义左右结构右边菜单，未用于路由注册，相关路由注册在v6Routes里面完成
-const routesAdminChildren = [
-  {
-    path: '/v6/lr/dw/survey',
-    icon: 'el-icon-s-claim',
-    name: '我的问卷',
-    meta: {
-      title: '我的问卷'
-    },
-    component: DwSurveyListV6
-  },
-  {
-    path: '/v6/lr/dw/user',
-    icon: 'el-icon-user',
-    name: '个人中心',
-    meta: {
-      title: '个人中心'
-    },
-    component: AdminUserList
-  },
-  {
-    path: '/v6/lr/dw/admin/user',
-    icon: 'el-icon-s-check',
-    name: '用户管理',
-    meta: {
-      title: '用户管理'
-    },
-    component: AdminUserList
-  }
-]
+import {v6RouteUser} from './dw-v6-routes-user'
+import {v6RouteAdmin} from './dw-v6-routes-admin'
+import EmptyRouterView from '../components/layouts/EmptyRouterView.vue'
 
 // v6版本的新路由数组
 const v6Routes = [
@@ -56,66 +17,15 @@ const v6Routes = [
     redirect: 'dw/survey'
   },
   {
-    path: 'dw/survey',
-    meta: {
-      title: '我的问卷'
-    },
-    component: DwSurveyListV6
+    // 默认上下风格布局
+    path: 'dw/',
+    component: EmptyRouterView,
+    children: v6RouteUser.routesUserChildren
   },
   {
-    path: 'dw/survey/c/attr/:dwSurveyId',
-    meta: {
-      title: '问卷属性'
-    },
-    component: DwSurveyAttrSet
-  },
-  {
-    path: 'dw/survey/c/url/:dwSurveyId',
-    meta: {
-      title: '答卷地址'
-    },
-    component: DwAnswerUrlV6
-  },
-  {
-    path: 'dw/survey/c/comp/:dwSurveyId',
-    meta: {
-      title: '网站组件'
-    },
-    component: DwSiteCompV6
-  },
-  {
-    path: 'dw/survey/c/share/:dwSurveyId',
-    component: DwSiteShareV6
-  },
-  {
-    path: 'dw/survey/c/weixin/:dwSurveyId',
-    component: DwAnswerWeixin
-  },
-  {
-    path: 'dw/survey/d/chart/:dwSurveyId',
-    meta: {
-      title: '统计分析'
-    },
-    component: DwSurveyChartsV6
-  },
-  {
-    path: 'dw/survey/d/data/:dwSurveyId',
-    meta: {
-      title: '原始数据'
-    },
-    component: DwSurveyAnswerDataListV6
-  },
-  {
-    path: 'dw/user/pwd',
-    component: DwUserPwd
-  },
-  {
-    path: 'dw/user',
-    component: DwUser
-  },
-  {
-    path: 'dw/admin/user',
-    component: AdminUserList
+    path: 'dw/admin/',
+    component: EmptyRouterView,
+    children: v6RouteAdmin.routesAdminChildren
   }
 ]
 
