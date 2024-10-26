@@ -1,9 +1,7 @@
 function chartDataParse (survey, surveyAggMaps) {
   const questions = survey.questions
-  console.debug('questionsAA', questions)
   questions.map((question, index) => {
     let quAnCount = 0
-    console.debug('question', question)
     const quType = question.quType
     if (quType === 'RADIO') {
       const quRadios = question.quRadios
@@ -47,9 +45,7 @@ function chartDataParse (survey, surveyAggMaps) {
           for (const key in optionStats) {
             if (optionStats.hasOwnProperty(key)) { // 确保属性是对象自身的而不是从原型链继承的
               const value = optionStats[key].statsAvg
-              console.debug('value', value)
               if (option.dwId === key) {
-                console.debug('option.dwId', option.dwId, key)
                 option.avgScore = value
                 break
               }
@@ -66,7 +62,6 @@ function chartDataParse (survey, surveyAggMaps) {
             if (optionStats.hasOwnProperty(key)) { // 确保属性是对象自身的而不是从原型链继承的
               const value = optionStats[key].statsAvg
               if (option.dwId === key) {
-                console.debug('option.avgOrder', value)
                 option.avgOrder = value
                 break
               }
@@ -83,9 +78,7 @@ function chartDataParse (survey, surveyAggMaps) {
           for (const key in optionStats) {
             if (optionStats.hasOwnProperty(key)) { // 确保属性是对象自身的而不是从原型链继承的
               const value = optionStats[key].statsAvg
-              console.debug('value', value)
               if (option.dwId === key) {
-                console.debug('option.dwId', option.dwId, key)
                 option.avgScore = value
                 break
               }
@@ -103,9 +96,7 @@ function chartDataParse (survey, surveyAggMaps) {
             if (countMatrixRadio.hasOwnProperty(rowKey)) { // 确保属性是对象自身的而不是从原型链继承的
               const rowCountResult = countMatrixRadio[rowKey]
               const rowDocCount = rowCountResult.docCount
-              console.debug('countMatrixRadio value', rowDocCount)
               if (rowOption.dwId === rowKey) {
-                console.debug('countMatrixRadio option.dwId', rowOption.dwId, rowKey)
                 rowOption.anCount = rowDocCount
                 // 继续找这行对应的列
                 const rowCols = [] // 需要给矩阵每列生成占位数据
@@ -143,9 +134,7 @@ function chartDataParse (survey, surveyAggMaps) {
             if (countMatrixCheckbox.hasOwnProperty(rowKey)) { // 确保属性是对象自身的而不是从原型链继承的
               const rowCountResult = countMatrixCheckbox[rowKey]
               const rowDocCount = rowCountResult.docCount
-              console.debug('value', rowDocCount)
               if (rowOption.dwId === rowKey) {
-                console.debug('option.dwId', rowOption.dwId, rowKey)
                 rowOption.anCount = rowDocCount
                 // 继续找这行对应的列
                 const rowCols = [] // 需要给矩阵每列生成占位数据
@@ -251,7 +240,6 @@ function anCountStats (questions) {
           item.avgOrder = avgOrder
           const bfbFloat = avgOrder!==0?(quOptionsObj.length-avgOrder): avgOrder/quOptionsObj.length*100
           const percent = bfbFloat.toFixed(2)
-          console.debug('percent', percent)
           // 平均分 setAvgScore
           const anAvgOrder = avgOrder.toFixed(2)
           quStatOption = {'optionName': item.optionTitleObj.dwText, 'anCount': avgOrder!==0?(quOptionsObj.length-avgOrder):0, 'orderNum': null, 'percent': percent, 'avgOrder': anAvgOrder}
@@ -290,7 +278,6 @@ function anCountStats (questions) {
           max = questionData.quAttr.sliderAttr.max
         }
         const bfbFloat = avgScore/max*100
-        // console.debug('bfbFloat', bfbFloat)
         const percent = bfbFloat.toFixed(2)
         // 平均分 setAvgScore
         const anAvgScore = avgScore.toFixed(2)
