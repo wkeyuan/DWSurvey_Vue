@@ -1,4 +1,6 @@
-import AdminUserList from '../views/dw-admin/AdminUserList'
+// import AdminUserList from '../views/dw-admin/AdminUserList'
+
+const AdminUserList = () => import(/* webpackChunkName: "dwsurvey-admin-user" */ '../views/dw-admin/AdminUserList')
 
 // v6版本的新路由数组
 const routesAdminChildren = [

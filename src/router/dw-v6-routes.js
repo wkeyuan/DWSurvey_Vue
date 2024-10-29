@@ -1,14 +1,24 @@
-import Layout from '../components/layouts/Layout.vue'
-import NoTopLayout from '../components/layouts/NoTopLayout.vue'
-import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
-import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
-import DwAnswerSurveyMobileV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue'
-import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
-import DwSurveyAnswerReviewV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue'
-import DwSurveyStyle from '../views/dw-survey-v6/dw-design/DwSurveyStyle.vue'
+// import Layout from '../components/layouts/Layout.vue'
+// import NoTopLayout from '../components/layouts/NoTopLayout.vue'
+// import DwSurveyDesignContent from '../views/dw-survey-v6/dw-design/DwSurveyDesignContent'
+// import DwAnswerSurveyV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6'
+// import DwAnswerSurveyMobileV6 from '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue'
+// import DwLrLayout from '../components/layouts/DwLRLayout/DwLrLayout.vue'
+// import DwSurveyAnswerReviewV6 from '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue'
+// import DwSurveyStyle from '../views/dw-survey-v6/dw-design/DwSurveyStyle.vue'
 import {v6RouteUser} from './dw-v6-routes-user'
 import {v6RouteAdmin} from './dw-v6-routes-admin'
-import EmptyRouterView from '../components/layouts/EmptyRouterView.vue'
+// import EmptyRouterView from '../components/layouts/EmptyRouterView.vue'
+
+const Layout = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/Layout.vue')
+const NoTopLayout = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/NoTopLayout.vue')
+const DwSurveyDesignContent = () => import(/* webpackChunkName: "dwsurvey-survey-design" */ '../views/dw-survey-v6/dw-design/DwSurveyDesignContent')
+const DwAnswerSurveyV6 = () => import(/* webpackChunkName: "dwsurvey-survey-answer" */ '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyV6')
+const DwAnswerSurveyMobileV6 = () => import(/* webpackChunkName: "dwsurvey-survey-answer" */ '../views/dw-survey-v6/dw-answer-v6/DwAnswerSurveyMobileV6.vue')
+const DwLrLayout = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/DwLRLayout/DwLrLayout.vue')
+const DwSurveyAnswerReviewV6 = () => import(/* webpackChunkName: "dwsurvey-survey-answer" */ '../views/dw-survey-v6/dw-data-v6/DwSurveyAnswerReviewV6.vue')
+const DwSurveyStyle = () => import(/* webpackChunkName: "dwsurvey-survey-style" */ '../views/dw-survey-v6/dw-design/DwSurveyStyle.vue')
+const EmptyRouterView = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/EmptyRouterView.vue')
 
 // v6版本的新路由数组
 const v6Routes = [
