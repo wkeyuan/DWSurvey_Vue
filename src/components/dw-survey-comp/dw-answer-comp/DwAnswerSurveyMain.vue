@@ -253,10 +253,6 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
 <style>
 .dw-loading .el-loading-spinner *{
   /*font-size: 20px!important;

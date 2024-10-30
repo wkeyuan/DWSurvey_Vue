@@ -12,7 +12,3 @@ export default {
   components: {DwStyleSurveyMain}
 }
 </script>
-
-<style scoped>
-
-</style>

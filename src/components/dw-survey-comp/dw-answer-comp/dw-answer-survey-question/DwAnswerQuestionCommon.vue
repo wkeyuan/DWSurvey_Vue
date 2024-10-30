@@ -265,6 +265,3 @@ export default {
   background: #f6f6f7;
 }
 </style>
-<style>
-
-</style>

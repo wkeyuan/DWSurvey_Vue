@@ -133,10 +133,6 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
 <style>
 .dw-msg-waring .el-icon-info,.dw-msg-waring .el-message__content{
   color: #fd5757;

@@ -7,7 +7,3 @@ export default {
   name: 'DwQuCheckboxAnswer'
 }
 </script>
-
-<style scoped>
-
-</style>

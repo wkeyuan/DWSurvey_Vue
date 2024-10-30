@@ -9,7 +9,3 @@ export default {
   name: 'DwAnswerMessageBody'
 }
 </script>
-
-<style scoped>
-
-</style>
