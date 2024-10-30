@@ -57,6 +57,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       allChunks: true,
     }),*/
     new MiniCssExtractPlugin({
+      ignoreOrder: true,
       filename: utils.assetsPath('css/[name].css'),
       chunkFilename: utils.assetsPath('css/[name].[contenthash].css')
     }),
