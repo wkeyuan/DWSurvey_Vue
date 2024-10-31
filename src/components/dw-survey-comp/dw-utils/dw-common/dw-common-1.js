@@ -54,7 +54,7 @@ function dwCheckValue (checkType, value, customRegex) {
   } else if (checkType === 'PHONE') {
     const length = value.length
     const mobileRegExp = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/
-    if (!(length === 11 && mobileRegExp.test(value))) {
+    if (!(mobileRegExp.test(value))) {
       validateStatus.isOK = false
       validateStatus.msg = '请输入手机号'
     }
