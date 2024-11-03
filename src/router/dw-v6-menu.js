@@ -6,7 +6,8 @@ const dwMenus = [
     name: '我的问卷',
     meta: {
       title: '我的问卷'
-    }
+    },
+    authority: ['DWSURVEY_SUPER_ADMIN', 'SUPER_ADMIN', 'PROJECT_ADMIN']
   },
   {
     path: '/dw/user',
@@ -25,7 +26,8 @@ const dwMenusAdmin = [
     name: '用户管理',
     meta: {
       title: '用户管理'
-    }
+    },
+    authority: ['DWSURVEY_SUPER_ADMIN', 'SUPER_ADMIN']
   }
 ]
 

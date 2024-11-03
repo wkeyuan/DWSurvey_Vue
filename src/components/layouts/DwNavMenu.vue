@@ -29,7 +29,7 @@
       @close="handleClose"
     >
       <template v-for="item in dwMenus">
-        <el-submenu v-if="item.children" :key="item.path" :index="prevPath+item.path">
+        <el-submenu v-if="item.children" :key="item.path" v-has-dw-role="item.authority" :index="prevPath+item.path">
           <template slot="title">
             <i :class="item.icon"></i>
             <span slot="title">{{ item.name }}</span>
@@ -40,7 +40,7 @@
             </el-menu-item>
           </template>
         </el-submenu>
-        <el-menu-item v-else :key="item.path" :index="prevPath+item.path">
+        <el-menu-item v-else :key="item.path" v-has-dw-role="item.authority" :index="prevPath+item.path">
           <i :class="item.icon"></i>
           <span slot="title">{{ item.name }}</span>
         </el-menu-item>

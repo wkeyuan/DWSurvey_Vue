@@ -3,21 +3,26 @@ import Vue from 'vue'
 import DwAuthorized from './dw-authorized'
 
 function changeHasRole (el, binding) {
-  if (!roleCheck(binding.value)) {
-    el.parentNode.removeChild(el)
+  const {value} = binding
+  const permissionRoles = value
+  if (!hasRoleOrPermCode(permissionRoles)) {
+    el.parentNode && el.parentNode.removeChild(el)
   }
-  function roleCheck (value) {
+  /* function roleCheck (permissionRoles) {
     const authority = DwAuthorized.getAuthority()
     for (let i=0; i<authority.length; i++) {
-      if (value === authority[i]) {
+      console.debug(authority[i])
+      console.debug(permissionRoles.includes(authority[i]))
+      if (permissionRoles.includes(authority[i])) {
         return true
       }
     }
     return false
-  }
+  } */
 }
 
 export function hasRoleOrPermCode (permissionRoles) {
+  if (permissionRoles===null || permissionRoles === undefined) return true
   const authority = DwAuthorized.getAuthority()
   console.debug('authority')
   console.debug(authority)
