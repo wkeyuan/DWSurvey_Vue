@@ -228,7 +228,7 @@ export default {
                 this.queryList(1)
                 this.dialogFormVisible = false
               } else {
-                this.$message.error('添加用户失败')
+                this.$message.error('添加用户失败'+httpResult.data)
               }
             })
           } else {
@@ -240,7 +240,7 @@ export default {
                 this.queryList(1)
                 this.dialogFormVisible = false
               } else {
-                this.$message.error('添加用户失败')
+                this.$message.error('添加用户失败'+httpResult.data)
               }
             })
           }

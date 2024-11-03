@@ -24,6 +24,7 @@
     "element-ui": "^2.15.6",
     "font-awesome": "^4.7.0",
     "normalize.css": "^8.0.1",
+    "jsencrypt": "^3.3.2",
     "uuid": "^9.0.0",
     "vant": "^2.13.2",
     "vue": "^2.6.14",

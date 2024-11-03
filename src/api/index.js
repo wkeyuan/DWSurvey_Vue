@@ -1,6 +1,12 @@
 export default {
   /**  账号密码登录登出  **/
-  loginIn: `/api/dwsurvey/anon/security/login-pwd.do`,
+  loginIn: `/api/dwsurvey/anon/security/login.do`,
+  loginInPwd: `/api/dwsurvey/anon/security/login-pwd.do`,
+  loginWxQrCode: `/api/dwsurvey/anon/security/wx-login-qrcode.do`,
+  loginWxStatus: `/api/dwsurvey/anon/security/login-weixin.do`,
+  loginSendSms: `/api/dwsurvey/anon/security/send-smscode.do`,
+  register: `/api/dwsurvey/anon/security//register.do`,
+
   logOut: `/api/dwsurvey/anon/security/logout.do`,
   /** 问卷数据  **/
   surveyList: `/api/dwsurvey/app/survey/list.do`,

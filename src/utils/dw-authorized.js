@@ -9,9 +9,21 @@ export default {
     }
     return 'none'
   },
+  setToken (token) {
+    localStorage.setItem('dw_oss_token', token)
+  },
+  getToken () {
+    if (localStorage.hasOwnProperty('dw_oss_token')) {
+      return localStorage.getItem('dw_oss_token')
+    }
+    return null
+  },
   setAuthority (authority) {
     const dwAuthority = typeof authority === 'string' ? [authority] : authority
     localStorage.setItem('dw_oss_authority', JSON.stringify(dwAuthority))
+  },
+  setAuthorityStr (authority) {
+    localStorage.setItem('dw_oss_authority', authority)
   },
   getAuthority () {
     let authority = []
@@ -29,5 +41,14 @@ export default {
       }
     }
     return authority
+  },
+  getDwSessionId () {
+    if (localStorage.hasOwnProperty('dw_oss_session_id')) {
+      return localStorage.getItem('dw_oss_session_id')
+    }
+    return null
+  },
+  setDwSessionId (sessionId) {
+    localStorage.setItem('dw_oss_session_id', sessionId)
   }
 }

@@ -9,6 +9,7 @@ import {v6Route} from './dw-v6-routes'
 const LoginLayout = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/LoginLayout.vue')
 const Login = () => import(/* webpackChunkName: "dwsurvey-login" */ '../views/Login')
 const EmptyRouterView = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/EmptyRouterView.vue')
+const Home = () => import(/* webpackChunkName: "dwsurvey-login" */ '../views/Home.vue')
 
 Vue.use(Router)
 
@@ -25,7 +26,7 @@ const routes = [
   {
     path: '/',
     // redirect: '/dw/survey'
-    redirect: '/v6'
+    component: Home
   },
   // v6新版本的路由
   {
