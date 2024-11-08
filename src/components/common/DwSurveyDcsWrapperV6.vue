@@ -7,8 +7,7 @@
             <el-row type="flex" justify="space-between" align="middle">
               <el-col>
                 <div class="dw-dcs-main-survey-title-content">
-                  <div v-if="survey.surveyNameText != null" v-text="survey.surveyNameText"></div>
-                  <div v-else v-html="survey.surveyName"></div>
+                  {{ survey.surveyName }}
                 </div>
               </el-col>
               <el-col :span="4">
