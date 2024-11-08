@@ -34,16 +34,7 @@
             stripe
             style="width: 100%">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column label="问卷" >
-              <template slot-scope="scope">
-                <el-popover trigger="hover" placement="top">
-                  <p v-html="scope.row.surveyName" ></p>
-                  <div slot="reference" class="name-wrapper">
-                    <div v-if="scope.row.surveyNameText != null" v-text="scope.row.surveyNameText"></div>
-                    <div v-else v-html="scope.row.surveyName"></div>
-                  </div>
-                </el-popover>
-              </template>
+            <el-table-column label="问卷" prop="surveyName">
             </el-table-column>
             <el-table-column label="答卷数" width="130" >
               <template slot-scope="scope">
