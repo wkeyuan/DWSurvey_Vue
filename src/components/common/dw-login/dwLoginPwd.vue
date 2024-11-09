@@ -17,6 +17,7 @@
 <script>
 
 import DwJsencrypt from '../../../utils/dw-jsencrypt'
+import {dwFooterUtils} from "../../dw-survey-comp/dw-utils/dw-common/dw-footer-util";
 
 export default {
   name: 'DwLoginPwd',
@@ -38,10 +39,12 @@ export default {
       }
     }
   },
+  mounted () {
+    this.loadDwFooter()
+  },
   methods: {
     handleSubmit () {
       const passcode = DwJsencrypt.dwGetCode(this.ruleForm.pass+'')
-      console.log('passcode',passcode)
       this.$emit('login', {type: 'account', userName: this.ruleForm.email, password: passcode})
     },
     submitForm () {
@@ -57,6 +60,18 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    loadDwFooter () {
+      const _that = this
+      dwFooterUtils.getNewDwFooterInfo(function () {
+        dwFooterUtils.isDemo((footerInfo) => {
+          _that.showDefaultDemoPwd(footerInfo)
+        })
+      })
+    },
+    showDefaultDemoPwd (footerInfo) {
+      this.ruleForm.email = 'service@diaowen.net'
+      this.ruleForm.pass = '123456'
     }
   }
 }
