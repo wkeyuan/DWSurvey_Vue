@@ -52,7 +52,8 @@ export function getSurveyJsonSimple (surveyJsonText) {
   return newSurvey
 }
 
-export function getSaveSurveyJsonText (surveyJsonText) {
+export function getSaveSurveyJsonText (surveyJson) {
+  const surveyJsonText = JSON.stringify(surveyJson)
   const newSurvey = JSON.parse(surveyJsonText)
   clearSurveyTempPage(newSurvey)
   return newSurvey
