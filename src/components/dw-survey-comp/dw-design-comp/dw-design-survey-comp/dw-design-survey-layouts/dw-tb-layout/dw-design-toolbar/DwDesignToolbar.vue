@@ -218,7 +218,7 @@ export default {
       // 清理无效数据
       clearSurveyJson(this.survey)
       console.debug('save this.survey', this.survey)
-      const surveyJsonText = JSON.stringify(this.survey)
+      const surveyJsonText = JSON.stringify(getSaveSurveyJsonText(this.survey))
       const surveyJsonSimple = JSON.stringify(getSurveyJsonSimple(surveyJsonText))
       const data = {surveyId, sid, surveyJsonText, surveyJsonSimple}
       console.debug('surveyJson data', data)
