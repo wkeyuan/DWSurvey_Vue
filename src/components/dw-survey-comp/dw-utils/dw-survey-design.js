@@ -51,3 +51,17 @@ export function getSurveyJsonSimple (surveyJsonText) {
   newSurvey.questions = []
   return newSurvey
 }
+
+export function getSaveSurveyJsonText (surveyJsonText) {
+  const newSurvey = JSON.parse(surveyJsonText)
+  clearSurveyTempPage(newSurvey)
+  return newSurvey
+}
+export function clearSurveyTempPage (survey) {
+  const questions = survey.questions
+  if (questions !== null) {
+    questions.forEach((item, index) => {
+      if (item.quType==='PAGETAG' && item.hasOwnProperty('tempPage')) questions.splice(index, 1)
+    })
+  }
+}

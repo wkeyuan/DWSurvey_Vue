@@ -102,6 +102,11 @@ export function parseSurveyDetail (survey) {
       anEndNumAttr: {enabled: false, endNum: null},
       anEndTimeAttr: {enabled: false, endTime: null}
   } */
+  if (!survey.surveyAttrs.hasOwnProperty('opoqAttr')) {
+    survey.surveyAttrs.opoqAttr = {
+      enabled: false // 是否一页一题
+    }
+  }
 }
 /**
  * 解析题目
@@ -130,7 +135,7 @@ export function parseQuestion (question, noModel) {
   if (!question.hasOwnProperty('quTitleObj')) question.quTitleObj = {dwHtml: question.quTitle, dwText: quName, dwPlaceholder: '请输入题目标题', isNew: false}
   const quNote = question.quNote
   if (!question.hasOwnProperty('quNoteObj')) question.quNoteObj = {dwHtml: quNote, dwText: quNote, dwPlaceholder: '请输入题目备注', isNew: false}
-  if (question.questionLogics===null) question.questionLogics = []
+  if (!question.hasOwnProperty('questionLogics') || question.questionLogics===null) question.questionLogics = []
   if (noModel && !question.hasOwnProperty('dwId')) question.dwId = uuidv4()
   addNewQuProps(question)// 新版重新梳理属性结构
   const quType = question.quType

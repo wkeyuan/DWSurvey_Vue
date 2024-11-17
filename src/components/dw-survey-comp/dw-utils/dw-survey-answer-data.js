@@ -1,6 +1,7 @@
 import {surveyPageUtils} from './dw-survey-common'
 import {getQuestionAnswerData} from './dw-survey-answer'
 import {answerQuEventCommon} from "../dw-answer-comp/dw-utils/dw-survey-answer-common";
+import {parseQuestions} from "./dw-survey-parse";
 
 export function parseAnswerData (survey, answer) {
   survey.dwEsSurveyAnswer = answer
@@ -288,6 +289,22 @@ function parseQuMatrixScaleAnswerData2Qu (question, anQuestion) {
 // 生成需要的答卷对象
 export function initAnswerBySurvey (survey) {
   const questions = survey.questions
+  if (survey.surveyAttrs.hasOwnProperty('opoqAttr')) {
+    const opoqEnabled = survey.surveyAttrs.opoqAttr.enabled
+    if (opoqEnabled) {
+      const quPageObj = {quType: 'PAGETAG', tempPage: true}
+      quPageObj.quTitleObj = {dwHtml: '', dwText: '', dwPlaceholder: '请输入题目标题', isNew: false}
+      quPageObj.quNoteObj = {dwHtml: '', dwText: '', dwPlaceholder: '请输入题目备注', isNew: false}
+      const quPageJson = JSON.stringify(quPageObj)
+      questions.forEach((question, quIndex) => {
+        const quPage = JSON.parse(quPageJson)
+        let nextQu = null
+        if (questions.length>(quIndex+1)) nextQu = questions[quIndex+1]
+        if (question.quType!=='PAGETAG' && nextQu!==null && nextQu.quType!=='PAGETAG') questions.splice(quIndex+1, 0, quPage)
+      })
+    }
+  }
+  parseQuestions(questions, true)
   if (questions !== null && questions.length > 0) {
     let pageSize = 1
     // 循环然后定义以上内容

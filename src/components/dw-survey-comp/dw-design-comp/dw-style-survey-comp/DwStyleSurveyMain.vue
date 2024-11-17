@@ -95,7 +95,10 @@ import {initAnswerBySurvey, showPageByIndex} from '../../dw-utils/dw-survey-answ
 import {initAnswerSurveyProgress} from '../../dw-answer-comp/dw-utils/dw-survey-answer-progress'
 import {getDefaultSurveyStyle} from '../../dw-utils/dw-common/dw-common-utils'
 import DwSurveyStyleDesignAside from './componets/DwSurveyStyleDesignAside.vue'
-import {clearSurveyJson, getSurveyJsonSimple} from '../../dw-utils/dw-survey-design'
+import {
+  clearSurveyJson, getSaveSurveyJsonText,
+  getSurveyJsonSimple
+} from '../../dw-utils/dw-survey-design'
 import {clearSurveyAnswer} from '../../dw-answer-comp/dw-utils/dw-survey-answer-clear'
 import {dwSurveyAnswerLogicLoad} from '../../dw-answer-comp/dw-utils/dw-survey-answer-logic'
 import {surveyAnswerLocalStorage} from '../../dw-answer-comp/dw-utils/dw-survey-answer-utils'
@@ -210,7 +213,7 @@ export default {
       clearSurveyJson(this.survey)
       clearSurveyAnswer(this.survey)
       console.debug('save this.survey', this.survey)
-      const surveyJsonText = JSON.stringify(this.survey)
+      const surveyJsonText = JSON.stringify(getSaveSurveyJsonText(this.survey))
       const surveyJsonSimple = JSON.stringify(getSurveyJsonSimple(surveyJsonText))
       const data = {surveyId, sid, surveyJsonText, surveyJsonSimple}
       console.debug('surveyJson data', data)

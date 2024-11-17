@@ -2,6 +2,11 @@
   <div>
     <el-form ref="form" size="mini" >
       <div>
+        <div>
+          <el-form-item>
+            <div><el-checkbox v-model="survey.surveyAttrs.opoqAttr.enabled" >一页一题</el-checkbox></div>
+          </el-form-item>
+        </div>
         <div class="dw-title-attr">回答限制</div>
         <div style="padding-left: 10px;">
           <el-form-item>
