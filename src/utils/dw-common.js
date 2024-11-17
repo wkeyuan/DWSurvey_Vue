@@ -22,10 +22,8 @@ function changeHasRole (el, binding) {
 }
 
 export function hasRoleOrPermCode (permissionRoles) {
-  if (permissionRoles===null || permissionRoles === undefined) return true
+  if (permissionRoles===null || permissionRoles === undefined || permissionRoles.length===0) return true
   const authority = DwAuthorized.getAuthority()
-  console.debug('authority')
-  console.debug(authority)
   if (authority!=null) {
     const hasPermission = authority.some(role => {
       return permissionRoles.includes(role)
@@ -43,7 +41,6 @@ Vue.directive('hasDwRole', {
 
 export function getBrowser () {
   const ua = navigator.userAgent.toLowerCase()
-  console.debug('browser ua', ua)
   if (ua!==null && ua!==undefined && ua!=='') {
     let btypeInfo = (ua.match(/firefox|chrome|safari|opera/g) || 'other')[0]
     if ((ua.match(/msie|trident/g) || [])[0]) {
@@ -54,7 +51,6 @@ export function getBrowser () {
     let plat = ''
     // 如果没有触摸事件 判定为PC
     const isTocuh = ('ontouchstart' in window) || (ua.indexOf('touch') !== -1) || (ua.indexOf('mobile') !== -1)
-    console.debug('isTouch', isTocuh)
     if (isTocuh) {
       if (ua.indexOf('ipad') !== -1) {
         pc = 'pad'
@@ -88,7 +84,6 @@ export function getBrowser () {
         break
     }
     plat = (ua.indexOf('android') > 0) ? 'android' : navigator.platform.toLowerCase()
-    console.debug('platform', plat)
     return {
       // version: (ua.match(/[\s\S]+(?:rv|it|ra|ie)[/: ]([\d.]+)/) || [])[1],
       version: 0,

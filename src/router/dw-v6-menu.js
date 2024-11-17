@@ -15,7 +15,8 @@ const dwMenus = [
     name: '个人中心',
     meta: {
       title: '个人中心'
-    }
+    },
+    authority: []
   }
 ]
 
