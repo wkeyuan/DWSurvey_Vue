@@ -25,7 +25,7 @@
 
 import {dwSaveSurveyJson} from '../../../api/dw-design-survey-api'
 import draggable from 'vuedraggable'
-import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
+import {clearSurveyJson, getSaveSurveyJsonText, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
 import {dwFooterUtils} from '../../../../../dw-utils/dw-common/dw-footer-util'
 
 export default {

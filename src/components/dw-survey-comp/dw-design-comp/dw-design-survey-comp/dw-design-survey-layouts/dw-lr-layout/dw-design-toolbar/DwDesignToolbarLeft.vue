@@ -53,7 +53,7 @@ import {dwSaveSurveyJson, questionComps} from '../../../api/dw-design-survey-api
 import draggable from 'vuedraggable'
 import {initQuestionModels, parseQuestions, resetQuestion} from '../../../../../dw-utils/dw-survey-parse'
 import DwDesignQuestion from '../../../dw-design-survey-question/DwDesignQuestion.vue'
-import {clearSurveyJson, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
+import {clearSurveyJson, getSaveSurveyJsonText, getSurveyJsonSimple} from '../../../../../dw-utils/dw-survey-design'
 import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import DwDesignQuBankQuestion
