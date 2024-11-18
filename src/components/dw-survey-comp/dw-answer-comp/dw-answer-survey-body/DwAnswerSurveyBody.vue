@@ -62,7 +62,7 @@
                       </div>
                     </div>
                     <el-button v-loading.fullscreen.lock="fullscreenLoading" v-if="!survey.answerMsg.noSurveyJson" type="primary" class="dw-answer-button-style1" @click="submitAnswer" >提交答卷</el-button>
-                    <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1)" >上一页</el-button>
+                    <el-button v-show="survey.pageAttr.curPage>1" type="primary" plain class="dw-answer-button-style1" @click="nextPage(survey.pageAttr.curPage-1, 'prev')" >上一页</el-button>
                   </div>
                 </div>
               </div>
@@ -172,9 +172,9 @@ export default {
     dwUpSurveyStyle.dwUpSurveyStyleMain(this.survey)
   },
   methods: {
-    nextPage (pageIndex) {
+    nextPage (pageIndex, prevOrNext) {
       if (pageIndex < this.survey.pageAttr.curPage || validateQuestionsBool(this.survey.questions)) {
-        showPageByIndex(this.survey, pageIndex)
+        showPageByIndex(this.survey, pageIndex, prevOrNext)
       }
     },
     backReAnswer () {

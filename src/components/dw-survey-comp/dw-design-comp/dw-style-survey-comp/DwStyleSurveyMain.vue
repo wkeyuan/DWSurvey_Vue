@@ -171,7 +171,7 @@ export default {
         // 初始化问卷进度状态
         initAnswerSurveyProgress(survey)
         // 初始化分页
-        showPageByIndex(survey, 1)
+        showPageByIndex(survey, 1, 'next')
         this.oldQuestions = JSON.stringify(survey.questions)
         this.survey = survey
         this.loading = false

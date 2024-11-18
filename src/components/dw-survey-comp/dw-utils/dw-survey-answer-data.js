@@ -433,9 +433,9 @@ export function showPageByIndex (survey, pageIndex, prevOrNext) {
   survey.pageAttr.end = endIndex
   if (isAutoNextPage) {
     if (prevOrNext === 'next') {
-      showPageByIndex(survey, pageIndex + 1)
+      showPageByIndex(survey, pageIndex + 1, prevOrNext)
     } else {
-      showPageByIndex(survey, pageIndex - 1)
+      showPageByIndex(survey, pageIndex - 1, prevOrNext)
     }
   }
 }

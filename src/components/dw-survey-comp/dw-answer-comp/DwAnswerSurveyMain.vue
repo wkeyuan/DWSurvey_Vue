@@ -187,7 +187,7 @@ export default {
         this.survey = localStorageSurveyObj
       } else {
         // 此处需要重置分页
-        showPageByIndex(survey, 1)
+        showPageByIndex(survey, 1, 'next')
         this.survey = survey
       }
     },
@@ -206,7 +206,7 @@ export default {
             const localAnswer = getSurveyAnswerData(localStorageSurveyObj)
             parseAnswerData(survey, localAnswer)
             // 此处需要重置分页
-            showPageByIndex(survey, 1)
+            showPageByIndex(survey, 1, 'next')
             return survey
           }
         }
@@ -231,7 +231,7 @@ export default {
       // 初始化问卷进度状态
       initAnswerSurveyProgress(survey)
       // 此处需要重置分页
-      showPageByIndex(survey, 1)
+      showPageByIndex(survey, 1, 'next')
       // 逻辑处理初始化
       dwSurveyAnswerLogicLoad(survey)
       // 加载完成把问卷初始数据存入local
