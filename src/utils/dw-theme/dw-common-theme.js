@@ -10,21 +10,22 @@ export const dwSurveyRootStyle = {
     'dwPrimaryButtonToolbarThemeColor': '#0b63bd'
     'dwPrimaryButtonBgColor6': '#b5d8fc'
     */
-    'dwPrimaryThemeColor': '#af174d',
-    'dwPrimaryBgColor': '#af174d',
-    'dwPrimaryBgColorActive': '#af174d',
-    'dwPrimaryBgColorHover': '#af174d',
-    'dwPrimaryTextColorActive': '#af174d',
-    'dwPrimaryButtonThemeColor': '#af174d',
-    'dwPrimaryButtonToolbarThemeColor': '#af174d',
-    'dwPrimaryButtonBgColor6': '#f1c3d2'
+    // BUS
+    'dwPrimaryThemeColor': '#048f74',
+    'dwPrimaryBgColor': '#048f74',
+    'dwPrimaryBgColorActive': '#05816a',
+    'dwPrimaryBgColorHover': '#069f82',
+    'dwPrimaryTextColorActive': '#0d9b7d',
+    'dwPrimaryButtonThemeColor': '#068d74',
+    'dwPrimaryButtonToolbarThemeColor': '#05a182',
+    'dwPrimaryButtonBgColor6': '#bcf5e5'
   },
   answerThemeStyle: {
     'dwAnswerPageBgColor': '#eeeeee',
-    'dwAnswerPrimaryColor': '#af174d',
-    'dwAnswerPrimaryColor1': '#910536',
-    'dwAnswerLogoBgColor': '#dc5585',
-    'dwAnswerProgressColor': '#e10f59'
+    'dwAnswerPrimaryColor': '#069f82',
+    'dwAnswerPrimaryColor1': '#048f74',
+    'dwAnswerLogoBgColor': '#359485',
+    'dwAnswerProgressColor': '#147762'
   }
 }
 
