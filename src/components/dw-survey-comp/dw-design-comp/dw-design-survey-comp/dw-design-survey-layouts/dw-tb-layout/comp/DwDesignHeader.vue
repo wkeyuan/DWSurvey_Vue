@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       logoTitle: '调问网-全新问卷编辑器',
-      logoTitleNote: '拖动或点击控件即可加入新题目，纯VUE全部重写，易于二开上手',
+      logoTitleNote: '拖动或点击控件即可加入新题目',
       switchValue: '上下',
       defActive: `/v6/diaowen/dw-design/survey/${this.$route.params.dwSurveyId}`,
       prevPath: '/v6'
@@ -85,7 +85,7 @@ export default {
     loadPage () {
       dwFooterUtils.getDwFooterInfoAuto((footerInfo) => {
         // demo显示
-        dwFooterUtils.isDemo((footerInfo) => { this.logoTitleNote = '纯VUE全部重写，易于二开上手' }, (footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目' })
+        dwFooterUtils.isDemo((footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目' }, (footerInfo) => { this.logoTitleNote = '拖动或点击控件即可加入新题目' })
         // 左右布局
         dwFooterUtils.isLayoutLr((footerInfo) => { this.prevPath = '/v6/lr' })
       })
