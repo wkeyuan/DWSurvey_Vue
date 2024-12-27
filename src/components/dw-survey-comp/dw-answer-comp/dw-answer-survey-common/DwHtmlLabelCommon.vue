@@ -1,8 +1,12 @@
 <template>
-  <div class="dwEditorRoot dw-width-100bf" >
-    <div>
-      <div ref="curEdit" class="dwEditRoot dw-input-default" v-html="`${isRequired!==undefined && isRequired ? requiredTag:''}${quNum!==undefined && quNum!==null ? quNum+'、':''}${value.dwHtml!==null?value.dwHtml:''}`" ></div>
-      <!--      :style="`background: ${themeColor};border-color: ${themeColor}`"-->
+  <div class="dwFlex">
+    <div v-show="isRequired !== undefined && isRequired" style="color: #f56c6c; font-weight: bold">*&nbsp;</div>
+    <div v-show="quNum !== undefined && quNum !== null">{{ quNum + '、' }}</div>
+    <div class="dwEditorRoot dw-width-100bf">
+      <div>
+        <div ref="curEdit" class="dwEditRoot dw-input-default" v-html="`${value.dwHtml !== null ? value.dwHtml : ''}`"></div>
+        <!--      :style="`background: ${themeColor};border-color: ${themeColor}`"-->
+      </div>
     </div>
   </div>
 </template>
@@ -83,5 +87,9 @@ export default {
 }
 /deep/ img{
   width: 100%;
+}
+.dwFlex {
+  display: flex;
+  align-items: center;
 }
 </style>
