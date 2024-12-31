@@ -25,7 +25,7 @@
             <el-row :span="24" type="flex" justify="space-between" align="middle">
               <el-col :span="4"><h3>我的问卷</h3></el-col>
               <el-col :span="20" style="text-align: right;">
-                <el-button type="primary" size="medium" @click="form.id=null;form.name=null;dialogTitle = '创建问卷';dialogFormVisible = true" >新建问卷</el-button>
+                <el-button type="primary" size="medium" @click="createSurveyBtn" >新建问卷</el-button>
               </el-col>
             </el-row>
           </div>
@@ -251,6 +251,12 @@ export default {
           this.$message.error('问卷复制失败')
         }
       })
+    },
+    createSurveyBtn () {
+      this.form.id=null
+      this.form.name=null
+      this.dialogTitle = '创建问卷'
+      this.dialogFormVisible = true
     }
   }
 }
