@@ -58,7 +58,7 @@
                   </div>
                 </div>
               </div>-->
-              <span style="margin-right: 10px;font-size: 12px;">
+              <span class="autoSave" style="margin-right: 10px;font-size: 12px;">
                 <el-switch v-model="isAutoSave" :active-text="`自动保存`" @change="autoSaveSurvey" ></el-switch>
                 <span style="color: #afafb0;">({{ autoSaveTime }})</span>
               </span>
@@ -251,5 +251,11 @@ export default {
 }
 .chosenClass{
   border: none;
+}
+
+@media screen and (max-width: 1400px){
+  .autoSave {
+    display: none;
+  }
 }
 </style>
