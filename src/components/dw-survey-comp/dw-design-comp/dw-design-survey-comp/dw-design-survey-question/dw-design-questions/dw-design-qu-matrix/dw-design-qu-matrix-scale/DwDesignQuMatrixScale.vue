@@ -1,15 +1,13 @@
 <template>
   <div>
-    <dw-qu-matrix-scale-options v-model="survey" :index="index" ></dw-qu-matrix-scale-options>
   </div>
 </template>
 
 <script>
-import DwQuMatrixScaleOptions from './components/DwQuMatrixScaleOptions.vue'
 
 export default {
   name: 'DwDesignQuMatrixScale',
-  components: {DwQuMatrixScaleOptions},
+  components: {},
   model: {
     prop: 'survey',
     event: 'update-survey'

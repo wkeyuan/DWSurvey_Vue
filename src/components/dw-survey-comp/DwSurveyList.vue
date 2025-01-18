@@ -109,6 +109,7 @@
           <el-button type="primary" @click="handleDialogConfirm">确 定</el-button>
         </div>
       </el-dialog>
+      <DwSurveyDialog ref="dwSurveyDialog"></DwSurveyDialog>
     </div>
 
   </div>
@@ -118,9 +119,12 @@
 
 import {dwSurveyCreate, dwSurveyList} from '@/api/dw-survey'
 import {dwSurveyCopy, dwSurveyDelete} from '../../api/dw-survey'
+import DwSurveyDialog from './dw-data-comp/dw-answer-data-comp/components/DwSurveyDialog.vue'
+import DwAuthorized from "../../utils/dw-authorized";
 
 export default {
   name: 'DwSurveyList',
+  components: {DwSurveyDialog},
   data () {
     return {
       tableData: [],
@@ -147,6 +151,11 @@ export default {
     const routePath = this.$route.path
     if (routePath.indexOf('/v6/lr') >= 0) {
       this.prevPath = '/v6/lr/dw'
+    }
+    const loginCount = DwAuthorized.getLoginCount()
+    if (loginCount!==undefined && loginCount<=1) {
+      this.$refs.dwSurveyDialog.openDialog()
+      DwAuthorized.setLoginCount(2)
     }
   },
   methods: {

@@ -29,6 +29,15 @@ const dwMenusAdmin = [
       title: '用户管理'
     },
     authority: ['DWSURVEY_SUPER_ADMIN', 'SUPER_ADMIN']
+  },
+  {
+    path: '/dw/admin/system/set',
+    icon: 'el-icon-s-check',
+    name: '系统设置',
+    meta: {
+      title: '系统设置'
+    },
+    authority: ['DWSURVEY_SUPER_ADMIN', 'SUPER_ADMIN']
   }
 ]
 

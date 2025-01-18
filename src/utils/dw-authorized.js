@@ -1,5 +1,14 @@
 
 export default {
+  setLoginCount (count) {
+    localStorage.setItem('dw_oss_login_count', count)
+  },
+  getLoginCount () {
+    if (localStorage.hasOwnProperty('dw_oss_login_count')) {
+      return localStorage.getItem('dw_oss_login_count')
+    }
+    return 'none'
+  },
   setUserName (userName) {
     localStorage.setItem('dw_oss_user_name', userName)
   },

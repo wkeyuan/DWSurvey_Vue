@@ -27,7 +27,7 @@
               </el-menu-item>
             </template>
           </el-submenu>
-          <el-menu-item v-else :key="item.path" v-has-dw-role="item.authority" :index="prevPath+item.path">
+          <el-menu-item v-else :key="item.path" v-has-dw-role="item.authority" :index="prevPath+item.path" >
             <i :class="item.icon"></i>
             <span slot="title">{{ item.name }}</span>
           </el-menu-item>

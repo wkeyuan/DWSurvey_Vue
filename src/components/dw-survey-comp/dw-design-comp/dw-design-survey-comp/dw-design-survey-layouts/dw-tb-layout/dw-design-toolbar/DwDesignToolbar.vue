@@ -71,6 +71,9 @@
       </div>
     </el-tab-pane>
     <!--    <el-tab-pane label="外观预览" name="designStyle" ></el-tab-pane>-->
+    <el-tab-pane label="更多题型" name="moreQus" >
+      <DwUpEntDialog ref="dwUpEntDialog"></DwUpEntDialog>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -85,10 +88,12 @@ import {clearSurveyJson, getSaveSurveyJsonText, getSurveyJsonSimple} from '../..
 import DwAnswerQuestion from '../../../../../dw-answer-comp/dw-answer-survey-question/DwAnswerQuestion.vue'
 import {dwResetQuestionRefreshValue} from '../../../../../dw-utils/dw-survey-update-question'
 import {caleDesignSurveySumScore} from '../../../../../dw-utils/dw-common/dw-survey-design-score'
+import DwUpEntDialog from "./components/DwUpEntDialog.vue";
 
 export default {
   name: 'DwDesignToolbar',
   components: {
+    DwUpEntDialog,
     DwAnswerQuestion,
     DwDesignToolbarQuestion,
     DwDesignQuestion,
@@ -201,6 +206,9 @@ export default {
     clickDesignStyle (activeName, oldTabName) {
       if (activeName==='designStyle') {
         this.previewSurvey()
+        return false
+      } else if (activeName==='moreQus') {
+        this.$refs.dwUpEntDialog.openDialog()
         return false
       }
       return true

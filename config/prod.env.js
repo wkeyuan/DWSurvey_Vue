@@ -17,7 +17,7 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  DW_API_URL: '"https://bus.surveyform.cn"',
-  DW_WEB_URL: '"https://bus.surveyform.cn"',
-  DW_RESOURCE_URL: '"https://bus.surveyform.cn"'
+  DW_API_URL: '"https://oss.surveyform.cn"',
+  DW_WEB_URL: '"https://oss.surveyform.cn"',
+  DW_RESOURCE_URL: '"https://oss.surveyform.cn"'
 }

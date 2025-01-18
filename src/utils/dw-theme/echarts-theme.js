@@ -1,6 +1,6 @@
 export const echartsThemeConfig = {
   'color': [
-    '#af174d',
+    '#069f82',
     '#27727b',
     '#fcce10',
     '#e87c25',

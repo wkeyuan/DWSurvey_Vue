@@ -109,6 +109,7 @@ export default {
             if (httpResult !== null && httpResult.hasOwnProperty('data')) {
               if (httpResult.data !== null) {
                 DwAuthorized.setUserName(httpResult.data.loginName)
+                DwAuthorized.setLoginCount(httpResult.data.loginCount)
               }
             }
           }
