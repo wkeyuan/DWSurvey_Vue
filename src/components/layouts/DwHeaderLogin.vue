@@ -12,7 +12,7 @@
                 <dw-header-logo></dw-header-logo>
               </el-col>
               <el-col :span="16">
-                <div style="padding-left: 60px;color: white;">DWSurvey Bus - 全新的商业版，简单、稳定、实用</div>
+                <div style="padding-left: 60px;color: white;">DWSurvey OSS - 全新的社区版，简单、稳定、实用</div>
               </el-col>
               <el-col :span="4" style="text-align: right;" >
                 <div>
