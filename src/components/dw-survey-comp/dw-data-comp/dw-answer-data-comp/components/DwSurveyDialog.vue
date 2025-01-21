@@ -61,10 +61,10 @@
         </div>
 
         <div style="margin-top: 10px;">
-          <div>调问网产品团队  <span style="margin-left: 10px;">2020年07月16号 22时11分</span></div>
+          <div>调问网产品团队  <span style="margin-left: 10px;">2025年01月22号 23时58分</span></div>
         </div>
         <div style="border-top: 1px solid gray;margin-top: 10px;padding-top: 10px;">
-          <div>官方网站：<a href="https://www.diaowen.net" target="_blank">https://www.diaowen.net</a></div>
+          <div>官方网站：<a href="https://www.diaowen.net?s0=oss&v1=2501&e5=dsf0" target="_blank">https://www.diaowen.net</a></div>
         </div>
       </div>
     </el-dialog>
