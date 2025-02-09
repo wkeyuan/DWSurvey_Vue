@@ -23,17 +23,20 @@
             <el-row><el-col :span="12"><el-input v-model="question.anFillblank.answer" readonly ></el-input></el-col></el-row>
           </div>
           <div v-if="question.quType === 'MULTIFILLBLANK'">
-            <el-form-item v-for="(item,index) in question.quMultiFillblanks" :label="(index+1)+'、'+item.optionName" :key="item.id" >
+            <el-form-item v-for="(item) in question.quMultiFillblanks" :key="item.id" >
+              <div slot="label" v-html="item.optionName"></div>
               <el-input v-model="item.answer" style="width: 360px;" ></el-input>
             </el-form-item>
           </div>
           <div v-if="question.quType === 'SCORE'">
-            <el-form-item v-for="(item,index) in question.quScores" :label="(index+1)+'、'+item.optionName" :key="item.id" >
+            <el-form-item v-for="(item) in question.quScores" :key="item.id" >
+              <div slot="label" v-html="item.optionName"></div>
               <el-rate v-model="item.answer" disabled show-score text-color="#ff9900" score-template="{value}"></el-rate>
             </el-form-item>
           </div>
           <div v-if="question.quType === 'ORDERQU'">
-            <el-form-item v-for="(item,index) in question.quOrderbys" :label="(index+1)+'、'+item.optionName" :key="item.id" >
+            <el-form-item v-for="(item) in question.quOrderbys" :key="item.id" >
+              <div slot="label" v-html="item.optionName"></div>
               <el-input v-model="item.answer" style="width: 360px;" ></el-input>
             </el-form-item>
           </div>
@@ -145,5 +148,8 @@ export default {
 }
 .dw-qu-item-body{
   margin-left: 10px;
+}
+/deep/ .el-form-item__label{
+  line-height: normal;
 }
 </style>

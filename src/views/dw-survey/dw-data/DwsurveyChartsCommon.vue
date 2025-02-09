@@ -15,6 +15,9 @@
         <el-table-column
           prop="optionName"
           label="题目选项">
+          <template slot-scope="scope">
+            <span v-html="scope.row.optionName" ></span>
+          </template>
         </el-table-column>
         <el-table-column
           :label="question.quType === 'SCORE' ? '占总分比例' : question.quType === 'ORDERQU' ? '排名比例' : question.quType === 'MULTIFILLBLANK' ? '填写比例' : '频次比例'"
