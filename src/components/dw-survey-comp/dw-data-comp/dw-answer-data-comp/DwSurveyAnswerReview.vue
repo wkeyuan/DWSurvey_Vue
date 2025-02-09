@@ -75,7 +75,8 @@ export default {
       if (this.dwEsSurveyAnswer!==null) {
         this.answerProps.surveyId = this.dwEsSurveyAnswer.answerCommon.surveyId
         this.answerProps.sid = this.dwEsSurveyAnswer.answerCommon.sid
-        this.answerProps.answerId = this.dwEsSurveyAnswer.esId
+        // this.answerProps.answerId = this.dwEsSurveyAnswer.esId
+        this.answerProps.answerId = this.dwEsSurveyAnswer.answerCommon.answerId
         this.answerProps.anPwd = this.dwEsSurveyAnswer.anPwd
       }
     }

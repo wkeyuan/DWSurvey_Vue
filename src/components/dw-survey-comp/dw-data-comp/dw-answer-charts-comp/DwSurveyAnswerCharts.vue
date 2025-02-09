@@ -2,6 +2,7 @@
   <div>
     <div v-loading="loading">
       <dw-survey-charts-common v-for="(item,index) in questions" :id="item.id" :key="item.id" :index="index" :question="item"></dw-survey-charts-common>
+      <div style="color:gray;padding:20px 0;">{{ resultMsg }}</div>
     </div>
   </div>
 </template>
@@ -20,7 +21,8 @@ export default {
       survey: null,
       surveyAggStats: null,
       questions: [],
-      loading: true
+      loading: true,
+      resultMsg: null
     }
   },
   mounted () {
@@ -53,12 +55,17 @@ export default {
         dwSurveyAnswerStatsV6(params).then((response) => {
           console.debug('dwSurveyAnswerStatsV6 response', response)
           const responseResult = response.data
-          this.surveyAggStats = responseResult.data
-          // 加工统计数据
-          dwAnswerChart.chartDataParse(this.survey, this.surveyAggStats)
-          // 生成统计报表数据
-          dwAnswerChart.anCountStats(this.survey.questions)
-          this.questions = this.survey.questions
+          const resultCode = responseResult.resultCode
+          if (resultCode===200) {
+            this.surveyAggStats = responseResult.data
+            // 加工统计数据
+            dwAnswerChart.chartDataParse(this.survey, this.surveyAggStats)
+            // 生成统计报表数据
+            dwAnswerChart.anCountStats(this.survey.questions)
+            this.questions = this.survey.questions
+          } else {
+            this.resultMsg = '统计服务不可用，可能是Es服务没有启用！'
+          }
           this.loading = false
         })
       })

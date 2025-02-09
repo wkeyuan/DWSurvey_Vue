@@ -152,7 +152,8 @@ export default {
       isReAnswer: false,
       anPwd: '',
       anRandomCode: '',
-      indexResponseId: null
+      indexResponseId: null,
+      dbAnswerId: null
     }
   },
   watch: {
@@ -237,11 +238,12 @@ export default {
         const httpResult = response.data
         if (httpResult.hasOwnProperty('resultCode') && httpResult.resultCode === 200) {
           const resultData = httpResult.data
-          if (resultData.hasOwnProperty('anCheckIsPass') && resultData.hasOwnProperty('anCheckResultCode') && resultData.hasOwnProperty('indexResponseId')) {
+          if (resultData.hasOwnProperty('anCheckIsPass') && resultData.hasOwnProperty('anCheckResultCode') && resultData.hasOwnProperty('indexResponseId') && resultData.hasOwnProperty('dbAnswerId')) {
             const anCheckIsPass = resultData.anCheckIsPass
             const anCheckResultCode = resultData.anCheckResultCode
             const indexResponseId = resultData.indexResponseId
-            if (anCheckIsPass && anCheckResultCode===201 && indexResponseId!==null) {
+            const dbAnswerId = resultData.dbAnswerId
+            if (anCheckIsPass && anCheckResultCode===201 && dbAnswerId!==null) {
               // this.$message.success('保存成功！')
               // 弹出提示
               this.survey.answerMsg.showAnswerMsg = true
@@ -256,11 +258,12 @@ export default {
               // 最好是处里返回的答卷结束，直接重新显示
               this.fullscreenLoading = false
               this.indexResponseId = indexResponseId
+              this.dbAnswerId = dbAnswerId
               if (this.survey.surveyAttrs.scoreAttr.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.enabled && this.survey.surveyAttrs.scoreAttr.showSumScore.showContent==='sumAndDetail') {
                 this.$message.success('提交成功，即将显示答卷结果...')
                 const _that = this
                 setTimeout(function () {
-                  _that.$router.push(`/v6/diaowen/an/review/${sid}/${indexResponseId}`)
+                  _that.$router.push(`/v6/diaowen/an/review/${sid}/${dbAnswerId}`)
                 }, 1500)
               }
             } else {
@@ -294,7 +297,7 @@ export default {
     },
     showAnswerDetail () {
       const sid = this.survey.sid
-      this.$router.push(`/v6/diaowen/an/review/${sid}/${this.indexResponseId}`)
+      this.$router.push(`/v6/diaowen/an/review/${sid}/${this.dbAnswerId}`)
     },
     dwScrollIntoView () {
       // 滚动到第一个错误题位置

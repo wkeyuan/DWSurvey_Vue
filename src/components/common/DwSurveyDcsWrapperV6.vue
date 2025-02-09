@@ -29,7 +29,7 @@
                   <router-link :to="`${prevPath}/survey/c/url/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerUrl || isSiteShare || isSiteComp || isAnswerWx || isAnswerUrlV6}" class="dw-link dw-link-1" ><i class="el-icon-link"></i>{{ survey.surveyTypeSimpleName }}收集</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i> {{ survey.surveyTypeSimpleName }}数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart || isAnswerData }" class="dw-link dw-link-1" ><i class="el-icon-s-data"></i> {{ survey.surveyTypeSimpleName }}数据</router-link>
                 </el-col>
                 <el-col :span="15" style="text-align: right;">
                   <el-button type="primary" size="small" @click="handlePush(`/v6/diaowen/dw-design/survey/${survey.id}`)" >{{ survey.surveyTypeSimpleName }}设计</el-button>
@@ -65,10 +65,10 @@
               </el-row>
               <el-row v-show="isSurveyChart || isAnswerData">
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
+                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
                 </el-col>
                 <el-col :span="3">
-                  <router-link :to="`${prevPath}/survey/d/data/${survey.id}`" :class="{ 'dw-link-primary' : isAnswerData}" class="dw-link" ><i class="el-icon-receiving"></i>原始数据</router-link>
+                  <router-link :to="`${prevPath}/survey/d/chart/${survey.id}`" :class="{ 'dw-link-primary' : isSurveyChart}" class="dw-link" ><i class="el-icon-discount"></i>默认统计</router-link>
                 </el-col>
                 <el-col :span="3"></el-col>
                 <el-col :span="3"></el-col>
