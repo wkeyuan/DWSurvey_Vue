@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import API from '@/api/index.js'
+import DwAuthorized from '../utils/dw-authorized'
 
 // 登录方法
 export function dwLogin (params) {
@@ -38,7 +39,9 @@ export function sendFakeCaptcha (params) {
 // 退出方法
 export function logout () {
   // token方案
-  // DwAuthorized.setToken('')
+  DwAuthorized.setToken('')
+  DwAuthorized.setAuthorityStr('')
+  DwAuthorized.setUserName('')
   // session方案
   return request({
     url: API.logOut,
