@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {msgBoxNoLogin, msgBoxNoRole, msgError, msgWarning} from './dw-msg'
+import DwAuthorized from './dw-authorized'
 
 // 全局的 axios 默认值
 axios.defaults.baseURL = process.env.DW_API_URL
@@ -18,16 +19,22 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
+    const token = DwAuthorized.getToken()
+    if (token !== null) config.headers.Authorization = token
     return config
   },
   error => {
-    console.log('request-error:'+error)
+    console.debug('request-error:'+error)
     return Promise.error(error)
   })
 
 // 响应拦截器
 service.interceptors.response.use(
   response => {
+    if (response.headers.hasOwnProperty('refresh-token')) {
+      console.debug('ref-token', response.headers['refresh-token'])
+      DwAuthorized.setToken(response.headers['refresh-token'])
+    }
     if (response.status === 200) {
       const {data} = response
       if (data.hasOwnProperty('resultCode')) {
