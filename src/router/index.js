@@ -10,6 +10,7 @@ const LoginLayout = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../c
 const Login = () => import(/* webpackChunkName: "dwsurvey-login" */ '../views/Login')
 const EmptyRouterView = () => import(/* webpackChunkName: "dwsurvey-layout" */ '../components/layouts/EmptyRouterView.vue')
 const Home = () => import(/* webpackChunkName: "dwsurvey-login" */ '../views/Home.vue')
+const DwAutoLogin = () => import(/* webpackChunkName: "dwsurvey-login" */ '../views/dw-common/DwAutoLogin.vue')
 
 Vue.use(Router)
 
@@ -42,6 +43,10 @@ const routes = [
       {
         path: '/',
         component: Login
+      },
+      {
+        path: '/login/dw-auto-login',
+        component: DwAutoLogin
       }
     ]
   }
