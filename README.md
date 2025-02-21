@@ -32,7 +32,7 @@
 
 简体中文 |  [English](./README_en.md)
 
-此为调问前端源码仓库
+***此为调问前端源码仓库，认证方式基于token，基于session的认证方式在session_security分支。***
 
 ## 一、关于调问
 
