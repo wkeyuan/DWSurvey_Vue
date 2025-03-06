@@ -9,16 +9,16 @@
           <el-alert title="样式修改会自动保存" type="info" show-icon></el-alert>
         </div>
         <div>
-          <el-form ref="form" size="small" >
+          <el-form ref="form" size="small">
             <div>
               <div class="dw-title-attr">图片属性</div>
               <div style="padding-left: 10px;">
                 <el-form-item>
-                  <div><el-checkbox v-model="survey.surveyStyle.pageTopImg.enabled" >页眉图</el-checkbox></div>
+                  <div><el-checkbox v-model="survey.surveyStyle.pageTopImg.enabled">页眉图</el-checkbox></div>
                   <div v-show="survey.surveyStyle.pageTopImg.enabled" style="font-size: 12px;">
                     <el-row type="flex" justify="center" align="middle" style="height: 40px;">
-                      <el-col :span="10" >
-                        <el-image :src="survey.surveyStyle.pageTopImg.httpSrc" fit="cover" class="dw-style-el-image" >
+                      <el-col :span="10">
+                        <el-image :src="survey.surveyStyle.pageTopImg.httpSrc" fit="cover" class="dw-style-el-image">
                           <div slot="error" class="el-image__error"><i class="fa-regular fa-image" style="margin-right: 6px;"></i>请上传图片</div>
                         </el-image>
                       </el-col>
@@ -34,11 +34,11 @@
                   </div>
                 </el-form-item>
                 <el-form-item>
-                  <div><el-checkbox v-model="survey.surveyStyle.pageBgImg.enabled" @change="upImgSrc" >背景图</el-checkbox></div>
+                  <div><el-checkbox v-model="survey.surveyStyle.pageBgImg.enabled" @change="upImgSrc">背景图</el-checkbox></div>
                   <div v-show="survey.surveyStyle.pageBgImg.enabled" style="font-size: 12px;">
                     <el-row type="flex" justify="center" align="middle" style="height: 40px;">
-                      <el-col :span="10" >
-                        <el-image :src="survey.surveyStyle.pageBgImg.httpSrc" fit="cover" class="dw-style-el-image" >
+                      <el-col :span="10">
+                        <el-image :src="survey.surveyStyle.pageBgImg.httpSrc" fit="cover" class="dw-style-el-image">
                           <div slot="error" class="el-image__error"><i class="fa-regular fa-image" style="margin-right: 6px;"></i>请上传图片</div>
                         </el-image>
                       </el-col>
@@ -54,11 +54,11 @@
                   </div>
                 </el-form-item>
                 <el-form-item>
-                  <div><el-checkbox v-model="survey.surveyStyle.logoImg.enabled" >LOGO图</el-checkbox></div>
+                  <div><el-checkbox v-model="survey.surveyStyle.logoImg.enabled">LOGO图</el-checkbox></div>
                   <div v-show="survey.surveyStyle.logoImg.enabled" style="font-size: 12px;">
                     <el-row type="flex" justify="center" align="middle" style="height: 40px;">
-                      <el-col :span="10" >
-                        <el-image :src="survey.surveyStyle.logoImg.httpSrc" fit="fill" class="dw-style-el-image" >
+                      <el-col :span="10">
+                        <el-image :src="survey.surveyStyle.logoImg.httpSrc" fit="fill" class="dw-style-el-image">
                           <div slot="error" class="el-image__error"><i class="fa-regular fa-image" style="margin-right: 6px;"></i>请上传图片</div>
                         </el-image>
                       </el-col>
@@ -72,8 +72,8 @@
                       </el-col>
                     </el-row>
                     <div style="padding-top: 5px;">
-                      <el-row type="flex" justify="center" align="middle" >
-                        <el-col :span="24" >
+                      <el-row type="flex" justify="center" align="middle">
+                        <el-col :span="24">
                           <span style="font-size: 14px;font-weight: 500;color: #606266;">显示位置</span>
                           <el-select v-model="survey.surveyStyle.logoImg.position" placeholder="请选择" style="width: 144px;">
                             <el-option
@@ -95,8 +95,8 @@
               <div style="padding-left: 10px;">
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="14" >
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="14">
                         <div style="font-size: 14px;font-weight: 500;color: #606266;">主题色<span style="font-size: 12px;font-weight: normal;color: #969696;">（表单控件）</span></div>
                       </el-col>
                       <el-col :span="10" style="padding-left: 10px;">
@@ -107,8 +107,8 @@
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="14" >
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="14">
                         <div style="font-size: 14px;font-weight: 500;color: #606266;">背景色<span style="font-size: 12px;font-weight: normal;color: #969696;">（背景图优先）</span></div>
                       </el-col>
                       <el-col :span="10" style="padding-left: 10px;">
@@ -119,8 +119,8 @@
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="14" >
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="14">
                         <div style="font-size: 14px;font-weight: 500;color: #606266;">LOGO行背景色</div>
                       </el-col>
                       <el-col :span="10" style="padding-left: 10px;">
@@ -131,8 +131,8 @@
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="14" >
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="14">
                         <div style="font-size: 14px;font-weight: 500;color: #606266;">进度条色<span style="font-size: 12px;font-weight: normal;color: #969696;">（优先级高）</span></div>
                       </el-col>
                       <el-col :span="10" style="padding-left: 10px;">
@@ -148,8 +148,8 @@
               <div style="padding-left: 10px;">
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="12" >
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="12">
                         <div><el-checkbox v-model="survey.surveyStyle.showQuNum">显示题号</el-checkbox></div>
                       </el-col>
                       <el-col :span="12" style="padding-left: 10px;">
@@ -160,35 +160,35 @@
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="12" >
-                        <div><el-checkbox v-model="survey.surveyStyle.showPageHeader" >显示表头</el-checkbox></div>
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="12">
+                        <div><el-checkbox v-model="survey.surveyStyle.showPageHeader">显示表头</el-checkbox></div>
                       </el-col>
                       <el-col :span="12" style="padding-left: 10px;">
-                        <div><el-checkbox v-model="survey.surveyStyle.showQuTypeName" >显示题型</el-checkbox></div>
+                        <div><el-checkbox v-model="survey.surveyStyle.showQuTypeName">显示题型</el-checkbox></div>
                       </el-col>
                     </el-row>
                   </div>
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="12" >
-                        <div><el-checkbox v-model="survey.surveyStyle.showSurveyTitle" >显示问卷标题</el-checkbox></div>
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="12">
+                        <div><el-checkbox v-model="survey.surveyStyle.showSurveyTitle">显示问卷标题</el-checkbox></div>
                       </el-col>
                       <el-col :span="12" style="padding-left: 10px;">
-                        <div><el-checkbox v-model="survey.surveyStyle.showSurveyNote" >显示问卷说明</el-checkbox></div>
+                        <div><el-checkbox v-model="survey.surveyStyle.showSurveyNote">显示问卷说明</el-checkbox></div>
                       </el-col>
                     </el-row>
                   </div>
                 </el-form-item>
                 <el-form-item>
                   <div style="font-size: 12px;">
-                    <el-row type="flex" justify="center" align="middle" >
-                      <el-col :span="12" >
-                        <div><el-checkbox v-model="survey.surveyStyle.showQuScoreNum" >显示题目分数</el-checkbox></div>
+                    <el-row type="flex" justify="center" align="middle">
+                      <el-col :span="12">
+                        <div><el-checkbox v-model="survey.surveyStyle.showQuScoreNum">显示题目分数</el-checkbox></div>
                       </el-col>
-                      <el-col :span="12" >
+                      <el-col :span="12">
                       </el-col>
                     </el-row>
                   </div>

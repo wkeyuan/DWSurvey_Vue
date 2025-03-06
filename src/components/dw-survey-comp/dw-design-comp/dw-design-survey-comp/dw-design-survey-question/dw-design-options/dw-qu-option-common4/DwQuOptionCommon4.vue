@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-model="value" :multiple="quType==='CHECKBOX'" placeholder="请选择" >
+    <el-select v-model="value" :multiple="quType==='CHECKBOX'" placeholder="请选择">
       <el-option
         v-for="(item, index) in options"
         :key="`fa_${index}`"
@@ -12,11 +12,10 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 
 export default {
   name: 'DwQuOptionCommon4',
-  components: {draggable},
+  components: {},
   model: {
     prop: 'options',
     event: 'update-options'

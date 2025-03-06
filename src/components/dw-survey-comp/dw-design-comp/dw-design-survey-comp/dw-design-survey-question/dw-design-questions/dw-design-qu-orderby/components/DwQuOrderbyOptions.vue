@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import DwQuOptionCommon2 from '../../../dw-design-options/dw-qu-option-common1/DwQuOptionCommon1.vue'
-import DwQuOptionCommon2Item from '../../../dw-design-options/dw-qu-option-common1/DwQuOptionCommon1Item.vue'
 import DwQuOptionCommon1 from '../../../dw-design-options/dw-qu-option-common2/DwQuOptionCommon2.vue'
 
 export default {
   name: 'DwQuOrderbyOptions',
-  components: {DwQuOptionCommon1, DwQuOptionCommon2Item, DwQuOptionCommon2},
+  components: {DwQuOptionCommon1},
   model: {
     prop: 'survey',
     event: 'update-survey'

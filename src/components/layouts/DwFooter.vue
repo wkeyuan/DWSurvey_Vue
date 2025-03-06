@@ -10,8 +10,8 @@
       </div>
     </div>
     <div>
-      <span>Powered by <a href="www.diaowen.net"><strong>DWSurvey</strong></a> {{ footerInfo.versionNumber }} Vue </span>
-      <span> © {{ footerInfo.years }} <a href="www.diaowen.net"><strong>调问网</strong></a></span>
+      <span>Powered by <a href="http://www.diaowen.net"><strong>DWSurvey</strong></a> {{ footerInfo.versionNumber }} Vue </span>
+      <span> © {{ footerInfo.years }} <a href="http://www.diaowen.net"><strong>调问网</strong></a></span>
     </div>
   </div>
 </template>

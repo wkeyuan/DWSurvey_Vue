@@ -17,23 +17,23 @@
                   <el-option v-for="(option,optionIndex) in options" :key="`quOption_${optionIndex}`" :value="option.dwId" :label="option.optionTitleObj.dwText"></el-option>
                 </el-select>
                 <span v-if="survey.questions[index].quType === 'ORDERQU'">排名
-                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
+                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini">
                     <el-option value="LTE" label="小于等于"></el-option>
                     <el-option value="GTE" label="大于等于"></el-option>
                     <el-option value="LT" label="小于"></el-option>
                     <el-option value="GT" label="大于"></el-option>
                   </el-select>
-                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
+                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;"></el-input-number>
                   名，
                 </span>
                 <span v-else-if="survey.questions[index].quType === 'SCORE'">得分
-                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini" >
+                  <el-select v-model="item.geLe" placeholder="请选择关系" style="width: 70px;" size="mini">
                     <el-option value="LTE" label="小于等于"></el-option>
                     <el-option value="GTE" label="大于等于"></el-option>
                     <el-option value="LT" label="小于"></el-option>
                     <el-option value="GT" label="大于"></el-option>
                   </el-select>
-                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;" ></el-input-number>
+                  <el-input-number v-model="item.scoreNum" :controls="false" size="mini" style="width: 60px;"></el-input-number>
                   分，
                 </span>
                 <span v-else-if="survey.questions[index].quType === 'MULTIFILLBLANK'">被回答，</span>

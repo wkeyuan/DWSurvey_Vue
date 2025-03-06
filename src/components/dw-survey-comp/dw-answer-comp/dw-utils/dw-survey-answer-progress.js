@@ -20,7 +20,7 @@ function answerSurveyProgressCommon (survey, quIsAnOkFun) {
   // 遍历所有题，根据题目状态计算答题进度
   const answerProgress = {totalAnQu: 0, completeAnQu: 0, percentage: 0}
   questions.forEach((question, quIndex) => {
-    if (question.hasOwnProperty('quAttr')) {
+    if (!continueQuType(question) && question.hasOwnProperty('quAttr')) {
       const quAttr = question.quAttr
       if (quAttr.hasOwnProperty('isRequired') && quAttr.isRequired && !question.logicIsHide) {
         answerProgress.totalAnQu = answerProgress.totalAnQu+1
@@ -37,4 +37,10 @@ function answerSurveyProgressCommon (survey, quIsAnOkFun) {
   survey.answerProgress.totalAnQu = answerProgress.totalAnQu
   survey.answerProgress.completeAnQu = answerProgress.completeAnQu
   survey.answerProgress.percentage = answerProgress.percentage
+}
+
+function continueQuType (question) {
+  const quType = question.quType
+  if (quType==='PAGETAG' || quType==='PARAGRAPH' || quType==='DIVIDER' || quType==='CAROUSEL' || quType ==='MAP') return true
+  return false
 }

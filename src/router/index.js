@@ -58,6 +58,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title!==undefined ? to.meta.title+' - 调问网' : '调问网'
+  if (window._hmt) {
+    if (to.path) {
+      window._hmt.push(['_trackPageview', '' + to.fullPath])
+    }
+  }
   next()
 })
 

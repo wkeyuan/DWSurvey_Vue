@@ -58,7 +58,7 @@
 <script>
 
 import {dwFooterUtils} from '../../../../../dw-utils/dw-common/dw-footer-util'
-import {getSurveyTypeName} from "../../../../../dw-utils/dw-survey-common";
+import {getSurveyTypeName} from '../../../../../dw-utils/dw-survey-common'
 
 export default {
   name: 'DwDesignHeader',

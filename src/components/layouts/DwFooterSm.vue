@@ -1,7 +1,7 @@
 <template>
   <div class="dw-footer-main" >
     <div>
-      <span>Powered by <a href="www.diaowen.net"><strong>DWSurvey</strong></a> {{ footerInfo.versionNumber }} Vue </span>
+      <span>Powered by <a href="http://www.diaowen.net"><strong>DWSurvey</strong></a> {{ footerInfo.versionNumber }} Vue </span>
     </div>
   </div>
 </template>

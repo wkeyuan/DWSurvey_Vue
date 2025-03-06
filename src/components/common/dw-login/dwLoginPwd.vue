@@ -17,7 +17,7 @@
 <script>
 
 import DwJsencrypt from '../../../utils/dw-jsencrypt'
-import {dwFooterUtils} from "../../dw-survey-comp/dw-utils/dw-common/dw-footer-util";
+import {dwFooterUtils} from '../../dw-survey-comp/dw-utils/dw-common/dw-footer-util'
 
 export default {
   name: 'DwLoginPwd',

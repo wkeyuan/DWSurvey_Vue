@@ -149,7 +149,7 @@ export default {
   background-repeat: no-repeat;
 }
 .loginFormContent{
-  width: 350px;
+  width: 320px;
   margin: 0px auto;
 }
 .loginFormContent{
