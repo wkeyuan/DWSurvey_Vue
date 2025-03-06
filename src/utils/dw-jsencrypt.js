@@ -1,4 +1,4 @@
-import { JSEncrypt } from 'jsencrypt'
+import {JSEncrypt} from 'jsencrypt'
 
 // 公钥
 const dwRsaPublicKey =
@@ -11,17 +11,16 @@ const dwRsaPrivateKey = ''
 export default {
   // 加密用公钥
   dwGetCode (password) {
-    let encrypt = new JSEncrypt()
+    const encrypt = new JSEncrypt()
     encrypt.setPublicKey(dwRsaPublicKey)
-    let data = encrypt.encrypt(password)
-    console.debug('dwGetCode',data)
+    const data = encrypt.encrypt(password)
     return data
   },
-//    解密用私钥
+  // 解密用私钥
   dwDecryptCode (password) {
-    let encrypt = new JSEncrypt()
+    const encrypt = new JSEncrypt()
     encrypt.setPrivateKey(dwRsaPrivateKey)
-    let data = encrypt.decrypt(password)
+    const data = encrypt.decrypt(password)
     return data
   }
 }
