@@ -211,7 +211,8 @@ export default {
     handleDelete (index, row) {
       console.log(index, row)
       this.$msgbox.confirm('确认删除此条答卷吗？', '删除警告', {type: 'warning', confirmButtonText: '确认删除'}).then(() => {
-        const data = {id: [row.esId]}
+        const data = {id: [row.answerCommon.answerId], esId: [row.esId]}
+        console.debug('data', data)
         dwSurveyAnswerDeleteByEs(data).then((response) => {
           console.log(response)
           const httpResult = response.data
